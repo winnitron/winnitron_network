@@ -1,0 +1,20 @@
+<h1>oh hai</h1>
+
+<% if !user_signed_in? %>
+  <p>
+    <%= link_to "sign up", new_user_registration_path %>
+  </p>
+  <p>
+    <%= link_to "sign in", new_user_session_path %>
+  </p>
+<% else %>
+  <p>You're in. Nice.</p>
+
+  <% if current_user.admin? %>
+    <%= link_to "all games", "/" %>
+    <br>
+    <%= link_to "all machines", "/" %>
+  <% end %>
+  <br>
+  <%= link_to "my machines", "/" %>
+<% end %>
