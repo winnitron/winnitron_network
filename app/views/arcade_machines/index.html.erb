@@ -1,27 +1,20 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Winnitrons</h1>
-<em>as far as the eye can see</em>
+<p><em>as far as the eye can see</em></p>
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<p>
+  <%= link_to "Add your Winnitron!", new_arcade_machine_path, class: "btn btn-success" %>
+</p>
 
+<table class="table table-condensed">
   <tbody>
     <% @arcade_machines.each do |arcade_machine| %>
       <tr>
-        <td><strong><%= arcade_machine.name %></strong></td>
-        <td><%= link_to 'Show', arcade_machine %></td>
-        <td><%= link_to 'Edit', edit_arcade_machine_path(arcade_machine) %></td>
-        <td><%= link_to 'Destroy', arcade_machine, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><strong><%= link_to arcade_machine.name, arcade_machine_path(arcade_machine) %></strong></td>
+        <td><%= arcade_machine.location %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
-
-<%= link_to 'New Winnitron', new_arcade_machine_path %>
