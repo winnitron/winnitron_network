@@ -1,5 +1,18 @@
 <h1>Editing <em><%= @game.title %></em></h1>
 
+<div>
+  <%= s3_uploader_form callback_url: game_url(@game), callback_param: "game[s3_key]", id: "s3-uploader" do %>
+    <%= file_field_tag :file %>
+  <% end %>
+</div>
+
+<script id="template-upload" type="text/x-tmpl">
+  <div id="file-{%=o.unique_id%}" class="upload">
+    {%=o.name%}
+    <div class="progress"><div class="bar" style="width: 0%"></div></div>
+  </div>
+</script>
+
 <%= render 'form' %>
 
 <%= link_to 'Show', @game %> |

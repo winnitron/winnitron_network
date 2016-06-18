@@ -1,6 +1,8 @@
 class GamesController < ApplicationController
+  skip_before_filter :verify_authenticity_token, only: [:s3_callback]
+
   before_action :require_admin!, except: [:index, :show]
-  before_action :set_game, only: [:show, :edit, :update, :destroy]
+  before_action :set_game, only: [:show, :edit, :update, :destroy, :s3_callback]
 
   def index
     @games = Game.all
@@ -14,6 +16,10 @@ class GamesController < ApplicationController
   end
 
   def edit
+  end
+
+  def s3_callback
+    raise "S3 CALLBACK!"
   end
 
   def create

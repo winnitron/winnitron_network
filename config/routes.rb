@@ -1,7 +1,12 @@
 Rails.application.routes.draw do
   devise_for :users
 
-  resources :games
+  resources :games do
+    member do 
+      post :s3_callback
+    end
+  end
+
   resources :arcade_machines
 
   namespace :api, defaults: { format: "json" } do

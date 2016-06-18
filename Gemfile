@@ -24,6 +24,8 @@ gem 'figaro'
 gem 'aws-sdk', '~> 2.3.14'
 gem 'quiet_assets'
 
+gem 's3_direct_upload', '~> 0.1.7'
+
 group :development, :test do
   gem 'pry-rails'
 end
