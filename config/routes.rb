@@ -3,8 +3,6 @@ Rails.application.routes.draw do
 
   resources :games
   resources :arcade_machines
-  get "/users/:user_id/arcade_machines" => "arcade_machines#mine", as: :user_arcade_machines
-
 
   namespace :api, defaults: { format: "json" } do
     namespace :v1 do

@@ -3,12 +3,7 @@ class ArcadeMachinesController < ApplicationController
   before_action :require_ownership_or_admin!, only: [:edit, :update, :destroy]
 
   def index
-    @arcade_machines = ArcadeMachine.all
-  end
-
-  def mine
-    @arcade_machines = User.find(params[:user_id]).arcade_machines
-    render :index
+    @arcade_machines = params[:user] ? User.find(params[:user]).arcade_machines : ArcadeMachine.all
   end
 
   def show

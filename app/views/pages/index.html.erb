@@ -1,18 +1,8 @@
 <h1>oh hai</h1>
 
-<% if !user_signed_in? %>
-  <p>
-    <%= link_to "sign up", new_user_registration_path %>
-  </p>
-  <p>
-    <%= link_to "sign in", new_user_session_path %>
-  </p>
-<% else %>
-  <p>You're in. Nice.</p>
-
-  <ul>
-    <li><%= link_to "all games", games_path %></li>
-    <li><%= link_to "all winnitrons", arcade_machines_path %></li>
-    <li><%= link_to "my winnitrons", user_arcade_machines_path(current_user) %></li>
-  </ul>
-<% end %>
+<p>
+  <%= link_to "sign up", new_user_registration_path %>
+</p>
+<p>
+  <%= link_to "sign in", new_user_session_path %>
+</p>
