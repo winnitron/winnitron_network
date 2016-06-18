@@ -1,5 +1,4 @@
 class GamesController < ApplicationController
-  before_action :require_admin!, except: [:index, :show, :s3_callback]
   before_action :set_game, only: [:show, :edit, :update, :destroy, :s3_callback]
 
   def index

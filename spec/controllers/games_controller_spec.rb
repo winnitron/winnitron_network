@@ -46,7 +46,6 @@ RSpec.describe GamesController, type: :controller do
   end
 
   describe "GET new" do
-    include_examples "disallows non-admins", :get, :new
     
     context "current user is admin" do
       before :each do
@@ -62,10 +61,6 @@ RSpec.describe GamesController, type: :controller do
 
   describe "GET edit" do
     let(:game) { FactoryGirl.create(:game) }
-
-    include_examples "disallows non-admins", :get, :edit do
-      let(:params) { { id: game.id } }
-    end
     
     context "current user is admin" do
       before :each do
@@ -86,10 +81,6 @@ RSpec.describe GamesController, type: :controller do
         description: "Okay",
         s3_key: "ok.zip"
       }
-    end
-
-    include_examples "disallows non-admins", :post, :create do
-      let(:params) { { game: attributes } }
     end
 
     context "valid attributes" do
@@ -133,10 +124,6 @@ RSpec.describe GamesController, type: :controller do
       }
     end
 
-    include_examples "disallows non-admins", :put, :update do
-      let(:params) { { id: game.id, game: attributes } }
-    end
-
     context "admin user" do
       before :each do
         sign_in admin
@@ -167,10 +154,6 @@ RSpec.describe GamesController, type: :controller do
 
   describe "DELETE destroy" do
     let (:game) { FactoryGirl.create(:game) }
-
-    include_examples "disallows non-admins", :delete, :destroy do
-      let(:params) { { id: game.id } }
-    end
 
     context "admin user" do
       before :each do
