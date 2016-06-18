@@ -1,8 +1,14 @@
 class ArcadeMachinesController < ApplicationController
   before_action :set_arcade_machine, only: [:show, :edit, :update, :destroy]
+  before_action :require_ownership_or_admin!, only: [:edit, :update, :destroy]
 
   def index
     @arcade_machines = ArcadeMachine.all
+  end
+
+  def mine
+    @arcade_machines = User.find(params[:user_id]).arcade_machines
+    render :index
   end
 
   def show
@@ -17,6 +23,7 @@ class ArcadeMachinesController < ApplicationController
 
   def create
     @arcade_machine = ArcadeMachine.new(arcade_machine_params)
+    @arcade_machine.users = [current_user]
 
     respond_to do |format|
       if @arcade_machine.save
@@ -54,7 +61,14 @@ class ArcadeMachinesController < ApplicationController
       @arcade_machine = ArcadeMachine.find(params[:id])
     end
 
+    def require_ownership_or_admin!
+      if !current_user&.admin? || !@arcade_machine.users.include?(current_user)
+        head :forbidden
+      end
+    end
+
     def arcade_machine_params
       params.fetch(:arcade_machine, {}).permit(:name, :description, :location)
     end
+
 end

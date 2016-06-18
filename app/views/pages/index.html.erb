@@ -10,11 +10,9 @@
 <% else %>
   <p>You're in. Nice.</p>
 
-  <% if current_user.admin? %>
-    <%= link_to "all games", games_path %>
-    <br>
-    <%= link_to "all winnitrons", arcade_machines_path %>
-  <% end %>
-  <br>
-  <%= link_to "my winnitrons", "/" %>
+  <ul>
+    <li><%= link_to "all games", games_path %></li>
+    <li><%= link_to "all winnitrons", arcade_machines_path %></li>
+    <li><%= link_to "my winnitrons", user_arcade_machines_path(current_user) %></li>
+  </ul>
 <% end %>

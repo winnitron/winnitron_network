@@ -5,5 +5,13 @@
 <p><%= @arcade_machine.description %></p>
 
 
+<p>
+  <strong>Owners</strong>
+  <ul>
+    <% @arcade_machine.users.each do |user| %>
+      <li><%= user.email %></li>
+    <% end %>
+  </ul>
+</p>
 <%= link_to 'Edit', edit_arcade_machine_path(@arcade_machine) %> |
 <%= link_to 'Back', arcade_machines_path %>
