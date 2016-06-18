@@ -23,7 +23,8 @@ class ArcadeMachinesController < ApplicationController
 
   def create
     @arcade_machine = ArcadeMachine.new(arcade_machine_params)
-    @arcade_machine.users = [current_user]
+    @arcade_machine.users    << current_user
+    @arcade_machine.api_keys << ApiKey.new
 
     respond_to do |format|
       if @arcade_machine.save
@@ -62,7 +63,9 @@ class ArcadeMachinesController < ApplicationController
     end
 
     def require_ownership_or_admin!
-      if !current_user&.admin? || !@arcade_machine.users.include?(current_user)
+      if user_signed_in? && (current_user.admin? || current_user.owns?(@arcade_machine))
+        true
+      else
         head :forbidden
       end
     end

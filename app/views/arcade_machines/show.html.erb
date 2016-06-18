@@ -13,5 +13,17 @@
     <% end %>
   </ul>
 </p>
+
+<% if user_signed_in? && (current_user.admin? || current_user.owns?(@arcade_machine)) %>
+  <p>
+    <strong>API Keys</strong>
+    <ul>
+      <% @arcade_machine.api_keys.each do |key| %>
+        <li><%= key.token %></li>
+      <% end %>
+    </ul>
+  </p>
+<% end %>
+
 <%= link_to 'Edit', edit_arcade_machine_path(@arcade_machine) %> |
 <%= link_to 'Back', arcade_machines_path %>
