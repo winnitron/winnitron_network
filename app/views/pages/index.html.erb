@@ -11,7 +11,7 @@
   <p>You're in. Nice.</p>
 
   <% if current_user.admin? %>
-    <%= link_to "all games", "/" %>
+    <%= link_to "all games", games_path %>
     <br>
     <%= link_to "all machines", "/" %>
   <% end %>
