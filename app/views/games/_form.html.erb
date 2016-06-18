@@ -20,7 +20,14 @@
     <%= f.text_area :description %>
   </div>
 
+  <div>
+    <label>Filename</label>
+    <pre class="js-filename"><%= @game.s3_key.sub("games/", "") %></pre>
+    (Last modified <%= @game.s3_last_modified %>)
+  </div>
+
+
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit class: "btn btn-success" %>
   </div>
 <% end %>

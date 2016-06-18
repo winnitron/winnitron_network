@@ -155,6 +155,10 @@ RSpec.describe GamesController, type: :controller do
   describe "DELETE destroy" do
     let (:game) { FactoryGirl.create(:game) }
 
+    context "non-owner" do
+      pending
+    end
+
     context "admin user" do
       before :each do
         sign_in admin
