@@ -1,7 +1,10 @@
 <h1>Editing <em><%= @game.title %></em></h1>
 
 <div>
-  <%= s3_uploader_form callback_url: game_url(@game), callback_param: "game[s3_key]", id: "s3-uploader" do %>
+  <%= s3_uploader_form id: "s3-uploader",
+                       callback_url: s3_callback_game_url(@game),
+                       key: "games/${filename}",
+                       key_starts_with: "games/" do %>
     <%= file_field_tag :file %>
   <% end %>
 </div>
