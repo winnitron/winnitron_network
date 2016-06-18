@@ -1,0 +1,2 @@
+module ArcadeMachinesHelper
+end

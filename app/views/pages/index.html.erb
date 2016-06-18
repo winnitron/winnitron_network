@@ -13,8 +13,8 @@
   <% if current_user.admin? %>
     <%= link_to "all games", games_path %>
     <br>
-    <%= link_to "all machines", "/" %>
+    <%= link_to "all winnitrons", arcade_machines_path %>
   <% end %>
   <br>
-  <%= link_to "my machines", "/" %>
+  <%= link_to "my winnitrons", "/" %>
 <% end %>
