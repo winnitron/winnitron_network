@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160618212014) do
+ActiveRecord::Schema.define(version: 20160618213619) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,16 @@ ActiveRecord::Schema.define(version: 20160618212014) do
     t.string   "s3_key"
     t.datetime "s3_last_modified"
   end
+
+  create_table "listings", force: :cascade do |t|
+    t.integer  "game_id"
+    t.integer  "playlist_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "listings", ["game_id"], name: "index_listings_on_game_id", using: :btree
+  add_index "listings", ["playlist_id"], name: "index_listings_on_playlist_id", using: :btree
 
   create_table "machine_ownerships", force: :cascade do |t|
     t.integer  "user_id"
