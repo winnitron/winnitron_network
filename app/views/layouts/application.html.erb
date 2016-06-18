@@ -9,11 +9,13 @@
 <body>
   
   <header>
-    <em>i'm so glad you're here</em>
+    <em>i'm so glad you're here, <%= current_user.name.downcase %></em>
     <br>
     <%= link_to "home", root_path %>
-    <%= link_to "my account", edit_user_registration_path %>
-    <%= link_to "sign out", destroy_user_session_path, method: :delete %>
+    <% if user_signed_in? %>
+      <%= link_to "my account", edit_user_registration_path %>
+      <%= link_to "sign out", destroy_user_session_path, method: :delete %>
+    <% end %>
   </header>  
 
   <%= yield %>
