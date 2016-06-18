@@ -12,12 +12,16 @@
   <% end %>
 
   <div>
-    <label>Title:</label>
+    <%= f.label :title %>
     <%= f.text_field :title, required: true %>
   </div>
   <div>
-    <label>Description:</label>
+    <%= f.label :description %>
     <%= f.text_area :description %>
+  </div>
+  <div>
+    <label>Filename</label>
+    <%= f.text_field :s3_key %>
   </div>
 
   <div class="actions">
