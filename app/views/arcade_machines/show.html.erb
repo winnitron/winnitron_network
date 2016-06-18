@@ -25,5 +25,17 @@
   </p>
 <% end %>
 
+<h2>Games</h2>
+
+<table class="table table-condensed">
+  <% @arcade_machine.games.each do |game| %>
+    <% install = Installation.find_by(game: game, arcade_machine: @arcade_machine) %>
+    <tr>
+      <td><%= link_to game.title, game %></td>
+      <td><%= link_to "remove", installation_path(install), method: :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
 <%= link_to 'Edit', edit_arcade_machine_path(@arcade_machine) %> |
 <%= link_to 'Back', arcade_machines_path %>

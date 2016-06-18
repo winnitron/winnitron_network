@@ -1,9 +1,10 @@
 class ListingsController < ApplicationController
+  before_action :set_playlist
   before_action :permission_check!
 
   def create
     (params[:games] || []).each do |game_id|
-      Listing.find_or_create_by game_id: game_id, playlist_id: params[:playlist_id]
+      Listing.find_or_create_by game_id: game_id, playlist: @playlist
     end
 
     redirect_to games_path, notice: "Game(s) added"
@@ -19,6 +20,14 @@ class ListingsController < ApplicationController
   end
 
   private
+
+  def set_playlist
+    @playlist = if params[:target_id]
+      Playlist.find(params[:target_id].sub("pl-", ""))
+    else
+      Listing.find(params[:id]).playlist
+    end
+  end
 
   def permission_check!
     require_admin_or_ownership!(@playlist)
