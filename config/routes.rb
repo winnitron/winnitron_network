@@ -5,5 +5,12 @@ Rails.application.routes.draw do
   resources :arcade_machines
   get "/users/:user_id/arcade_machines" => "arcade_machines#mine", as: :user_arcade_machines
 
+
+  namespace :api do
+    namespace :v1 do
+      resources :games, only: [:index]
+    end
+  end
+
   root "pages#index"
 end
