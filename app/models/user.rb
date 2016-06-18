@@ -10,6 +10,8 @@ class User < ActiveRecord::Base
   has_many :game_ownerships, dependent: :destroy
   has_many :games, through: :game_ownerships
 
+  has_many :playlists
+
   def owns?(item)
     return arcade_machines.include?(item) if item.is_a?(ArcadeMachine)
     return games.include?(item) if item.is_a?(Game)

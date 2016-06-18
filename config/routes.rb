@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   end
 
   resources :arcade_machines
+  resources :playlists
 
   namespace :api, defaults: { format: "json" } do
     namespace :v1 do
