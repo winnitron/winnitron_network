@@ -14,4 +14,12 @@ class ApplicationController < ActionController::Base
   def require_admin!
     head :forbidden if !current_user&.admin?
   end
+
+  def require_admin_or_ownership!(object)
+    if user_signed_in? && (current_user.admin? || current_user.owns?(object))
+      true
+    else
+      head :forbidden
+    end
+  end
 end

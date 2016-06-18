@@ -1,6 +1,6 @@
 class GamesController < ApplicationController
   before_action :set_game, only: [:show, :edit, :update, :destroy, :s3_callback]
-  before_action :require_ownership!, only: [:edit, :update, :destroy, :s3_callback]
+  before_action :permission_check!, only: [:edit, :update, :destroy, :s3_callback]
 
   def index
     @games = params[:user] ? User.find(params[:user]).games : Game.all
@@ -62,12 +62,8 @@ class GamesController < ApplicationController
       @game = Game.find(params[:id])
     end
 
-    def require_ownership!
-      if user_signed_in? && (current_user&.admin? || current_user.owns?(@game))
-        true
-      else
-        head :forbidden
-      end
+    def permission_check!
+      require_admin_or_ownership!(@game)
     end
 
     def game_params

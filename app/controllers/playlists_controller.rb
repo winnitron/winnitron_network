@@ -1,5 +1,6 @@
 class PlaylistsController < ApplicationController
   before_action :set_playlist, only: [:show, :edit, :update, :destroy]
+  before_action :permission_check!, only: [:edit, :update, :destroy]
 
   def index
     @playlists = Playlist.all
@@ -52,6 +53,10 @@ class PlaylistsController < ApplicationController
   private
     def set_playlist
       @playlist = Playlist.find(params[:id])
+    end
+
+    def permission_check!
+      require_admin_or_ownership!(@playlist)
     end
 
     def playlist_params

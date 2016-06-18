@@ -1,5 +1,5 @@
 class ListingsController < ApplicationController
-  # TODO: check playlist ownership
+  before_action :permission_check!
 
   def create
     (params[:games] || []).each do |game_id|
@@ -16,6 +16,12 @@ class ListingsController < ApplicationController
       format.html { redirect_to @listing.playlist, notice: 'Game removed.' }
       format.json { head :no_content }
     end
+  end
+
+  private
+
+  def permission_check!
+    require_admin_or_ownership!(@playlist)
   end
 
 end

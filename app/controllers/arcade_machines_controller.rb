@@ -1,6 +1,6 @@
 class ArcadeMachinesController < ApplicationController
   before_action :set_arcade_machine, only: [:show, :edit, :update, :destroy]
-  before_action :require_ownership_or_admin!, only: [:edit, :update, :destroy]
+  before_action :permission_check!, only: [:edit, :update, :destroy]
 
   def index
     @arcade_machines = params[:user] ? User.find(params[:user]).arcade_machines : ArcadeMachine.all
@@ -57,12 +57,8 @@ class ArcadeMachinesController < ApplicationController
       @arcade_machine = ArcadeMachine.find(params[:id])
     end
 
-    def require_ownership_or_admin!
-      if user_signed_in? && (current_user.admin? || current_user.owns?(@arcade_machine))
-        true
-      else
-        head :forbidden
-      end
+    def permission_check!
+      require_admin_or_ownership!(@arcade_machine)
     end
 
     def arcade_machine_params
