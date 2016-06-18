@@ -21,6 +21,11 @@
   </div>
 
   <div>
+    <label>Tags</label>
+    <%= f.text_field :tag_list, 'data-role'=>'tagsinput', value: @game.tag_list.join(",") %>
+  </div>
+
+  <div>
     <label>Filename</label>
     <pre class="js-filename"><%= @game.s3_key.sub("games/", "") %></pre>
     (Last modified <%= @game.s3_last_modified %>)

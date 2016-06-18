@@ -36,6 +36,8 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
+    acts-as-taggable-on (3.5.0)
+      activerecord (>= 3.2, < 5)
     arel (6.0.3)
     aws-sdk (2.3.14)
       aws-sdk-resources (= 2.3.14)
@@ -50,6 +52,8 @@ GEM
       rack (>= 0.9.0)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    bootstrap-tagsinput-rails (0.4.2.1)
+      railties (>= 3.1)
     builder (3.2.2)
     coderay (1.1.1)
     coffee-rails (4.1.1)
@@ -238,8 +242,10 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  acts-as-taggable-on (~> 3.4)
   aws-sdk (~> 2.3.14)
   better_errors
+  bootstrap-tagsinput-rails
   devise (~> 4.1.1)
   factory_girl_rails (~> 4.7.0)
   faker

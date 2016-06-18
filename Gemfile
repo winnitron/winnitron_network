@@ -14,6 +14,7 @@ gem 'therubyracer', platforms: :ruby
 
 gem 'jquery-rails'
 gem 'twitter-bootstrap-rails', '~> 2.2.7'
+gem 'bootstrap-tagsinput-rails'
 
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc',     '~> 0.4.0', group: :doc
@@ -24,6 +25,7 @@ gem 'figaro'
 gem 'aws-sdk', '~> 2.3.14'
 gem 'quiet_assets'
 
+gem 'acts-as-taggable-on', '~> 3.4'
 gem 's3_direct_upload', '~> 0.1.7'
 
 group :development, :test do

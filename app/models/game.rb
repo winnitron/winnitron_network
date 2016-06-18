@@ -1,4 +1,6 @@
 class Game < ActiveRecord::Base
+  acts_as_taggable
+  
   validates :title, presence: true
 
   has_many :game_ownerships, dependent: :destroy

@@ -14,4 +14,5 @@
 //= require jquery_ujs
 //= require twitter/bootstrap
 //= require s3_direct_upload
+//= require bootstrap-tagsinput
 //= require_tree .

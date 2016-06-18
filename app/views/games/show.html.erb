@@ -7,7 +7,7 @@
   <% end %>
 </ul>
 <p><%= @game.description %></p>
-
+<p>Tags: <%= @game.tag_list.join(", ") %></p>
 
 <%= link_to 'Edit', edit_game_path(@game) %> |
 <%= link_to 'Back', games_path %>
