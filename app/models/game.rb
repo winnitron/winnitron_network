@@ -12,8 +12,16 @@ class Game < ActiveRecord::Base
   has_many :installations, dependent: :destroy
   has_many :arcade_machines, through: :installations
 
+  before_validation :strip_whitespace
+
   def download_url
     object = Aws::S3::Object.new(bucket_name: ENV["AWS_BUCKET"], key: zipfile_key)
     object.presigned_url(:get, expires_in: 1.hour)
+  end
+
+  private
+
+  def strip_whitespace
+    self.title.strip!
   end
 end
