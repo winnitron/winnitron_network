@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :playlists
   resources :listings, only: [:create, :destroy]
   resources :installations, only: [:create, :destroy]
+  resources :users, only: [:show]
 
   namespace :api, defaults: { format: "json" } do
     namespace :v1 do

@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+  include Gravtastic
+  gravtastic
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
@@ -12,9 +15,17 @@ class User < ActiveRecord::Base
 
   has_many :playlists
 
+  before_validation :clean_twitter_username
+
   def owns?(item)
     return arcade_machines.include?(item) if item.is_a?(ArcadeMachine)
     return games.include?(item) if item.is_a?(Game)
   end
 
+
+  private
+
+  def clean_twitter_username
+    (self.twitter_username || "").sub!("@", "")
+  end
 end
