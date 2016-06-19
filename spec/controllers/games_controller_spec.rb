@@ -79,7 +79,7 @@ RSpec.describe GamesController, type: :controller do
       {
         title: "Great",
         description: "Okay",
-        s3_key: "ok.zip"
+        zipfile_key: "ok.zip"
       }
     end
 

@@ -13,7 +13,7 @@ class Game < ActiveRecord::Base
   has_many :arcade_machines, through: :installations
 
   def download_url
-    object = Aws::S3::Object.new(bucket_name: ENV["AWS_BUCKET"], key: s3_key)
+    object = Aws::S3::Object.new(bucket_name: ENV["AWS_BUCKET"], key: zipfile_key)
     object.presigned_url(:get, expires_in: 1.hour)
   end
 end

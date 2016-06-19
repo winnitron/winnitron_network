@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160618230440) do
+ActiveRecord::Schema.define(version: 20160619005142) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,10 +47,10 @@ ActiveRecord::Schema.define(version: 20160618230440) do
   create_table "games", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
-    t.string   "s3_key"
-    t.datetime "s3_last_modified"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+    t.string   "zipfile_key"
+    t.datetime "zipfile_last_modified"
   end
 
   create_table "installations", force: :cascade do |t|

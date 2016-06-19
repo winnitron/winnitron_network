@@ -26,9 +26,12 @@
   </div>
 
   <div>
-    <label>Filename</label>
-    <pre class="js-filename"><%= @game.s3_key.sub("games/", "") %></pre>
-    (Last modified <%= @game.s3_last_modified %>)
+    <label>Zip file</label>
+    <pre class="js-filename"><%= (@game.zipfile_key || "").sub("games/", "") %></pre>
+    <% if @game.zipfile_last_modified %>
+      (Last modified <%= @game.zipfile_last_modified %>)
+    <% end %>
+
   </div>
 
 

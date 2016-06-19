@@ -17,8 +17,8 @@ class GamesController < ApplicationController
   end
 
   def s3_callback
-    @game.update s3_key: URI.decode(params[:filepath][1..-1]),
-                 s3_last_modified: Time.parse(params[:lastModifiedDate])
+    @game.update zipfile_key: URI.decode(params[:filepath][1..-1]),
+                 zipfile_last_modified: Time.parse(params[:lastModifiedDate])
     render nothing: true
   end
 
@@ -67,6 +67,6 @@ class GamesController < ApplicationController
     end
 
     def game_params
-      params.fetch(:game, {}).permit(:title, :description, :s3_key, :tag_list)
+      params.fetch(:game, {}).permit(:title, :description, :zipfile_key, :tag_list)
     end
 end
