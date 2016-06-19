@@ -49,8 +49,13 @@
           <a class="brand" href="/">The Winnitron Network</a>
           <div class="container nav-collapse">
             <ul class="nav">
-              <li><%= link_to "my account", edit_user_registration_path  %></li>
-              <li><%= link_to "sign out", destroy_user_session_path, method: :delete  %></li>
+              <% if user_signed_in? %>
+                <li><%= link_to "my account", edit_user_registration_path  %></li>
+                <li><%= link_to "sign out", destroy_user_session_path, method: :delete  %></li>
+              <% else %>
+                <li><%= link_to "sign up", new_user_registration_path %></li>
+                <li><%= link_to "sign in", new_user_session_path %></li>
+              <% end %>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
