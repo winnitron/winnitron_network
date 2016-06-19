@@ -8,4 +8,8 @@ class ArcadeMachine < ActiveRecord::Base
   has_many :playlists, through: :subscriptions
 
   has_many :api_keys
+
+  def subscribed?(playlist)
+    subscriptions.include?(playlist)
+  end
 end

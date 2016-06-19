@@ -19,24 +19,14 @@
       <td colspan="3">MY PLAYLISTS!</td>
     </tr>
 
-    <% mine.each do |playlist| %>
-      <tr>
-        <td><%= link_to playlist.title, playlist %></td>
-        <td><%= playlist.games.count %> games</td>
-      </tr>
-    <% end %>
+    <%= render partial: "playlist", collection: mine %>
 
     <tr><td colspan="3">&nbsp;</td></tr>
     <tr>
       <td colspan="3">EVERYONE ELSE'S PLAYLISTS!</td>
     </tr>
 
-    <% theirs.each do |playlist| %>
-      <tr>
-        <td><%= link_to playlist.title, playlist %></td>
-        <td><%= playlist.games.count %> games</td>
-      </tr>
-    <% end %>
+    <%= render partial: "playlist", collection: theirs %>    
   </tbody>
 </table>
 

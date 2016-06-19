@@ -26,7 +26,7 @@
 <h2>Playlists</h2>
 
 <table class="table table-condensed">
-  <% @arcade_machine.playlists.each do |game| %>
+  <% @arcade_machine.playlists.each do |playlist| %>
     <% subscription = Subscription.find_by(playlist: playlist, arcade_machine: @arcade_machine) %>
     <tr>
       <td><%= link_to playlist.title, playlist %></td>
