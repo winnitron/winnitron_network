@@ -1,5 +1,6 @@
 class ArcadeMachinesController < ApplicationController
   before_action :set_arcade_machine, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, except: [:index, :show]
   before_action :permission_check!, only: [:edit, :update, :destroy]
 
   def index

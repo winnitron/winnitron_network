@@ -1,5 +1,6 @@
 class GamesController < ApplicationController
   before_action :set_game, only: [:show, :edit, :update, :destroy, :s3_callback]
+  before_action :authenticate_user!, except: [:index, :show]
   before_action :permission_check!, only: [:edit, :update, :destroy, :s3_callback]
 
   def index
@@ -59,15 +60,15 @@ class GamesController < ApplicationController
 
   private
 
-    def set_game
-      @game = Game.find(params[:id])
-    end
+  def set_game
+    @game = Game.find(params[:id])
+  end
 
-    def permission_check!
-      require_admin_or_ownership!(@game)
-    end
+  def permission_check!
+    require_admin_or_ownership!(@game)
+  end
 
-    def game_params
-      params.fetch(:game, {}).permit(:title, :description, :zipfile_key, :tag_list)
-    end
+  def game_params
+    params.fetch(:game, {}).permit(:title, :description, :zipfile_key, :tag_list)
+  end
 end

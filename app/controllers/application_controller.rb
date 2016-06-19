@@ -22,8 +22,4 @@ class ApplicationController < ActionController::Base
       head :forbidden
     end
   end
-
-  def current_user
-    super || (@guest ||= User.new)
-  end
 end

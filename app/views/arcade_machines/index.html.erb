@@ -10,7 +10,7 @@
 <table class="table table-condensed">
   <tbody>
 
-    <% mine, theirs = @arcade_machines.partition { |am| current_user.owns?(am) } %>
+    <% mine, theirs = @arcade_machines.partition { |am| user_signed_in? && current_user.owns?(am) } %>
 
     <tr>
       <td colspan="3">MY WINNITRONS!</td>
