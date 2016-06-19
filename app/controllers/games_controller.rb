@@ -17,14 +17,15 @@ class GamesController < ApplicationController
   end
 
   def s3_callback
-    @game.update zipfile_key: URI.decode(params[:filepath][1..-1]),
+    @game.update zipfile_key: "games/#{params[:filename]}",
                  zipfile_last_modified: Time.parse(params[:lastModifiedDate])
     render nothing: true
   end
 
   def create
     @game = Game.new(game_params)
-    
+    @game.users = [current_user]
+
     respond_to do |format|
       if @game.save
         format.html { redirect_to @game, notice: 'Game was successfully created.' }
