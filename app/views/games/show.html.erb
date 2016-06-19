@@ -2,13 +2,12 @@
 
 <h1><%= @game.title %></h1>
 
-
 <p>Added by <%= @game.users.first.name %></p>
 
 <p><%= @game.description %></p>
 <p>Tags: <%= @game.tag_list.join(", ") %></p>
 
 
-<% if current_user.admin? || current_user.owns?(@game) %>
+<% if current_user&.admin? || current_user.owns?(@game) %>
   <%= link_to "Edit", edit_game_path(@game) %>
 <% end %>

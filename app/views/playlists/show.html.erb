@@ -12,6 +12,6 @@
   <% end %>
 </table>
  
-<% if current_user.admin? || current_user == @playlist.user %>
+<% if current_user&.admin? || current_user == @playlist.user %>
   <%= link_to "Edit", edit_playlist_path(@playlist) %>
 <% end %>

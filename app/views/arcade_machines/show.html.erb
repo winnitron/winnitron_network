@@ -37,6 +37,6 @@
   <% end %>
 </table>
 
-<% if current_user.admin? || current_user.owns?(@arcade_machine) %>
+<% if current_user&.admin? || current_user.owns?(@arcade_machine) %>
   <%= link_to "Edit", edit_arcade_machine_path(@arcade_machine) %>
 <% end %>
