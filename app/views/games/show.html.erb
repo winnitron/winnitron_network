@@ -2,7 +2,7 @@
 
 <div class="well"><%= simple_format(@game.description) %></div>
 
-<p>Added by <%= @game.users.first.name %></p>
+<p>Added by <%= link_to @game.users.first.name, @game.users.first %></p>
 <% if @game.website %>
   <p>Website: <%= link_to @game.website, @game.website %></p>
 <% end %>
