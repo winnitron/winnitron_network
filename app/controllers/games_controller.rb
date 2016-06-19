@@ -3,7 +3,7 @@ class GamesController < ApplicationController
   before_action :permission_check!, only: [:edit, :update, :destroy, :s3_callback]
 
   def index
-    @games = params[:user] ? User.find(params[:user]).games : Game.all
+    @games = Game.all
   end
 
   def show

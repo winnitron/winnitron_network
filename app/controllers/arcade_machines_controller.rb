@@ -3,7 +3,7 @@ class ArcadeMachinesController < ApplicationController
   before_action :permission_check!, only: [:edit, :update, :destroy]
 
   def index
-    @arcade_machines = params[:user] ? User.find(params[:user]).arcade_machines : ArcadeMachine.all
+    @arcade_machines = ArcadeMachine.all
   end
 
   def show

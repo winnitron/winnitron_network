@@ -4,7 +4,7 @@ class Api::V1::GamesController < ApplicationController
   before_action :token_authentication!
 
   def index
-    @games = Game.all
+    @games = @arcade_machine.games
     respond_with({ games: @games })
   end
 

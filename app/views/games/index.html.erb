@@ -10,16 +10,23 @@
 
   <table class="table table-condensed">
     <thead>
-      <td></td>
-      <td>
-        <a href="#" class="js-select-all">select all</a>
-        /
-        <a href="#" class="js-select-none">select none</a>
-      </td>
+      <tr>
+        <td></td>
+        <td>
+          <a href="#" class="js-select-all">select all</a>
+          /
+          <a href="#" class="js-select-none">select none</a>
+        </td>
+     </tr>
     </thead>
 
     <tbody>
-      <% @games.each do |game| %>
+      <% mine, theirs = @games.partition { |g| current_user.owns?(g) } %>
+      <tr>
+        <td colspan="3">MY GAMES!</td>
+      </tr>
+
+      <% mine.each do |game| %>
         <tr>
           <td><strong><%= link_to game.title, game_path(game) %></strong></td>
           <td>
@@ -27,6 +34,21 @@
           </td>
         </tr>
       <% end %>
+
+      <tr><td colspan="3">&nbsp;</td></tr>
+      <tr>
+        <td colspan="3">EVERYONE ELSE'S GAMES!</td>
+      </tr>
+
+      <% theirs.each do |game| %>
+        <tr>
+          <td><strong><%= link_to game.title, game_path(game) %></strong></td>
+          <td>
+            <%= check_box_tag "games[]", game.id, false, class: "js-add-game-to-playlist" %>
+          </td>
+        </tr>
+      <% end %>
+
     </tbody>
   </table>
 
