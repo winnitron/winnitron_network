@@ -12,3 +12,18 @@
     <%= link_to @user.website, @user.website %>
   <% end %>
 </p>
+
+
+<strong>Games</strong>
+<ul>
+  <% @user.games.each do |game| %>
+    <li><%= link_to game.title, game %></li>
+  <% end %>
+</ul>
+
+<strong>Winnitrons</strong>
+<ul>
+  <% @user.arcade_machines.each do |machine| %>
+    <li><%= link_to machine.name, machine %></li>
+  <% end %>
+</ul>
