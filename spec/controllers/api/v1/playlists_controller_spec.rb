@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Api::V1::GamesController, type: :controller do
+RSpec.describe Api::V1::PlaylistsController, type: :controller do
   let(:winnitron) { FactoryGirl.create(:arcade_machine) }
   let(:token) { winnitron.api_keys.first.token }
 
