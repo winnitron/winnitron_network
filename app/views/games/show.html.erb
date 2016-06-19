@@ -1,13 +1,14 @@
 <p id="notice"><%= notice %></p>
 
 <h1><%= @game.title %></h1>
-<ul>
-  <% @game.users.each do |user| %>
-    <li><%= user.name %></li>
-  <% end %>
-</ul>
+
+
+<p>Added by <%= @game.users.first.name %></p>
+
 <p><%= @game.description %></p>
 <p>Tags: <%= @game.tag_list.join(", ") %></p>
 
-<%= link_to 'Edit', edit_game_path(@game) %> |
-<%= link_to 'Back', games_path %>
+
+<% if current_user.admin? || current_user.owns?(@game) %>
+  <%= link_to "Edit", edit_game_path(@game) %>
+<% end %>

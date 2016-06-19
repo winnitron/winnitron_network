@@ -22,6 +22,6 @@ class Game < ActiveRecord::Base
   private
 
   def strip_whitespace
-    self.title.strip!
+    self.title.to_s.strip!
   end
 end
