@@ -69,6 +69,6 @@ class GamesController < ApplicationController
   end
 
   def game_params
-    params.fetch(:game, {}).permit(:title, :description, :zipfile_key, :tag_list)
+    params.fetch(:game, {}).permit(:title, :description, :zipfile_key, :tag_list, :website)
   end
 end

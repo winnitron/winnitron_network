@@ -1,11 +1,13 @@
-<p id="notice"><%= notice %></p>
-
 <h1><%= @game.title %></h1>
 
-<p>Added by <%= @game.users.first.name %></p>
+<div class="well"><%= simple_format(@game.description) %></div>
 
-<p><%= @game.description %></p>
-<p>Tags: <%= @game.tag_list.join(", ") %></p>
+<p>Added by <%= @game.users.first.name %></p>
+<% if @game.website %>
+  <p>Website: <%= link_to @game.website, @game.website %></p>
+<% end %>
+<p><%= @game.tag_list.join(", ") %></p>
+
 
 
 <% if current_user&.admin? || current_user.owns?(@game) %>

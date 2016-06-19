@@ -65,7 +65,11 @@
     <div class="container">
         <div class="row">
           <div class="span9">
-            <%= bootstrap_flash %>
+            
+            <% if notice %>
+              <div class="flash alert alert-success"><%= notice %></div>
+            <% end %>
+
             <%= yield %>
           </div>
           <div class="span3 sidebar">
