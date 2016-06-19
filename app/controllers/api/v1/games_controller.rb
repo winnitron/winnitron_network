@@ -4,8 +4,9 @@ class Api::V1::GamesController < ApplicationController
   before_action :token_authentication!
 
   def index
-    @games = @arcade_machine.games
-    respond_with({ games: @games })
+    @playlists = @arcade_machine.playlists
+    # make a jbuilder view
+    respond_with({ playlists: @playlists })
   end
 
   private

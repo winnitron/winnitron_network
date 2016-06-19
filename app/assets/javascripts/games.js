@@ -12,9 +12,6 @@
 
 
 
-
-    
-
     $(".js-select-all").click(function(e) {
       e.preventDefault();
       $(".js-add-game-to-playlist").prop("checked", true);
@@ -25,24 +22,6 @@
       $(".js-add-game-to-playlist").prop("checked", false);
     });
 
-    // loooool
-    $(".js-add-games-button").click(function(e) {
-      e.preventDefault();
-      
-      form   = $(this).parents("form");
-      select = form.find("select#target_id")
-      target = select.val().split("-");
-      type   = target[0]
-      id     = target[1]
-
-      if (type == "am")
-        form.attr("action", "/installations");
-      else
-        form.attr("action", "/listings");
-
-      //select.val(id);
-      form.submit();
-    })
 
   });
 

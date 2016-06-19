@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   resources :arcade_machines
   resources :playlists
   resources :listings, only: [:create, :destroy]
-  resources :installations, only: [:create, :destroy]
+  resources :subscriptions, only: [:create, :destroy]
   resources :users, only: [:show]
 
   namespace :api, defaults: { format: "json" } do
