@@ -30,7 +30,11 @@ class ListingsController < ApplicationController
   end
 
   def permission_check!
-    require_admin_or_ownership!(@playlist)
+    if user_signed_in? && (current_user.admin? || current_user == @playlist.user)
+      true
+    else
+      head :forbidden
+    end
   end
 
 end
