@@ -1,11 +1,10 @@
-class Api::V1::GamesController < ApplicationController
+class Api::V1::PlaylistsController < ApplicationController
   respond_to :json
 
   before_action :token_authentication!
 
   def index
-    @games = @arcade_machine.games
-    respond_with({ games: @games })
+    @playlists = @arcade_machine.playlists
   end
 
   private

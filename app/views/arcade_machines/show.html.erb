@@ -23,14 +23,14 @@
   </p>
 <% end %>
 
-<h2>Games</h2>
+<h2>Playlists</h2>
 
 <table class="table table-condensed">
-  <% @arcade_machine.games.each do |game| %>
-    <% install = Installation.find_by(game: game, arcade_machine: @arcade_machine) %>
+  <% @arcade_machine.playlists.each do |playlist| %>
+    <% subscription = Subscription.find_by(playlist: playlist, arcade_machine: @arcade_machine) %>
     <tr>
-      <td><%= link_to game.title, game %></td>
-      <td><%= link_to "remove", installation_path(install), method: :delete %></td>
+      <td><%= link_to playlist.title, playlist %></td>
+      <td><%= link_to "remove", subscription_path(subscription), method: :delete %></td>
     </tr>
   <% end %>
 </table>

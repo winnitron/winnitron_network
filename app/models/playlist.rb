@@ -5,4 +5,6 @@ class Playlist < ActiveRecord::Base
 
   has_many :listings, dependent: :destroy
   has_many :games, through: :listings
+
+  # TODO: title can't start with an underscore
 end

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Api::V1::GamesController, type: :controller do
+RSpec.describe Api::V1::PlaylistsController, type: :controller do
   let(:winnitron) { FactoryGirl.create(:arcade_machine) }
   let(:token) { winnitron.api_keys.first.token }
 
@@ -19,15 +19,7 @@ RSpec.describe Api::V1::GamesController, type: :controller do
       expect(response).to have_http_status(:ok)
     end
 
-    it "assigns the machine's games" do
-      all = FactoryGirl.create_list(:game, 3)
-      all.last(2).each { |g| Installation.create! game: g, arcade_machine: winnitron }
-      
-      request.headers["Authorization"] = "Token #{token}"
-      get :index, { format: "json" }
-      expect(assigns(:games)).to eq all.last(2)
-    end
-
+    it "assigns the machine's playlists"
   end
 
 end

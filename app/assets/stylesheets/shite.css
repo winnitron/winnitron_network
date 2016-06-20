@@ -13,3 +13,7 @@ body {
 footer {
   color: #aaa;
 }
+
+.subscribe-to-playlist form {
+  display: inline;
+}

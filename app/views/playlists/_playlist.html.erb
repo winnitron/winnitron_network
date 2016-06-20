@@ -1,0 +1,9 @@
+<tr>
+  <td><%= link_to playlist.title, playlist %></td>
+  <td><%= playlist.games.count %> games</td>
+  <% if user_signed_in? %>
+    <%= render "playlist_subscription_ui", playlist: playlist %>
+  <% else %>
+    <td></td>
+  <% end %>
+</tr>

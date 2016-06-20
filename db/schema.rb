@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160619202430) do
+ActiveRecord::Schema.define(version: 20160619224831) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,16 +54,6 @@ ActiveRecord::Schema.define(version: 20160619202430) do
     t.string   "website"
   end
 
-  create_table "installations", force: :cascade do |t|
-    t.integer  "game_id"
-    t.integer  "arcade_machine_id"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
-  end
-
-  add_index "installations", ["arcade_machine_id"], name: "index_installations_on_arcade_machine_id", using: :btree
-  add_index "installations", ["game_id"], name: "index_installations_on_game_id", using: :btree
-
   create_table "listings", force: :cascade do |t|
     t.integer  "game_id"
     t.integer  "playlist_id"
@@ -92,6 +82,13 @@ ActiveRecord::Schema.define(version: 20160619202430) do
   end
 
   add_index "playlists", ["user_id"], name: "index_playlists_on_user_id", using: :btree
+
+  create_table "subscriptions", force: :cascade do |t|
+    t.integer  "arcade_machine_id"
+    t.integer  "playlist_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
 
   create_table "taggings", force: :cascade do |t|
     t.integer  "tag_id"
