@@ -4,7 +4,7 @@
   <label>Upload a new zip file:</label>
   <%= s3_uploader_form id: "s3-exec-uploader",
                        callback_url: s3_callback_game_url(@game),
-                       key: "games/${filename}",
+                       key: "games/#{@game.id}-${filename}",
                        key_starts_with: "games/" do %>
     <%= file_field_tag :file %>
   <% end %>
