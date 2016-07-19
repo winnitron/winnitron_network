@@ -18,7 +18,7 @@ class GamesController < ApplicationController
   end
 
   def s3_callback
-    @game.update zipfile_key: "games/#{params[:filename]}",
+    @game.update zipfile_key: "games/#{@game.id}-#{params[:filename]}",
                  zipfile_last_modified: Time.parse(params[:lastModifiedDate])
     render nothing: true
   end
