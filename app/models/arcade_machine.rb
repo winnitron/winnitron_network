@@ -7,7 +7,7 @@ class ArcadeMachine < ActiveRecord::Base
   has_many :subscriptions, dependent: :destroy
   has_many :playlists, through: :subscriptions
 
-  has_many :api_keys
+  has_many :api_keys, dependent: :destroy
 
   def subscribed?(playlist)
     subscriptions.include?(playlist)
