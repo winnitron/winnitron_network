@@ -12,10 +12,6 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:account_update, keys: [:twitter_username, :website])
   end
 
-  def require_admin!
-    head :forbidden if !current_user&.admin?
-  end
-
   def require_admin_or_ownership!(object)
     if user_signed_in? && (current_user.admin? || current_user.owns?(object))
       true
