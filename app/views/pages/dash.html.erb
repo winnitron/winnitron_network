@@ -1,28 +1,40 @@
-<div>
+<div class="dash">
   <h1>Whatcha up to?</h1>
 
-  <div class="panel panel-default">
+  <div class="dash-item panel panel-default">
     <div class="panel-body">
       <a href="<%= new_game_path %>">
-      
-        <span>Submit a game</span>
+        <%= image_tag "rocket-ship", class: "icon" %>
+        <span class="text">Submit a game</span>
       </a>
     </div>
   </div>
 
-
-
-  <div>
-    <%= link_to "Register a Winnitron", new_arcade_machine_path %>
+  <div class="dash-item panel panel-default">
+    <div class="panel-body">
+      <a href="<%= new_arcade_machine_path %>">
+        <%= image_tag "game-console", class: "icon" %>
+        <span class="text">Register a Winnitron</span>
+      </a>
+    </div>
   </div>
 
-  <p>&nbsp;</p>
-
-  <div>
-    <%= link_to "Make a playlist", new_playlist_path %>
+  <div class="dash-item panel panel-default">
+    <div class="panel-body">
+      <a href="<%= new_playlist_path %>">
+        <%= image_tag "add-list", class: "icon" %>
+        <span class="text">Make a playlist</span>
+      </a>
+    </div>
   </div>
-  <div>
-    <%= link_to "Manage my playlist subscriptions", "something" %>
+
+  <div class="dash-item panel panel-default">
+    <div class="panel-body">
+      <a href="<%= "/" %>">
+        <%= image_tag "heart-list", class: "icon" %>
+        <span class="text">Manage playlist subscriptions</span>
+      </a>
+    </div>
   </div>
 
 </div>

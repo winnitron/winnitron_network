@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= content_for?(:title) ? yield(:title) : "WinnitronReborn" %></title>
+    <title><%= content_for?(:title) ? yield(:title) : "The Winnitron Network" %></title>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag "application", :media => "all" %>
@@ -69,7 +69,6 @@
         </div>
         <div class="col-lg-3">
           <div class="well sidebar-nav">
-            <h3>Sidebar</h3>
             <ul class="nav nav-list">
               <li><%= link_to "Games", games_path  %></li>
               <li><%= link_to "Winnitrons", arcade_machines_path  %></li>
@@ -80,9 +79,9 @@
         </div><!--/span-->
       </div><!--/row-->
 
-      <footer>
-        <p>&copy; Company 2016</p>
-      </footer>
+      <span class="pull-right">
+        problems? feedback? <a href="https://github.com/winnitron/winnitron_reborn">github</a>.
+      </span>
 
     </div> <!-- /container -->
 

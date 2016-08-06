@@ -13,3 +13,16 @@ footer {
 .subscribe-to-playlist form {
   display: inline;
 }
+
+.dash .dash-item a {
+  text-decoration: none;
+}
+
+.dash .dash-item .icon {
+  width: 80px;
+}
+
+.dash .dash-item .text {
+  padding-left: 25px;
+  font-size: 40px;
+}
