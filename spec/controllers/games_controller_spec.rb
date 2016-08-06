@@ -153,10 +153,33 @@ RSpec.describe GamesController, type: :controller do
   end
 
   describe "DELETE destroy" do
-    let (:game) { FactoryGirl.create(:game) }
+    let(:game) { FactoryGirl.create(:game) }
 
     context "non-owner" do
-      pending
+      before :each do
+        sign_in FactoryGirl.create(:user)
+      end
+
+      it "does not delete the game" do
+        delete :destroy, id: game.id
+        expect(Game.find(game.id)).to eq game
+      end
+
+      it "returns 403" do
+        delete :destroy, id: game.id
+        expect(response).to have_http_status 403
+      end
+    end
+
+    context "owner" do
+      before :each do
+        sign_in game.users.first
+      end
+
+      it "deletes the game" do
+        delete :destroy, id: game.id
+        expect(Game.where(id: game.id).count).to eq 0
+      end
     end
 
     context "admin user" do

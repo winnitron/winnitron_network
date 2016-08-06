@@ -3,8 +3,32 @@ require 'rails_helper'
 RSpec.describe Api::V1::PlaylistsController, type: :controller do
   let(:winnitron) { FactoryGirl.create(:arcade_machine) }
   let(:token) { winnitron.api_keys.first.token }
+  let(:playlists) { FactoryGirl.create_list(:playlist, 3) }
+  let(:games) { FactoryGirl.create_list(:game, 5) }
 
   describe "GET index" do
+    render_views
+
+    let(:playlist_hash) do
+      {
+        "playlists" => winnitron.playlists.map do |playlist|
+          {
+            "title" => playlist.title,
+            "slug"  => playlist.title.parameterize,
+            "games" => playlist.games.map do |game|
+              {
+                "title"         => game.title,
+                "slug"          => game.title.parameterize,
+                "description"   => game.description,
+                "download_url"  => game.download_url,
+                "last_modified" => game.zipfile_last_modified.iso8601
+              }
+            end
+          }
+        end
+      }
+    end
+
 
     include_examples "disallows bad API keys", :get, :index
 
@@ -19,7 +43,16 @@ RSpec.describe Api::V1::PlaylistsController, type: :controller do
       expect(response).to have_http_status(:ok)
     end
 
-    it "assigns the machine's playlists"
+    it "returns the machine's playlists" do
+      playlists.each do |playlist|
+        games.sample(2).each { |g| playlist.listings.create game: g }
+        winnitron.subscriptions.create playlist: playlist
+      end
+
+      get :index, { api_key: token, format: "json" }
+
+      expect(JSON.parse(response.body)).to eq playlist_hash
+    end
   end
 
 end
