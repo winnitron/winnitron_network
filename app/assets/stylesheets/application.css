@@ -11,5 +11,6 @@
  *= require_self
  *= require bootstrap_and_overrides
  *= require bootstrap-tagsinput
+ *= require jquery-ui
  *= require_tree .
  */
