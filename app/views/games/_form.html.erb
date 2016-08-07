@@ -1,44 +1,51 @@
-<%= form_for(@game) do |f| %>
-  <% if @game.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@game.errors.count, "error") %> prohibited this game from being saved:</h2>
+<%= form_for(@game, html: { class: "form form-horizontal" }) do |f| %>
+  <%= render "shared/errors", object: @game %>
 
-      <ul>
-      <% @game.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+  <div class="form-group">
+    <%= f.label :title, class: "col-sm-3 control-label" %>
+    <div class="col-sm-9">
+      <%= f.text_field :title, required: true, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :description, class: "col-sm-3 control-label" %>
+    <div class="col-sm-9">
+      <%= f.text_area :description, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :website, class: "col-sm-3 control-label" %>
+    <div class="col-sm-9">
+      <%= f.url_field :website, class: "form-control" %>
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <label class="col-sm-3 control-label">Tags</label>
+    <div class="col-sm-9">
+      <%= f.text_field :tag_list, 'data-role'=>'tagsinput', value: @game.tag_list.join(","), class: "form-control" %>
+    </div>
+  </div>
+
+  <% if @game.persisted? %>
+    <div class="form-group">
+      <label class="col-sm-3 control-label">Zip file</label>
+      <div class="col-sm-9">
+        <pre class="js-filename"><%= (@game.zipfile_key || "").sub("games/", "") %></pre>
+        <% if @game.zipfile_last_modified %>
+          (Last modified <%= @game.zipfile_last_modified %>)
+        <% end %>
+      </div>
+
     </div>
   <% end %>
 
-  <div>
-    <%= f.label :title %>
-    <%= f.text_field :title, required: true %>
-  </div>
-  <div>
-    <%= f.label :description %>
-    <%= f.text_area :description %>
-  </div>
-  <div>
-    <%= f.label :website %>
-    <%= f.url_field :website %>
-  </div>
-  <div>
-    <label>Tags</label>
-    <%= f.text_field :tag_list, 'data-role'=>'tagsinput', value: @game.tag_list.join(",") %>
-  </div>
 
-  <div>
-    <label>Zip file</label>
-    <pre class="js-filename"><%= (@game.zipfile_key || "").sub("games/", "") %></pre>
-    <% if @game.zipfile_last_modified %>
-      (Last modified <%= @game.zipfile_last_modified %>)
-    <% end %>
-
-  </div>
-
-
-  <div class="actions">
-    <%= f.submit class: "btn btn-success" %>
+  <div class="actions form-group">
+    <div class="col-sm-offset-3 col-sm-9">
+      <%= f.submit class: "btn btn-success" %>
+    </div>
   </div>
 <% end %>

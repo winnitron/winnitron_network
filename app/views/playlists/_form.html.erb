@@ -1,22 +1,16 @@
-<%= form_for(@playlist) do |f| %>
-  <% if @playlist.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@playlist.errors.count, "error") %> prohibited this playlist from being saved:</h2>
+<%= form_for(@playlist, html: { class: "form form-horizontal" }) do |f| %>
+  <%= render "shared/errors", object: @playlist %>
 
-      <ul>
-      <% @playlist.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+  <div class="form-group">
+    <%= f.label :title, class: "col-sm-3 control-label" %>
+    <div class="col-sm-9">
+      <%= f.text_field :title, required: true, class: "form-control" %>
     </div>
-  <% end %>
-
-  <div>
-    <%= f.label :title %>
-    <%= f.text_field :title %>
   </div>
 
-  <div class="actions">
-    <%= f.submit class: "btn btn-success" %>
+  <div class="actions form-group">
+    <div class="col-sm-offset-3 col-sm-9">
+      <%= f.submit class: "btn btn-success" %>
+    </div>
   </div>
 <% end %>
