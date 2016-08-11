@@ -3,11 +3,13 @@ class ListingsController < ApplicationController
   before_action :permission_check!
 
   def create
-    (params[:games] || []).each do |game_id|
-      Listing.find_or_create_by game_id: game_id, playlist: @playlist
-    end
+    game = Game.find params[:game_id]
+    listing = Listing.find_or_create_by! game: game, playlist: @playlist
 
-    redirect_to games_path, notice: "Game(s) added"
+    respond_to do |format|
+      format.html { redirect_to games_path, notice: "Game(s) added" }
+      format.json { render json: listing }
+    end
   end
 
   def destroy
@@ -22,8 +24,8 @@ class ListingsController < ApplicationController
   private
 
   def set_playlist
-    @playlist = if params[:target_id]
-      Playlist.find(params[:target_id].sub("pl-", ""))
+    @playlist = if params[:playlist_id]
+      Playlist.find(params[:playlist_id])
     else
       Listing.find(params[:id]).playlist
     end

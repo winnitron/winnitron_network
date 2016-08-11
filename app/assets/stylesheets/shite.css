@@ -26,3 +26,12 @@ footer {
   padding-left: 25px;
   font-size: 40px;
 }
+
+.game-list .game {
+  border: 1px solid blue;
+}
+
+
+.playlist-list .playlist {
+  border: 1px solid red;
+}

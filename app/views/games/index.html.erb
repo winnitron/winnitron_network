@@ -1,66 +1,68 @@
-<h1>Games</h1>
+<script>
+  var origins = {}
 
-<p>
+  $(function() {
+    $(".game").draggable({
+      containment: ".games",
+      snap: ".playlist",
+      revert: true,
+      create: function(event, element) {  
+      },
+      start: function(event, element) {
+      },
+      drag: function(event, element) {
+      },
+      stop: function(event, element) {
+      }
+    });
+
+    $(".playlist").droppable({
+      drop: function(event, element) {
+        var game_id = $(element.draggable).attr("data-game-id");
+        var playlist_id = $(this).attr("data-playlist-id");
+
+        $.post("/listings", {
+          playlist_id: playlist_id,
+          game_id: game_id
+        });
+
+      }
+    });
+  });
+</script>
+
+<h1>So many Games!</h1>
+
+<div>
   <%= link_to "Add your Game!", new_game_path, class: "btn btn-success" %>
-</p>
+</div>
 
-<form action="<%= listings_path %>" method="post">
+<div class="games col-lg-12" style="border: 2px solid green">
 
-  <table class="table table-condensed">
-    <thead>
-      <tr>
-        <td></td>
-        <td>
-          <a href="#" class="js-select-all">select all</a>
-          /
-          <a href="#" class="js-select-none">select none</a>
-        </td>
-     </tr>
-    </thead>
+  <div class="game-list col-lg-5">
+    <% @games.each do |game| %>
 
-    <tbody>
-      <% mine, theirs = @games.partition { |g| user_signed_in? && current_user.owns?(g) } %>
-      <tr>
-        <td colspan="3">MY GAMES!</td>
-      </tr>
+      <div class="row">
+        <div class="game col-sm-5" data-game-id="<%= game.id %>">
+          <%= link_to game.title, game %>
+        </div>
+      </div>
 
-      <% mine.each do |game| %>
-        <tr>
-          <td><strong><%= link_to game.title, game_path(game) %></strong></td>
-          <td>
-            <%= check_box_tag "games[]", game.id, false, class: "js-add-game-to-playlist" %>
-          </td>
-        </tr>
+    <% end %>
+  </div>
+
+  <% if user_signed_in?%>
+    <div class="playlist-list col-lg-4">
+
+      <% current_user.playlists.each do |playlist| %>
+        <div class="row">
+          <div class="playlist" data-playlist-id="<%= playlist.id %>">
+            <%= link_to playlist.title, playlist %>
+          </div>
+        </div>
       <% end %>
 
-      <tr><td colspan="3">&nbsp;</td></tr>
-      <tr>
-        <td colspan="3">EVERYONE ELSE'S GAMES!</td>
-      </tr>
-
-      <% theirs.each do |game| %>
-        <tr>
-          <td><strong><%= link_to game.title, game_path(game) %></strong></td>
-          <td>
-            <%= check_box_tag "games[]", game.id, false, class: "js-add-game-to-playlist" %>
-          </td>
-        </tr>
-      <% end %>
-
-    </tbody>
-  </table>
-
-  <% if user_signed_in? %>
-    <p>
-      <%= hidden_field_tag "authenticity_token", form_authenticity_token %>
-      
-      Add selected to:
-      <%= select_tag "target_id", options_for_select(current_user.playlists.map { |p| [p.title, "pl-#{p.id}"] }) %>
-
-      <input type="submit" value="add 'em" class="btn js-add-games-button">
-    </p>
+    </div>
   <% end %>
 
-</form>
-
-
+</div>
