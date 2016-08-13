@@ -18,6 +18,9 @@
 
 
     $(".playlist").droppable({
+      accept: ".game",
+      activeClass: "playlist-active-drop-it-here",
+      hoverClass: "playlist-hover-born-ready",
       drop: function(event, element) {
         var game_id = $(element.draggable).attr("data-game-id");
         var playlist_id = $(this).attr("data-playlist-id");
@@ -36,6 +39,17 @@
         });
 
       }
+    });
+
+    $(".collapse-arrow").click(function (e) {
+      e.preventDefault();
+      $(this).siblings(".the-games").toggle("fast");
+
+      if ($(this).html() == "►")
+        $(this).html("▼")
+      else
+        $(this).html("►")
+
     });
   });
 </script>
@@ -66,6 +80,7 @@
       <% current_user.playlists.each do |playlist| %>
         <div class="row">
           <div class="playlist" data-playlist-id="<%= playlist.id %>">
+            <a href="" class="collapse-arrow">►</a>
             <%= link_to playlist.title, playlist %>
             <ul class="the-games">
               <% playlist.games.each do |game| %>

@@ -35,3 +35,21 @@ footer {
 .playlist-list .playlist {
   border: 1px solid red;
 }
+
+.playlist-list .playlist a.collapse-arrow:hover,
+.playlist-list .playlist a.collapse-arrow:focus {
+  text-decoration: none;
+}
+
+.playlist-list .playlist .the-games {
+  display: none;
+}
+
+.playlist-list .playlist.playlist-active-drop-it-here {
+  background-color: red;
+}
+
+.playlist-list .playlist.playlist-hover-born-ready {
+  background-color: green;
+}
+
