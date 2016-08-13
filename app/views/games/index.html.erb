@@ -4,7 +4,7 @@
   $(function() {
     $(".game").draggable({
       containment: ".games",
-      snap: ".playlist",
+      // snap: ".playlist",
       revert: true,
       create: function(event, element) {  
       },
@@ -60,9 +60,10 @@
   <%= link_to "Add your Game!", new_game_path, class: "btn btn-success" %>
 </div>
 
-<div class="games col-lg-12" style="border: 2px solid green">
+<div class="games col-lg-12">
 
   <div class="game-list col-lg-5">
+    <h3>&nbsp;</h3>
     <% @games.each do |game| %>
 
       <div class="row">
@@ -76,7 +77,7 @@
 
   <% if user_signed_in?%>
     <div class="playlist-list col-lg-4">
-
+      <h3>my playlists</h3>
       <% current_user.playlists.each do |playlist| %>
         <div class="row">
           <div class="playlist" data-playlist-id="<%= playlist.id %>">

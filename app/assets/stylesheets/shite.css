@@ -1,7 +1,3 @@
-.sidebar {
-  padding-top: 40px;
-}
-
 .flash {
   margin-top: 10px;
 }
@@ -28,28 +24,45 @@ footer {
 }
 
 .game-list .game {
-  border: 1px solid blue;
+  z-index: 1;
+  background-color: white; 
+  padding: 3px;
+  margin-bottom: 2px;
 }
 
+.playlist-list h3,
+.game-list h3 {
+  margin: 0px 0px 10px 0px;
+  padding: 0;
+}
+
+.playlist-list ul {
+  list-style-type: none;
+}
 
 .playlist-list .playlist {
-  border: 1px solid red;
+  padding: 3px;
+  margin-bottom: 2px;
 }
 
-.playlist-list .playlist a.collapse-arrow:hover,
-.playlist-list .playlist a.collapse-arrow:focus {
-  text-decoration: none;
-}
+  .playlist-list .playlist a.collapse-arrow:hover,
+  .playlist-list .playlist a.collapse-arrow:focus {
+    text-decoration: none;
+  }
 
-.playlist-list .playlist .the-games {
-  display: none;
-}
+  .playlist-list .playlist .the-games {
+    display: none;
+  }
 
-.playlist-list .playlist.playlist-active-drop-it-here {
-  background-color: red;
-}
+  .playlist-list .playlist.playlist-active-drop-it-here {
+    
+  }
 
-.playlist-list .playlist.playlist-hover-born-ready {
-  background-color: green;
-}
+  .playlist-list .playlist.playlist-hover-born-ready {
+    background-color: #a1d490;
+    color: white;
+  }
 
+  .playlist-list .playlist.playlist-hover-born-ready a {
+    color: white;
+  }
