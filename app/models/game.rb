@@ -12,6 +12,7 @@ class Game < ActiveRecord::Base
   before_validation :strip_whitespace
 
   def download_url
+    return nil if zipfile_key.blank?
     object = Aws::S3::Object.new(bucket_name: ENV["AWS_BUCKET"], key: zipfile_key)
     object.presigned_url(:get, expires_in: 1.hour)
   end

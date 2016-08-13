@@ -33,6 +33,8 @@ RSpec.describe GamesController, type: :controller do
       it "returns 200 OK" do
         expect(response).to have_http_status :ok
       end
+
+      it "doesn't panic without a zip file"
     end
 
     context "it doesn't exist" do
