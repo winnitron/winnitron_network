@@ -6,7 +6,7 @@
 
 <div class="games col-lg-12">
 
-  <div class="game-list col-lg-5">
+  <div class="game-list col-lg-4">
     <h3>&nbsp;</h3>
     <% @games.each do |game| %>
 
@@ -17,6 +17,11 @@
       </div>
 
     <% end %>
+  </div>
+
+  <div class="dragem col-lg-3">
+    drag 'em
+    →
   </div>
 
   <% if user_signed_in?%>

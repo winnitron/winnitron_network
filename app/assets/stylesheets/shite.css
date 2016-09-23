@@ -25,7 +25,7 @@ footer {
 
 .game-list .game {
   z-index: 1;
-  background-color: white; 
+  background-color: white;
   padding: 3px;
   margin-bottom: 2px;
 }
@@ -55,7 +55,7 @@ footer {
   }
 
   .playlist-list .playlist.playlist-active-drop-it-here {
-    
+
   }
 
   .playlist-list .playlist.playlist-hover-born-ready {
@@ -66,3 +66,7 @@ footer {
   .playlist-list .playlist.playlist-hover-born-ready a {
     color: white;
   }
+
+.dragem {
+  padding-top: 100px;
+}
