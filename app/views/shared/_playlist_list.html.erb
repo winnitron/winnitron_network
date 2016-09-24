@@ -1,0 +1,15 @@
+<% playlists.each do |playlist| %>
+  <div class="row">
+    <div class="playlist" data-playlist-id="<%= playlist.id %>">
+      <a href="" class="collapse-arrow">►</a>
+      <%= link_to playlist.title, playlist %>
+      <ul class="the-games">
+        <% playlist.games.each do |game| %>
+          <li>
+            <%= link_to game.title, game %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+<% end %>

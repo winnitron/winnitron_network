@@ -36,26 +36,27 @@ footer {
   padding: 0;
 }
 
-.playlist-list ul {
+.playlist-list ul,
+.winnitron-list ul {
   list-style-type: none;
 }
 
-.playlist-list .playlist {
+a.collapse-arrow:hover,
+a.collapse-arrow:focus {
+  text-decoration: none;
+}
+
+.playlist-list .playlist,
+.winnitron-list .winnitron {
   padding: 3px;
   margin-bottom: 2px;
 }
-
-  .playlist-list .playlist a.collapse-arrow:hover,
-  .playlist-list .playlist a.collapse-arrow:focus {
-    text-decoration: none;
-  }
 
   .playlist-list .playlist .the-games {
     display: none;
   }
 
   .playlist-list .playlist.playlist-active-drop-it-here {
-
   }
 
   .playlist-list .playlist.playlist-hover-born-ready {
@@ -69,4 +70,8 @@ footer {
 
 .dragem {
   padding-top: 100px;
+}
+
+.winnitron-list .winnitron .the-playlists {
+  display: none;
 }

@@ -1,4 +1,4 @@
-(function(window, $, undefined){
+(function(window, $, undefined) {
 
   $(function() {
     $("#s3-exec-uploader").S3Uploader();
@@ -27,7 +27,7 @@
     $(".game-list .game").draggable({
       containment: ".games",
       revert: true,
-      create: function(event, element) {  
+      create: function(event, element) {
       },
       start: function(event, element) {
       },
@@ -70,17 +70,6 @@
         });
 
       }
-    });
-
-    $(".collapse-arrow").click(function (e) {
-      e.preventDefault();
-      $(this).siblings(".the-games").toggle("fast");
-
-      if ($(this).html() == "►")
-        $(this).html("▼")
-      else
-        $(this).html("►")
-
     });
 
 
