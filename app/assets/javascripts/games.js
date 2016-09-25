@@ -26,22 +26,14 @@
 
     $(".game-list .game").draggable({
       containment: ".games",
-      revert: true,
-      create: function(event, element) {
-      },
-      start: function(event, element) {
-      },
-      drag: function(event, element) {
-      },
-      stop: function(event, element) {
-      }
+      revert: true
     });
 
 
     $(".playlist").droppable({
       accept: ".game",
-      activeClass: "playlist-active-drop-it-here",
-      hoverClass: "playlist-hover-born-ready",
+      activeClass: "target-active-drop-it-here",
+      hoverClass: "target-hover-born-ready",
       drop: function(event, element) {
         var game_id = $(element.draggable).attr("data-game-id");
         var playlist_id = $(this).attr("data-playlist-id");

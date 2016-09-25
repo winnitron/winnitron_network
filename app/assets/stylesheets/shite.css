@@ -56,17 +56,17 @@ a.collapse-arrow:focus {
     display: none;
   }
 
-  .playlist-list .playlist.playlist-active-drop-it-here {
-  }
-
-  .playlist-list .playlist.playlist-hover-born-ready {
-    background-color: #a1d490;
-    color: white;
-  }
-
   .playlist-list .playlist.playlist-hover-born-ready a {
     color: white;
   }
+
+.target-active-drop-it-here {
+}
+
+.target-hover-born-ready {
+  background-color: #a1d490;
+  color: white;
+}
 
 .dragem {
   padding-top: 100px;
