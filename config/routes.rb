@@ -19,5 +19,6 @@ Rails.application.routes.draw do
     end
   end
 
+  get "/dash" => "pages#dash", as: :dash
   root "pages#index"
 end

@@ -1,49 +1,65 @@
 <h2>My Account</h2>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: "form" }) do |f| %>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: "form form-horizontal" }) do |f| %>
   <%= devise_error_messages! %>
 
-  <div class="field">
-    <%= f.label :name %>
-    <%= f.text_field :name, autofocus: true, required: true %>
+  <div class="form-group">
+    <%= f.label :name, class: "col-sm-3 control-label" %>
+    <div class="col-sm-9">
+      <%= f.text_field :name, autofocus: true, required: true, class: "form-control" %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label :email %>
-    <%= f.email_field :email, required: true %>
+  <div class="form-group">
+    <%= f.label :email, class: "col-sm-3 control-label" %>
+    <div class="col-sm-9">
+      <%= f.email_field :email, required: true, class: "form-control" %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label :website %>
-    <%= f.url_field :website %>
+  <div class="form-group">
+    <%= f.label :website, class: "col-sm-3 control-label" %>
+    <div class="col-sm-9">
+      <%= f.url_field :website, class: "form-control" %>
+    </div>
   </div>
 
-  <div class="field">
-    <label>Twitter</label>
-    <%= f.text_field :twitter_username %>
+  <div class="form-group">
+    <label class="col-sm-3 control-label">Twitter</label>
+    <div class="col-sm-9">
+      <%= f.text_field :twitter_username, class: "form-control" %>
+    </div>
   </div>
 
   <div class="well">
-    <div class="field">
-      <%= f.label :password %>
-      <%= f.password_field :password, autocomplete: "off" %>
-      <br><em>(leave blank if you don't want to change it)</em>
+    <div class="form-group">
+      <%= f.label :password, class: "col-sm-3 control-label" %>
+      <div class="col-sm-9">
+        <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
+        <br><em>(leave blank if you don't want to change it)</em>
+      </div>
     </div>
 
-    <div class="field">
-      <%= f.label :password_confirmation %>
-      <%= f.password_field :password_confirmation, autocomplete: "off" %>
+    <div class="form-group">
+      <%= f.label :password_confirmation, class: "col-sm-3 control-label" %>
+      <div class="col-sm-9">
+        <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control" %>
+      </div>
     </div>
   </div>
 
-  <div class="field">
-    <%= f.label :current_password %>
-    <%= f.password_field :current_password, autocomplete: "off", required: true %>
-    <br><em>(we need your current password to confirm your changes)</em>
+  <div class="form-group">
+    <%= f.label :current_password, class: "col-sm-3 control-label" %>
+    <div class="col-sm-9">
+      <%= f.password_field :current_password, autocomplete: "off", required: true, class: "form-control" %>
+      <br><em>(we need your current password to confirm your changes)</em>
+    </div>
   </div>
 
-  <div class="actions">
-    <%= f.submit "Update", class: "btn btn-success" %>
+  <div class="actions from-group">
+    <div class="col-sm-offset-3 col-sm-9">
+      <%= f.submit "Update", class: "btn btn-success" %>
+    </div>
   </div>
 <% end %>
 

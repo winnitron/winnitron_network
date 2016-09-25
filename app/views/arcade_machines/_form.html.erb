@@ -1,32 +1,30 @@
-<%= form_for(@arcade_machine) do |f| %>
-  <% if @arcade_machine.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@arcade_machine.errors.count, "error") %> prohibited this arcade_machine from being saved:</h2>
+<%= form_for(@arcade_machine, html: { class: "form form-horizontal" }) do |f| %>
+  <%= render "shared/errors", object: @arcade_machine %>
 
-      <ul>
-      <% @arcade_machine.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+  <div class="form-group">
+    <%= f.label :name, class: "col-sm-3 control-label" %>
+    <div class="col-sm-9">
+      <%= f.text_field :name, required: true, class: "form-control" %>
     </div>
-  <% end %>
-
-  <div>
-    <%= f.label :name %>
-    <%= f.text_field :name, required: true %>
   </div>
 
-  <div>
-    <%= f.label :location %>
-    <%= f.text_field :location %>
+  <div class="form-group">
+    <%= f.label :location, class: "col-sm-3 control-label" %>
+    <div class="col-sm-9">
+      <%= f.text_field :location, class: "form-control" %>
+    </div>
   </div>
 
-  <div>
-    <%= f.label :description %>
-    <%= f.text_area :description %>
+  <div class="form-group">
+    <%= f.label :description, class: "col-sm-3 control-label" %>
+    <div class="col-sm-9">
+      <%= f.text_area :description, class: "form-control" %>
+    </div>
   </div>
 
-  <div class="actions">
-    <%= f.submit "Save Winnitron", class: "btn btn-success" %>
+  <div class="actions form-group">
+    <div class="col-sm-offset-3 col-sm-9">
+      <%= f.submit "Save Winnitron", class: "btn btn-success" %>
+    </div>
   </div>
 <% end %>

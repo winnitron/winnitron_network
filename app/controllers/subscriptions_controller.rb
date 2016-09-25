@@ -4,8 +4,13 @@ class SubscriptionsController < ApplicationController
   before_action :permission_check!
 
   def create
-    Subscription.find_or_create_by playlist: @playlist, arcade_machine: @arcade_machine
-    redirect_to playlists_path, notice: "Subscribed to #{@playlist.title}"
+    subscription = Subscription.find_by playlist: @playlist, arcade_machine: @arcade_machine
+    if subscription
+      render json: subscription, status: :ok
+    else
+      subscription = Subscription.create(playlist: @playlist, arcade_machine: @arcade_machine)
+      render json: subscription, status: :created
+    end
   end
 
   def destroy

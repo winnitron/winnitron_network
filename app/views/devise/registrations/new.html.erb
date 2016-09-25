@@ -1,34 +1,42 @@
 <h2>Sign up</h2>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "form" }) do |f| %>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "form form-horizontal" }) do |f| %>
   <%= devise_error_messages! %>
 
-  <div class="field">
-    <%= f.label :name %>
-    <%= f.text_field :name, autofocus: true, required: true %>
+  <div class="form-group">
+    <%= f.label :name, class: "col-sm-3 control-label" %>
+    <div class="col-sm-9">
+      <%= f.text_field :name, autofocus: true, required: true, class: "form-control" %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label :email %>
-    <%= f.email_field :email, required: true %>
+  <div class="form-group">
+    <%= f.label :email, class: "col-sm-3 control-label" %>
+    <div class="col-sm-9">
+      <%= f.email_field :email, required: true, class: "form-control" %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label :password %>
-    <%= f.password_field :password, autocomplete: "off", required: true %>
-    <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %>
+  <div class="form-group">
+    <%= f.label :password, class: "col-sm-3 control-label" %>
+    <div class="col-sm-9">
+      <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
+      <% if @minimum_password_length %>
+        <em>(<%= @minimum_password_length %> characters minimum)</em>
+      <% end %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation %>
-    <%= f.password_field :password_confirmation, autocomplete: "off", required: true %>
+  <div class="form-group">
+    <%= f.label :password_confirmation, class: "col-sm-3 control-label" %>
+    <div class="col-sm-9">
+      <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control" %>
+    </div>
   </div>
 
-  <div class="actions">
-    <%= f.submit "Sign up", class: "btn btn-success" %>
+  <div class="actions from-group">
+    <div class="col-sm-offset-3 col-sm-9">
+      <%= f.submit "Sign Up", class: "btn btn-success" %>
+    </div>
   </div>
 <% end %>
-
-<%= render "devise/shared/links" %>

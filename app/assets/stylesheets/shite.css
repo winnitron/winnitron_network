@@ -1,11 +1,3 @@
-body { 
-  padding-top: 40px; 
-}
-
-.sidebar {
-  padding-top: 40px;
-}
-
 .flash {
   margin-top: 10px;
 }
@@ -16,4 +8,70 @@ footer {
 
 .subscribe-to-playlist form {
   display: inline;
+}
+
+.dash .dash-item a {
+  text-decoration: none;
+}
+
+.dash .dash-item .icon {
+  width: 80px;
+}
+
+.dash .dash-item .text {
+  padding-left: 25px;
+  font-size: 40px;
+}
+
+.game-list .game {
+  z-index: 1;
+  background-color: white;
+  padding: 3px;
+  margin-bottom: 2px;
+}
+
+.playlist-list h3,
+.game-list h3 {
+  margin: 0px 0px 10px 0px;
+  padding: 0;
+}
+
+.playlist-list ul,
+.winnitron-list ul {
+  list-style-type: none;
+}
+
+a.collapse-arrow:hover,
+a.collapse-arrow:focus {
+  text-decoration: none;
+}
+
+.playlist-list .playlist,
+.winnitron-list .winnitron {
+  padding: 3px;
+  margin-bottom: 2px;
+}
+
+  .playlist-list .playlist .the-games {
+    display: none;
+  }
+
+  .playlist-list .playlist.playlist-hover-born-ready a {
+    color: white;
+  }
+
+.target-active-drop-it-here {
+}
+
+.target-hover-born-ready {
+  background-color: #a1d490;
+  color: white;
+}
+
+.dragem {
+  padding-top: 100px;
+}
+
+.winnitron-list .winnitron .the-playlists {
+  display: none;
 }

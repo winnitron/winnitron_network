@@ -1,66 +1,34 @@
-<h1>Games</h1>
+<h1>So many Games!</h1>
 
-<p>
+<div>
   <%= link_to "Add your Game!", new_game_path, class: "btn btn-success" %>
-</p>
+</div>
 
-<form action="<%= listings_path %>" method="post">
+<div class="games col-lg-12">
 
-  <table class="table table-condensed">
-    <thead>
-      <tr>
-        <td></td>
-        <td>
-          <a href="#" class="js-select-all">select all</a>
-          /
-          <a href="#" class="js-select-none">select none</a>
-        </td>
-     </tr>
-    </thead>
+  <div class="game-list col-lg-4">
+    <h3>&nbsp;</h3>
+    <% @games.each do |game| %>
 
-    <tbody>
-      <% mine, theirs = @games.partition { |g| user_signed_in? && current_user.owns?(g) } %>
-      <tr>
-        <td colspan="3">MY GAMES!</td>
-      </tr>
+      <div class="row">
+        <div class="game col-sm-5" data-game-id="<%= game.id %>">
+          <%= link_to game.title, game %>
+        </div>
+      </div>
 
-      <% mine.each do |game| %>
-        <tr>
-          <td><strong><%= link_to game.title, game_path(game) %></strong></td>
-          <td>
-            <%= check_box_tag "games[]", game.id, false, class: "js-add-game-to-playlist" %>
-          </td>
-        </tr>
-      <% end %>
-
-      <tr><td colspan="3">&nbsp;</td></tr>
-      <tr>
-        <td colspan="3">EVERYONE ELSE'S GAMES!</td>
-      </tr>
-
-      <% theirs.each do |game| %>
-        <tr>
-          <td><strong><%= link_to game.title, game_path(game) %></strong></td>
-          <td>
-            <%= check_box_tag "games[]", game.id, false, class: "js-add-game-to-playlist" %>
-          </td>
-        </tr>
-      <% end %>
-
-    </tbody>
-  </table>
+    <% end %>
+  </div>
 
   <% if user_signed_in? %>
-    <p>
-      <%= hidden_field_tag "authenticity_token", form_authenticity_token %>
-      
-      Add selected to:
-      <%= select_tag "target_id", options_for_select(current_user.playlists.map { |p| [p.title, "pl-#{p.id}"] }) %>
 
-      <input type="submit" value="add 'em" class="btn js-add-games-button">
-    </p>
+    <div class="dragem col-lg-3">
+      drag 'em →
+    </div>
+
+    <div class="playlist-list col-lg-4">
+      <h3>my playlists</h3>
+      <%= render partial: "shared/playlist_list", locals: { playlists: current_user.playlists } %>
+    </div>
   <% end %>
 
-</form>
-
-
+</div>

@@ -10,10 +10,6 @@
 
     <% mine, theirs = @arcade_machines.partition { |am| user_signed_in? && current_user.owns?(am) } %>
 
-    <tr>
-      <td colspan="3">MY WINNITRONS!</td>
-    </tr>
-
     <% mine.each do |arcade_machine| %>
       <tr>
         <td><strong><%= link_to arcade_machine.name, arcade_machine_path(arcade_machine) %></strong></td>
@@ -21,11 +17,7 @@
       </tr>
     <% end %>
 
-
     <tr><td colspan="3">&nbsp;</td></tr>
-    <tr>
-      <td colspan="3">EVERYONE ELSE'S WINNITRONS!</td>
-    </tr>
 
     <% theirs.each do |arcade_machine| %>
       <tr>
