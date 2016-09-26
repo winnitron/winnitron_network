@@ -16,6 +16,7 @@ class Game < ActiveRecord::Base
   has_many :listings, dependent: :destroy
   has_many :playlists, through: :listings
 
+  has_many :links, as: :parent
 
   def download_url
     return nil if zipfile_key.blank?
