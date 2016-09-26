@@ -1,7 +1,14 @@
 class Game < ActiveRecord::Base
   acts_as_taggable
-  
+
+  before_validation :strip_whitespace
+  before_validation :default_player_counts
+
   validates :title, presence: true, uniqueness: true
+
+  validate :min_lt_max
+  validates :min_players, numericality: { only_integer: true, greater_than: 0 }
+  validates :max_players, numericality: { only_integer: true, greater_than: 0 }
 
   has_many :game_ownerships, dependent: :destroy
   has_many :users, through: :game_ownerships
@@ -9,7 +16,6 @@ class Game < ActiveRecord::Base
   has_many :listings, dependent: :destroy
   has_many :playlists, through: :listings
 
-  before_validation :strip_whitespace
 
   def download_url
     return nil if zipfile_key.blank?
@@ -21,5 +27,16 @@ class Game < ActiveRecord::Base
 
   def strip_whitespace
     self.title.to_s.strip!
+  end
+
+  def default_player_counts
+    self.min_players ||= 1
+    self.max_players ||= [min_players, 1].max
+  end
+
+  def min_lt_max
+    if max_players && min_players > max_players
+      errors.add(:max_players, "must be greater than minimum players")
+    end
   end
 end
