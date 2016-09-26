@@ -9,7 +9,17 @@ class ArcadeMachine < ActiveRecord::Base
 
   has_many :api_keys, dependent: :destroy
 
+  after_create :subscribe_to_defaults
+
   def subscribed?(playlist)
     playlists.include?(playlist)
+  end
+
+  private
+
+  def subscribe_to_defaults
+    Playlist.defaults.each do |playlist|
+      subscriptions.create playlist: playlist
+    end
   end
 end
