@@ -52,7 +52,7 @@ class GamesController < ApplicationController
 
   def destroy
     @game.destroy
-    
+
     respond_to do |format|
       format.html { redirect_to games_url, notice: 'Game was successfully destroyed.' }
       format.json { head :no_content }
@@ -70,6 +70,7 @@ class GamesController < ApplicationController
   end
 
   def game_params
-    params.fetch(:game, {}).permit(:title, :description, :zipfile_key, :tag_list, :website)
+    params.fetch(:game, {}).permit(:title, :description, :zipfile_key,
+                                   :min_players, :max_players, :tag_list, :website)
   end
 end

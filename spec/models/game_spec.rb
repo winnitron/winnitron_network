@@ -17,8 +17,8 @@ RSpec.describe Game, type: :model do
 
     it "requires max >= min" do
       game = Game.new(min_players: 5, max_players: 2)
-      expect(game).to_not be_valid?
-      expect(game.errors[:max_players].count).to_not be_empty
+      expect(game).to_not be_valid
+      expect(game.errors[:max_players]).to_not be_empty
     end
 
   end

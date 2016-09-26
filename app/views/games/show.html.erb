@@ -6,6 +6,15 @@
 <% if @game.website %>
   <p>Website: <%= link_to @game.website, @game.website %></p>
 <% end %>
+<p>
+  <%=
+    if @game.min_players == @game.max_players
+      pluralize(@game.min_players, "player")
+    else
+      "#{@game.min_players}-#{@game.max_players} players"
+    end
+  %>
+</p>
 <p><%= @game.tag_list.join(", ") %></p>
 
 
