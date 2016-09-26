@@ -21,7 +21,22 @@
       <%= f.url_field :website, class: "form-control" %>
     </div>
   </div>
-  
+
+
+  <div class="form-group">
+    <%= f.label :min_players, class: "col-sm-3 control-label" %>
+    <div class="col-sm-2">
+      <%= f.number_field :min_players, class: "form-control", required: true %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :max_players, class: "col-sm-3 control-label" %>
+    <div class="col-sm-2">
+      <%= f.number_field :max_players, class: "form-control" %>
+    </div>
+  </div>
+
   <div class="form-group">
     <label class="col-sm-3 control-label">Tags</label>
     <div class="col-sm-9">

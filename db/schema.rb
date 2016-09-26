@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160813204729) do
+ActiveRecord::Schema.define(version: 20160926033137) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,8 @@ ActiveRecord::Schema.define(version: 20160813204729) do
     t.string   "zipfile_key"
     t.datetime "zipfile_last_modified"
     t.string   "website"
+    t.integer  "min_players"
+    t.integer  "max_players"
   end
 
   create_table "listings", force: :cascade do |t|
