@@ -3,9 +3,6 @@
 <div class="well"><%= simple_format(@game.description) %></div>
 
 <p>Added by <%= link_to @game.users.first.name, @game.users.first %></p>
-<% if @game.website %>
-  <p>Website: <%= link_to @game.website, @game.website %></p>
-<% end %>
 <p>
   <%=
     if @game.min_players == @game.max_players

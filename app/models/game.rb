@@ -18,6 +18,9 @@ class Game < ActiveRecord::Base
 
   has_many :links, as: :parent
 
+  accepts_nested_attributes_for :links, allow_destroy: true,
+                                        reject_if: proc { |attrs| attrs["url"].blank? }
+
   def download_url
     return nil if zipfile_key.blank?
     object = Aws::S3::Object.new(bucket_name: ENV["AWS_BUCKET"], key: zipfile_key)

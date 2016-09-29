@@ -65,6 +65,8 @@
     });
 
 
+    $(".add_nested_fields_link").click();
+
   });
 
 
