@@ -19,7 +19,7 @@
     <div class="form-group">
       <label class="col-sm-3 control-label">Link</label>
       <div class="col-sm-3">
-        <%= lf.collection_select :link_type, Link::TYPES, :to_s, :to_s, {}, class: "form-control" %>
+        <%= lf.collection_select :link_type, Link::TYPES + Game::CUSTOM_LINK_TYPES, :to_s, :to_s, {}, class: "form-control" %>
       </div>
       <div class="col-sm-5">
         <%= lf.text_field :url, class: "form-control" %>

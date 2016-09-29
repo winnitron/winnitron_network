@@ -1,4 +1,6 @@
 class Game < ActiveRecord::Base
+  CUSTOM_LINK_TYPES = ["Itch.io"]
+
   acts_as_taggable
 
   before_validation :strip_whitespace

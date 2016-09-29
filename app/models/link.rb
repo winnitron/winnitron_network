@@ -1,5 +1,5 @@
 class Link < ActiveRecord::Base
-  TYPES = ["Website", "Twitter", "Itch.io", "Something Else"]
+  TYPES = ["Website", "Twitter", "Something Else"]
 
   belongs_to :parent, polymorphic: true
 
