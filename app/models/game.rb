@@ -1,4 +1,6 @@
 class Game < ActiveRecord::Base
+  CUSTOM_LINK_TYPES = ["Itch.io"]
+
   acts_as_taggable
 
   before_validation :strip_whitespace
@@ -16,6 +18,10 @@ class Game < ActiveRecord::Base
   has_many :listings, dependent: :destroy
   has_many :playlists, through: :listings
 
+  has_many :links, as: :parent
+
+  accepts_nested_attributes_for :links, allow_destroy: true,
+                                        reject_if: proc { |attrs| attrs["url"].blank? }
 
   def download_url
     return nil if zipfile_key.blank?

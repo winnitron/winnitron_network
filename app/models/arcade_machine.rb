@@ -8,8 +8,12 @@ class ArcadeMachine < ActiveRecord::Base
   has_many :playlists, through: :subscriptions
 
   has_many :api_keys, dependent: :destroy
+  has_many :links, as: :parent
 
   after_create :subscribe_to_defaults
+
+  accepts_nested_attributes_for :links, allow_destroy: true,
+                                        reject_if: proc { |attrs| attrs["url"].blank? }
 
   def subscribed?(playlist)
     playlists.include?(playlist)
