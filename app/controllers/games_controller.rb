@@ -71,6 +71,7 @@ class GamesController < ApplicationController
 
   def game_params
     params.fetch(:game, {}).permit(:title, :description, :zipfile_key,
-                                   :min_players, :max_players, :tag_list, :website)
+                                   :min_players, :max_players, :tag_list,
+                                   links_attributes: [:id, :link_type, :url, :_destroy])
   end
 end

@@ -16,6 +16,7 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'twitter-bootstrap-rails', '~> 3.2.0'
 gem 'bootstrap-tagsinput-rails'
+gem 'nested_form_fields'
 
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc',     '~> 0.4.0', group: :doc

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160926033137) do
+ActiveRecord::Schema.define(version: 20160926042226) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,10 +51,20 @@ ActiveRecord::Schema.define(version: 20160926033137) do
     t.datetime "updated_at",            null: false
     t.string   "zipfile_key"
     t.datetime "zipfile_last_modified"
-    t.string   "website"
     t.integer  "min_players"
     t.integer  "max_players"
   end
+
+  create_table "links", force: :cascade do |t|
+    t.integer  "parent_id"
+    t.string   "parent_type"
+    t.string   "url"
+    t.string   "link_type"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "links", ["parent_type", "parent_id"], name: "index_links_on_parent_type_and_parent_id", using: :btree
 
   create_table "listings", force: :cascade do |t|
     t.integer  "game_id"
