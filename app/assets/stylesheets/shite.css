@@ -75,3 +75,8 @@ a.collapse-arrow:focus {
 .winnitron-list .winnitron .the-playlists {
   display: none;
 }
+
+.third-party-auth {
+	margin-left:-10px;
+	margin-bottom:10px;
+}
