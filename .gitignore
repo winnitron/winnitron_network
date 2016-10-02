@@ -15,3 +15,6 @@
 # Ignore application configuration
 /config/application.yml
 coverage
+
+# Ignore database.yml file
+/config/database.yml
