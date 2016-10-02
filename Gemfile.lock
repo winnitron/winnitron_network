@@ -66,7 +66,7 @@ GEM
     commonjs (0.2.7)
     concurrent-ruby (1.0.2)
     debug_inspector (0.0.2)
-    devise (4.1.1)
+    devise (4.2.0)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 4.1.0, < 5.1)
@@ -186,7 +186,7 @@ GEM
     rdoc (4.2.2)
       json (~> 1.4)
     ref (2.0.0)
-    responders (2.2.0)
+    responders (2.3.0)
       railties (>= 4.2.0, < 5.1)
     rspec-core (3.4.4)
       rspec-support (~> 3.4.0)
@@ -265,7 +265,7 @@ DEPENDENCIES
   aws-sdk (~> 2.3.14)
   better_errors
   bootstrap-tagsinput-rails
-  devise (~> 4.1.1)
+  devise (~> 4.2.0)
   factory_girl_rails (~> 4.7.0)
   faker
   figaro
@@ -297,4 +297,4 @@ RUBY VERSION
    ruby 2.3.0p0
 
 BUNDLED WITH
-   1.12.5
+   1.13.2
