@@ -75,3 +75,18 @@ a.collapse-arrow:focus {
 .winnitron-list .winnitron .the-playlists {
   display: none;
 }
+
+.third-party-auth {
+  margin-left: -10px;
+  margin-bottom: 10px;
+}
+
+.third-party-auth a {
+  margin-right: 10px;
+}
+
+.third-party-auth a.facebook {
+  background-color: #3b5998;
+  border-color: #1B3469;
+  color: white;
+}

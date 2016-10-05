@@ -22,6 +22,9 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc',     '~> 0.4.0', group: :doc
 
 gem 'devise',  '~> 4.1.1'
+gem 'omniauth'
+gem 'omniauth-github'
+gem 'omniauth-facebook'
 gem 'rails_12factor'
 gem 'figaro'
 gem 'aws-sdk', '~> 2.3.14'
