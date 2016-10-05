@@ -1,5 +1,7 @@
 # The Winnitron Network - *Reborn!*
 
+[![Build Status](https://travis-ci.org/winnitron/winnitron_reborn.svg?branch=travis)](https://travis-ci.org/winnitron/winnitron_reborn)
+
 ![Born Again](https://i.imgur.com/7T5mkXs.png)
 
 The Winnitron Network is [going to be] a library of developer-submitted games that you can select and download to be played on your [Winnitron](http://winnitron.com).
