@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :configure_permitted_parameters, if: :devise_controller?
+  rescue_from ActiveRecord::RecordNotFound, with: :render_404
+  rescue_from ActiveSupport::MessageVerifier::InvalidSignature, with: :render_500
 
   protected
 
@@ -18,5 +20,13 @@ class ApplicationController < ActionController::Base
     else
       head :forbidden
     end
+  end
+
+  def render_404
+    render file: 'public/404.html', status: 404, layout: false
+  end
+
+  def render_500
+    render file: 'public/500.html', status: 500, layout: false
   end
 end
