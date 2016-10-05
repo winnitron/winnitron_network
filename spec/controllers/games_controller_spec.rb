@@ -39,16 +39,15 @@ RSpec.describe GamesController, type: :controller do
 
     context "it doesn't exist" do
       it "404's" do
-        expect {
-          get :show, id: 321
-        }.to raise_error(ActiveRecord::RecordNotFound)
+        get :show, id: 321
+        expect(response).to have_http_status 404
       end
     end
 
   end
 
   describe "GET new" do
-    
+
     context "current user is admin" do
       before :each do
         sign_in admin
@@ -63,7 +62,7 @@ RSpec.describe GamesController, type: :controller do
 
   describe "GET edit" do
     let(:game) { FactoryGirl.create(:game) }
-    
+
     context "current user is admin" do
       before :each do
         sign_in admin
