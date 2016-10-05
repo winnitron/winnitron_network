@@ -12,3 +12,5 @@ env:
     - AWS_ACCESS_KEY_ID=abc123
     - AWS_SECRET_ACCESS_KEY=same_as_my_luggage
     - AWS_REGION="delta-quadrant-2"
+notifications:
+  email: false
