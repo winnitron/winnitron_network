@@ -21,7 +21,7 @@ gem 'nested_form_fields'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc',     '~> 0.4.0', group: :doc
 
-gem 'devise',  '~> 4.1.1'
+gem 'devise',  '~> 4.2.0'
 gem 'omniauth'
 gem 'omniauth-github'
 gem 'omniauth-facebook'
