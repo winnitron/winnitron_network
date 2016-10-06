@@ -19,8 +19,11 @@ class User < ActiveRecord::Base
   before_validation :clean_twitter_username
 
   def owns?(item)
-    return arcade_machines.include?(item) if item.is_a?(ArcadeMachine)
-    return games.include?(item) if item.is_a?(Game)
+    ownable = [ArcadeMachine, Playlist, Game]
+    raise ArgumentError, "#{item.class} is not ownable" if !ownable.include?(item.class)
+
+    assoc = item.class.to_s.underscore.pluralize # eff you, demeter
+    self.public_send(assoc.to_sym).include?(item)
   end
 
   def self.from_omniauth(auth)
