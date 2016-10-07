@@ -12,7 +12,7 @@
       <%= render partial: "shared/playlist_list", locals: { playlists: current_user.playlists } %>
       <p>&nbsp;</p>
     <% end %>
-    <%= render partial: "shared/playlist_list", locals: { playlists: (@playlists - current_user.playlists) } %>
+    <%= render partial: "shared/playlist_list", locals: { playlists: (@playlists - (current_user&.playlists || [])) } %>
   </div>
 
 
