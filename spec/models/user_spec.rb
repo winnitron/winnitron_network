@@ -16,5 +16,10 @@ RSpec.describe User, type: :model do
       expect(user.owns?(theirs)).to be_falsey
     end
 
+    it "fails if the object is not ownable" do
+      expect {
+        user.owns?(String.new)
+      }.to raise_error(ArgumentError)
+    end
   end
 end
