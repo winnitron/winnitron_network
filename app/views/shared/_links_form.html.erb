@@ -1,0 +1,22 @@
+<% additional_link_types ||= [] %>
+
+<%= f.nested_fields_for :links do |lf| %>
+  <div class="form-group">
+    <label class="col-sm-3 control-label">Link</label>
+    <div class="col-sm-3">
+      <%= lf.collection_select :link_type, Link::TYPES + additional_link_types , :to_s, :to_s, {}, class: "form-control" %>
+    </div>
+    <div class="col-sm-5">
+      <%= lf.text_field :url, class: "form-control" %>
+    </div>
+    <div class="col-sm-1">
+      <%= lf.remove_nested_fields_link %>
+    </div>
+  </div>
+<% end %>
+<div class="row">
+  <div class="col-sm-3"></div>
+  <div class="col-sm-2 pull-right">
+    <%= f.add_nested_fields_link :links, "Add another link" %>
+  </div>
+</div>

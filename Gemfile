@@ -16,7 +16,10 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'twitter-bootstrap-rails', '~> 3.2.0'
 gem 'bootstrap-tagsinput-rails'
-gem 'nested_form_fields'
+
+# Referencing my fork until my PR with a bugfix gets merged.
+gem 'nested_form_fields', git: "https://github.com/aaronklaassen/nested_form_fields.git", ref: "5ebe908534971fbd4af0cf6f633aed8fedbf0b5a"
+gem 'nokogiri', '1.6.8'
 
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc',     '~> 0.4.0', group: :doc

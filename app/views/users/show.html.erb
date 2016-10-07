@@ -3,10 +3,6 @@
 <%= image_tag @user.gravatar_url %>
 
 <p>
-  <% if @user.twitter_username %>
-    <%= link_to "@#{@user.twitter_username}", "https://twitter.com/#{@user.twitter_username}" %>
-  <% end %>
-
   <% if @user.website %>
     <br>
     <%= link_to @user.website, @user.website %>

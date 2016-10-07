@@ -17,19 +17,7 @@
     </div>
   </div>
 
-  <div class="form-group">
-    <%= f.label :website, class: "col-sm-3 control-label" %>
-    <div class="col-sm-9">
-      <%= f.url_field :website, class: "form-control" %>
-    </div>
-  </div>
-
-  <div class="form-group">
-    <label class="col-sm-3 control-label">Twitter</label>
-    <div class="col-sm-9">
-      <%= f.text_field :twitter_username, class: "form-control" %>
-    </div>
-  </div>
+  <%= render "shared/links_form", f: f %>
 
   <div class="well">
     <div class="form-group">
