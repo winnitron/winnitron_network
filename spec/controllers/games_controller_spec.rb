@@ -196,5 +196,15 @@ RSpec.describe GamesController, type: :controller do
 
   end
 
+  describe "#zipfile_callback" do
+    pending
+  end
+
+  describe "#image_callback" do
+    pending
+  end
+
+
+
 
 end

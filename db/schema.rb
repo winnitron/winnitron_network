@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161007015910) do
+ActiveRecord::Schema.define(version: 20161024194234) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,17 @@ ActiveRecord::Schema.define(version: 20161007015910) do
     t.integer  "min_players"
     t.integer  "max_players"
   end
+
+  create_table "images", force: :cascade do |t|
+    t.integer  "parent_id"
+    t.string   "parent_type"
+    t.string   "file_key"
+    t.datetime "file_last_modified"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
+  add_index "images", ["parent_type", "parent_id"], name: "index_images_on_parent_type_and_parent_id", using: :btree
 
   create_table "links", force: :cascade do |t|
     t.integer  "parent_id"

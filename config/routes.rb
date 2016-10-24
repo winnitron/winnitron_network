@@ -2,8 +2,9 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => { :omniauth_callbacks => "callbacks" }
 
   resources :games do
-    member do 
-      post :s3_callback
+    member do
+      post :zipfile_callback
+      post :image_callback
     end
   end
 

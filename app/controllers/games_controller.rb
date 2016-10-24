@@ -1,7 +1,7 @@
 class GamesController < ApplicationController
-  before_action :set_game, only: [:show, :edit, :update, :destroy, :s3_callback]
+  before_action :set_game, except: [:index, :new, :create]
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :permission_check!, only: [:edit, :update, :destroy, :s3_callback]
+  before_action :permission_check!, only: [:edit, :update, :destroy, :zipfile_callback]
 
   def index
     @games = Game.all
@@ -17,9 +17,15 @@ class GamesController < ApplicationController
   def edit
   end
 
-  def s3_callback
+  def zipfile_callback
     @game.update zipfile_key: "games/#{@game.id}-#{params[:filename]}",
                  zipfile_last_modified: Time.parse(params[:lastModifiedDate])
+    render nothing: true
+  end
+
+  def image_callback
+    @game.images.create! file_key: "games/#{@game.id}-image-#{params[:filename]}",
+                         file_last_modified: Time.parse(params[:lastModifiedDate])
     render nothing: true
   end
 
