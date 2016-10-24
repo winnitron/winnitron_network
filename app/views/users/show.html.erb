@@ -2,12 +2,11 @@
 
 <%= image_tag @user.gravatar_url %>
 
-<p>
-  <% if @user.website %>
-    <br>
-    <%= link_to @user.website, @user.website %>
+<ul>
+  <% @user.links.each do |link| %>
+    <li><%= link.link_type %>: <%= link_to link.url, link.url %></li>
   <% end %>
-</p>
+</ul>
 
 
 <strong>Games</strong>

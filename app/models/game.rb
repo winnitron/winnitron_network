@@ -1,5 +1,5 @@
 class Game < ActiveRecord::Base
-  CUSTOM_LINK_TYPES = ["Itch.io"]
+  CUSTOM_LINK_TYPES = ["Itch.io", "Trailer"]
 
   acts_as_taggable
 
