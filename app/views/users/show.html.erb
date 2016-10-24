@@ -2,16 +2,11 @@
 
 <%= image_tag @user.gravatar_url %>
 
-<p>
-  <% if @user.twitter_username %>
-    <%= link_to "@#{@user.twitter_username}", "https://twitter.com/#{@user.twitter_username}" %>
+<ul>
+  <% @user.links.each do |link| %>
+    <li><%= link.link_type %>: <%= link_to link.url, link.url %></li>
   <% end %>
-
-  <% if @user.website %>
-    <br>
-    <%= link_to @user.website, @user.website %>
-  <% end %>
-</p>
+</ul>
 
 
 <strong>Games</strong>

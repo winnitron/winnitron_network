@@ -8,7 +8,7 @@ class ArcadeMachine < ActiveRecord::Base
   has_many :playlists, through: :subscriptions
 
   has_many :api_keys, dependent: :destroy
-  has_many :links, as: :parent
+  has_many :links, as: :parent, dependent: :destroy
 
   after_create :subscribe_to_defaults
 

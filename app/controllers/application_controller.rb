@@ -11,7 +11,8 @@ class ApplicationController < ActionController::Base
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
-    devise_parameter_sanitizer.permit(:account_update, keys: [:twitter_username, :website])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:website,
+                                                              links_attributes: [:id, :link_type, :url, :_destroy]])
   end
 
   def require_admin_or_ownership!(object)

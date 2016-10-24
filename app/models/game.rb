@@ -1,5 +1,5 @@
 class Game < ActiveRecord::Base
-  CUSTOM_LINK_TYPES = ["Itch.io"]
+  CUSTOM_LINK_TYPES = ["Itch.io", "Trailer"]
 
   acts_as_taggable
 
@@ -18,7 +18,7 @@ class Game < ActiveRecord::Base
   has_many :listings, dependent: :destroy
   has_many :playlists, through: :listings
 
-  has_many :links, as: :parent
+  has_many :links, as: :parent, dependent: :destroy
 
   accepts_nested_attributes_for :links, allow_destroy: true,
                                         reject_if: proc { |attrs| attrs["url"].blank? }

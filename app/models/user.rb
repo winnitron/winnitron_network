@@ -15,8 +15,11 @@ class User < ActiveRecord::Base
   has_many :games, through: :game_ownerships
 
   has_many :playlists
+  has_many :links, as: :parent, dependent: :destroy
 
-  before_validation :clean_twitter_username
+  accepts_nested_attributes_for :links, allow_destroy: true,
+                                        reject_if: proc { |attrs| attrs["url"].blank? }
+
 
   def owns?(item)
     ownable = [ArcadeMachine, Playlist, Game]
@@ -39,9 +42,4 @@ class User < ActiveRecord::Base
     end
   end
 
-  private
-
-  def clean_twitter_username
-    (self.twitter_username || "").sub!("@", "")
-  end
 end
