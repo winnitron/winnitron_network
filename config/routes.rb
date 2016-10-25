@@ -1,12 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users, :controllers => { :omniauth_callbacks => "callbacks" }
 
-  resources :games do
-    member do
-      post :zipfile_callback
-      post :image_callback
-    end
-  end
+  resources :games
+  post "/games/:uuid/zipfile_callback", to: "game_zips#create", as: :create_zipfile
 
   resources :arcade_machines
   resources :playlists

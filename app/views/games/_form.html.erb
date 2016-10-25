@@ -38,23 +38,18 @@
     </div>
   </div>
 
-  <% if @game.persisted? %>
-    <div class="form-group">
-      <label class="col-sm-3 control-label">Zip file</label>
-      <div class="col-sm-9">
-        <pre class="js-filename"><%= (@game.zipfile_key || "").sub("games/", "") %></pre>
-        <% if @game.zipfile_last_modified %>
-          (Last modified <%= @game.zipfile_last_modified %>)
-        <% end %>
-      </div>
-
-    </div>
-  <% end %>
-
-
   <div class="actions form-group">
     <div class="col-sm-offset-3 col-sm-9">
-      <%= f.submit class: "btn btn-success" %>
+      <%= f.hidden_field :uuid %>
+      <%= f.submit "Save", class: "btn btn-success" %>
     </div>
   </div>
 <% end %>
+
+<div class="panel panel-default">
+  <div class="panel-heading">Media</div>
+  <div class="panel-body">
+    <p>pretty important lol</p>
+    <%= render "shared/uploader" %>
+  </div>
+</div>

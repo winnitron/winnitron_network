@@ -1,0 +1,34 @@
+<script>
+  $(function() {
+    $("#s3-exec-uploader").S3Uploader();
+
+    $("#s3-exec-uploader").bind("s3_upload_complete", function(e, content) {
+      $(".js-upload-status").html("Uploading " + content.filename + " complete!");
+      $(".js-upload-status").css("visibility", "visible");
+      $("pre.js-filename").html(content.filename);
+    });
+
+    $(".uploader input[type='file']").each(function(i, input) {
+      $(input).wrap("<div class='form-group'></div>");
+    });
+  });
+</script>
+
+<div class="uploader">
+  <label class="col-sm-3 control-label">Upload a new zip file:</label>
+  <%= s3_uploader_form id: "s3-exec-uploader",
+                       callback_url: create_zipfile_url(uuid: @game.uuid),
+                       key: "games/#{@game.uuid}-${filename}",
+                       key_starts_with: "games/" do %>
+    <%= file_field_tag :file %>
+  <% end %>
+
+  <div class="js-upload-status alert alert-success" style="visibility: hidden"></div>
+</div>
+
+<script id="template-upload" type="text/x-tmpl">
+  <div id="file-{%=o.unique_id%}" class="upload">
+    {%=o.name%}
+    <div class="progress"><div class="bar" style="width: 0%"></div></div>
+  </div>
+</script>

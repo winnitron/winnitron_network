@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161024194234) do
+ActiveRecord::Schema.define(version: 20161025022513) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,16 +44,29 @@ ActiveRecord::Schema.define(version: 20161024194234) do
   add_index "game_ownerships", ["game_id"], name: "index_game_ownerships_on_game_id", using: :btree
   add_index "game_ownerships", ["user_id"], name: "index_game_ownerships_on_user_id", using: :btree
 
+  create_table "game_zips", force: :cascade do |t|
+    t.integer  "game_id"
+    t.string   "game_uuid"
+    t.string   "file_key"
+    t.string   "file_last_modified"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.integer  "user_id"
+  end
+
+  add_index "game_zips", ["game_uuid"], name: "index_game_zips_on_game_uuid", using: :btree
+
   create_table "games", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
-    t.string   "zipfile_key"
-    t.datetime "zipfile_last_modified"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
     t.integer  "min_players"
     t.integer  "max_players"
+    t.string   "uuid"
   end
+
+  add_index "games", ["uuid"], name: "index_games_on_uuid", using: :btree
 
   create_table "images", force: :cascade do |t|
     t.integer  "parent_id"
