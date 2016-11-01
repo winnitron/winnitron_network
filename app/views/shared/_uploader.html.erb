@@ -1,0 +1,35 @@
+<%
+  form_id = SecureRandom.hex
+  value_html ||= ""
+%>
+
+<script>
+  $(function() {
+    $("#<%= form_id %>").S3Uploader();
+
+    $("#<%= form_id %>").bind("s3_upload_complete", function(e, content) {
+      $(".js-upload-status-<%= form_id %>").html("Uploading " + content.filename + " complete!");
+      $(".js-upload-status-<%= form_id %>").css("visibility", "visible");
+    });
+
+    $(".uploader input[type='file']").each(function(i, input) {
+      $(input).wrap("<div class='form-group'></div>");
+    });
+  });
+</script>
+
+<div class="uploader">
+  <label class="col-sm-4 control-label"><%= label %></label>
+  <%= s3_uploader_form({ id: form_id }.merge(form_options)) do %>
+    <%= file_field_tag :file %>
+  <% end %>
+  <div class="js-upload-status-<%= form_id %> alert alert-success" style="visibility: hidden"></div>
+  <%= value_html.html_safe %>
+</div>
+
+<script id="template-upload-<%= form_id %>" type="text/x-tmpl">
+  <div id="file-{%=o.unique_id%}" class="upload">
+    {%=o.name%}
+    <div class="progress"><div class="bar" style="width: 0%"></div></div>
+  </div>
+</script>

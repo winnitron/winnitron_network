@@ -1,33 +1,4 @@
-<% set_title "Editing #{@game.title}" %>
-<h1>Editing <em><%= @game.title %></em></h1>
+<% set_title @game.title %>
+<h1><em><%= @game.title %></em></h1>
 
-<div class="uploader">
-  <label class="col-sm-3 control-label">Upload a new zip file:</label>
-  <%= s3_uploader_form id: "s3-exec-uploader",
-                       callback_url: s3_callback_game_url(@game),
-                       key: "games/#{@game.id}-${filename}",
-                       key_starts_with: "games/" do %>
-    <%= file_field_tag :file %>
-  <% end %>
-
-  <div class="js-upload-status alert alert-success" style="visibility: hidden"></div>
-</div>
-
-<script id="template-upload" type="text/x-tmpl">
-  <div id="file-{%=o.unique_id%}" class="upload">
-    {%=o.name%}
-    <div class="progress"><div class="bar" style="width: 0%"></div></div>
-  </div>
-</script>
-
-<script>
-  $(function() {
-
-    $(".uploader input[type='file']").each(function(i, input) {
-      input.wrap("<div class='form-group'></div>");
-      input.addClass("form-control");
-    });
-  });
-</script>
-
-<%= render 'form' %>
+<%= render "form" %>

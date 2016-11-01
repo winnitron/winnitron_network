@@ -1,7 +1,7 @@
 class GamesController < ApplicationController
-  before_action :set_game, only: [:show, :edit, :update, :destroy, :s3_callback]
+  before_action :set_game, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :permission_check!, only: [:edit, :update, :destroy, :s3_callback]
+  before_action :permission_check!, only: [:edit, :update, :destroy, :zipfile_callback]
 
   def index
     @games = Game.all
@@ -11,15 +11,15 @@ class GamesController < ApplicationController
   end
 
   def new
-    @game = Game.new
+    @game = Game.new(uuid: SecureRandom.uuid)
   end
 
   def edit
   end
 
-  def s3_callback
-    @game.update zipfile_key: "games/#{@game.id}-#{params[:filename]}",
-                 zipfile_last_modified: Time.parse(params[:lastModifiedDate])
+  def image_callback
+    @game.images.create! file_key: "games/#{@game.id}-image-#{params[:filename]}",
+                         file_last_modified: Time.parse(params[:lastModifiedDate])
     render nothing: true
   end
 
@@ -70,7 +70,7 @@ class GamesController < ApplicationController
   end
 
   def game_params
-    params.fetch(:game, {}).permit(:title, :description, :zipfile_key,
+    params.fetch(:game, {}).permit(:title, :description, :uuid,
                                    :min_players, :max_players, :tag_list,
                                    links_attributes: [:id, :link_type, :url, :_destroy])
   end

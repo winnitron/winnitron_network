@@ -1,21 +1,46 @@
-<%= page_heading :h1, @game.title %>
+<div class="game">
+  <% if current_user&.admin? || current_user.owns?(@game) %>
+    <div class="pull-right">
+      <%= link_to "Edit", edit_game_path(@game) %>
+    </div>
+  <% end %>
 
-<div class="well"><%= simple_format(@game.description) %></div>
+  <%= page_heading :h1, @game.title %>
 
-<p>Added by <%= link_to @game.users.first.name, @game.users.first %></p>
-<p>
-  <%=
-    if @game.min_players == @game.max_players
-      pluralize(@game.min_players, "player")
-    else
-      "#{@game.min_players}-#{@game.max_players} players"
-    end
-  %>
-</p>
-<p><%= @game.tag_list.join(", ") %></p>
+  <div class="row well">
+    <p>
+      <%=
+        if @game.min_players == @game.max_players
+          pluralize(@game.min_players, "player")
+        else
+          "#{@game.min_players}-#{@game.max_players} players"
+        end
+      %>
+    </p>
+    <%= simple_format(@game.description) %>
+  </div>
 
+  <div class="row">
+    <% @game.links.each do |link| %>
+      <div class="link"><h4><%= link_to link.url, link.url %></h4></div>
+    <% end %>
+  </div>
 
+  <div class="row">
+    <% @game.images.each do |image| %>
+      <a href="<%= image.url %>" class="screenshot">
+        <img src="<%= image.url %>">
+      </a>
+    <% end %>
+  </div>
 
-<% if current_user&.admin? || current_user.owns?(@game) %>
-  <%= link_to "Edit", edit_game_path(@game) %>
-<% end %>
+  <div class="row">
+    <h4><%= @game.users.size > 1 ? "Owners" : "Owner" %></h4>
+    <%= render "shared/user_cards", users: @game.users %>
+  </div>
+
+  <div class="row">
+    <h4>Tags</h4>
+    <p><%= @game.tag_list.join(", ") %></p>
+  </div>
+</div>

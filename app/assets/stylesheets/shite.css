@@ -90,3 +90,70 @@ a.collapse-arrow:focus {
   border-color: #1B3469;
   color: white;
 }
+
+
+.game .screenshot {
+  width: 170px;
+  padding: 10px;
+  text-align: center;
+  float: left;
+  border: 5px solid white;
+}
+
+.game .screenshot:hover {
+  border: 5px solid #fafafa;
+}
+
+.game .screenshot img {
+  width: 140px;
+}
+
+
+.user-card,
+.game-card,
+.arcade-card {
+  width: 120px;
+  padding: 10px;
+  text-align: center;
+  float: left;
+}
+
+.user-card img,
+.game-card img,
+.arcade-card img {
+  width: 100px;
+  height: 100px;
+}
+
+.user-card a {
+  text-decoration: none;
+}
+
+.user .avatar {
+  width: 120px;
+  height: 120px;
+  margin-right: 10px;
+}
+
+.user .compliment {
+  font-style: italic;
+}
+
+table.table.hover tr:hover {
+  background-color: #fafafa;
+}
+
+.game-card {
+  position: relative;
+}
+
+.remove-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.remove-button a {
+  color: red;
+  text-decoration: none;
+}

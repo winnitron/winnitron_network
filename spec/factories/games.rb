@@ -2,13 +2,18 @@ FactoryGirl.define do
   factory :game do
     title       { Faker::Lorem.words(3).join(" ") }
     description { Faker::Lorem.sentence(2) }
-    zipfile_key { [Faker::Lorem.word, ".zip"].join }
-    zipfile_last_modified { Time.now }
+    uuid        SecureRandom.uuid
     min_players 1
     max_players 2
 
     after :create do |game|
-      GameOwnership.create game: game, user: FactoryGirl.create(:user)
+      owner =
+      GameOwnership.create game: game, user: owner
+
+      GameZip.create(game:     game,
+                     user:     FactoryGirl.create(:user),
+                     file_key: [Faker::Lorem.word, ".zip"].join,
+                     file_last_modified: Time.now)
     end
   end
 end
