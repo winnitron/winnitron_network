@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   resources :games
   post "/games/:uuid/zipfile_callback", to: "game_zips#create", as: :create_zipfile
+  post "/games/:uuid/image_callback", to: "images#create", as: :create_image
 
   resources :arcade_machines
   resources :playlists

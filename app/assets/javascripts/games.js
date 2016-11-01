@@ -2,6 +2,10 @@
 
   $(function() {
 
+    $("button.game-save").click(function(e) {
+      $("form.game").submit();
+    });
+
     $(".js-select-all").click(function(e) {
       e.preventDefault();
       $(".js-add-game-to-playlist").prop("checked", true);
