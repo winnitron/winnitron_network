@@ -1,40 +1,36 @@
-<%= page_heading :h1, @arcade_machine.name %>
-<p><%= @arcade_machine.location %></p>
-<p><%= @arcade_machine.description %></p>
-
-
-<p>
-  <strong>Those responsible</strong>
-  <ul>
-    <% @arcade_machine.users.each do |user| %>
-      <li><%= link_to user.name, user %></li>
-    <% end %>
-  </ul>
-</p>
-
-<% if user_signed_in? && (current_user.admin? || current_user.owns?(@arcade_machine)) %>
-  <p>
-    <strong>API Keys</strong>
-    <ul>
-      <% @arcade_machine.api_keys.each do |key| %>
-        <li><%= key.token %></li>
-      <% end %>
-    </ul>
-  </p>
-<% end %>
-
-<h2>Playlists</h2>
-
-<table class="table table-condensed">
-  <% @arcade_machine.playlists.each do |playlist| %>
-    <% subscription = Subscription.find_by(playlist: playlist, arcade_machine: @arcade_machine) %>
-    <tr>
-      <td><%= link_to playlist.title, playlist %></td>
-      <td><%= link_to "remove", subscription_path(subscription), method: :delete %></td>
-    </tr>
+<div class="arcade-machine">
+  <% if current_user&.admin? || current_user.owns?(@arcade_machine) %>
+    <%= link_to "Edit", edit_arcade_machine_path(@arcade_machine), class: "pull-right" %>
   <% end %>
-</table>
 
-<% if current_user&.admin? || current_user.owns?(@arcade_machine) %>
-  <%= link_to "Edit", edit_arcade_machine_path(@arcade_machine) %>
-<% end %>
+  <%= page_heading :h1, @arcade_machine.name %>
+  <div class="row well">
+    <p><%= @arcade_machine.location %></p>
+    <%= simple_format(@arcade_machine.description) %>
+  </div>
+
+  <% if current_user&.admin? || current_user.owns?(@arcade_machine) %>
+    <div class="row">
+      <h4>API Key</h4>
+      <pre><%= @arcade_machine.api_keys.first.token %></pre>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <h4>Those responsible</h4>
+    <%= render "shared/user_cards", users: @arcade_machine.users %>
+  </div>
+
+  <h3>Playlists</h3>
+
+  <table class="table table-condensed hover">
+    <% @arcade_machine.playlists.each do |playlist| %>
+      <% subscription = Subscription.find_by(playlist: playlist, arcade_machine: @arcade_machine) %>
+      <tr>
+        <td><%= link_to playlist.title, playlist %></td>
+        <td><%= link_to "unsubscribe", subscription_path(subscription), method: :delete %></td>
+      </tr>
+    <% end %>
+  </table>
+
+</div>

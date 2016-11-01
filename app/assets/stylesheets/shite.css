@@ -138,3 +138,7 @@ a.collapse-arrow:focus {
 .user .compliment {
   font-style: italic;
 }
+
+table.table.hover tr:hover {
+  background-color: #fafafa;
+}

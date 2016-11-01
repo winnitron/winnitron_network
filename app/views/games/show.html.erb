@@ -36,17 +36,9 @@
 
   <div class="row">
     <h4><%= @game.users.size > 1 ? "Owners" : "Owner" %></h4>
-    <% @game.users.each do |user| %>
-      <div class="user-card">
-        <a href="<%= user_url(user) %>">
-          <%= image_tag user.gravatar_url, class: "avatar" %>
-          <br>
-          <%= user.name %>
-        </a>
-      </div>
-    <% end %>
-    <div class="clearfix"></div>
+    <%= render "shared/user_cards", users: @game.users %>
   </div>
+
   <div class="row">
     <h4>Tags</h4>
     <p><%= @game.tag_list.join(", ") %></p>
