@@ -142,3 +142,18 @@ a.collapse-arrow:focus {
 table.table.hover tr:hover {
   background-color: #fafafa;
 }
+
+.game-card {
+  position: relative;
+}
+
+.remove-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.remove-button a {
+  color: red;
+  text-decoration: none;
+}

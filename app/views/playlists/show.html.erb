@@ -1,15 +1,38 @@
-<%= page_heading :h1, @playlist.title %>
-
-<table class="table table-condensed">
-  <% @playlist.games.each do |game| %>
-    <% listing = Listing.find_by(game: game, playlist: @playlist) %>
-    <tr>
-      <td><%= link_to game.title, game %></td>
-      <td><%= link_to "remove", listing_path(listing), method: :delete %></td>
-    </tr>
+<div class="playlist">
+  <% if current_user&.admin? || current_user.owns?(@playlist) %>
+    <div class="pull-right">
+      <%= link_to "Edit", edit_playlist_path(@playlist) %>
+    </div>
   <% end %>
-</table>
- 
-<% if current_user&.admin? || current_user == @playlist.user %>
-  <%= link_to "Edit", edit_playlist_path(@playlist) %>
-<% end %>
+
+  <%= page_heading :h1, @playlist.title %>
+
+  <div class="row">
+    <h4>Creator</h4>
+    <%= render "shared/user_cards", users: [@playlist.user] %>
+  </div>
+
+  <div class="row">
+    <h4>Games</h4>
+    <% @playlist.games.each do |game| %>
+      <% listing = Listing.find_by(game: game, playlist: @playlist) %>
+
+      <div class="game-card">
+        <a href="<%= game_url(game) %>">
+          <% screenshot_url = game.images.first&.url || asset_url("rocket-ship") %>
+          <%= image_tag screenshot_url %>
+          <br>
+          <%= game.title %>
+        </a>
+
+        <% if current_user&.admin? || current_user.owns?(@playlist) %>
+          <span class="remove-button">
+            <%= link_to "X", listing_path(listing), method: :delete, title: "remove from playlist" %>
+          </span>
+        <% end %>
+
+      </div>
+    <% end %>
+  </div>
+
+</div>
