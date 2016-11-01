@@ -1,24 +1,52 @@
-<%= page_heading :h1, @user.name %>
+<div class="user">
+  <div class="row">
+    <%= image_tag @user.gravatar_url, class: "avatar pull-left" %>
+    <%= page_heading :h1, @user.name %>
+    <%= render "compliment" %>
+  </div>
 
-<%= image_tag @user.gravatar_url %>
+  <div class="row">
+    <% @user.links.each do |link| %>
+      <div class="link"><h4><%= link_to link.url, link.url %></h4></div>
+    <% end %>
+  </div>
 
-<ul>
-  <% @user.links.each do |link| %>
-    <li><%= link.link_type %>: <%= link_to link.url, link.url %></li>
-  <% end %>
-</ul>
+  <div class="row">
 
 
-<strong>Games</strong>
-<ul>
-  <% @user.games.each do |game| %>
-    <li><%= link_to game.title, game %></li>
-  <% end %>
-</ul>
+    <% if @user.games.any? %>
+      <div class="col-sm-6">
+        <h4>Games</h4>
+        <% @user.games.each do |game| %>
+          <div class="game-card">
+            <a href="<%= game_url(game) %>">
+              <% screenshot_url = game.images.first&.url || asset_url("rocket-ship") %>
+              <%= image_tag screenshot_url %>
+              <br>
+              <%= game.title %>
+            </a>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
 
-<strong>Winnitrons</strong>
-<ul>
-  <% @user.arcade_machines.each do |machine| %>
-    <li><%= link_to machine.name, machine %></li>
-  <% end %>
-</ul>
+
+    <div class="col-sm-6">
+      <h4>Winnitrons</h4>
+      <% @user.arcade_machines.each do |machine| %>
+        <div class="arcade-card">
+          <a href="<%= arcade_machine_url(machine) %>">
+            <%= image_tag asset_url("game-console") %>
+            <br>
+            <%= machine.name %>
+          </a>
+        </div>
+      <% end %>
+    </div>
+
+  </div>
+
+
+
+
+</div>
