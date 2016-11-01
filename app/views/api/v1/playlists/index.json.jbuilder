@@ -12,7 +12,7 @@ json.playlists do
         json.max_players   game.max_players
         json.description   game.description
         json.download_url  game.download_url
-        json.last_modified game.zipfile_last_modified.iso8601
+        json.last_modified game.current_zip.file_last_modified.iso8601
       end
     end
 

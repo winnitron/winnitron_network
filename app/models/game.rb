@@ -30,9 +30,12 @@ class Game < ActiveRecord::Base
 
   def download_url
     return nil if game_zips.empty?
-    zip = game_zips.order(file_last_modified: :desc).first
-    object = Aws::S3::Object.new(bucket_name: ENV["AWS_BUCKET"], key: zip.file_key)
+    object = Aws::S3::Object.new(bucket_name: ENV["AWS_BUCKET"], key: current_zip.file_key)
     object.presigned_url(:get, expires_in: 1.hour)
+  end
+
+  def current_zip
+    game_zips.reorder(file_last_modified: :desc).first
   end
 
   private
