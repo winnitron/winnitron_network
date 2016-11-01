@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161025022513) do
+ActiveRecord::Schema.define(version: 20161025220520) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,9 +75,13 @@ ActiveRecord::Schema.define(version: 20161025022513) do
     t.datetime "file_last_modified"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
+    t.string   "uuid"
+    t.integer  "user_id"
   end
 
   add_index "images", ["parent_type", "parent_id"], name: "index_images_on_parent_type_and_parent_id", using: :btree
+  add_index "images", ["user_id"], name: "index_images_on_user_id", using: :btree
+  add_index "images", ["uuid"], name: "index_images_on_uuid", using: :btree
 
   create_table "links", force: :cascade do |t|
     t.integer  "parent_id"
