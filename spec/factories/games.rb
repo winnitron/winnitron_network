@@ -7,7 +7,7 @@ FactoryGirl.define do
     max_players 2
 
     after :create do |game|
-      owner =
+      owner = FactoryGirl.create(:user)
       GameOwnership.create game: game, user: owner
 
       GameZip.create(game:     game,
