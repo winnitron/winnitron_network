@@ -17,6 +17,14 @@
   <% end %>
 
   <div class="row">
+    <% @arcade_machine.images.each do |image| %>
+      <a href="<%= image.url %>" class="screenshot">
+        <img src="<%= image.url %>">
+      </a>
+    <% end %>
+  </div>
+
+  <div class="row">
     <h4>Those responsible</h4>
     <%= render "shared/user_cards", users: @arcade_machine.users %>
   </div>

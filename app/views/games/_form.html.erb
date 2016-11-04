@@ -61,8 +61,9 @@
             label: "Upload an image:",
             form_options: { callback_url: create_image_url(uuid: @game.uuid),
                             key: "games/#{@game.uuid}-image-${filename}",
-                            key_starts_with: "games/" }
-
+                            key_starts_with: "games/",
+                          },
+            additional_data: { parent_type: "game" }
         %>
       </div>
     </div>

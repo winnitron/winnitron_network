@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161101231703) do
+ActiveRecord::Schema.define(version: 20161104033008) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,7 +32,10 @@ ActiveRecord::Schema.define(version: 20161101231703) do
     t.string   "location"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.string   "uuid"
   end
+
+  add_index "arcade_machines", ["uuid"], name: "index_arcade_machines_on_uuid", using: :btree
 
   create_table "game_ownerships", force: :cascade do |t|
     t.integer  "user_id"
@@ -75,12 +78,12 @@ ActiveRecord::Schema.define(version: 20161101231703) do
     t.datetime "file_last_modified"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
-    t.string   "game_uuid"
+    t.string   "parent_uuid"
     t.integer  "user_id"
   end
 
-  add_index "images", ["game_uuid"], name: "index_images_on_game_uuid", using: :btree
   add_index "images", ["parent_type", "parent_id"], name: "index_images_on_parent_type_and_parent_id", using: :btree
+  add_index "images", ["parent_uuid"], name: "index_images_on_parent_uuid", using: :btree
   add_index "images", ["user_id"], name: "index_images_on_user_id", using: :btree
 
   create_table "links", force: :cascade do |t|

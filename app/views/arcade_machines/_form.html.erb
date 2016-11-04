@@ -1,4 +1,4 @@
-<%= form_for(@arcade_machine, html: { class: "form form-horizontal" }) do |f| %>
+<%= form_for(@arcade_machine, html: { class: "machine form form-horizontal" }) do |f| %>
   <%= render "shared/errors", object: @arcade_machine %>
 
   <div class="form-group">
@@ -24,9 +24,21 @@
 
   <%= render "shared/links_form", f: f %>
 
-  <div class="actions form-group">
-    <div class="col-sm-offset-3 col-sm-9">
-      <%= f.submit "Save Winnitron", class: "btn btn-success" %>
-    </div>
-  </div>
 <% end %>
+
+<%=
+  render "shared/uploader",
+    label: "Upload an image:",
+    form_options: { callback_url: create_image_url(uuid: @arcade_machine.uuid),
+                    key: "arcade_machines/#{@arcade_machine.uuid}-image-${filename}",
+                    key_starts_with: "arcade_machines/"
+                  },
+    additional_data: { parent_type: "arcade_machine" }
+%>
+
+
+<div class="actions form-group">
+  <div class="col-sm-offset-3 col-sm-9">
+    <%= button_tag "Save Winnitron", class: "machine-save btn btn-success" %>
+  </div>
+</div>
