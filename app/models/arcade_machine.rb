@@ -1,4 +1,6 @@
 class ArcadeMachine < ActiveRecord::Base
+  include HasImages
+
   validates :name, presence: true
 
   has_many :machine_ownerships, dependent: :destroy

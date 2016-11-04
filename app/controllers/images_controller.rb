@@ -5,7 +5,7 @@ class ImagesController < ApplicationController
 
   def create
     folder = params[:parent_type].pluralize
-    Image.create!(game_uuid: @parent.uuid,
+    Image.create!(parent_uuid: @parent.uuid,
                   user: current_user,
                   file_key: "#{folder}/#{@parent.uuid}-image-#{params[:filename]}",
                   file_last_modified: Time.parse(params[:lastModifiedDate]))
@@ -16,7 +16,7 @@ class ImagesController < ApplicationController
   private
 
   def set_parent
-    parent_types = ["game"]
+    parent_types = ["game", "arcade_machine"]
     raise ArgumentError, "Invalid parent_type: #{params[:parent_type]}" if !parent_types.include?(params[:parent_type])
 
     klass = params[:parent_type].camelize.constantize

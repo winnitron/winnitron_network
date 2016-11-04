@@ -32,7 +32,10 @@ ActiveRecord::Schema.define(version: 20161104033008) do
     t.string   "location"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.string   "uuid"
   end
+
+  add_index "arcade_machines", ["uuid"], name: "index_arcade_machines_on_uuid", using: :btree
 
   create_table "game_ownerships", force: :cascade do |t|
     t.integer  "user_id"

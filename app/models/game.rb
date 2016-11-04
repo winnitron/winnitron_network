@@ -1,4 +1,6 @@
 class Game < ActiveRecord::Base
+  include HasImages
+
   CUSTOM_LINK_TYPES = ["Itch.io", "Trailer"]
 
   acts_as_taggable
@@ -6,7 +8,6 @@ class Game < ActiveRecord::Base
   before_validation :strip_whitespace
   before_validation :default_player_counts
   after_save :attach_game_zips
-  after_save :attach_images
 
   validates :title, presence: true, uniqueness: true
 
@@ -23,7 +24,6 @@ class Game < ActiveRecord::Base
   has_many :playlists, through: :listings
 
   has_many :links, as: :parent, dependent: :destroy
-  has_many :images, as: :parent, dependent: :destroy
 
   accepts_nested_attributes_for :links, allow_destroy: true,
                                         reject_if: proc { |attrs| attrs["url"].blank? }
@@ -58,12 +58,6 @@ class Game < ActiveRecord::Base
   def attach_game_zips
     GameZip.where(game_uuid: uuid).each do |zip|
       zip.update(game_id: self.id)
-    end
-  end
-
-  def attach_images
-    Image.where(game_uuid: uuid).each do |image|
-      image.update(parent: self)
     end
   end
 end
