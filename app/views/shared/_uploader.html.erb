@@ -1,11 +1,14 @@
 <%
   form_id = SecureRandom.hex
   value_html ||= ""
+  additional_data ||= {}
 %>
 
 <script>
   $(function() {
-    $("#<%= form_id %>").S3Uploader();
+    $("#<%= form_id %>").S3Uploader({
+      additional_data: <%= additional_data.to_json.html_safe %>
+    });
 
     $("#<%= form_id %>").bind("s3_upload_complete", function(e, content) {
       $(".js-upload-status-<%= form_id %>").html("Uploading " + content.filename + " complete!");
