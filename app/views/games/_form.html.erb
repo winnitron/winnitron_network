@@ -53,7 +53,8 @@
             label: "Upload a new zip file:",
             form_options: { callback_url: create_zipfile_url(uuid: @game.uuid),
                             key: "games/#{@game.uuid}-${filename}",
-                            key_starts_with: "games/" }
+                            key_starts_with: "games/" },
+            accept_filetypes: ".zip"
         %>
 
         <%=
@@ -63,7 +64,8 @@
                             key: "games/#{@game.uuid}-image-${filename}",
                             key_starts_with: "games/",
                           },
-            additional_data: { parent_type: "game" }
+            additional_data: { parent_type: "game" },
+            accept_filetypes: ".jpg,.jpeg,.gif,.png"
         %>
       </div>
     </div>

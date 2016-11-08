@@ -4,6 +4,7 @@ class Api::V1::PlaylistsController < ApplicationController
   before_action :token_authentication!
 
   def index
+    #@arcade_machine = ArcadeMachine.first
     @playlists = @arcade_machine.playlists
   end
 

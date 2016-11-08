@@ -1,6 +1,7 @@
 class SubscriptionsController < ApplicationController
-  before_action :set_playlist, only: [:create]
-  before_action :set_arcade_machine, only: [:create]
+  before_action :set_subscription, only: [:destroy]
+  before_action :set_playlist
+  before_action :set_arcade_machine
   before_action :permission_check!
 
   def create
@@ -14,10 +15,9 @@ class SubscriptionsController < ApplicationController
   end
 
   def destroy
-    @subscription = Subscription.find(params[:id])
     @subscription.destroy
     respond_to do |format|
-      format.html { redirect_to playlists_path, notice: "Unsubscribed from #{@subscription.playlist.title}." }
+      format.html { redirect_to @arcade_machine, notice: "Unsubscribed from #{@subscription.playlist.title}." }
       format.json { head :no_content }
     end
   end
@@ -25,11 +25,15 @@ class SubscriptionsController < ApplicationController
   private
 
   def set_playlist
-    @playlist = Playlist.find(params[:playlist_id])
+    @playlist = Playlist.find_by(id: params[:playlist_id]) || @subscription.playlist
   end
 
   def set_arcade_machine
-    @arcade_machine = ArcadeMachine.find(params[:arcade_machine_id])
+    @arcade_machine = ArcadeMachine.find_by(id: params[:arcade_machine_id]) || @subscription.arcade_machine
+  end
+
+  def set_subscription
+    @subscription = Subscription.find(params[:id])
   end
 
   def permission_check!
