@@ -4,4 +4,5 @@ class GameZip < ActiveRecord::Base
 
   validates :user, presence: true
 
+  # TODO: validates that the file is .zip
 end

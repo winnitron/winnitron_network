@@ -2,6 +2,7 @@
   form_id = SecureRandom.hex
   value_html ||= ""
   additional_data ||= {}
+  accept_filetypes ||= ""
 %>
 
 <script>
@@ -24,7 +25,7 @@
 <div class="uploader">
   <label class="col-sm-4 control-label"><%= label %></label>
   <%= s3_uploader_form({ id: form_id }.merge(form_options)) do %>
-    <%= file_field_tag :file %>
+    <%= file_field_tag :file, accept: accept_filetypes %>
   <% end %>
   <div class="js-upload-status-<%= form_id %> alert alert-success" style="visibility: hidden"></div>
   <%= value_html.html_safe %>

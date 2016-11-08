@@ -6,6 +6,10 @@ RSpec.describe Api::V1::PlaylistsController, type: :controller do
   let(:playlists) { FactoryGirl.create_list(:playlist, 3) }
   let(:games) { FactoryGirl.create_list(:game, 5) }
 
+  before :each do
+    allow_any_instance_of(Game).to receive(:download_url).and_return("http://example.com/game.zip")
+  end
+
   describe "GET index" do
     render_views
 
@@ -15,7 +19,7 @@ RSpec.describe Api::V1::PlaylistsController, type: :controller do
           {
             "title" => playlist.title,
             "slug"  => playlist.title.parameterize,
-            "games" => playlist.games.map do |game|
+            "games" => playlist.games.with_zip.map do |game|
               {
                 "title"         => game.title,
                 "slug"          => game.title.parameterize,
@@ -45,15 +49,28 @@ RSpec.describe Api::V1::PlaylistsController, type: :controller do
       expect(response).to have_http_status(:ok)
     end
 
-    it "returns the machine's playlists" do
-      playlists.each do |playlist|
-        games.sample(2).each { |g| playlist.listings.create game: g }
-        winnitron.subscriptions.create playlist: playlist
+    describe "with subscriptions" do
+      before :each do
+        playlists.each do |playlist|
+          games.sample(2).each { |g| playlist.listings.create(game: g) }
+          winnitron.subscriptions.create playlist: playlist
+        end
       end
 
-      get :index, { api_key: token, format: "json" }
+      it "returns the machine's playlists" do
+        get :index, { api_key: token, format: "json" }
+        expect(JSON.parse(response.body)).to eq playlist_hash
+      end
 
-      expect(JSON.parse(response.body)).to eq playlist_hash
+      it "does not list games without zip files" do
+        no_zip = FactoryGirl.create(:game)
+        no_zip.game_zips.destroy_all
+        Listing.create!(game: no_zip, playlist: winnitron.playlists.first)
+
+        get :index, { api_key: token, format: "json" }
+        game_titles = JSON.parse(response.body)["playlists"][0]["games"].map { |g| g["title"] }
+        expect(game_titles).to_not include(no_zip.title)
+      end
     end
   end
 

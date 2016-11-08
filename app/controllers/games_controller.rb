@@ -4,7 +4,7 @@ class GamesController < ApplicationController
   before_action :permission_check!, only: [:edit, :update, :destroy, :zipfile_callback]
 
   def index
-    @games = Game.all
+    @games = Game.all.order(:title)
   end
 
   def show

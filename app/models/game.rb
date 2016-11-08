@@ -28,6 +28,8 @@ class Game < ActiveRecord::Base
   accepts_nested_attributes_for :links, allow_destroy: true,
                                         reject_if: proc { |attrs| attrs["url"].blank? }
 
+  scope :with_zip, -> { where(id: GameZip.pluck(:game_id)) }
+
   def download_url
     return nil if game_zips.empty?
     object = Aws::S3::Object.new(bucket_name: ENV["AWS_BUCKET"], key: current_zip.file_key)

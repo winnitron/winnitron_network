@@ -10,7 +10,7 @@ RSpec.describe GamesController, type: :controller do
 
     it "assigns all games" do
       FactoryGirl.create_list(:game, 2)
-      expect(assigns(:games)).to eq Game.all
+      expect(assigns(:games)).to match_array Game.all
     end
 
     it "returns 200 OK" do
@@ -22,19 +22,23 @@ RSpec.describe GamesController, type: :controller do
     let (:game) { FactoryGirl.create(:game) }
 
     context "it exists" do
-      before :each do
-        get :show, id: game.id
-      end
-
       it "assigns the game" do
+        get :show, id: game.id
         expect(assigns(:game)).to eq game
       end
 
       it "returns 200 OK" do
+        get :show, id: game.id
         expect(response).to have_http_status :ok
       end
 
-      it "doesn't panic without a zip file"
+      describe "json response" do
+        it "doesn't panic without a zip file" do
+          game.game_zips.destroy_all
+          get :show, id: game.id, format: "json"
+          expect(response).to have_http_status :ok
+        end
+      end
     end
 
     context "it doesn't exist" do
@@ -195,16 +199,4 @@ RSpec.describe GamesController, type: :controller do
     end
 
   end
-
-  describe "#zipfile_callback" do
-    pending
-  end
-
-  describe "#image_callback" do
-    pending
-  end
-
-
-
-
 end
