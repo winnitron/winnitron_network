@@ -2,7 +2,14 @@ class GameZip < ActiveRecord::Base
   belongs_to :game
   belongs_to :user
 
-  validates :user, presence: true
+  validates :user, :file_key, :file_last_modified, presence: true
+  validate :is_a_zip
 
-  # TODO: validates that the file is .zip
+  private
+
+  def is_a_zip
+    if file_key && file_key[-4..-1].downcase != ".zip"
+      errors.add(:file_key, "must be a .zip file")
+    end
+  end
 end

@@ -21,5 +21,4 @@ class GameZipsController < ApplicationController
   def uuid_permission_check!
     @game.new_record? || require_admin_or_ownership!(@game)
   end
-
 end
