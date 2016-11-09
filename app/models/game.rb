@@ -15,7 +15,7 @@ class Game < ActiveRecord::Base
   validates :min_players, numericality: { only_integer: true, greater_than: 0 }
   validates :max_players, numericality: { only_integer: true, greater_than: 0 }
 
-  has_many :game_zips
+  has_many :game_zips, dependent: :destroy
 
   has_many :game_ownerships, dependent: :destroy
   has_many :users, through: :game_ownerships
