@@ -12,5 +12,6 @@
  *= require bootstrap_and_overrides
  *= require bootstrap-tagsinput
  *= require jquery-ui
+ *= require s3_direct_upload_progress_bars
  *= require_tree .
  */

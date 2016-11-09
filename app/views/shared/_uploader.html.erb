@@ -8,12 +8,22 @@
 <script>
   $(function() {
     $("#<%= form_id %>").S3Uploader({
+      progress_bar_target: $(".uploader.<%= form_id %> .the-bars"),
       additional_data: <%= additional_data.to_json.html_safe %>
     });
 
+    $("#<%= form_id %>").bind("s3_upload_start", function(e) {
+      $(".js-upload-status.<%= form_id %>").hide();
+    });
+
     $("#<%= form_id %>").bind("s3_upload_complete", function(e, content) {
-      $(".js-upload-status-<%= form_id %>").html("Uploading " + content.filename + " complete!");
-      $(".js-upload-status-<%= form_id %>").css("visibility", "visible");
+      $(".js-upload-status.<%= form_id %>.alert-success").append("Uploading " + content.filename + " complete!");
+      $(".js-upload-status.<%= form_id %>.alert-success").fadeIn("fast");
+    });
+
+    $("#<%= form_id %>").bind("s3_upload_failed", function(e, content) {
+      $(".js-upload-status.<%= form_id %>.alert-danger").html("#{content.filename} failed to upload : #{content.error_thrown}");
+      $(".js-upload-status.<%= form_id %>.alert-success").fadeIn("fast");
     });
 
     $(".uploader input[type='file']").each(function(i, input) {
@@ -22,16 +32,24 @@
   });
 </script>
 
-<div class="uploader">
+<div class="uploader <%= form_id %>">
   <label class="col-sm-4 control-label"><%= label %></label>
   <%= s3_uploader_form({ id: form_id }.merge(form_options)) do %>
     <%= file_field_tag :file, accept: accept_filetypes %>
   <% end %>
-  <div class="js-upload-status-<%= form_id %> alert alert-success" style="visibility: hidden"></div>
+  <div class="the-bars"></div>
+  <div class="js-upload-status <%= form_id %> alert alert-success .alert-dismissible" style="display: none">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    Hello
+  </div>
+  <div class="js-upload-status <%= form_id %> alert alert-danger" style="display: none"></div>
   <%= value_html.html_safe %>
 </div>
 
-<script id="template-upload-<%= form_id %>" type="text/x-tmpl">
+
+<script id="template-upload" type="text/x-tmpl">
   <div id="file-{%=o.unique_id%}" class="upload">
     {%=o.name%}
     <div class="progress"><div class="bar" style="width: 0%"></div></div>
