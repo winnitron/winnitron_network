@@ -37,7 +37,7 @@ class Game < ActiveRecord::Base
   end
 
   def current_zip
-    game_zips.reorder(file_last_modified: :desc).first
+    game_zips.reorder(created_at: :desc).first
   end
 
   private
