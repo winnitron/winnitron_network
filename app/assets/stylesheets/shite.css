@@ -157,3 +157,14 @@ table.table.hover tr:hover {
   color: red;
   text-decoration: none;
 }
+
+.the-bars .upload {
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.note {
+  color: #777;
+  font-size: 10pt;
+}

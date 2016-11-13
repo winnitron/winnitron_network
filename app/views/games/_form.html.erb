@@ -47,26 +47,43 @@
     <div class="panel panel-default">
       <div class="panel-heading">Media</div>
       <div class="panel-body">
-        <p>pretty important lol</p>
-        <%=
-          render "shared/uploader",
-            label: "Upload a new zip file:",
-            form_options: { callback_url: create_zipfile_url(uuid: @game.uuid),
-                            key: "games/#{@game.uuid}-${filename}",
-                            key_starts_with: "games/" },
-            accept_filetypes: ".zip"
-        %>
+        <div class="row">
+          <%=
+            render "shared/uploader",
+              label: "Images:",
+              form_options: { callback_url: create_image_url(uuid: @game.uuid),
+                              key: "games/#{@game.uuid}-image-${filename}",
+                              key_starts_with: "games/",
+                            },
+              additional_data: { parent_type: "game" },
+              accept_filetypes: ".jpg,.jpeg,.gif,.png"
+          %>
+        </div>
 
-        <%=
-          render "shared/uploader",
-            label: "Upload an image:",
-            form_options: { callback_url: create_image_url(uuid: @game.uuid),
-                            key: "games/#{@game.uuid}-image-${filename}",
-                            key_starts_with: "games/",
-                          },
-            additional_data: { parent_type: "game" },
-            accept_filetypes: ".jpg,.jpeg,.gif,.png"
-        %>
+        <div class="row">
+          <%=
+            render "shared/uploader",
+              form_id: "zipfile-uploader",
+              label:   "Zip file:",
+              form_options: { callback_url: create_zipfile_url(uuid: @game.uuid),
+                              key: "games/#{@game.uuid}-${filename}",
+                              key_starts_with: "games/" },
+              additional_data: { game_uuid: @game.uuid },
+              accept_filetypes: ".zip"
+          %>
+
+          <div class="form form-horizontal">
+            <div class="form-group">
+              <label class="col-sm-3 control-label">Executable:</label>
+              <div class="col-sm-6">
+                <%= text_field_tag :executable, "", placeholder: "the_game.exe", class: "executable-filename form-control" %>
+                <span class="note">Which file in the zip runs the game?</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
       </div>
     </div>
   </div>

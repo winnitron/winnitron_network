@@ -4,10 +4,20 @@ class GameZipsController < ApplicationController
   before_action :uuid_permission_check!
 
   def create
-    GameZip.create!(game_uuid: @game.uuid,
-                    user: current_user,
-                    file_key: "games/#{@game.uuid}-#{params[:filename]}",
-                    file_last_modified: Time.parse(params[:lastModifiedDate]))
+    zip = GameZip.create!(game_uuid: @game.uuid,
+                          user: current_user,
+                          file_key: "games/#{@game.uuid}-#{params[:filename]}",
+                          file_last_modified: Time.parse(params[:lastModifiedDate]))
+
+    render json: zip
+  end
+
+  def update
+    if zip = GameZip.find_by(game_uuid: params[:uuid], file_key: "#{params[:file_key]}.zip")
+      zip.update(executable: params[:executable])
+    else
+      Rails.logger.warn "Could not find GameZip with UUID #{params[:uuid]} and file_key #{params[:file_key]}.zip"
+    end
 
     render nothing: true
   end

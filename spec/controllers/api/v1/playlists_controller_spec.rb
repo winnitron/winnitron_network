@@ -27,7 +27,8 @@ RSpec.describe Api::V1::PlaylistsController, type: :controller do
                 "max_players"   => game.max_players,
                 "description"   => game.description,
                 "download_url"  => game.download_url,
-                "last_modified" => game.current_zip.file_last_modified.iso8601
+                "last_modified" => game.current_zip.file_last_modified.iso8601,
+                "executable"    => game.current_zip.executable
               }
             end
           }
@@ -59,7 +60,7 @@ RSpec.describe Api::V1::PlaylistsController, type: :controller do
 
       it "returns the machine's playlists" do
         get :index, { api_key: token, format: "json" }
-        expect(JSON.parse(response.body)).to eq playlist_hash
+        expect(JSON.parse(response.body)["playlists"]).to match_array playlist_hash["playlists"]
       end
 
       it "does not list games without zip files" do

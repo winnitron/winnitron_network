@@ -13,7 +13,8 @@ FactoryGirl.define do
       GameZip.create(game:     game,
                      user:     FactoryGirl.create(:user),
                      file_key: [Faker::Lorem.word, ".zip"].join,
-                     file_last_modified: Time.now)
+                     file_last_modified: Time.now,
+                     executable: [Faker::Lorem.word, ".exe"].join)
     end
   end
 end
