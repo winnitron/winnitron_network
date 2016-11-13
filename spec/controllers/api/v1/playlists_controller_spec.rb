@@ -60,7 +60,7 @@ RSpec.describe Api::V1::PlaylistsController, type: :controller do
 
       it "returns the machine's playlists" do
         get :index, { api_key: token, format: "json" }
-        expect(JSON.parse(response.body)).to eq playlist_hash
+        expect(JSON.parse(response.body)["playlists"]).to match_array playlist_hash["playlists"]
       end
 
       it "does not list games without zip files" do
