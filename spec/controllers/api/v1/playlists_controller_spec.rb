@@ -8,6 +8,7 @@ RSpec.describe Api::V1::PlaylistsController, type: :controller do
 
   before :each do
     allow_any_instance_of(Game).to receive(:download_url).and_return("http://example.com/game.zip")
+    allow_any_instance_of(Image).to receive(:url).and_return("http://example.com/screenshot.png")
   end
 
   describe "GET index" do
@@ -29,7 +30,8 @@ RSpec.describe Api::V1::PlaylistsController, type: :controller do
                 "legacy_controls" => game.legacy_controls,
                 "download_url"    => game.download_url,
                 "last_modified"   => game.current_zip.file_last_modified.iso8601,
-                "executable"      => game.current_zip.executable
+                "executable"      => game.current_zip.executable,
+                "image_url"       => game.images.first.url
               }
             end
           }
