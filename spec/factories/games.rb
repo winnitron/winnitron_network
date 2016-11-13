@@ -2,7 +2,7 @@ FactoryGirl.define do
   factory :game do
     title       { Faker::Lorem.words(3).join(" ") }
     description { Faker::Lorem.sentence(2) }
-    uuid        SecureRandom.uuid
+    uuid        { SecureRandom.uuid }
     min_players 1
     max_players 2
 
@@ -11,10 +11,15 @@ FactoryGirl.define do
       GameOwnership.create game: game, user: owner
 
       GameZip.create(game:     game,
-                     user:     FactoryGirl.create(:user),
+                     user:     owner,
                      file_key: [Faker::Lorem.word, ".zip"].join,
                      file_last_modified: Time.now,
                      executable: [Faker::Lorem.word, ".exe"].join)
+
+      Image.create(parent: game,
+                   user: owner,
+                   file_key: "screenshot.png",
+                   parent_uuid: game.uuid)
     end
   end
 end
