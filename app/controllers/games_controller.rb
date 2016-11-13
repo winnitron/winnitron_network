@@ -70,7 +70,7 @@ class GamesController < ApplicationController
   end
 
   def game_params
-    params.fetch(:game, {}).permit(:title, :description, :uuid,
+    params.fetch(:game, {}).permit(:title, :description, :uuid, :legacy_controls,
                                    :min_players, :max_players, :tag_list,
                                    links_attributes: [:id, :link_type, :url, :_destroy])
   end

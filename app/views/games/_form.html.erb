@@ -32,6 +32,13 @@
   </div>
 
   <div class="form-group">
+    <%= f.label :legacy_controls, "Legacy Winnitron controls", class: "col-sm-3 control-label" %>
+    <div class="col-sm-2">
+      <%= f.check_box :legacy_controls %>
+    </div>
+  </div>
+
+  <div class="form-group">
     <label class="col-sm-3 control-label">Tags</label>
     <div class="col-sm-9">
       <%= f.text_field :tag_list, 'data-role'=>'tagsinput', value: @game.tag_list.join(","), class: "form-control" %>
