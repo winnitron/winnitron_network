@@ -21,14 +21,15 @@ RSpec.describe Api::V1::PlaylistsController, type: :controller do
             "slug"  => playlist.title.parameterize,
             "games" => playlist.games.with_zip.map do |game|
               {
-                "title"         => game.title,
-                "slug"          => game.title.parameterize,
-                "min_players"   => game.min_players,
-                "max_players"   => game.max_players,
-                "description"   => game.description,
-                "download_url"  => game.download_url,
-                "last_modified" => game.current_zip.file_last_modified.iso8601,
-                "executable"    => game.current_zip.executable
+                "title"           => game.title,
+                "slug"            => game.title.parameterize,
+                "min_players"     => game.min_players,
+                "max_players"     => game.max_players,
+                "description"     => game.description,
+                "legacy_controls" => game.legacy_controls,
+                "download_url"    => game.download_url,
+                "last_modified"   => game.current_zip.file_last_modified.iso8601,
+                "executable"      => game.current_zip.executable
               }
             end
           }
