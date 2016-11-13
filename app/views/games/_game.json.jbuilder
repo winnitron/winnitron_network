@@ -5,3 +5,4 @@ json.max_players   game.max_players
 json.description   game.description
 json.download_url  game.download_url
 json.last_modified game.current_zip&.file_last_modified&.iso8601
+json.executable    game.current_zip&.executable

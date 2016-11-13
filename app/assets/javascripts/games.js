@@ -64,7 +64,24 @@
 
     $(".add_nested_fields_link").click();
 
+
+    $("#zipfile-uploader").bind("s3_upload_complete", function(e, content) {
+      $.ajax({
+        type: "PUT",
+        url:  "/games/" + content.game_uuid + "/zips/" + content.filepath,
+        data: { "executable": $(".executable-filename").val() }
+      })
+    });
+
+
+    $("#zipfile-uploader .btn").addClass("disabled");
+    $(".executable-filename").keyup(function(e) {
+      if ($(".executable-filename").val().length <= 4)
+        $("#zipfile-uploader .btn").addClass("disabled");
+      else
+        $("#zipfile-uploader .btn").removeClass("disabled");
+    });
+
+
   });
-
-
 })(window, jQuery)

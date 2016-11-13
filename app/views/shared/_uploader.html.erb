@@ -1,7 +1,6 @@
 <%
-  form_id = SecureRandom.hex
-  value_html ||= ""
-  additional_data ||= {}
+  form_id          ||= SecureRandom.hex
+  additional_data  ||= {}
   accept_filetypes ||= ""
 %>
 
@@ -9,6 +8,7 @@
   $(function() {
     $("#<%= form_id %>").S3Uploader({
       progress_bar_target: $(".uploader.<%= form_id %> .the-bars"),
+      click_submit_target: $(".uploader.<%= form_id %> input[type='submit']"),
       additional_data: <%= additional_data.to_json.html_safe %>
     });
 
@@ -23,30 +23,38 @@
 
     $("#<%= form_id %>").bind("s3_upload_failed", function(e, content) {
       $(".js-upload-status.<%= form_id %>.alert-danger").html("#{content.filename} failed to upload : #{content.error_thrown}");
-      $(".js-upload-status.<%= form_id %>.alert-success").fadeIn("fast");
+      $(".js-upload-status.<%= form_id %>.alert-danger").fadeIn("fast");
     });
 
-    $(".uploader input[type='file']").each(function(i, input) {
-      $(input).wrap("<div class='form-group'></div>");
-    });
   });
 </script>
 
-<div class="uploader <%= form_id %>">
-  <label class="col-sm-4 control-label"><%= label %></label>
-  <%= s3_uploader_form({ id: form_id }.merge(form_options)) do %>
-    <%= file_field_tag :file, accept: accept_filetypes %>
-  <% end %>
-  <div class="the-bars"></div>
-  <div class="js-upload-status <%= form_id %> alert alert-success .alert-dismissible" style="display: none">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-    Hello
+<div class="uploader <%= form_id %> col-sm-12">
+
+  <div class="row">
+    <%= s3_uploader_form({ id: form_id, class: "form form-horizontal" }.merge(form_options)) do %>
+
+      <div class="form-group">
+        <label class="col-sm-3 control-label"><%= label %></label>
+        <%= file_field_tag :file, accept: accept_filetypes, class: "col-sm-6" %>
+        <div class="col-sm-3">
+          <%= submit_tag "Upload", class: "btn btn-success" %>
+        </div>
+      </div>
+
+    <% end %>
   </div>
-  <div class="js-upload-status <%= form_id %> alert alert-danger" style="display: none"></div>
-  <%= value_html.html_safe %>
+  <div class="row col-sm-9">
+    <div class="the-bars"></div>
+    <div class="js-upload-status <%= form_id %> alert alert-success .alert-dismissible" style="display: none">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="js-upload-status <%= form_id %> alert alert-danger" style="display: none"></div>
+  </div>
 </div>
+
 
 
 <script id="template-upload" type="text/x-tmpl">
