@@ -27,7 +27,8 @@ RSpec.describe Api::V1::PlaylistsController, type: :controller do
                 "max_players"   => game.max_players,
                 "description"   => game.description,
                 "download_url"  => game.download_url,
-                "last_modified" => game.current_zip.file_last_modified.iso8601
+                "last_modified" => game.current_zip.file_last_modified.iso8601,
+                "executable"    => game.current_zip.executable
               }
             end
           }
