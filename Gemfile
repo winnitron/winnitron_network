@@ -38,6 +38,8 @@ gem 's3_direct_upload', '~> 0.1.7'
 gem 'postmark-rails'
 gem 'gravtastic'
 
+gem 'newrelic_rpm'
+
 group :development, :test do
   gem 'pry-rails'
 end

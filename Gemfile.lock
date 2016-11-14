@@ -141,6 +141,7 @@ GEM
     multi_json (1.12.1)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
+    newrelic_rpm (3.17.1.326)
     nokogiri (1.6.8)
       mini_portile2 (~> 2.1.0)
       pkg-config (~> 1.1.7)
@@ -304,6 +305,7 @@ DEPENDENCIES
   jquery-ui-rails
   less-rails
   nested_form_fields!
+  newrelic_rpm
   nokogiri (= 1.6.8)
   omniauth
   omniauth-facebook
