@@ -23,19 +23,41 @@
   </div>
 
   <%= render "shared/links_form", f: f %>
-
+  <%= f.hidden_field :uuid %>
 <% end %>
 
-<%=
-  render "shared/uploader",
-    label: "Upload an image:",
-    form_options: { callback_url: create_image_url(uuid: @arcade_machine.uuid),
-                    key: "arcade_machines/#{@arcade_machine.uuid}-image-${filename}",
-                    key_starts_with: "arcade_machines/"
-                  },
-    additional_data: { parent_type: "arcade_machine" },
-    accept_filetypes: "image/*"
-%>
+<div>
+  <div class="col-sm-3"></div>
+  <div class="col-sm-9">
+    <div class="panel panel-default">
+      <div class="panel-heading">Images</div>
+      <div class="panel-body">
+        <div class="row current-images">
+          <% @arcade_machine.images.each do |image| %>
+            <a href="<%= image.url %>" class="screenshot">
+              <img src="<%= image.url %>">
+            </a>
+          <% end %>
+        </div>
+
+        <div class="row">
+          <%=
+            render "shared/uploader",
+              form_id: "image-uploader",
+              label: "Upload:",
+              form_options: { callback_url: create_image_url(uuid: @arcade_machine.uuid),
+                              key: "arcade_machines/#{@arcade_machine.uuid}-image-${filename}",
+                              key_starts_with: "arcade_machines/",
+                            },
+              additional_data: { parent_type: "arcade_machine" },
+              accept_filetypes: "image/*"
+          %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 
 <div class="actions form-group">
