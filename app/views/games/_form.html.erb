@@ -52,12 +52,21 @@
   <div class="col-sm-3"></div>
   <div class="col-sm-9">
     <div class="panel panel-default">
-      <div class="panel-heading">Media</div>
+      <div class="panel-heading">Images</div>
       <div class="panel-body">
+        <div class="row current-images">
+          <% @game.images.each do |image| %>
+            <a href="<%= image.url %>" class="screenshot">
+              <img src="<%= image.url %>">
+            </a>
+          <% end %>
+        </div>
+
         <div class="row">
           <%=
             render "shared/uploader",
-              label: "Images:",
+              form_id: "image-uploader",
+              label: "Upload:",
               form_options: { callback_url: create_image_url(uuid: @game.uuid),
                               key: "games/#{@game.uuid}-image-${filename}",
                               key_starts_with: "games/",
@@ -66,22 +75,47 @@
               accept_filetypes: "image/*"
           %>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div>
+  <div class="col-sm-3"></div>
+  <div class="col-sm-9">
+    <div class="panel panel-default">
+      <div class="panel-heading">Zip file</div>
+      <div class="panel-body">
+        <% if @game.current_zip %>
+          <div class="row">
+            <label class="col-sm-3 control-label" for="current-zip" style="text-align: right">Current:</label>
+            <code id="current-zip">
+              <%= link_to @game.current_zip.humanized_filename, @game.download_url %>
+            </code>
+            <div class="note" id="zip-uploaded-date">
+              Uploaded: <span class="date"><%= @game.current_zip.created_at.to_date.to_s(:long) %></span>
+            </div>
+          </div>
+          <br>
+        <% end %>
 
         <div class="row">
           <%=
             render "shared/uploader",
               form_id: "zipfile-uploader",
-              label:   "Zip file:",
+              label:   "Upload:",
               form_options: { callback_url: create_zipfile_url(uuid: @game.uuid),
                               key: "games/#{@game.uuid}-${filename}",
                               key_starts_with: "games/" },
               additional_data: { game_uuid: @game.uuid },
               accept_filetypes: "application/zip"
           %>
-
+        </div>
+        <div class="row">
           <div class="form form-horizontal">
             <div class="form-group">
-              <label class="col-sm-3 control-label">Executable:</label>
+              <label class="col-sm-3 control-label" for="executable">Executable:</label>
               <div class="col-sm-6">
                 <%= text_field_tag :executable, "", placeholder: "the_game.exe", class: "executable-filename form-control" %>
                 <span class="note">Which file in the zip runs the game?</span>

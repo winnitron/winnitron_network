@@ -5,6 +5,10 @@ class GameZip < ActiveRecord::Base
   validates :user, :file_key, :file_last_modified, presence: true
   validate :is_a_zip
 
+  def humanized_filename
+    file_key.sub("games/#{game_uuid}-", "")
+  end
+
   private
 
   def is_a_zip

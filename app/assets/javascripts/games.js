@@ -71,6 +71,14 @@
         url:  "/games/" + content.game_uuid + "/zips/" + content.filepath,
         data: { "executable": $(".executable-filename").val() }
       })
+
+      $("#current-zip").html(content.filename);
+
+      var today = new Date();
+      var months = ["January", "February", "March", "April", "May", "June",
+                    "July", "August", "September", "October", "November", "December"]
+      var datestr = months[today.getMonth()] + " " + today.getDate() + ", " + today.getFullYear();
+      $("#zip-uploaded-date .date").html(datestr);
     });
 
 
@@ -81,7 +89,6 @@
       else
         $("#zipfile-uploader .btn").removeClass("disabled");
     });
-
 
   });
 })(window, jQuery)
