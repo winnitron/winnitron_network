@@ -63,7 +63,7 @@
                               key_starts_with: "games/",
                             },
               additional_data: { parent_type: "game" },
-              accept_filetypes: ".jpg,.jpeg,.gif,.png"
+              accept_filetypes: "image/*"
           %>
         </div>
 
@@ -76,7 +76,7 @@
                               key: "games/#{@game.uuid}-${filename}",
                               key_starts_with: "games/" },
               additional_data: { game_uuid: @game.uuid },
-              accept_filetypes: ".zip"
+              accept_filetypes: "application/zip"
           %>
 
           <div class="form form-horizontal">
