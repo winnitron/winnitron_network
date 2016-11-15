@@ -54,9 +54,18 @@
     <div class="panel panel-default">
       <div class="panel-heading">Images</div>
       <div class="panel-body">
+        <div class="row current-images">
+          <% @game.images.each do |image| %>
+            <a href="<%= image.url %>" class="screenshot">
+              <img src="<%= image.url %>">
+            </a>
+          <% end %>
+        </div>
+
         <div class="row">
           <%=
             render "shared/uploader",
+              form_id: "image-uploader",
               label: "Upload:",
               form_options: { callback_url: create_image_url(uuid: @game.uuid),
                               key: "games/#{@game.uuid}-image-${filename}",
@@ -90,9 +99,6 @@
           </div>
           <br>
         <% end %>
-
-
-
 
         <div class="row">
           <%=
