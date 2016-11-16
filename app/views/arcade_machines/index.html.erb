@@ -1,32 +1,14 @@
-<%= page_heading :h1, 'Winnitrons' %>
+<%= page_heading :h1, "Winnitrons!" %>
 <p><em>as far as the eye can see</em></p>
 
-<p>
+<div class="row">
   <%= link_to "Add your Winnitron!", new_arcade_machine_path, class: "btn btn-success" %>
-</p>
+</div>
 
-<table class="table table-condensed">
-  <tbody>
+<p>&nbsp;</p>
+<div class="row col-sm-8">
+  <% mine, theirs = @arcade_machines.partition { |am| user_signed_in? && current_user.owns?(am) } %>
 
-    <% mine, theirs = @arcade_machines.partition { |am| user_signed_in? && current_user.owns?(am) } %>
-
-    <% mine.each do |arcade_machine| %>
-      <tr>
-        <td><strong><%= link_to arcade_machine.name, arcade_machine_path(arcade_machine) %></strong></td>
-        <td><%= arcade_machine.location %></td>
-      </tr>
-    <% end %>
-
-    <tr><td colspan="3">&nbsp;</td></tr>
-
-    <% theirs.each do |arcade_machine| %>
-      <tr>
-        <td><strong><%= link_to arcade_machine.name, arcade_machine_path(arcade_machine) %></strong></td>
-        <td><%= arcade_machine.location %></td>
-      </tr>
-    <% end %>
-
-
-  </tbody>
-</table>
-
+  <%= render "arcade_machines/list", arcade_machines: mine %>
+  <%= render "arcade_machines/list", arcade_machines: theirs %>
+</div>

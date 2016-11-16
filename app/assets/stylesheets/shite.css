@@ -113,7 +113,8 @@ a.collapse-arrow:focus {
 .user-card,
 .game-card,
 .arcade-card {
-  width: 120px;
+  width: 140px;
+  min-height: 180px;
   padding: 10px;
   text-align: center;
   float: left;

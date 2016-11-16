@@ -4,7 +4,7 @@ class PlaylistsController < ApplicationController
   before_action :permission_check!, only: [:edit, :update, :destroy]
 
   def index
-    @playlists = Playlist.all
+    @playlists = Playlist.all.order(default: :desc)
   end
 
   def show

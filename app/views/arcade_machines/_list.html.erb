@@ -1,0 +1,9 @@
+<% arcade_machines.each do |machine| %>
+  <div class="arcade-card">
+    <a href="<%= arcade_machine_url(machine) %>">
+      <%= image_tag asset_url("game-console") %>
+      <br>
+      <%= machine.name %>
+    </a>
+  </div>
+<% end %>
