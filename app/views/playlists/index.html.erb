@@ -25,6 +25,11 @@
 
     <div class="winnitron-list col-lg-4">
       <h3>my winnitrons</h3>
+
+      <% if current_user.arcade_machines.empty? %>
+        <%= link_to "Add your Winnitron!", new_arcade_machine_path, class: "btn btn-success" %>
+      <% end %>
+
       <% current_user.arcade_machines.each do |winnitron| %>
         <div class="row">
           <div class="winnitron" data-winnitron-id="<%= winnitron.id %>">

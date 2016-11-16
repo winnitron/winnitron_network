@@ -27,6 +27,9 @@
 
     <div class="playlist-list col-lg-4">
       <h3>my playlists</h3>
+      <% if current_user.playlists.empty? %>
+        <%= link_to "Make a new playlist", new_playlist_path, class: "btn btn-success" %>
+      <% end %>
       <%= render partial: "shared/playlist_list", locals: { playlists: current_user.playlists } %>
     </div>
   <% end %>
