@@ -5,7 +5,7 @@ FactoryGirl.define do
 
     after :create do |machine|
       ApiKey.create arcade_machine: machine
-      MachineOwnership.create arcade_machine: machine, user: FactoryGirl.create(:user)
+      MachineOwnership.create arcade_machine: machine, user: FactoryGirl.create(:user, builder: true)
     end
   end
 end

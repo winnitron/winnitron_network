@@ -23,6 +23,14 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def require_builder!
+    if user_signed_in? && (current_user.admin? || current_user.builder?)
+      true
+    else
+      head :forbidden
+    end
+  end
+
   def render_404
     render file: 'public/404.html', status: 404, layout: false
   end

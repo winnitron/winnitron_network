@@ -12,9 +12,10 @@ RSpec.describe ArcadeMachinesController, type: :controller do
   describe "GET new" do
 
     it_behaves_like "requires sign in", :new
+    it_behaves_like "requires builder", :get, :new
 
-    context "user is logged in" do
-      let(:user) { FactoryGirl.create(:user) }
+    context "user is a builder" do
+      let(:user) { FactoryGirl.create(:user, builder: true) }
 
       before :each do
         sign_in user
@@ -22,14 +23,14 @@ RSpec.describe ArcadeMachinesController, type: :controller do
 
       it_behaves_like "simple GET action", :new
     end
-
   end
 
   describe "GET edit" do
     it_behaves_like "requires sign in", :edit, { id: FactoryGirl.create(:arcade_machine).id }
+    it_behaves_like "requires builder", :get, :edit, { id: FactoryGirl.create(:arcade_machine).id }
 
-    context "user is signed in" do
-      let(:user) { FactoryGirl.create(:user) }
+    context "user is a builder" do
+      let(:user) { FactoryGirl.create(:user, builder: true) }
 
       before :each do
         sign_in user
@@ -71,9 +72,10 @@ RSpec.describe ArcadeMachinesController, type: :controller do
       }
     end
 
-    let(:user) { FactoryGirl.create(:user) }
+    let(:user) { FactoryGirl.create(:user, builder: true) }
 
     it "requires sign in"
+    it_behaves_like "requires builder", :post, :create, { arcade_macine: { name: "Machine" } }
 
     context "valid attributes" do
       before :each do
@@ -121,6 +123,8 @@ RSpec.describe ArcadeMachinesController, type: :controller do
     end
 
     it "requires sign in"
+    it_behaves_like "requires builder", :put, :update, { id: FactoryGirl.create(:arcade_machine).id,
+                                             arcade_machine: { name: "Machine" } }
 
     context "signed-in" do
 
@@ -179,8 +183,8 @@ RSpec.describe ArcadeMachinesController, type: :controller do
   describe "DELETE destroy" do
     let!(:arcade_machine) { FactoryGirl.create(:arcade_machine) }
 
-
     it "requires sign in"
+    it_behaves_like "requires builder", :delete, :destroy, { id: FactoryGirl.create(:arcade_machine).id }
 
     context "signed in" do
       let(:admin) { FactoryGirl.create(:admin) }

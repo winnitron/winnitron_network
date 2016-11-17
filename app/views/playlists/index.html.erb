@@ -26,7 +26,7 @@
     <div class="winnitron-list col-lg-4">
       <h3>my winnitrons</h3>
 
-      <% if current_user.arcade_machines.empty? %>
+      <% if current_user.builder? && current_user.arcade_machines.empty? %>
         <%= link_to "Add your Winnitron!", new_arcade_machine_path, class: "btn btn-success" %>
       <% end %>
 
