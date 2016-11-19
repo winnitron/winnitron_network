@@ -4,7 +4,10 @@ class PlaylistsController < ApplicationController
   before_action :permission_check!, only: [:edit, :update, :destroy]
 
   def index
-    @playlists = Playlist.all.order(default: :desc)
+    @mine   = user_signed_in? ? [] : current_user.playlists.order(name: :asc)
+    @theirs = Playlist.all
+                      .where.not(id: @mine.map(&:id))
+                      .order(default: :desc, title: :asc)
   end
 
   def show

@@ -4,7 +4,10 @@ class GamesController < ApplicationController
   before_action :permission_check!, only: [:edit, :update, :destroy, :zipfile_callback]
 
   def index
-    @games = Game.all.order(:title)
+    @mine   = user_signed_in? ? [] : current_user.games.order(name: :asc)
+    @theirs = Game.all
+                  .where.not(id: @mine.map(&:id))
+                  .order(title: :asc)
   end
 
   def show

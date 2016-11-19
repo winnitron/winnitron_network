@@ -4,47 +4,5 @@
   <%= link_to "Make a new playlist!", new_playlist_path, class: "btn btn-success" %>
 </div>
 
-<div class="playlists col-lg-12">
-
-  <div class="playlist-list col-lg-4">
-    <h3>&nbsp;</h3>
-    <% if user_signed_in? && current_user.playlists.any? %>
-      <%= render partial: "shared/playlist_list", locals: { playlists: current_user.playlists } %>
-      <p>&nbsp;</p>
-    <% end %>
-    <% theirs = (@playlists - (current_user&.playlists || [])).select { |p| p.games.any? } %>
-    <%= render partial: "shared/playlist_list", locals: { playlists: theirs } %>
-  </div>
-
-
-  <% if user_signed_in? %>
-
-    <div class="dragem col-lg-3">
-      drag 'em →
-    </div>
-
-    <div class="winnitron-list col-lg-4">
-      <h3>my winnitrons</h3>
-
-      <% if current_user.builder? && current_user.arcade_machines.empty? %>
-        <%= link_to "Add your Winnitron!", new_arcade_machine_path, class: "btn btn-success" %>
-      <% end %>
-
-      <% current_user.arcade_machines.each do |winnitron| %>
-        <div class="row">
-          <div class="winnitron" data-winnitron-id="<%= winnitron.id %>">
-            <a href="" class="collapse-arrow">►</a>
-            <%= link_to winnitron.name, winnitron %>
-            <ul class="the-playlists">
-              <% winnitron.playlists.each do |list| %>
-                <li><%= link_to list.title, list %></li>
-              <% end %>
-            </ul>
-          </div>
-        </div>
-      <% end %>
-    </div>
-
-  <% end %>
-
-</div>
+<%= render "list", playlists: @mine if @mine.any? %>
+<%= render "list", playlists: @theirs %>

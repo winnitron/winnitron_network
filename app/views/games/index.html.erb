@@ -4,34 +4,5 @@
   <%= link_to "Add your Game!", new_game_path, class: "btn btn-success" %>
 </div>
 
-<div class="games col-lg-12">
-
-  <div class="game-list col-lg-4">
-    <h3>&nbsp;</h3>
-    <% @games.each do |game| %>
-
-      <div class="row">
-        <div class="game col-sm-5" data-game-id="<%= game.id %>">
-          <%= link_to game.title, game %>
-        </div>
-      </div>
-
-    <% end %>
-  </div>
-
-  <% if user_signed_in? %>
-
-    <div class="dragem col-lg-3">
-      drag 'em →
-    </div>
-
-    <div class="playlist-list col-lg-4">
-      <h3>my playlists</h3>
-      <% if current_user.playlists.empty? %>
-        <%= link_to "Make a new playlist", new_playlist_path, class: "btn btn-success" %>
-      <% end %>
-      <%= render partial: "shared/playlist_list", locals: { playlists: current_user.playlists } %>
-    </div>
-  <% end %>
-
-</div>
+<%= render "list", games: @mine if @mine.any? %>
+<%= render "list", games: @theirs %>

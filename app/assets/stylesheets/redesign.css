@@ -1,0 +1,12 @@
+.sidebar .my-stuff {
+  max-height: 500px;
+  overflow-y: scroll;
+}
+
+.card {
+  border: 1px solid blue;
+}
+
+.game.card img {
+  width: 120px;
+}

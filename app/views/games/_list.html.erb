@@ -1,0 +1,11 @@
+<div class="col-lg-12 game-list">
+  <% games.each do |game| %>
+    <div class="game card col-sm-2">
+      <a href="<%= game_path(game) %>">
+        <img src="<%= game.images.first&.url %>">
+        <br>
+        <%= game.title %>
+      </a>
+    </div>
+  <% end %>
+</div>

@@ -1,4 +1,4 @@
-<div class="sidebar">
+<div class="sidebar my-stuff">
   <% if user_signed_in? %>
 
     <% if current_user.builder? %>
@@ -11,7 +11,7 @@
         <% current_user.arcade_machines.each do |machine| %>
           <div class="arcade-machine">
             <a href="<%= arcade_machine_path(machine) %>">
-              <strong><%= link_to machine.name %></strong>
+              <strong><%= machine.name %></strong>
               <br>
               <img src="<%= machine.images.first&.url %>" width="200">
               <br>
@@ -30,7 +30,7 @@
       <% current_user.games.each do |game| %>
         <div class="game">
           <a href="<%= game_path(game) %>">
-            <strong><%= link_to game.title %></strong>
+            <strong><%= game.title %></strong>
             <br>
             <img src="<%= game.images.first&.url %>" width="200">
           </a>
