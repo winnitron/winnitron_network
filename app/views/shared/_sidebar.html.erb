@@ -1,0 +1,55 @@
+<div class="sidebar">
+  <% if user_signed_in? %>
+
+    <% if current_user.builder? %>
+      <div>
+        <h3>My Winnitrons</h3>
+        <% if current_user.arcade_machines.empty? %>
+          <%= link_to "Add your Winnitron!", new_arcade_machine_path, class: "btn btn-success" %>
+        <% end %>
+
+        <% current_user.arcade_machines.each do |machine| %>
+          <div class="arcade-machine">
+            <a href="<%= arcade_machine_path(machine) %>">
+              <strong><%= link_to machine.name %></strong>
+              <br>
+              <img src="<%= machine.images.first&.url %>" width="200">
+              <br>
+              <em><%= machine.location %></em>
+            </a>
+          </div>
+        <% end %>
+
+      </div>
+    <% end %>
+
+
+    <div>
+      <h3>My Games</h3>
+
+      <% current_user.games.each do |game| %>
+        <div class="game">
+          <a href="<%= game_path(game) %>">
+            <strong><%= link_to game.title %></strong>
+            <br>
+            <img src="<%= game.images.first&.url %>" width="200">
+          </a>
+        </div>
+      <% end %>
+    </div>
+
+
+    <div>
+      <h3>My Playlists</h3>
+      <% current_user.playlists.each do |playlist| %>
+        <div class="playlist">
+          <strong><%= link_to playlist.title, playlist_path(playlist) %></strong>
+        </div>
+      <% end %>
+    </div>
+
+  <% else %>
+    <p>Whatever we show here when the user is logged out.</p>
+  <% end %>
+
+</div>
