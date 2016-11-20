@@ -1,5 +1,4 @@
 <% page_heading :h2, "Sign Up" %>
-<%= render "registration_form" %>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "form form-horizontal" }) do |f| %>
   <%= devise_error_messages! %>
