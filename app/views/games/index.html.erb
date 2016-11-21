@@ -1,8 +1,4 @@
 <%= page_heading :h1, 'So many Games!' %>
 
-<div>
-  <%= link_to "Add your Game!", new_game_path, class: "btn btn-success" %>
-</div>
-
 <%= render "list", games: @mine if @mine.any? %>
 <%= render "list", games: @theirs %>

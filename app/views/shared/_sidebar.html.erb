@@ -10,7 +10,7 @@
 <div class="sidebar my-stuff">
 
   <!-- WINNITRON BRAND STUFF -->
-  <div class="row">
+
     <div class="col-xs-12">
     <h1>
       THE WINNITRON NETWORK
@@ -23,7 +23,7 @@
       <li><%= link_to "sign out", destroy_user_session_path, method: :delete  %></li>
     </ul>
   </div>
-  </div>
+
 
 
 <!-- USER CONTENT -->
@@ -52,7 +52,11 @@
 
 
   <div>
-    <h3>My Games</h3>
+    <h3>
+      My Games
+      <span class="pull-right"><%= link_to "+", new_game_path, class: "btn btn-success" %></span>
+    </h3>
+
 
     <% current_user.games.each do |game| %>
     <div class="game">
@@ -67,7 +71,11 @@
 
 
   <div>
-    <h3>My Playlists</h3>
+    <h3>
+      My Playlists
+      <span class="pull-right"><%= link_to "+", new_playlist_path, class: "btn btn-success" %></span>
+    </h3>
+
     <% current_user.playlists.each do |playlist| %>
     <div class="playlist">
       <strong><%= link_to playlist.title, playlist_path(playlist) %></strong>

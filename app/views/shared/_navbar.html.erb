@@ -1,0 +1,33 @@
+<!--
+
+  NAVBAR
+  Stuff that gets put above the right side content.
+  I'm guessing this will change cause it's gonna need to be pretty dynamic.
+
+  See application.html.erb for where it gets rendered.
+
+-->
+
+<div class="navbar navbar-default navbar-static-top">
+  <div class="container">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <div class="navbar-collapse collapse navbar-responsive-collapse">
+      <ul class="nav navbar-nav">
+        <li><%= link_to "Games", games_path %></li>
+        <li><%= link_to "Winnitrons", arcade_machines_path %></li>
+        <li><%= link_to "Playlists", playlists_path %></li>
+        <!--
+        <li>
+          <form class="form-inline pull-right">
+            <input class="form-control" type="text" placeholder="Search">
+          </form>
+        </li>
+        -->
+      <ul>
+    </div>
+  </div>
+</div>

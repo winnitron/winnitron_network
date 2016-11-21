@@ -1,46 +1,66 @@
-<div class="game">
+<div class="detail-header-large" style="
+background: url(http://placehold.it/1024x768/000/fff) center center;
+background-size: cover;
+">
+<%= page_heading :h1, @game.title %>
+</div>
+
+<div class="game detail">
+
+  <!-- Edit button -->
   <% if current_user&.admin? || current_user.owns?(@game) %>
-    <div class="pull-right">
-      <%= link_to "Edit", edit_game_path(@game) %>
-    </div>
+  <div class="pull-right">
+    <%= link_to "Edit", edit_game_path(@game) %>
+  </div>
   <% end %>
 
-  <%= page_heading :h1, @game.title %>
-
-  <div class="row well">
-    <p>
-      <%=
-        if @game.min_players == @game.max_players
-          pluralize(@game.min_players, "player")
-        else
-          "#{@game.min_players}-#{@game.max_players} players"
-        end
-      %>
-    </p>
+  <!-- Game Description -->
+  <div class="detail-description">
     <%= simple_format(@game.description) %>
   </div>
 
-  <div class="row">
-    <% @game.links.each do |link| %>
-      <div class="link"><h4><%= link_to link.url, link.url %></h4></div>
-    <% end %>
-  </div>
 
-  <div class="row">
-    <% @game.images.each do |image| %>
-      <a href="<%= image.url %>" class="screenshot">
-        <img src="<%= image.url %>">
-      </a>
-    <% end %>
-  </div>
+  <!-- Other Info -->
 
-  <div class="row">
-    <h4><%= @game.users.size > 1 ? "Owners" : "Owner" %></h4>
-    <%= render "shared/user_cards", users: @game.users %>
-  </div>
+    <div class="row">
 
-  <div class="row">
-    <h4>Tags</h4>
-    <p><%= @game.tag_list.join(", ") %></p>
+      <!-- Metadata -->
+      <div class="col-lg-6">
+        <h4>Players</h4>
+        <p>
+          <%=
+          if @game.min_players == @game.max_players
+            pluralize(@game.min_players, "player")
+          else
+            "#{@game.min_players}-#{@game.max_players} players"
+          end
+          %>
+        </p>
+
+        <h4>Images</h4>
+        <% @game.images.each do |image| %>
+        <a href="<%= image.url %>" class="screenshot">
+          <img src="<%= image.url %>">
+        </a>
+        <% end %>
+
+        <h4>Links</h4>
+        <% @game.links.each do |link| %>
+        <div class="link"><h4><%= link_to link.url, link.url %></h4></div>
+        <% end %>
+
+        <h4><%= @game.users.size > 1 ? "Developers" : "Developer" %></h4>
+        <%= render "shared/user_cards", users: @game.users %>
+
+        <h4>Tags</h4>
+        <p><%= @game.tag_list.join(", ") %></p>
+      </div>
+
+      <div class="col-lg-6">
+        <p>Winnitron specific stats</p>
+        <p>e.g. What winnitrons it's on</p>
+        <p>which playlists it's on</p>
+      </div>
+
+
   </div>
-</div>

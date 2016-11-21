@@ -4,6 +4,17 @@
 
 */
 
+a.quiet-link
+{
+    color: black;
+
+
+      &:hover
+      {
+        text-decoration: none;
+      }
+}
+
 .flash {
   margin-top: 10px;
 }

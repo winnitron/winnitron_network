@@ -3,3 +3,27 @@
   Styles for single page views like a single Playlist or Game.
 
 */
+
+
+.detail
+{
+  .detail-description
+  {
+    font-size: 30px;
+  }
+}
+
+.detail-header-large
+{
+  height: 400px;
+  position: relative;
+
+  h1
+  {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    font-size: 70px;
+    text-shadow: 2px black;
+  }
+}

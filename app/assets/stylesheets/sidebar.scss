@@ -4,7 +4,12 @@
 
 */
 
-.sidebar .my-stuff {
-  max-height: 500px;
-  overflow-y: scroll;
+.sidebar
+{
+  border-right: 1px solid lightgrey;
+
+  .my-stuff {
+    max-height: 500px;
+    overflow-y: scroll;
+  }
 }
