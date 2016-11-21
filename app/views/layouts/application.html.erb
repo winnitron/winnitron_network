@@ -45,46 +45,29 @@
     </head>
   <body>
 
-    <div class="navbar navbar-default navbar-static-top">
-      <div class="container">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="/">The Winnitron Network</a>
-        <div class="navbar-collapse collapse navbar-responsive-collapse">
-          <ul class="nav navbar-nav">
-            <% if user_signed_in? %>
-              <li><%= link_to "my account", edit_user_registration_path  %></li>
-              <li><%= link_to "my profile", current_user %></li>
-              <li><%= link_to "sign out", destroy_user_session_path, method: :delete  %></li>
-            <% else %>
-              <li><%= link_to "sign up", new_user_registration_path %></li>
-              <li><%= link_to "sign in", new_user_session_path %></li>
-            <% end %>
-          </ul>
-
-          <ul class="nav navbar-nav pull-right">
-            <li><%= link_to "Games", games_path %></li>
-            <li><%= link_to "Winnitrons", arcade_machines_path %></li>
-            <li><%= link_to "Playlists", playlists_path %></li>
-          <ul>
-        </div>
-      </div>
-    </div>
-
-    <div class="container">
+    <div class="container-fluid">
       <div class="row">
-        <div class="col-lg-3">
-          <div class="well sidebar-nav">
-            <%= render "shared/sidebar" %>
-          </div><!--/.well -->
-        </div><!--/span-->
-        <div class="col-lg-9">
-          <%= bootstrap_flash %>
-          <%= yield %>
-        </div>
+
+        <!-- Sidebar -->
+        <% if user_signed_in? %>
+          <div class="col-lg-3">
+            <div class="sidebar-nav">
+              <%= render "shared/sidebar" %>
+            </div>
+          </div>
+          <div class="col-lg-9">
+            <%= bootstrap_flash %>
+            <%= render "shared/navbar" %>
+            <%= yield %>
+          </div>
+        <% else %>
+          <!-- Sidebar doesn't show if not signed in -->
+          <div class="col-lg-12">
+            <%= bootstrap_flash %>
+            <%= yield %>
+          </div>
+        <% end %>
+
 
       </div><!--/row-->
 

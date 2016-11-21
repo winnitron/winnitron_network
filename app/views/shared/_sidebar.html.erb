@@ -1,55 +1,77 @@
+<!--
+
+  SIDEBAR
+  The Sidebar only appears when the user is logged in.
+
+  See application.html.erb for where it gets rendered.
+
+-->
+
 <div class="sidebar my-stuff">
-  <% if user_signed_in? %>
 
-    <% if current_user.builder? %>
-      <div>
-        <h3>My Winnitrons</h3>
-        <% if current_user.arcade_machines.empty? %>
-          <%= link_to "Add your Winnitron!", new_arcade_machine_path, class: "btn btn-success" %>
-        <% end %>
+  <!-- WINNITRON BRAND STUFF -->
+  <div class="row">
+    <div class="col-xs-12">
+    <h1>
+      THE WINNITRON NETWORK
+    </h1>
+  </div>
+  <div class="col-xs-12">
+    <ul class="nav navbar-nav">
+      <li><%= link_to "my account", edit_user_registration_path  %></li>
+      <li><%= link_to "my profile", current_user %></li>
+      <li><%= link_to "sign out", destroy_user_session_path, method: :delete  %></li>
+    </ul>
+  </div>
+  </div>
 
-        <% current_user.arcade_machines.each do |machine| %>
-          <div class="arcade-machine">
-            <a href="<%= arcade_machine_path(machine) %>">
-              <strong><%= machine.name %></strong>
-              <br>
-              <img src="<%= machine.images.first&.url %>" width="200">
-              <br>
-              <em><%= machine.location %></em>
-            </a>
-          </div>
-        <% end %>
 
-      </div>
+<!-- USER CONTENT -->
+
+  <% if current_user.builder? %>
+  <div>
+    <h3>My Winnitrons</h3>
+    <% if current_user.arcade_machines.empty? %>
+    <%= link_to "Add your Winnitron!", new_arcade_machine_path, class: "btn btn-success" %>
     <% end %>
 
-
-    <div>
-      <h3>My Games</h3>
-
-      <% current_user.games.each do |game| %>
-        <div class="game">
-          <a href="<%= game_path(game) %>">
-            <strong><%= game.title %></strong>
-            <br>
-            <img src="<%= game.images.first&.url %>" width="200">
-          </a>
-        </div>
-      <% end %>
+    <% current_user.arcade_machines.each do |machine| %>
+    <div class="arcade-machine">
+      <a href="<%= arcade_machine_path(machine) %>">
+        <strong><%= machine.name %></strong>
+        <br>
+        <img src="<%= machine.images.first&.url %>" width="200">
+        <br>
+        <em><%= machine.location %></em>
+      </a>
     </div>
+    <% end %>
 
-
-    <div>
-      <h3>My Playlists</h3>
-      <% current_user.playlists.each do |playlist| %>
-        <div class="playlist">
-          <strong><%= link_to playlist.title, playlist_path(playlist) %></strong>
-        </div>
-      <% end %>
-    </div>
-
-  <% else %>
-    <p>Whatever we show here when the user is logged out.</p>
+  </div>
   <% end %>
 
+
+  <div>
+    <h3>My Games</h3>
+
+    <% current_user.games.each do |game| %>
+    <div class="game">
+      <a href="<%= game_path(game) %>">
+        <strong><%= game.title %></strong>
+        <br>
+        <img src="<%= game.images.first&.url %>" width="200">
+      </a>
+    </div>
+    <% end %>
+  </div>
+
+
+  <div>
+    <h3>My Playlists</h3>
+    <% current_user.playlists.each do |playlist| %>
+    <div class="playlist">
+      <strong><%= link_to playlist.title, playlist_path(playlist) %></strong>
+    </div>
+    <% end %>
+  </div>
 </div>

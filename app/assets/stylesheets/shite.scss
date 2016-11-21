@@ -1,3 +1,9 @@
+/*
+
+  Application-wide styles
+
+*/
+
 .flash {
   margin-top: 10px;
 }
@@ -10,17 +16,35 @@ footer {
   display: inline;
 }
 
-.dash .dash-item a {
-  text-decoration: none;
+.dash
+{
+  .dash-item
+  {
+    a {
+    text-decoration: none;
+    }
+
+    .icon {
+      width: 80px;
+    }
+
+    .text {
+      padding-left: 25px;
+      font-size: 40px;
+    }
+  }
 }
 
-.dash .dash-item .icon {
-  width: 80px;
+.card {
+  border: 1px solid blue;
 }
 
-.dash .dash-item .text {
-  padding-left: 25px;
-  font-size: 40px;
+.game.card img {
+  width: 120px;
+}
+
+.game-card {
+  position: relative;
 }
 
 .game-list .game {
@@ -60,17 +84,7 @@ a.collapse-arrow:focus {
     color: white;
   }
 
-.target-active-drop-it-here {
-}
 
-.target-hover-born-ready {
-  background-color: #a1d490;
-  color: white;
-}
-
-.dragem {
-  padding-top: 100px;
-}
 
 .winnitron-list .winnitron .the-playlists {
   display: none;
@@ -145,19 +159,17 @@ table.table.hover tr:hover {
   background-color: #fafafa;
 }
 
-.game-card {
-  position: relative;
-}
+
 
 .remove-button {
   position: absolute;
   top: 0;
   right: 0;
-}
 
-.remove-button a {
-  color: red;
-  text-decoration: none;
+  a {
+    color: red;
+    text-decoration: none;
+  }
 }
 
 .the-bars .upload {
