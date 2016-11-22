@@ -1,8 +1,4 @@
 <%= page_heading :h1, 'Playlists' %>
 
-<div>
-  <%= link_to "Make a new playlist!", new_playlist_path, class: "btn btn-success" %>
-</div>
-
 <%= render "list", playlists: @mine if @mine.any? %>
 <%= render "list", playlists: @theirs %>

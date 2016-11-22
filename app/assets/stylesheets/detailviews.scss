@@ -7,23 +7,28 @@
 
 .detail
 {
-  .detail-description
-  {
-    font-size: 30px;
-  }
+
 }
 
 .detail-header-large
 {
-  height: 400px;
   position: relative;
+  height: 400px;
 
-  h1
+  .detail-header-info
   {
+    position: relative;
+    font-size: 30px;
+
     position: absolute;
     bottom: 20px;
     left: 20px;
-    font-size: 70px;
-    text-shadow: 2px black;
+
+    text-shadow: 4px 4px 10px rgba(150, 150, 150, 1);
+
+    h1
+    {
+      font-size: 70px;
+    }
   }
 }

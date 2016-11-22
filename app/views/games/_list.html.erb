@@ -1,45 +1,61 @@
 <!--
-<div class="col-lg-12 game-list">
-  <% games.each do |game| %>
-    <div class="game card col-sm-2">
-      <a href="<%= game_path(game) %>">
-        <img src="<%= game.images.first&.url %>">
-        <br>
-        <%= game.title %>
-      </a>
-    </div>
-  <% end %>
-</div>
+GAME GRID VIEW
 -->
 
 <div class="row list-group">
   <% games.each do |game| %>
-    <div class="item col-sm-4">
-      <a class="quiet-link" href="<%= game_path(game) %>">
-        <div class="thumbnail">
-            <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />
-            <div class="caption">
-                <h4 class="group inner list-group-item-heading">
-                    <%= game.title %></h4>
-                <p class="group inner list-group-item-text">
-                    <%= game.description %></p>
+  <div class="item col-sm-4">
 
-                <!--
-                OTHER DATA TO COME
-                <div class="row">
-                    <div class="col-xs-12 col-md-6">
-                        <p class="lead">
-                            $21.000
-                          </p>
-                    </div>
-                    <div class="col-xs-12 col-md-6">
-                        <a class="btn btn-success" href="http://www.jquery2dotnet.com">Add to cart</a>
-                    </div>
-                </div>
-                -->
-            </div>
-        </div>
+    <div class="thumbnail">
+      <a class="quiet-link" href="<%= game_path(game) %>">
+        <img class="group list-group-image" src="http://placehold.it/400x250/33cccc/fff?text=image" alt="" />
       </a>
+      <div class="caption">
+        <h4 class="group inner list-group-item-heading">
+          <a class="quiet-link" href="<%= game_path(game) %>">
+            <%= game.title %>
+          </a>
+        </h4>
+        <p class="group inner list-group-item-text">
+          <%= game.description %>
+        </p>
+      </div>
+      
+
+      <!-- EDIT BUTTONS -->
+
+      <% if user_signed_in? %>
+
+        <!-- Add to Winnitron dropdown -->
+        <div class="dropdown">
+          <% if !current_user.games.empty? %>
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+              Add to Playlist
+              <span class="caret"></span>
+            </button>
+
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+              <% current_user.playlists.each do |playlist| %>
+                <li><%= link_to playlist.title, playlist_path(playlist) %></li>
+              <% end %>
+            </ul>
+          <% end %>
+
+          <!-- Editing Buttons if Owned -->
+          <% if current_user.owns?(game) %>
+            <button class="btn btn-success">
+              Edit
+            </button>
+            <button class="btn btn-danger" type="button">
+              Delete
+              <!-- NEED A CHECK BEFORE DELETE HERE -->
+            </button>
+          <% end %>
+        </div>
+
+      <% end %>
+
     </div>
-    <% end %>
+  </div>
+  <% end %>
 </div>

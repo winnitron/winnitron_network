@@ -1,15 +1,31 @@
 /*
 
-  Sidebar related.
+Sidebar related.
 
 */
 
 .sidebar
 {
-  border-right: 1px solid lightgrey;
-
   .my-stuff {
     max-height: 500px;
     overflow-y: scroll;
+  }
+
+  .arcade-machine
+  {
+    section
+    {
+
+
+      strong
+      {
+        font-size: 20px;
+      }
+
+      em
+      {
+        font-size: 16px;
+      }
+    }
   }
 }

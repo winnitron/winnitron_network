@@ -1,9 +1,9 @@
 <!--
 
-  SIDEBAR
-  The Sidebar only appears when the user is logged in.
+SIDEBAR
+The Sidebar only appears when the user is logged in.
 
-  See application.html.erb for where it gets rendered.
+See application.html.erb for where it gets rendered.
 
 -->
 
@@ -11,7 +11,7 @@
 
   <!-- WINNITRON BRAND STUFF -->
 
-    <div class="col-xs-12">
+  <div class="col-xs-12">
     <h1>
       THE WINNITRON NETWORK
     </h1>
@@ -26,23 +26,31 @@
 
 
 
-<!-- USER CONTENT -->
+  <!-- USER CONTENT -->
 
   <% if current_user.builder? %>
   <div>
-    <h3>My Winnitrons</h3>
-    <% if current_user.arcade_machines.empty? %>
-    <%= link_to "Add your Winnitron!", new_arcade_machine_path, class: "btn btn-success" %>
-    <% end %>
+    <h3>
+      My Winnitrons
+      <span class="pull-right">
+        <a href="<%= new_arcade_machine_path %>">
+          <i class="fa fa-plus-circle" aria-hidden="true"></i>
+        </a>
+      </span>
+    </h3>
 
     <% current_user.arcade_machines.each do |machine| %>
-    <div class="arcade-machine">
+    <div class="arcade-machine row">
       <a href="<%= arcade_machine_path(machine) %>">
-        <strong><%= machine.name %></strong>
-        <br>
-        <img src="<%= machine.images.first&.url %>" width="200">
-        <br>
-        <em><%= machine.location %></em>
+        <div class="col-xs-4">
+          <!--<img src="<%= machine.images.first&.url %>" width="200">-->
+          <img class="img-circle img-thumbnail" src="http://placehold.it/250x250/33cccc/fff?text=image">
+        </div>
+        <section class="col-xs-8">
+          <strong><%= machine.name %></strong>
+          </br>
+          <em><%= machine.location %></em>
+        </section>
       </a>
     </div>
     <% end %>
@@ -54,7 +62,11 @@
   <div>
     <h3>
       My Games
-      <span class="pull-right"><%= link_to "+", new_game_path, class: "btn btn-success" %></span>
+      <span class="pull-right">
+        <a href="<%= new_game_path %>">
+          <i class="fa fa-plus-circle" aria-hidden="true"></i>
+        </a>
+      </span>
     </h3>
 
 
@@ -73,7 +85,11 @@
   <div>
     <h3>
       My Playlists
-      <span class="pull-right"><%= link_to "+", new_playlist_path, class: "btn btn-success" %></span>
+      <span class="pull-right">
+        <a href="<%= new_playlist_path %>">
+          <i class="fa fa-plus-circle" aria-hidden="true"></i>
+        </a>
+      </span>
     </h3>
 
     <% current_user.playlists.each do |playlist| %>

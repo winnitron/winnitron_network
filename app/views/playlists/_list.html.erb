@@ -1,41 +1,55 @@
 <!--
-<div class="col-lg-12 playlist-list">
-  <% playlists.each do |playlist| %>
-    <div class="playlist card col-sm-2">
-      <%= link_to playlist.title, playlist_path(playlist) %>
-    </div>
-  <% end %>
-</div>
+PLAYLIST GRID VIEW
 -->
 
 <div class="row list-group">
   <% playlists.each do |playlist| %>
-    <div class="item col-sm-4">
-      <a class="quiet-link" href="<%= link_to playlist.title, playlist_path(playlist) %>">
-        <div class="thumbnail">
-            <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />
-            <div class="caption">
-                <h4 class="group inner list-group-item-heading">
-                    <%= playlist.title %></h4>
-                <p class="group inner list-group-item-text">
-                    <%= playlist.description %></p>
+  <div class="item col-sm-4">
 
-                <!--
-                OTHER DATA TO COME
-                <div class="row">
-                    <div class="col-xs-12 col-md-6">
-                        <p class="lead">
-                            $21.000
-                          </p>
-                    </div>
-                    <div class="col-xs-12 col-md-6">
-                        <a class="btn btn-success" href="http://www.jquery2dotnet.com">Add to cart</a>
-                    </div>
-                </div>
-                -->
-            </div>
-        </div>
+    <div class="thumbnail">
+      <a class="quiet-link" href="<%= playlist_path(playlist) %>">
+        <img class="group list-group-image" src="http://placehold.it/400x250/33cccc/fff?text=image" alt="" />
       </a>
+      <div class="caption">
+        <h4 class="group inner list-group-item-heading">
+          <%= playlist.title %>
+        </h4>
+
+        <!-- EDIT BUTTONS -->
+
+        <% if user_signed_in? %>
+
+          <!-- Add to Winnitron dropdown -->
+          <div class="dropdown">
+            <% if current_user.builder? && !current_user.playlists.empty? %>
+              <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                Add to Winnitron
+                <span class="caret"></span>
+              </button>
+
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <% current_user.arcade_machines.each do |machine| %>
+                  <li><%= link_to machine.name, arcade_machine_path(machine) %></li>
+                <% end %>
+              </ul>
+            <% end %>
+
+            <!-- Editing Buttons if Owned -->
+            <% if current_user.owns?(playlist) %>
+              <button class="btn btn-success">
+                Edit
+              </button>
+              <button class="btn btn-danger" type="button">
+                Delete
+                <!-- NEED A CHECK BEFORE DELETE HERE -->
+              </button>
+            <% end %>
+          </div>
+
+        <% end %>
+
+      </div>
     </div>
-    <% end %>
+  </div>
+  <% end %>
 </div>

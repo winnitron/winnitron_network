@@ -1,9 +1,43 @@
-<% arcade_machines.each do |machine| %>
-  <div class="arcade-card">
-    <a href="<%= arcade_machine_url(machine) %>">
-      <%= image_tag asset_url("game-console") %>
-      <br>
-      <%= machine.name %>
-    </a>
+<!--
+  WINNITRON GRID VIEW
+-->
+
+<div class="row list-group">
+  <% arcade_machines.each do |machine| %>
+  <div class="item col-sm-4">
+
+    <div class="thumbnail">
+      <a class="quiet-link" href="<%= arcade_machine_url(machine) %>">
+        <img class="group list-group-image" src="http://placehold.it/400x250/33cccc/fff?text=image" alt="" />
+      </a>
+      <div class="caption">
+        <h4 class="group inner list-group-item-heading">
+          <%= machine.name %>
+        </h4>
+
+        <!-- EDIT BUTTONS -->
+
+        <% if user_signed_in? %>
+
+          <!-- Add to Winnitron dropdown -->
+          <div class="dropdown">
+
+            <!-- Editing Buttons if Owned -->
+            <% if current_user.owns?(machine) %>
+              <button class="btn btn-success">
+                Edit
+              </button>
+              <button class="btn btn-danger" type="button">
+                Delete
+                <!-- NEED A CHECK BEFORE DELETE HERE -->
+              </button>
+            <% end %>
+          </div>
+
+        <% end %>
+
+      </div>
+    </div>
   </div>
-<% end %>
+  <% end %>
+</div>
