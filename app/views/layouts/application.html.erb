@@ -50,12 +50,12 @@
 
         <!-- Sidebar -->
         <% if user_signed_in? %>
-          <div class="col-md-3">
+          <div class="col-md-3" id="pane-sidebar">
             <div class="sidebar-nav">
               <%= render "shared/sidebar" %>
             </div>
           </div>
-          <div class="col-md-9">
+          <div class="col-md-9" id="pane-content">
             <%= bootstrap_flash %>
             <%= render "shared/navbar" %>
             <%= yield %>
@@ -71,9 +71,11 @@
 
       </div><!--/row-->
 
+      <!--
       <span class="pull-right">
         problems? feedback? <a href="https://twitter.com/winnitron1000">twitter</a>. <a href="https://github.com/winnitron/winnitron_reborn/issues">github</a>.
       </span>
+    -->
 
     </div> <!-- /container -->
 
