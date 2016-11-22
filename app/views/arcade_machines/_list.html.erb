@@ -15,26 +15,7 @@
           <%= machine.name %>
         </h4>
 
-        <!-- EDIT BUTTONS -->
-
-        <% if user_signed_in? %>
-
-          <!-- Add to Winnitron dropdown -->
-          <div class="dropdown">
-
-            <!-- Editing Buttons if Owned -->
-            <% if current_user.owns?(machine) %>
-              <button class="btn btn-success">
-                Edit
-              </button>
-              <button class="btn btn-danger" type="button">
-                Delete
-                <!-- NEED A CHECK BEFORE DELETE HERE -->
-              </button>
-            <% end %>
-          </div>
-
-        <% end %>
+        <%= render "edit_buttons", arcade_machine: machine %>
 
       </div>
     </div>

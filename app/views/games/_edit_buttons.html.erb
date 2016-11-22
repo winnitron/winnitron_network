@@ -18,10 +18,12 @@
     <% end %>
 
     <!-- Editing Buttons if Owned -->
-    <% if current_user.owns?(game) %>
-      <button class="btn btn-success">
-        Edit
-      </button>
+    <% if current_user.owns?(game) || current_user&.admin %>
+      <a href="<%= edit_game_path(game) %>">
+        <button class="btn btn-success">
+          Edit
+        </button>
+      </a>
       <button class="btn btn-danger" type="button">
         Delete
         <!-- NEED A CHECK BEFORE DELETE HERE -->

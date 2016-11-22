@@ -18,10 +18,12 @@
     <% end %>
 
     <!-- Editing Buttons if Owned -->
-    <% if current_user.owns?(playlist) %>
-      <button class="btn btn-success">
-        Edit
-      </button>
+    <% if current_user.owns?(playlist) || current_user&.admin %>
+      <a href="<%= edit_playlist_path(playlist) %>">
+        <button class="btn btn-success">
+          Edit
+        </button>
+      </a>
       <button class="btn btn-danger" type="button">
         Delete
         <!-- NEED A CHECK BEFORE DELETE HERE -->
