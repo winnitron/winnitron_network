@@ -1,0 +1,32 @@
+<!-- EDIT BUTTONS -->
+
+<% if user_signed_in? %>
+
+  <!-- Add to Winnitron dropdown -->
+  <div class="edit-buttons dropdown">
+    <% if current_user.builder? && !current_user.playlists.empty? %>
+      <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        Add to Winnitron
+        <span class="caret"></span>
+      </button>
+
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+        <% current_user.arcade_machines.each do |machine| %>
+          <li><%= link_to machine.name, arcade_machine_path(machine) %></li>
+        <% end %>
+      </ul>
+    <% end %>
+
+    <!-- Editing Buttons if Owned -->
+    <% if current_user.owns?(playlist) %>
+      <button class="btn btn-success">
+        Edit
+      </button>
+      <button class="btn btn-danger" type="button">
+        Delete
+        <!-- NEED A CHECK BEFORE DELETE HERE -->
+      </button>
+    <% end %>
+  </div>
+
+<% end %>

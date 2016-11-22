@@ -1,20 +1,34 @@
-<div class="playlist">
-  <% if current_user&.admin? || current_user.owns?(@playlist) %>
-    <div class="pull-right">
-      <%= link_to "Edit", edit_playlist_path(@playlist) %>
+<!--
+PLAYLIST DETAIL VIEW
+-->
+
+<%= render "shared/detail_header", image: "http://placehold.it/1024x768/33cccc/fff?text=image", title: @playlist.title, description: "NEED TO MAKE PLAYLIST DESCRIPTIONS!!!" %>
+
+<div class="playlist detail">
+
+  <div class="row">
+
+    <!-- Edit Buttons -->
+    <div class="col-xs-12">
+      <%= render "edit_buttons", playlist: @playlist %>
     </div>
-  <% end %>
 
-  <%= page_heading :h1, @playlist.title %>
 
-  <div class="row">
-    <h4>Creator</h4>
-    <%= render "shared/user_cards", users: [@playlist.user] %>
-  </div>
+    <!-- Metadata -->
+    <div class="col-md-6">
 
-  <div class="row">
-    <h4>Games</h4>
-    <% @playlist.games.each do |game| %>
+      <h4>
+        Creator
+      </h4>
+      <%= render "shared/user_cards", users: [@playlist.user] %>
+
+    </div>
+
+
+    <!-- Games Listing -->
+    <div class="col-md-6">
+      <h4>Games</h4>
+      <% @playlist.games.each do |game| %>
       <% listing = Listing.find_by(game: game, playlist: @playlist) %>
 
       <div class="game-card">
@@ -26,13 +40,17 @@
         </a>
 
         <% if current_user&.admin? || current_user.owns?(@playlist) %>
-          <span class="remove-button">
-            <%= link_to "X", listing_path(listing), method: :delete, title: "remove from playlist" %>
-          </span>
+        <span class="remove-button">
+          <%= link_to "X", listing_path(listing), method: :delete, title: "remove from playlist" %>
+        </span>
         <% end %>
 
       </div>
-    <% end %>
+      <% end %>
+    </div>
+
+
+
   </div>
 
 </div>

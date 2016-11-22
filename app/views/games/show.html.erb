@@ -2,37 +2,21 @@
   GAME VIEW
 -->
 
-<div class="detail-header-large" style="
-background: url(http://placehold.it/1024x768/33cccc/fff?text=image) center center;
-background-size: cover;
-">
-  <div class="detail-header-info">
-    <%= page_heading :h1, @game.title %>
-    <!-- Game Description -->
-    <div>
-      <%= simple_format(@game.description) %>
-    </div>
-  </div>
-</div>
+<%= render "shared/detail_header", image: "http://placehold.it/1024x768/33cccc/fff?text=image", title: @game.title, description: @game.description %>
 
 <div class="game detail">
-
-  <!-- Edit button -->
-  <% if current_user&.admin? || current_user.owns?(@game) %>
-  <div class="pull-right">
-    <%= link_to "Edit", edit_game_path(@game) %>
-  </div>
-  <% end %>
-
-
-
 
   <!-- Other Info -->
 
     <div class="row">
 
+      <div class="col-xs-12">
+        <%= render "edit_buttons", game: @game %>
+      </div>
+
       <!-- Metadata -->
       <div class="col-lg-6">
+
         <h4>Players</h4>
         <p>
           <%=

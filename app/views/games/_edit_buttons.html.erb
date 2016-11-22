@@ -1,0 +1,32 @@
+<!-- EDIT BUTTONS -->
+
+<% if user_signed_in? %>
+
+  <!-- Add to Winnitron dropdown -->
+  <div class="edit-buttons dropdown">
+    <% if !current_user.playlists.empty? %>
+      <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        Add to Playlist
+        <span class="caret"></span>
+      </button>
+
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+        <% current_user.playlists.each do |playlist| %>
+          <li><%= link_to playlist.title, playlist_path(playlist) %></li>
+        <% end %>
+      </ul>
+    <% end %>
+
+    <!-- Editing Buttons if Owned -->
+    <% if current_user.owns?(game) %>
+      <button class="btn btn-success">
+        Edit
+      </button>
+      <button class="btn btn-danger" type="button">
+        Delete
+        <!-- NEED A CHECK BEFORE DELETE HERE -->
+      </button>
+    <% end %>
+  </div>
+
+<% end %>

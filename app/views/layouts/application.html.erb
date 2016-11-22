@@ -50,19 +50,19 @@
 
         <!-- Sidebar -->
         <% if user_signed_in? %>
-          <div class="col-lg-3">
+          <div class="col-md-3">
             <div class="sidebar-nav">
               <%= render "shared/sidebar" %>
             </div>
           </div>
-          <div class="col-lg-9">
+          <div class="col-md-9">
             <%= bootstrap_flash %>
             <%= render "shared/navbar" %>
             <%= yield %>
           </div>
         <% else %>
           <!-- Sidebar doesn't show if not signed in -->
-          <div class="col-lg-12">
+          <div class="col-md-12">
             <%= bootstrap_flash %>
             <%= yield %>
           </div>
