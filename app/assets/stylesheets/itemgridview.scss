@@ -5,6 +5,7 @@
 */
 
 .glyphicon { margin-right:5px; }
+
 .thumbnail
 {
     margin-bottom: 20px;
@@ -12,24 +13,33 @@
     -webkit-border-radius: 0px;
     -moz-border-radius: 0px;
     border-radius: 0px;
-}
 
-.thumbnail .image-box
-{
-    display: block;
-    height: 225px;
-    overflow-y: hidden;
-}
+    .image-box
+    {
+        display: block;
+        height: 225px;
+        overflow-y: hidden;
+    }
 
-.thumbnail .description
-{
-    overflow-y: hidden;
-    height: 80px;
-}
+    .description
+    {
+        height: 80px;
 
-.thumbnail .title
-{
-    height: 40px;
+        p
+        {
+        display: block; /* Fallback for non-webkit */
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow-y: hidden;
+        text-overflow: ellipsis;
+        }
+    }
+
+    .title
+    {
+        //height: 40px;
+    }
 }
 
 .item.tall
