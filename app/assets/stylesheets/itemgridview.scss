@@ -14,6 +14,29 @@
     border-radius: 0px;
 }
 
+.thumbnail .image-box
+{
+    display: block;
+    height: 225px;
+    overflow-y: hidden;
+}
+
+.thumbnail .description
+{
+    overflow-y: hidden;
+    height: 80px;
+}
+
+.thumbnail .title
+{
+    height: 40px;
+}
+
+.item.tall
+{
+    height: 433px;
+}
+
 .item.list-group-item
 {
     float: none;

@@ -4,26 +4,26 @@ GAME GRID VIEW
 
 <div class="row list-group">
   <% games.each do |game| %>
-  <div class="item col-sm-4">
+    <div class="item col-sm-4 tall">
 
-    <div class="thumbnail">
-      <a class="quiet-link" href="<%= game_path(game) %>">
-        <img class="group list-group-image" src="http://placehold.it/400x250/33cccc/fff?text=image" alt="" />
-      </a>
-      <div class="caption">
-        <h4 class="group inner list-group-item-heading">
-          <a class="quiet-link" href="<%= game_path(game) %>">
-            <%= game.title %>
-          </a>
-        </h4>
-        <p class="group inner list-group-item-text">
-          <%= game.description %>
-        </p>
+      <div class="thumbnail">
+        <a class="quiet-link image-box" href="<%= game_path(game) %>">
+          <img class="group list-group-image" src="<%= game.cover_image.url %>" alt="<%= game.title %>" />
+        </a>
+        <div class="caption">
+          <h4 class="group inner list-group-item-heading title">
+            <a class="quiet-link" href="<%= game_path(game) %>">
+              <%= game.title %>
+            </a>
+          </h4>
+          <div class="group inner list-group-item-text description">
+            <%= simple_format(game.description) %>
+          </div>
+        </div>
+
+        <%= render "edit_buttons", game: game %>
+
       </div>
-
-      <%= render "edit_buttons", game: game %>
-
     </div>
-  </div>
   <% end %>
 </div>

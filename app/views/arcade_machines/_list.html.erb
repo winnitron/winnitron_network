@@ -4,21 +4,21 @@
 
 <div class="row list-group">
   <% arcade_machines.each do |machine| %>
-  <div class="item col-sm-4">
+    <div class="item col-sm-4">
 
-    <div class="thumbnail">
-      <a class="quiet-link" href="<%= arcade_machine_url(machine) %>">
-        <img class="group list-group-image" src="http://placehold.it/400x250/33cccc/fff?text=image" alt="" />
-      </a>
-      <div class="caption">
-        <h4 class="group inner list-group-item-heading">
-          <%= machine.name %>
-        </h4>
+      <div class="thumbnail">
+        <a class="quiet-link image-box" href="<%= arcade_machine_url(machine) %>">
+          <img class="group list-group-image" src="<%= machine.cover_image.url %>" alt="<%= machine.name %>" />
+        </a>
+        <div class="caption">
+          <h4 class="group inner list-group-item-heading">
+            <%= machine.name %>
+          </h4>
 
-        <%= render "edit_buttons", arcade_machine: machine %>
+          <%= render "edit_buttons", arcade_machine: machine %>
 
+        </div>
       </div>
     </div>
-  </div>
   <% end %>
 </div>

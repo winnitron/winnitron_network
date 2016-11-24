@@ -6,6 +6,10 @@ module HasImages
     has_many :images, as: :parent, dependent: :destroy
   end
 
+  def cover_image
+    images.first || Image.placeholder
+  end
+
   private
 
   def attach_images
