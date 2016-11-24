@@ -4,7 +4,7 @@ class PlaylistsController < ApplicationController
   before_action :permission_check!, only: [:edit, :update, :destroy]
 
   def index
-    @mine   = user_signed_in? ? [] : current_user.playlists.order(name: :asc)
+    @mine   = user_signed_in? ? current_user.playlists.order(title: :asc) : []
     @theirs = Playlist.all
                       .where.not(id: @mine.map(&:id))
                       .order(default: :desc, title: :asc)
@@ -64,6 +64,6 @@ class PlaylistsController < ApplicationController
     end
 
     def playlist_params
-      params.fetch(:playlist, {}).permit(:title)
+      params.fetch(:playlist, {}).permit(:title, :description)
     end
 end

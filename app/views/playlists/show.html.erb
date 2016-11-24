@@ -2,6 +2,7 @@
 PLAYLIST DETAIL VIEW
 -->
 
+<% # TODO: playlist.description %>
 <%= render "shared/detail_header", image: "http://placehold.it/1024x768/33cccc/fff?text=image", title: @playlist.title, description: "NEED TO MAKE PLAYLIST DESCRIPTIONS!!!" %>
 
 <div class="playlist detail">
@@ -29,23 +30,23 @@ PLAYLIST DETAIL VIEW
     <div class="col-md-6">
       <h4>Games</h4>
       <% @playlist.games.each do |game| %>
-      <% listing = Listing.find_by(game: game, playlist: @playlist) %>
+        <% listing = Listing.find_by(game: game, playlist: @playlist) %>
 
-      <div class="game-card">
-        <a href="<%= game_url(game) %>">
-          <% screenshot_url = game.images.first&.url || asset_url("rocket-ship") %>
-          <%= image_tag screenshot_url %>
-          <br>
-          <%= game.title %>
-        </a>
+        <div class="game-card">
+          <a href="<%= game_url(game) %>">
+            <% screenshot_url = game.images.first&.url || asset_url("rocket-ship") %>
+            <%= image_tag screenshot_url %>
+            <br>
+            <%= game.title %>
+          </a>
 
-        <% if current_user&.admin? || current_user.owns?(@playlist) %>
-        <span class="remove-button">
-          <%= link_to "X", listing_path(listing), method: :delete, title: "remove from playlist" %>
-        </span>
-        <% end %>
+          <% if current_user&.admin? || current_user.owns?(@playlist) %>
+            <span class="remove-button">
+              <%= link_to "X", listing_path(listing), method: :delete, title: "remove from playlist" %>
+            </span>
+          <% end %>
 
-      </div>
+        </div>
       <% end %>
     </div>
 

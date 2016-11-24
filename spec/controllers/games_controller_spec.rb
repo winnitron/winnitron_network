@@ -10,7 +10,7 @@ RSpec.describe GamesController, type: :controller do
 
     it "assigns all games" do
       FactoryGirl.create_list(:game, 2)
-      expect(assigns(:games)).to match_array Game.all
+      expect(assigns(:theirs)).to match_array Game.all
     end
 
     it "returns 200 OK" do

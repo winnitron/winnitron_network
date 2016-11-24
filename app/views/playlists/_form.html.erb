@@ -7,10 +7,16 @@
       <%= f.text_field :title, required: true, class: "form-control" %>
     </div>
   </div>
+  <div class="form-group">
+    <%= f.label :description, class: "col-sm-3 control-label" %>
+    <div class="col-sm-9">
+      <%= f.text_area :description, class: "form-control" %>
+    </div>
+  </div>
 
   <div class="actions form-group">
     <div class="col-sm-offset-3 col-sm-9">
-      <%= f.submit class: "btn btn-success" %>
+      <%= f.submit "Save", class: "btn btn-success" %>
     </div>
   </div>
 <% end %>
