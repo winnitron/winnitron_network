@@ -12,13 +12,18 @@
 
       <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
         <% current_user.playlists.each do |playlist| %>
-          <li><%= link_to playlist.title, playlist_path(playlist) %></li>
+          <li>
+            <a href="/listings?game_id=<%= game.id%>&playlist_id=<%= playlist.id %>" data-method="post">
+              <%= playlist.games.include?(game) ? "✓" : "" %>
+              <%= playlist.title %>
+            </a>
+          </li>
         <% end %>
       </ul>
     <% end %>
 
     <!-- Editing Buttons if Owned -->
-    <% if current_user.owns?(game) || current_user&.admin %>
+    <% if current_user.owns?(game) || current_user.admin? %>
       <a href="<%= edit_game_path(game) %>">
         <button class="btn btn-success">
           Edit
