@@ -4,11 +4,14 @@
 
 <div class="row list-group">
   <% arcade_machines.each do |machine| %>
-    <div class="item col-sm-4">
+    <div class="item col-lg-4">
 
       <div class="thumbnail">
-        <a class="quiet-link image-box" href="<%= arcade_machine_url(machine) %>">
-          <img class="group list-group-image" src="<%= machine.cover_image.url %>" alt="<%= machine.name %>" />
+        <a
+          class="quiet-link image-box"
+          href="<%= arcade_machine_url(machine) %>"
+          style="background: url(<%= machine.cover_image.url %>) center center; background-size: cover;"
+        >
         </a>
         <div class="caption">
           <h4 class="group inner list-group-item-heading">

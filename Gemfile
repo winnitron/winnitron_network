@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.3.0'
+ruby '2.3.2'
 
 gem 'rails', '4.2.6'
 gem 'pg',    '~> 0.15'
@@ -56,4 +56,3 @@ group :test do
   gem 'faker'
   gem 'simplecov', require: false
 end
-

@@ -4,12 +4,14 @@ PLAYLIST GRID VIEW
 
 <div class="row list-group">
   <% playlists.each do |playlist| %>
-  <div class="item col-sm-4">
+  <div class="item col-lg-4">
 
     <div class="thumbnail">
-      <a class="quiet-link" href="<%= playlist_path(playlist) %>">
-        <img class="group list-group-image" src="http://placehold.it/400x250/33cccc/fff?text=image" alt="" />
-      </a>
+      <a
+        class="quiet-link image-box"
+        href="<%= playlist_path(playlist) %>"
+        style="background: url(http://placehold.it/400x250/33cccc/fff?text=image) center center; background-size: cover;"
+      ></a>
       <div class="caption">
         <h4 class="group inner list-group-item-heading">
           <%= playlist.title %>

@@ -4,11 +4,13 @@ GAME GRID VIEW
 
 <div class="row list-group">
   <% games.each do |game| %>
-    <div class="item col-sm-4 tall">
+    <div class="item col-lg-4 tall">
 
       <div class="thumbnail">
-        <a class="quiet-link image-box" href="<%= game_path(game) %>">
-          <img class="group list-group-image" src="<%= game.cover_image.url %>" alt="<%= game.title %>" />
+        <a
+          class="quiet-link image-box"
+          href="<%= game_path(game) %>"
+          style="background: url(<%= game.cover_image.url %>) center center; background-size: cover;">
         </a>
         <div class="caption">
           <h4 class="group inner list-group-item-heading title">
