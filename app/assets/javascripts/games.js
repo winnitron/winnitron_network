@@ -3,6 +3,8 @@
   $(function() {
 
     $("button.game-save").click(function(e) {
+      $(this).html("Wait for it...");
+      $(this).attr("disabled", "disabled");
       $("form.game").submit();
     });
 
