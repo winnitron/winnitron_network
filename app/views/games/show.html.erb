@@ -2,7 +2,7 @@
   GAME VIEW
 -->
 
-<%= render "shared/detail_header", image: "http://placehold.it/1024x768/33cccc/fff?text=image", title: @game.title, description: @game.description %>
+<%= render "shared/detail_header", image: @game.cover_image.url, title: @game.title, description: @game.description %>
 
 <div class="game detail">
 

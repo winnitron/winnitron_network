@@ -2,8 +2,7 @@
 PLAYLIST DETAIL VIEW
 -->
 
-<% # TODO: playlist.description %>
-<%= render "shared/detail_header", image: "http://placehold.it/1024x768/33cccc/fff?text=image", title: @playlist.title, description: "NEED TO MAKE PLAYLIST DESCRIPTIONS!!!" %>
+<%= render "shared/detail_header", image: @playlist.cover_image.url, title: @playlist.title, description: @playlist.description %>
 
 <div class="playlist detail">
 

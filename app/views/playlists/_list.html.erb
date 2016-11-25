@@ -10,7 +10,7 @@ PLAYLIST GRID VIEW
       <a
         class="quiet-link image-box"
         href="<%= playlist_path(playlist) %>"
-        style="background: url(http://placehold.it/400x250/33cccc/fff?text=image) center center; background-size: cover;"
+        style="background: url(<%= playlist.cover_image.url %>) center center; background-size: cover;"
       ></a>
       <div class="caption">
         <h4 class="group inner list-group-item-heading">
