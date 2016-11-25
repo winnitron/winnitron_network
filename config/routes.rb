@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   put  "/games/:uuid/zips/:file_key", to: "game_zips#update", as: :update_zipfile
   post "images/:uuid/", to: "images#create", as: :create_image
 
+  resources :images, only: [:update, :destroy]
 
   resources :arcade_machines
   resources :playlists

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161124033444) do
+ActiveRecord::Schema.define(version: 20161125231640) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,10 +78,11 @@ ActiveRecord::Schema.define(version: 20161124033444) do
     t.string   "parent_type"
     t.string   "file_key"
     t.datetime "file_last_modified"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
     t.string   "parent_uuid"
     t.integer  "user_id"
+    t.boolean  "cover",              default: false
   end
 
   add_index "images", ["parent_type", "parent_id"], name: "index_images_on_parent_type_and_parent_id", using: :btree

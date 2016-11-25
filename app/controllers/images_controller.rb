@@ -1,5 +1,6 @@
 class ImagesController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_image, except: [:create]
   before_action :set_parent
   before_action :uuid_permission_check!
 
@@ -13,9 +14,23 @@ class ImagesController < ApplicationController
     render nothing: true
   end
 
+
+  def update
+    @image.update(cover: params[:cover])
+    render nothing: true
+  end
+
+  def destroy
+    @image.destroy
+    render nothing: true
+  end
+
+
   private
 
   def set_parent
+    return @image.parent if @image
+
     parent_types = ["game", "arcade_machine"]
     raise ArgumentError, "Invalid parent_type: #{params[:parent_type]}" if !parent_types.include?(params[:parent_type])
 
