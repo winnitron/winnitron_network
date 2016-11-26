@@ -40,19 +40,18 @@ See application.html.erb for where it gets rendered.
     </h3>
 
     <% current_user.arcade_machines.each do |machine| %>
-    <div class="arcade-machine row">
-      <a href="<%= arcade_machine_path(machine) %>">
-        <div class="col-xs-4">
-          <!--<img src="<%= machine.images.first&.url %>" width="200">-->
-          <img class="img-circle img-thumbnail" src="http://placehold.it/250x250/33cccc/fff?text=image">
-        </div>
-        <section class="col-xs-8">
-          <strong><%= machine.name %></strong>
-          </br>
-          <em><%= machine.location %></em>
-        </section>
-      </a>
-    </div>
+      <div class="arcade-machine row">
+        <a href="<%= arcade_machine_path(machine) %>">
+          <div class="col-xs-4">
+            <img class="img-circle img-thumbnail" src="<%= machine.cover_image.url %>">
+          </div>
+          <section class="col-xs-8">
+            <strong><%= machine.name %></strong>
+            </br>
+            <em><%= machine.location %></em>
+          </section>
+        </a>
+      </div>
     <% end %>
 
   </div>
@@ -63,7 +62,7 @@ See application.html.erb for where it gets rendered.
     <h3>
       My Games
       <span class="pull-right">
-        <a href="<%= new_game_path %>">
+        <a href="<%= new_game_path %>" title="Add a game">
           <i class="fa fa-plus-circle" aria-hidden="true"></i>
         </a>
       </span>
@@ -71,13 +70,13 @@ See application.html.erb for where it gets rendered.
 
 
     <% current_user.games.each do |game| %>
-    <div class="game">
-      <a href="<%= game_path(game) %>">
-        <strong><%= game.title %></strong>
-        <br>
-        <img src="<%= game.images.first&.url %>" width="200">
-      </a>
-    </div>
+      <div class="game">
+        <a href="<%= game_path(game) %>">
+          <strong><%= game.title %></strong>
+          <br>
+          <img src="<%= game.cover_image.url %>" width="200">
+        </a>
+      </div>
     <% end %>
   </div>
 
@@ -86,16 +85,16 @@ See application.html.erb for where it gets rendered.
     <h3>
       My Playlists
       <span class="pull-right">
-        <a href="<%= new_playlist_path %>">
+        <a href="<%= new_playlist_path %>" title="Create a playlist">
           <i class="fa fa-plus-circle" aria-hidden="true"></i>
         </a>
       </span>
     </h3>
 
     <% current_user.playlists.each do |playlist| %>
-    <div class="playlist">
-      <strong><%= link_to playlist.title, playlist_path(playlist) %></strong>
-    </div>
+      <div class="playlist">
+        <strong><%= link_to playlist.title, playlist_path(playlist) %></strong>
+      </div>
     <% end %>
   </div>
 </div>

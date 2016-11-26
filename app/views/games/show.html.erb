@@ -29,15 +29,11 @@
         </p>
 
         <h4>Images</h4>
-        <% @game.images.each do |image| %>
-        <a href="<%= image.url %>" class="screenshot">
-          <img src="<%= image.url %>">
-        </a>
-        <% end %>
+        <%= render "images/list", imageable: @game %>
 
         <h4>Links</h4>
         <% @game.links.each do |link| %>
-        <div class="link"><h4><%= link_to link.url, link.url %></h4></div>
+          <div class="link"><h4><%= link_to link.url, link.url %></h4></div>
         <% end %>
 
         <h4><%= @game.users.size > 1 ? "Developers" : "Developer" %></h4>
