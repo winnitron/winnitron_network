@@ -20,12 +20,6 @@ class GamesController < ApplicationController
   def edit
   end
 
-  def image_callback
-    @game.images.create! file_key: "games/#{@game.id}-image-#{params[:filename]}",
-                         file_last_modified: Time.parse(params[:lastModifiedDate])
-    render nothing: true
-  end
-
   def create
     @game = Game.new(game_params)
     @game.users = [current_user]

@@ -53,9 +53,25 @@
       </div>
 
       <div class="col-lg-6">
-        <p>Winnitron specific stats</p>
-        <p>e.g. What winnitrons it's on</p>
-        <p>which playlists it's on</p>
+        <% if @game.arcade_machines.any? %>
+          <h4>Playable on these Winnitrons:</h4>
+          <ul>
+            <% @game.arcade_machines.each do |machine| %>
+              <li><%= link_to machine.name, arcade_machine_path(machine) %></li>
+            <% end %>
+          </ul>
+
+        <% end %>
+
+        <% if @game.playlists.any? %>
+          <h4>Included in these playlists:</h4>
+          <ul>
+            <% @game.playlists.each do |playlist| %>
+              <li><%= link_to playlist.title, playlist_path(playlist) %></li>
+            <% end %>
+          </ul>
+        <% end %>
+
       </div>
 
 
