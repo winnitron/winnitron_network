@@ -17,30 +17,39 @@
       <!-- Metadata -->
       <div class="col-lg-6">
 
-        <h4>Players</h4>
-        <p>
-          <%=
-          if @game.min_players == @game.max_players
-            pluralize(@game.min_players, "player")
-          else
-            "#{@game.min_players}-#{@game.max_players} players"
-          end
-          %>
-        </p>
+        <div class="row">
+          <h4>
+            <%=
+            if @game.min_players == @game.max_players
+              pluralize(@game.min_players, "player")
+            else
+              "#{@game.min_players}-#{@game.max_players} players"
+            end
+            %>
+          </h4>
+        </div>
 
-        <h4>Images</h4>
-        <%= render "images/list", imageable: @game %>
+        <div class="row">
+          <h4>Images</h4>
+          <%= render "images/list", imageable: @game %>
+        </div>
 
-        <h4>Links</h4>
-        <% @game.links.each do |link| %>
-          <div class="link"><h4><%= link_to link.url, link.url %></h4></div>
-        <% end %>
+        <div class="row">
+          <h4>Links</h4>
+          <% @game.links.each do |link| %>
+            <div class="link"><h4><%= link_to link.url, link.url %></h4></div>
+          <% end %>
+        </div>
 
-        <h4><%= @game.users.size > 1 ? "Developers" : "Developer" %></h4>
-        <%= render "shared/user_cards", users: @game.users %>
+        <div class="row">
+          <h4><%= @game.users.size > 1 ? "Developers" : "Developer" %></h4>
+          <%= render "shared/user_cards", users: @game.users %>
+        </div>
 
-        <h4>Tags</h4>
-        <p><%= @game.tag_list.join(", ") %></p>
+        <div class="row">
+          <h4>Tags</h4>
+          <p><%= @game.tag_list.join(", ") %></p>
+        </div>
       </div>
 
       <div class="col-lg-6">

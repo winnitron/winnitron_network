@@ -16,20 +16,28 @@ class ImagesController < ApplicationController
 
 
   def update
+    @parent.images.update_all(cover: false)
     @image.update(cover: params[:cover])
-    render nothing: true
+    redirect_to @parent
   end
 
   def destroy
     @image.destroy
-    render nothing: true
+    redirect_to @parent
   end
 
 
   private
 
+  def set_image
+    @image = Image.find_by(id: params[:id])
+  end
+
   def set_parent
-    return @image.parent if @image
+    if @image
+      @parent = @image.parent
+      return true
+    end
 
     parent_types = ["game", "arcade_machine"]
     raise ArgumentError, "Invalid parent_type: #{params[:parent_type]}" if !parent_types.include?(params[:parent_type])

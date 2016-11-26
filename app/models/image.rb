@@ -4,6 +4,8 @@ class Image < ActiveRecord::Base
 
   validates :user, presence: true
 
+  default_scope { order(cover: :desc) }
+
   def self.placeholder
     # Uh, or something.
     Image.new(file_key: "games/24504476-e730-4aef-b7ed-bd3fd956c3c4-image-NCC-1701-D.jpg")
