@@ -13,7 +13,8 @@
 
         <% end %>
         |
-        <a href="" class="remove">remove</a>
+
+        <%= link_to "remove", image_path(image), method: :delete %>
       </div>
     <% end %>
     <div class="clearfix"></div>
