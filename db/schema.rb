@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161125231640) do
+ActiveRecord::Schema.define(version: 20161127022026) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 20161125231640) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.string   "uuid"
+    t.string   "slug"
   end
 
   add_index "arcade_machines", ["uuid"], name: "index_arcade_machines_on_uuid", using: :btree
@@ -69,6 +70,7 @@ ActiveRecord::Schema.define(version: 20161125231640) do
     t.integer  "max_players"
     t.string   "uuid"
     t.boolean  "legacy_controls", default: false
+    t.string   "slug"
   end
 
   add_index "games", ["uuid"], name: "index_games_on_uuid", using: :btree
@@ -127,6 +129,7 @@ ActiveRecord::Schema.define(version: 20161125231640) do
     t.datetime "updated_at",                  null: false
     t.boolean  "default",     default: false
     t.text     "description"
+    t.string   "slug"
   end
 
   add_index "playlists", ["user_id"], name: "index_playlists_on_user_id", using: :btree
