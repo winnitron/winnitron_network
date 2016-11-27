@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161127022026) do
+ActiveRecord::Schema.define(version: 20161127023653) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 20161127022026) do
   add_index "api_keys", ["token"], name: "index_api_keys_on_token", using: :btree
 
   create_table "arcade_machines", force: :cascade do |t|
-    t.string   "name"
+    t.string   "title"
     t.text     "description"
     t.string   "location"
     t.datetime "created_at",  null: false

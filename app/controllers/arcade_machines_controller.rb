@@ -56,7 +56,7 @@ class ArcadeMachinesController < ApplicationController
 
   private
     def set_arcade_machine
-      @arcade_machine = ArcadeMachine.find(params[:id])
+      @arcade_machine = ArcadeMachine.find_by!(slug: params[:id])
     end
 
     def permission_check!
@@ -64,7 +64,7 @@ class ArcadeMachinesController < ApplicationController
     end
 
     def arcade_machine_params
-      params.fetch(:arcade_machine, {}).permit(:name, :description, :location, :uuid,
+      params.fetch(:arcade_machine, {}).permit(:title, :description, :location, :uuid,
                                                links_attributes: [:id, :link_type, :url, :_destroy])
     end
 

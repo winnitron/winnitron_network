@@ -1,4 +1,5 @@
 class Playlist < ActiveRecord::Base
+  include Slugged
 
   validates :title, :user, presence: true
   validate :title_doesnt_start_with_underscore

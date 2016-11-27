@@ -6,7 +6,7 @@ RSpec.describe PlaylistsController, type: :controller do
   end
 
   describe "GET show" do
-    it_behaves_like "simple GET action", :show, { id: FactoryGirl.create(:playlist).id }
+    it_behaves_like "simple GET action", :show, { id: FactoryGirl.create(:playlist).slug }
   end
 
   describe "GET new" do
@@ -26,7 +26,7 @@ RSpec.describe PlaylistsController, type: :controller do
   end
 
   describe "GET edit" do
-    it_behaves_like "requires sign in", :edit, { id: FactoryGirl.create(:playlist).id }
+    it_behaves_like "requires sign in", :edit, { id: FactoryGirl.create(:playlist).slug }
 
     context "user is signed in" do
       let(:user) { FactoryGirl.create(:user) }
@@ -37,7 +37,7 @@ RSpec.describe PlaylistsController, type: :controller do
 
       context "user owns the playlist" do
         let(:playlist) { FactoryGirl.create(:playlist, user: user) }
-        let(:params) { { id: playlist.id } }
+        let(:params) { { id: playlist.slug } }
 
         it_behaves_like "simple GET action", :edit
       end
@@ -47,7 +47,7 @@ RSpec.describe PlaylistsController, type: :controller do
           let(:user) { FactoryGirl.create(:admin) }
 
           let(:playlist) { FactoryGirl.create(:playlist) }
-          let(:params) { { id: playlist.id } }
+          let(:params) { { id: playlist.slug } }
 
           it_behaves_like "simple GET action", :edit
         end
@@ -56,7 +56,7 @@ RSpec.describe PlaylistsController, type: :controller do
           let(:playlist) { FactoryGirl.create(:playlist) }
 
           it "responds 403" do
-            get :edit, id: playlist.id
+            get :edit, id: playlist.slug
             expect(response).to have_http_status :forbidden
           end
         end
@@ -134,7 +134,7 @@ RSpec.describe PlaylistsController, type: :controller do
             [admin, owner].each do |user|
               sign_in user
 
-              put :update, { id: playlist.id, playlist: attributes }
+              put :update, { id: playlist.slug, playlist: attributes }
               expect(playlist.reload.title).to eq attributes[:title]
             end
           end
@@ -150,7 +150,7 @@ RSpec.describe PlaylistsController, type: :controller do
         end
 
         it "responds 403" do
-          put :update, { id: playlist.id, playlist: attributes }
+          put :update, { id: playlist.slug, playlist: attributes }
           expect(response).to have_http_status :forbidden
         end
       end
@@ -162,12 +162,12 @@ RSpec.describe PlaylistsController, type: :controller do
         end
 
         it "does not save the playlist" do
-          put :update, { id: playlist.id, playlist: { title: "" } }
-          expect(Playlist.find(playlist.id).title).to eq playlist.title
+          put :update, { id: playlist.slug, playlist: { title: "" } }
+          expect(Playlist.find_by(slug: playlist.slug).title).to eq playlist.title
         end
 
         it "renders edit" do
-          put :update, { id: playlist.id, playlist: { title: "" } }
+          put :update, { id: playlist.slug, playlist: { title: "" } }
           expect(response).to render_template(:edit)
         end
 
@@ -194,14 +194,14 @@ RSpec.describe PlaylistsController, type: :controller do
         let(:user) { admin }
 
         it "redirects to playlist index" do
-          delete :destroy, id: playlist.id
+          delete :destroy, id: playlist.slug
           expect(response).to redirect_to(playlists_path)
         end
 
         it "removes the playlist" do
-          delete :destroy, id: playlist.id
+          delete :destroy, id: playlist.slug
           expect {
-            Playlist.find(playlist.id)
+            Playlist.find(playlist.slug)
           }.to raise_error(ActiveRecord::RecordNotFound)
         end
 
@@ -211,14 +211,14 @@ RSpec.describe PlaylistsController, type: :controller do
         let(:user) { owner }
 
         it "redirects to playlist index" do
-          delete :destroy, id: playlist.id
+          delete :destroy, id: playlist.slug
           expect(response).to redirect_to(playlists_path)
         end
 
         it "removes the playlist" do
-          delete :destroy, id: playlist.id
+          delete :destroy, id: playlist.slug
           expect {
-            Playlist.find(playlist.id)
+            Playlist.find(playlist.slug)
           }.to raise_error(ActiveRecord::RecordNotFound)
         end
       end
@@ -228,7 +228,7 @@ RSpec.describe PlaylistsController, type: :controller do
 
         it "does not remove the playlist" do
           expect {
-            delete :destroy, id: playlist.id
+            delete :destroy, id: playlist.slug
           }.to_not change(Playlist, :count)
         end
       end

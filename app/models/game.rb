@@ -1,5 +1,6 @@
 class Game < ActiveRecord::Base
   include HasImages
+  include Slugged
 
   CUSTOM_LINK_TYPES = ["Itch.io", "Trailer"]
 

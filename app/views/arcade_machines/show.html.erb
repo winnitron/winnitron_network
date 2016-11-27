@@ -3,7 +3,7 @@
     <%= link_to "Edit", edit_arcade_machine_path(@arcade_machine), class: "pull-right" %>
   <% end %>
 
-  <%= page_heading :h1, @arcade_machine.name %>
+  <%= page_heading :h1, @arcade_machine.title %>
   <div class="row well">
     <p><%= @arcade_machine.location %></p>
     <%= simple_format(@arcade_machine.description) %>

@@ -12,7 +12,7 @@
 
       <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
         <% current_user.arcade_machines.each do |machine| %>
-          <li><%= link_to machine.name, arcade_machine_path(machine) %></li>
+          <li><%= link_to machine.title, arcade_machine_path(machine) %></li>
         <% end %>
       </ul>
     <% end %>

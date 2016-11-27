@@ -23,19 +23,19 @@ RSpec.describe GamesController, type: :controller do
 
     context "it exists" do
       it "assigns the game" do
-        get :show, id: game.id
+        get :show, id: game.slug
         expect(assigns(:game)).to eq game
       end
 
       it "returns 200 OK" do
-        get :show, id: game.id
+        get :show, id: game.slug
         expect(response).to have_http_status :ok
       end
 
       describe "json response" do
         it "doesn't panic without a zip file" do
           game.game_zips.destroy_all
-          get :show, id: game.id, format: "json"
+          get :show, id: game.slug, format: "json"
           expect(response).to have_http_status :ok
         end
       end
@@ -70,7 +70,7 @@ RSpec.describe GamesController, type: :controller do
     context "current user is admin" do
       before :each do
         sign_in admin
-        get :edit, id: game.id
+        get :edit, id: game.slug
       end
 
       it "returns 200 OK" do
@@ -136,7 +136,7 @@ RSpec.describe GamesController, type: :controller do
 
       context "valid attributes" do
         it "saves the Game" do
-          put :update, { id: game.id, game: attributes }
+          put :update, { id: game.slug, game: attributes }
           expect(game.reload.title).to eq attributes[:title]
         end
       end
@@ -144,12 +144,12 @@ RSpec.describe GamesController, type: :controller do
       context "bad attributes" do
 
         it "does not save the game" do
-          put :update, { id: game.id, game: { title: "" } }
-          expect(Game.find(game.id).title).to eq game.title
+          put :update, { id: game.slug, game: { title: "" } }
+          expect(Game.find_by(slug: game.slug).title).to eq game.title
         end
 
         it "renders edit" do
-          put :update, { id: game.id, game: { title: "" } }
+          put :update, { id: game.slug, game: { title: "" } }
           expect(response).to render_template(:edit)
         end
 
@@ -166,12 +166,12 @@ RSpec.describe GamesController, type: :controller do
       end
 
       it "does not delete the game" do
-        delete :destroy, id: game.id
-        expect(Game.find(game.id)).to eq game
+        delete :destroy, id: game.slug
+        expect(Game.find_by(slug: game.slug)).to eq game
       end
 
       it "returns 403" do
-        delete :destroy, id: game.id
+        delete :destroy, id: game.slug
         expect(response).to have_http_status 403
       end
     end
@@ -182,8 +182,8 @@ RSpec.describe GamesController, type: :controller do
       end
 
       it "deletes the game" do
-        delete :destroy, id: game.id
-        expect(Game.where(id: game.id).count).to eq 0
+        delete :destroy, id: game.slug
+        expect(Game.where(id: game.slug).count).to eq 0
       end
     end
 
@@ -193,8 +193,8 @@ RSpec.describe GamesController, type: :controller do
       end
 
       it "deletes the game" do
-        delete :destroy, id: game.id
-        expect(Game.where(id: game.id).count).to eq 0
+        delete :destroy, id: game.slug
+        expect(Game.where(id: game.slug).count).to eq 0
       end
     end
 

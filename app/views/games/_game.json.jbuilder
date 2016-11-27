@@ -1,5 +1,5 @@
 json.title           game.title
-json.slug            game.title.parameterize
+json.slug            game.slug
 json.min_players     game.min_players
 json.max_players     game.max_players
 json.description     game.description

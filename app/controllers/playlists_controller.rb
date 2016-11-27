@@ -56,7 +56,7 @@ class PlaylistsController < ApplicationController
 
   private
     def set_playlist
-      @playlist = Playlist.find(params[:id])
+      @playlist = Playlist.find_by!(slug: params[:id])
     end
 
     def permission_check!
