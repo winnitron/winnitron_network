@@ -1,0 +1,32 @@
+<div class="row text-center">
+
+  <h1>Are you sure you want to delete '<%= @to_destroy.title %>'?</h1>
+
+  <div class="row">
+    <p>
+      This cannot be undone.
+    </p>
+  </div>
+  <div class="row">
+    <div class="col-lg-3"></div>
+    <div class="col-lg-6">
+      <%= render "delete_warning" %>
+    </div>
+  </div>
+
+  <div class="col-lg-12">
+    <a href="<%= url_for(@to_destroy) %>" data-method="delete">
+      <button class="btn btn-danger">
+        Yes. Delete.
+      </button>
+    </a>
+
+    &nbsp;
+
+    <a href="<%= url_for(@to_destroy) %>">
+      <button class="btn btn-default">
+        No. Cancel.
+      </button>
+    </a>
+  </div>
+</div>

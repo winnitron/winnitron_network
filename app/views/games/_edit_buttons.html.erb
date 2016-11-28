@@ -29,10 +29,11 @@
           Edit
         </button>
       </a>
-      <button class="btn btn-danger" type="button">
-        Delete
-        <!-- NEED A CHECK BEFORE DELETE HERE -->
-      </button>
+      <a href="<%= confirm_destroy_game_path(game) %>">
+        <button class="btn btn-danger" type="button">
+          Delete
+        </button>
+      </a>
     <% end %>
   </div>
 

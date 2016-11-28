@@ -1,7 +1,7 @@
 class GamesController < ApplicationController
-  before_action :set_game, only: [:show, :edit, :update, :destroy]
+  before_action :set_game, only: [:show, :edit, :update, :destroy, :confirm_destroy]
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :permission_check!, only: [:edit, :update, :destroy, :zipfile_callback]
+  before_action :permission_check!, only: [:edit, :update, :destroy, :confirm_destroy]
 
   def index
     @mine   = user_signed_in? ? current_user.games.order(title: :asc) : []
@@ -45,6 +45,11 @@ class GamesController < ApplicationController
         format.json { render json: @game.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def confirm_destroy
+    @to_destroy = @game
+    render "shared/confirm_destroy"
   end
 
   def destroy

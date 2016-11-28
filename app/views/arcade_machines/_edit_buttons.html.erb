@@ -2,22 +2,22 @@
 
 <% if user_signed_in? %>
 
-<!-- Add to Winnitron dropdown -->
-<div class="edit-buttons dropdown">
+  <div class="edit-buttons dropdown">
 
-  <!-- Editing Buttons if Owned -->
-  <% if current_user.owns?(arcade_machine) || current_user&.admin %>
-  <a href="<%= edit_arcade_machine_path(arcade_machine) %>">
-    <button class="btn btn-success">
-      Edit
-    </button>
-  </a>
-  <button class="btn btn-danger" type="button">
-    Delete
-    <!-- NEED A CHECK BEFORE DELETE HERE -->
-  </button>
-  <% end %>
+    <!-- Editing Buttons if Owned -->
+    <% if current_user.owns?(arcade_machine) || current_user.admin? %>
+      <a href="<%= edit_arcade_machine_path(arcade_machine) %>">
+        <button class="btn btn-success">
+          Edit
+        </button>
+      </a>
+      <a href="<%= confirm_destroy_arcade_machine_path(arcade_machine) %>">
+        <button class="btn btn-danger" type="button">
+          Delete
+        </button>
+      </a>
+    <% end %>
 
-</div>
+  </div>
 
 <% end %>

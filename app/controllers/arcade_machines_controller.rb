@@ -1,8 +1,8 @@
 class ArcadeMachinesController < ApplicationController
-  before_action :set_arcade_machine, only: [:show, :edit, :update, :destroy]
+  before_action :set_arcade_machine, only: [:show, :edit, :update, :destroy, :confirm_destroy]
   before_action :authenticate_user!, except: [:index, :show]
   before_action :require_builder!, except: [:index, :show]
-  before_action :permission_check!, only: [:edit, :update, :destroy]
+  before_action :permission_check!, only: [:edit, :update, :destroy, :confirm_destroy]
 
   def index
     @arcade_machines = ArcadeMachine.all
@@ -44,6 +44,11 @@ class ArcadeMachinesController < ApplicationController
         format.json { render json: @arcade_machine.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def confirm_destroy
+    @to_destroy = @arcade_machine
+    render "shared/confirm_destroy"
   end
 
   def destroy
