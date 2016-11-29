@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
     if user_signed_in? && (current_user.admin? || current_user.builder?)
       true
     else
-      head :forbidden
+      redirect_to request_builder_path
     end
   end
 
