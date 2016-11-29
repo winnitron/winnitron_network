@@ -5,4 +5,7 @@ class PagesController < ApplicationController
 
   def dash
   end
+
+  def request_builder
+  end
 end
