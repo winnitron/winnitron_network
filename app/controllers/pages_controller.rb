@@ -5,4 +5,10 @@ class PagesController < ApplicationController
 
   def dash
   end
+
+  def request_builder
+  end
+
+  def feedback
+  end
 end

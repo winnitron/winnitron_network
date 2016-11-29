@@ -1,8 +1,8 @@
 class ArcadeMachinesController < ApplicationController
-  before_action :set_arcade_machine, only: [:show, :edit, :update, :destroy]
+  before_action :set_arcade_machine, only: [:show, :edit, :update, :destroy, :confirm_destroy]
   before_action :authenticate_user!, except: [:index, :show]
   before_action :require_builder!, except: [:index, :show]
-  before_action :permission_check!, only: [:edit, :update, :destroy]
+  before_action :permission_check!, only: [:edit, :update, :destroy, :confirm_destroy]
 
   def index
     @arcade_machines = ArcadeMachine.all
@@ -46,6 +46,11 @@ class ArcadeMachinesController < ApplicationController
     end
   end
 
+  def confirm_destroy
+    @to_destroy = @arcade_machine
+    render "shared/confirm_destroy"
+  end
+
   def destroy
     @arcade_machine.destroy
     respond_to do |format|
@@ -56,7 +61,7 @@ class ArcadeMachinesController < ApplicationController
 
   private
     def set_arcade_machine
-      @arcade_machine = ArcadeMachine.find(params[:id])
+      @arcade_machine = ArcadeMachine.find_by!(slug: params[:id])
     end
 
     def permission_check!
@@ -64,7 +69,7 @@ class ArcadeMachinesController < ApplicationController
     end
 
     def arcade_machine_params
-      params.fetch(:arcade_machine, {}).permit(:name, :description, :location, :uuid,
+      params.fetch(:arcade_machine, {}).permit(:title, :description, :location, :uuid,
                                                links_attributes: [:id, :link_type, :url, :_destroy])
     end
 

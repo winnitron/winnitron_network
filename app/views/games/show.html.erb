@@ -57,7 +57,7 @@
           <h4>Playable on these Winnitrons:</h4>
           <ul>
             <% @game.arcade_machines.each do |machine| %>
-              <li><%= link_to machine.name, arcade_machine_path(machine) %></li>
+              <li><%= link_to machine.title, arcade_machine_path(machine) %></li>
             <% end %>
           </ul>
 

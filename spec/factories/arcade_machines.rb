@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :arcade_machine do
-    name     { Faker::Lorem.words(2).join(" ") }
+    title    { Faker::Lorem.words(2).join(" ") }
     location { Faker::Address.city }
 
     after :create do |machine|

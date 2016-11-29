@@ -1,7 +1,8 @@
 class ArcadeMachine < ActiveRecord::Base
   include HasImages
+  include Slugged
 
-  validates :name, presence: true
+  validates :title, presence: true
 
   has_many :machine_ownerships, dependent: :destroy
   has_many :users, through: :machine_ownerships

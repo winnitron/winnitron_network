@@ -1,7 +1,7 @@
 class PlaylistsController < ApplicationController
-  before_action :set_playlist, only: [:show, :edit, :update, :destroy]
+  before_action :set_playlist, only: [:show, :edit, :update, :destroy, :confirm_destroy]
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :permission_check!, only: [:edit, :update, :destroy]
+  before_action :permission_check!, only: [:edit, :update, :destroy, :confirm_destroy]
 
   def index
     @mine   = user_signed_in? ? current_user.playlists.order(title: :asc) : []
@@ -46,6 +46,11 @@ class PlaylistsController < ApplicationController
     end
   end
 
+  def confirm_destroy
+    @to_destroy = @playlist
+    render "shared/confirm_destroy"
+  end
+
   def destroy
     @playlist.destroy
     respond_to do |format|
@@ -56,7 +61,7 @@ class PlaylistsController < ApplicationController
 
   private
     def set_playlist
-      @playlist = Playlist.find(params[:id])
+      @playlist = Playlist.find_by!(slug: params[:id])
     end
 
     def permission_check!

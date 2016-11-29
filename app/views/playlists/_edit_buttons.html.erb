@@ -12,22 +12,23 @@
 
       <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
         <% current_user.arcade_machines.each do |machine| %>
-          <li><%= link_to machine.name, arcade_machine_path(machine) %></li>
+          <li><%= link_to machine.title, arcade_machine_path(machine) %></li>
         <% end %>
       </ul>
     <% end %>
 
     <!-- Editing Buttons if Owned -->
-    <% if current_user.owns?(playlist) || current_user&.admin %>
+    <% if current_user.owns?(playlist) || current_user.admin? %>
       <a href="<%= edit_playlist_path(playlist) %>">
         <button class="btn btn-success">
           Edit
         </button>
       </a>
-      <button class="btn btn-danger" type="button">
-        Delete
-        <!-- NEED A CHECK BEFORE DELETE HERE -->
-      </button>
+      <a href="<%= confirm_destroy_playlist_path(playlist) %>">
+        <button class="btn btn-danger" type="button">
+          Delete
+        </button>
+      </a>
     <% end %>
   </div>
 
