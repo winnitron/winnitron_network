@@ -3,9 +3,11 @@
   $(function() {
 
     $("button.machine-save").click(function(e) {
-      $(this).html("Wait for it...");
-      $(this).attr("disabled", "disabled");
-      $("form.machine").submit();
+      if ($("form.machine")[0].checkValidity()) {
+        $(this).html("Wait for it...");
+        $(this).attr("disabled", "disabled");
+      }
+      $("#submit").click();
     });
 
   });

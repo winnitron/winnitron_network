@@ -46,6 +46,7 @@
   </div>
 
   <%= f.hidden_field :uuid %>
+  <input type="submit" id="submit" class="hidden">
 <% end %>
 
 <div>
@@ -132,6 +133,8 @@
 
 <div class="actions form-group">
   <div class="col-sm-offset-3 col-sm-9">
-    <%= button_tag "Save", class: "game-save btn btn-success" %>
+    <label for="game-submit">
+      <%= button_tag "Save", class: "game-save btn btn-success" %>
+    </label>
   </div>
 </div>
