@@ -1,4 +1,4 @@
-<div class="arcade-machine">
+<div class="arcade-machine col-lg-12">
   <% if current_user&.admin? || current_user.owns?(@arcade_machine) %>
     <%= link_to "Edit", edit_arcade_machine_path(@arcade_machine), class: "pull-right" %>
   <% end %>

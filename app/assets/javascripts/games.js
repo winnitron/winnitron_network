@@ -3,10 +3,14 @@
   $(function() {
 
     $("button.game-save").click(function(e) {
-      $(this).html("Wait for it...");
-      $(this).attr("disabled", "disabled");
-      $("form.game").submit();
+      if ($("form.game")[0].checkValidity()) {
+        $(this).html("Wait for it...");
+        $(this).attr("disabled", "disabled");
+      }
+
+      $("#submit").click();
     });
+
 
     $(".add_nested_fields_link").click();
 
