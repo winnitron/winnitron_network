@@ -43,7 +43,7 @@ See application.html.erb for where it gets rendered.
     <% current_user.arcade_machines.each do |machine| %>
       <%=
         render "shared/item_cards_small",
-        itemName: machine.name,
+        itemName: machine.title,
         itemInfo: machine.location,
         itemLink: arcade_machine_path(machine),
         itemImageURL: machine.cover_image.url
