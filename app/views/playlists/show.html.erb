@@ -8,29 +8,53 @@ PLAYLIST DETAIL VIEW
 
   <div class="row">
 
-    <!-- Edit Buttons -->
-    <div class="col-xs-12">
-      <%= render "edit_buttons", playlist: @playlist %>
-    </div>
-
-
     <!-- Metadata -->
     <div class="col-md-6">
+
+      <!-- Game Description -->
+      <div class="detail-description">
+        <%= simple_format(@playlist.description) %>
+
+        <!-- Edit Buttons -->
+        <div class="detail-edit-buttons">
+            <%= render "edit_buttons", playlist: @playlist %>
+        </div>
+      </div>
+
+      <hr />
 
       <h4>
         Creator
       </h4>
-      <%= render "shared/user_cards", users: [@playlist.user] %>
+
+      <div class="clearfix">
+        <%= render "shared/item_cards_square",
+          itemName: @playlist.user.name,
+          itemInfo: "",
+          itemLink: user_url(@playlist.user),
+          itemImageURL: @playlist.user.gravatar_url
+        %>
+      </div>
 
     </div>
 
 
     <!-- Games Listing -->
     <div class="col-md-6">
+
       <h4>Games</h4>
       <% @playlist.games.each do |game| %>
         <% listing = Listing.find_by(game: game, playlist: @playlist) %>
 
+        <%=
+          render "shared/item_cards_wide",
+          itemName: game.title,
+          itemInfo: "",
+          itemLink: game_url(game),
+          itemImageURL: game.images.first&.url || asset_url("rocket-ship")
+        %>
+
+        <!--
         <div class="game-card">
           <a href="<%= game_url(game) %>">
             <% screenshot_url = game.images.first&.url || asset_url("rocket-ship") %>
@@ -46,6 +70,7 @@ PLAYLIST DETAIL VIEW
           <% end %>
 
         </div>
+        -->
       <% end %>
     </div>
 
