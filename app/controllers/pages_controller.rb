@@ -8,4 +8,7 @@ class PagesController < ApplicationController
 
   def request_builder
   end
+
+  def feedback
+  end
 end
