@@ -13,7 +13,11 @@ itemInfo
 
 <a href="<%= itemLink %>" class="item-card item-card-wide row">
   <div class="col-xs-12 item-card-image" style="
-  background: url(<%= itemImageURL %>) center center;
+  background: linear-gradient(
+    rgba(0, 0, 0, 0.45),
+    rgba(0, 0, 0, 0.45)
+  ),url(<%= itemImageURL %>);
+  background-position: center center;
   background-size: cover;
   ">
     <div class="item-card-details">
