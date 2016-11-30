@@ -1,78 +1,118 @@
 <!--
-  GAME VIEW
+  GAME DETAIL VIEW
 -->
 
 <%= render "shared/detail_header", image: @game.cover_image.url, title: @game.title, description: @game.description %>
 
 <div class="game detail">
 
-  <!-- Other Info -->
+  <div class="row">
 
-    <div class="row">
 
-      <div class="col-xs-12">
-        <%= render "edit_buttons", game: @game %>
-      </div>
 
-      <!-- Metadata -->
-      <div class="col-lg-6">
+    <!-- Metadata -->
 
-        <div class="row">
-          <h4>
-            <%=
-            if @game.min_players == @game.max_players
-              pluralize(@game.min_players, "player")
-            else
-              "#{@game.min_players}-#{@game.max_players} players"
-            end
-            %>
-          </h4>
-        </div>
+    <div class="col-md-6">
 
-        <div class="row">
-          <h4>Images</h4>
-          <%= render "images/list", imageable: @game %>
-        </div>
+      <!-- Game Description -->
+      <div class="detail-description">
+        <%= simple_format(@game.description) %>
 
-        <div class="row">
-          <h4>Links</h4>
-          <% @game.links.each do |link| %>
-            <div class="link"><h4><%= link_to link.url, link.url %></h4></div>
-          <% end %>
-        </div>
-
-        <div class="row">
-          <h4><%= @game.users.size > 1 ? "Developers" : "Developer" %></h4>
-          <%= render "shared/user_cards", users: @game.users %>
-        </div>
-
-        <div class="row">
-          <h4>Tags</h4>
-          <p><%= @game.tag_list.join(", ") %></p>
+        <!-- Edit Buttons -->
+        <div class="detail-edit-buttons">
+          <%= render "edit_buttons", game: @game %>
         </div>
       </div>
 
-      <div class="col-lg-6">
-        <% if @game.arcade_machines.any? %>
-          <h4>Playable on these Winnitrons:</h4>
-          <ul>
-            <% @game.arcade_machines.each do |machine| %>
-              <li><%= link_to machine.title, arcade_machine_path(machine) %></li>
-            <% end %>
-          </ul>
+      <hr />
 
+      <h4>
+        <%=
+        if @game.min_players == @game.max_players
+          pluralize(@game.min_players, "player")
+        else
+          "#{@game.min_players}-#{@game.max_players} players"
+        end
+        %>
+      </h4>
+
+      <div class="clearfix">
+        <h4>Images</h4>
+        <%= render "images/list", imageable: @game %>
+      </div>
+
+      <div>
+        <h4>Links</h4>
+        <% @game.links.each do |link| %>
+        <div class="link"><h4><%= link_to link.url, link.url %></h4></div>
         <% end %>
-
-        <% if @game.playlists.any? %>
-          <h4>Included in these playlists:</h4>
-          <ul>
-            <% @game.playlists.each do |playlist| %>
-              <li><%= link_to playlist.title, playlist_path(playlist) %></li>
-            <% end %>
-          </ul>
-        <% end %>
-
       </div>
+
+
+      <h4>Tags</h4>
+      <p><%= @game.tag_list.join(", ") %></p>
+
+
+      <h4><%= @game.users.size > 1 ? "Developers" : "Developer" %></h4>
+
+      <div class="clearfix">
+        <% @game.users.each do |user| %>
+          <%= render "shared/item_cards_square",
+            itemName: user.name,
+            itemInfo: "",
+            itemLink: user_url(user),
+            itemImageURL: user.gravatar_url
+          %>
+        <% end %>
+      </div>
+
+    </div>
+
+
+
+
+
+    <!-- Game Data -->
+
+    <div class="col-md-6">
+
+      <h4>Playable on these Winnitrons:</h4>
+      <% if @game.arcade_machines.any? %>
+      <ul>
+        <% @game.arcade_machines.each do |machine| %>
+        <li><%= link_to machine.title, arcade_machine_path(machine) %></li>
+        <% end %>
+      </ul>
+      <% else %>
+        <h5>
+          Not on any Winnitrons yet.
+          <br/>
+          Be the first to add this to a Winnitron playlist!
+        </h5>
+      <% end %>
+
+      <hr/>
+
+
+      <h4>Included in these playlists:</h4>
+      <% if @game.playlists.any? %>
+      <ul>
+        <% @game.playlists.each do |playlist| %>
+        <li><%= link_to playlist.title, playlist_path(playlist) %></li>
+        <% end %>
+      </ul>
+      <% else %>
+        <h5>
+          Not in any playlists yet.
+          <br/>
+          Be the first to add this to a playlist!
+        </h5>
+      <% end %>
+
+    </div>
+
 
 
   </div>
+
+</div>

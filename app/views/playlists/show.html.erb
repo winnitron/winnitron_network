@@ -8,44 +8,52 @@ PLAYLIST DETAIL VIEW
 
   <div class="row">
 
-    <!-- Edit Buttons -->
-    <div class="col-xs-12">
-      <%= render "edit_buttons", playlist: @playlist %>
-    </div>
-
-
     <!-- Metadata -->
     <div class="col-md-6">
+
+      <!-- Game Description -->
+      <div class="detail-description">
+        <%= simple_format(@playlist.description) %>
+
+        <!-- Edit Buttons -->
+        <div class="detail-edit-buttons">
+            <%= render "edit_buttons", playlist: @playlist %>
+        </div>
+      </div>
+
+      <hr />
 
       <h4>
         Creator
       </h4>
-      <%= render "shared/user_cards", users: [@playlist.user] %>
+
+      <div class="clearfix">
+        <%= render "shared/item_cards_square",
+          itemName: @playlist.user.name,
+          itemInfo: "",
+          itemLink: user_url(@playlist.user),
+          itemImageURL: @playlist.user.gravatar_url
+        %>
+      </div>
 
     </div>
 
 
     <!-- Games Listing -->
     <div class="col-md-6">
+
       <h4>Games</h4>
       <% @playlist.games.each do |game| %>
         <% listing = Listing.find_by(game: game, playlist: @playlist) %>
 
-        <div class="game-card">
-          <a href="<%= game_url(game) %>">
-            <% screenshot_url = game.images.first&.url || asset_url("rocket-ship") %>
-            <%= image_tag screenshot_url %>
-            <br>
-            <%= game.title %>
-          </a>
-
-          <% if current_user&.admin? || current_user.owns?(@playlist) %>
-            <span class="remove-button">
-              <%= link_to "X", listing_path(listing), method: :delete, title: "remove from playlist" %>
-            </span>
-          <% end %>
-
-        </div>
+        <%=
+          render "shared/item_cards_wide",
+          itemName: game.title,
+          itemInfo: "",
+          itemLink: game_url(game),
+          itemImageURL: game.images.first&.url || asset_url("rocket-ship")
+        %>
+        
       <% end %>
     </div>
 

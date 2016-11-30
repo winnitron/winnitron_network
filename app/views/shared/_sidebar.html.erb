@@ -41,21 +41,19 @@ See application.html.erb for where it gets rendered.
     </h3>
 
     <% current_user.arcade_machines.each do |machine| %>
-      <div class="arcade-machine row">
-        <a href="<%= arcade_machine_path(machine) %>">
-          <div class="col-xs-4">
-            <img class="img-circle img-thumbnail" src="<%= machine.cover_image.url %>">
-          </div>
-          <section class="col-xs-8">
-            <strong><%= machine.title %></strong>
-            </br>
-            <em><%= machine.location %></em>
-          </section>
-        </a>
-      </div>
+      <%=
+        render "shared/item_cards_small",
+        itemName: machine.title,
+        itemInfo: machine.location,
+        itemLink: arcade_machine_path(machine),
+        itemImageURL: machine.cover_image.url
+      %>
     <% end %>
 
   </div>
+
+  <hr/>
+
   <% end %>
 
 
@@ -71,16 +69,17 @@ See application.html.erb for where it gets rendered.
 
 
     <% current_user.games.each do |game| %>
-      <div class="game">
-        <a href="<%= game_path(game) %>">
-          <strong><%= game.title %></strong>
-          <br>
-          <img src="<%= game.cover_image.url %>" width="200">
-        </a>
-      </div>
+      <%=
+        render "shared/item_cards_wide",
+        itemName: game.title,
+        itemInfo: "",
+        itemLink: game_path(game),
+        itemImageURL: game.cover_image.url
+      %>
     <% end %>
   </div>
 
+  <hr />
 
   <div>
     <h3>
@@ -98,4 +97,6 @@ See application.html.erb for where it gets rendered.
       </div>
     <% end %>
   </div>
+
+  <br/><br/>
 </div>
