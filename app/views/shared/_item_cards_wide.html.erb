@@ -1,0 +1,28 @@
+<!--
+In-Line Item Cards
+
+Used for Users, Winnitrons, Games
+And other things with an image and title and description
+
+type = [small, wide, square]
+itemLink
+itemImageURL
+itemName
+itemInfo
+-->
+
+<a href="<%= itemLink %>" class="item-card item-card-wide row">
+  <div class="col-xs-12 item-card-image" style="
+  background: linear-gradient(
+    rgba(0, 0, 0, 0.45),
+    rgba(0, 0, 0, 0.45)
+  ),url(<%= itemImageURL %>);
+  background-position: center center;
+  background-size: cover;
+  ">
+    <div class="item-card-details">
+      <h3 class="item-card-title"><%= itemName %></h3>
+      <h4 class="item-card-info"><%= itemInfo %></h4>
+    </div>
+  </div>
+</a>

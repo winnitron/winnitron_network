@@ -7,7 +7,18 @@
 
 .detail
 {
+  padding-top:20px;
 
+  .detail-description
+  {
+    font-size: 26px;
+  }
+
+  .detail-edit-buttons
+  {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
 }
 
 .detail-header-large
@@ -17,6 +28,7 @@
 
   .detail-header-info
   {
+    color: white;
     position: relative;
     font-size: 30px;
 
@@ -24,11 +36,12 @@
     bottom: 20px;
     left: 20px;
 
-    text-shadow: 4px 4px 10px rgba(150, 150, 150, 1);
+    text-shadow: 0px 2px 12px rgba(0, 0, 0, 1);
 
     h1
     {
       font-size: 70px;
+      color: white;
     }
   }
 }
