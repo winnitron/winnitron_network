@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     end
   end
 
+  # TODO refactor this
   post "/games/:uuid/zip", to: "game_zips#create", as: :create_zipfile
   put  "/games/:uuid/zips/:file_key", to: "game_zips#update", as: :update_zipfile
   post "images/:uuid/", to: "images#create", as: :create_image
@@ -37,6 +38,7 @@ Rails.application.routes.draw do
 
   post "/request_builder" => "users#send_builder_request", as: :send_builder_request
 
+  get "/search" => "search#index", as: :search
   get "/feedback" => "pages#feedback", as: :feedback
   get "/dash" => "pages#dash", as: :dash
   get "/request_builder" => "pages#request_builder", as: :request_builder

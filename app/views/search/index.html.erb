@@ -1,0 +1,6 @@
+<%= page_heading :h1, "Results for '#{params['kw']}'" %>
+
+<% if @games.any? %>
+  <h2>Games</h2>
+  <%= render "games/list", games: @games %>
+<% end %>

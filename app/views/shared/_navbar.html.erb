@@ -21,19 +21,14 @@
         <li><%= link_to "Games", games_path %></li>
         <li><%= link_to "Winnitrons", arcade_machines_path %></li>
         <li><%= link_to "Playlists", playlists_path %></li>
-        <form class="navbar-form navbar-left">
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="Filter">
-        </div>
-        <button type="submit" class="btn btn-default">Submit</button>
-      </form>
-        <!--
-        <li>
-          <form class="form-inline pull-right">
-            <input class="form-control" type="text" placeholder="Search">
-          </form>
-        </li>
-        -->
+
+        <form  action="<%= search_path %>" method="GET"  class="navbar-form navbar-left">
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Search" name="kw" value="<%= params['kw'] %>">
+            <button type="submit" class="btn btn-default">🔍</button>
+          </div>
+        </form>
+
       <ul>
     </div>
   </div>
