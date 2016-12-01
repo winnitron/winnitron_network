@@ -1,0 +1,30 @@
+<% set_title "All Users" %>
+
+<div class="row col-lg-12">
+  <h1>All users</h1>
+
+  <div class="col-lg-8">
+    <table class="table table-condensed table-hover">
+      <thead>
+        <tr>
+          <td>Name</td>
+          <td>Email</td>
+          <td>Builder?</td>
+          <td></td>
+        </tr>
+      </thead>
+      <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <td><%= link_to user.name, edit_admin_user_path(user) %></td>
+            <td><%= link_to user.email, edit_admin_user_path(user) %></td>
+            <td><%= user.builder? ? "Y" : "N" %></td>
+            <td><%= link_to "Profile", user_path(user) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+
+    </table>
+  </div>
+
+</div>

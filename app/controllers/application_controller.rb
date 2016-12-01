@@ -31,6 +31,14 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def require_admin!
+    if user_signed_in? && current_user.admin?
+      true
+    else
+      render_404
+    end
+  end
+
   def render_404
     render file: 'public/404.html', status: 404, layout: false
   end
