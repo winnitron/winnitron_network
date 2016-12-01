@@ -6,6 +6,7 @@ class GamesController < ApplicationController
   def index
     @mine   = user_signed_in? ? current_user.games.order(title: :asc) : []
     @theirs = Game.all
+                  .includes(:images)
                   .where.not(id: @mine.map(&:id))
                   .order(title: :asc)
   end
