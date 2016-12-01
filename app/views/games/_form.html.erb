@@ -45,6 +45,20 @@
     </div>
   </div>
 
+
+  <% if @game.new_record? %>
+    <div class="actions form-group">
+      <div class="col-sm-offset-3 col-sm-9">
+        <input type="checkbox" name="copyright_persmission" id="copyright_permission" required>
+        <label for="copyright_permission">
+          Yes, I have the right to distribute this game and to give
+          The Winnitron Network permission to redistribute it.
+        </label>
+      </div>
+    </div>
+
+  <% end %>
+
   <%= f.hidden_field :uuid %>
   <input type="submit" id="submit" class="hidden">
 <% end %>
@@ -133,8 +147,6 @@
 
 <div class="actions form-group">
   <div class="col-sm-offset-3 col-sm-9">
-    <label for="game-submit">
-      <%= button_tag "Save", class: "game-save btn btn-success" %>
-    </label>
+    <%= button_tag "Save", class: "game-save btn btn-success" %>
   </div>
 </div>
