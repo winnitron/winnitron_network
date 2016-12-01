@@ -36,11 +36,12 @@ Rails.application.routes.draw do
     end
   end
 
+  get "/request_builder" => "pages#request_builder", as: :request_builder
   post "/request_builder" => "users#send_builder_request", as: :send_builder_request
 
   get "/search" => "search#index", as: :search
   get "/feedback" => "pages#feedback", as: :feedback
   get "/dash" => "pages#dash", as: :dash
-  get "/request_builder" => "pages#request_builder", as: :request_builder
+  get "/terms" => "pages#terms", as: :terms
   root "pages#index"
 end

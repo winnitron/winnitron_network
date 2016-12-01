@@ -11,4 +11,7 @@ class PagesController < ApplicationController
 
   def feedback
   end
+
+  def terms
+  end
 end
