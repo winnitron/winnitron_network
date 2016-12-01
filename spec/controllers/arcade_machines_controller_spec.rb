@@ -153,9 +153,9 @@ RSpec.describe ArcadeMachinesController, type: :controller do
           sign_in user
         end
 
-        it "responds 403" do
+        it "redirects to request-builder page" do
           put :update, { id: arcade_machine.slug, arcade_machine: attributes }
-          expect(response).to have_http_status :forbidden
+          expect(response).to redirect_to request_builder_path
         end
       end
 
