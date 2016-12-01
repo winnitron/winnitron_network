@@ -3,25 +3,34 @@ class Search
 
   def initialize(klass, query)
     @klass = klass
-    @keywords = query.gsub(/[^0-9a-z ]/i, "").split(" ")
+    @keywords = query.gsub(/[^0-9a-z ]/i, "").split(" ").map(&:downcase)
   end
 
   def results
-    # This isn't the most ingenious but it'll work for now.
     @results ||= begin
-
-      tags = ActsAsTaggableOn::Tag.where(name: keywords)
-      all  = tags.map(&:taggings).flatten.map(&:taggable) # contains dupes
-
-      # Count the number of times an object appears in the list
-      # i.e. how large the intersection is of its tags and the keyword list
-      relevancies = all.inject(Hash.new(0)) do |relevancy, item|
-        relevancy[item] += 1
-        relevancy
-      end
-
-      # Sort by most matching tags
-      relevancies.sort_by { |k,v| -v }.map(&:first)
+      all_matches = (matches_by_tag + matches_by_title).uniq
+      all_matches.sort_by { |item| relevancy_score(item) }.reverse
     end
+  end
+
+  private
+
+  def matches_by_tag
+    tags = ActsAsTaggableOn::Tag.joins(:taggings)
+                                .where(name: keywords, taggings: { taggable_type: klass })
+                                .uniq
+
+    tags.map(&:taggings).flatten.map(&:taggable)
+  end
+
+  def matches_by_title
+    klass.where("title ~* ?", keywords.join("|"))
+  end
+
+  def relevancy_score(item)
+    tag_score = (item.tag_list & keywords).size
+    title_score = keywords.select { |kw| item.title.downcase.include?(kw) }.size * 2
+
+    tag_score + title_score
   end
 end
