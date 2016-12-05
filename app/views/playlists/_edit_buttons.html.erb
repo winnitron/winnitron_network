@@ -12,7 +12,13 @@
 
       <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
         <% current_user.arcade_machines.each do |machine| %>
-          <li><%= link_to machine.title, subscriptions_path(playlist_id: playlist.id, arcade_machine_id: machine.id), method: :post %></li>
+          <li>
+            <% if machine.subscribed?(playlist) %>
+              <a>✓ <%= machine.title %></a>
+            <% else %>
+              <%= link_to machine.title, subscriptions_path(playlist_id: playlist.id, arcade_machine_id: machine.id), method: :post %>
+            <% end %>
+          </li>
         <% end %>
       </ul>
     <% end %>
