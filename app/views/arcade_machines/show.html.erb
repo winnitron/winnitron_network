@@ -1,5 +1,5 @@
 <!--
-  GAME DETAIL VIEW
+  ARCADE MACHINE DETAIL VIEW
 -->
 
 <%= render "shared/detail_header", image: @arcade_machine.cover_image.url, title: @arcade_machine.title, description: @arcade_machine.description %>
@@ -24,6 +24,15 @@
         </div>
       </div>
 
+      <% if user_signed_in? && (current_user.owns?(@arcade_machine) || current_user.admin?) %>
+        <div class="api-key">
+          <h4>API Key</h4>
+          <code>
+            <%= @arcade_machine.api_keys.first.token %>
+          </code>
+        </div>
+      <% end %>
+
       <hr />
 
       <h4>Location</h4>
@@ -31,6 +40,7 @@
 
       <h4>Images</h4>
       <%= render "images/list", imageable: @arcade_machine %>
+
 
       <h4>
         <%= @arcade_machine.users.size > 1 ? "Owners" : "Owner" %>
