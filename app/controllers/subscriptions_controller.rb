@@ -7,10 +7,10 @@ class SubscriptionsController < ApplicationController
   def create
     subscription = Subscription.find_by playlist: @playlist, arcade_machine: @arcade_machine
     if subscription
-      render json: subscription, status: :ok
+      redirect_to playlists_path, notice: "#{@arcade_machine.title} is already subscribed to #{@playlist.title}"
     else
       subscription = Subscription.create(playlist: @playlist, arcade_machine: @arcade_machine)
-      render json: subscription, status: :created
+      redirect_to playlists_path, notice: "Added #{@playlist.title} to #{@arcade_machine.title}"
     end
   end
 

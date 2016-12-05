@@ -4,7 +4,7 @@
 
   <!-- Add to Winnitron dropdown -->
   <div class="edit-buttons dropdown">
-    <% if current_user.builder? && !current_user.playlists.empty? %>
+    <% if current_user.builder? && !current_user.arcade_machines.empty? %>
       <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
         Add to Winnitron
         <span class="caret"></span>
@@ -12,7 +12,7 @@
 
       <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
         <% current_user.arcade_machines.each do |machine| %>
-          <li><%= link_to machine.title, arcade_machine_path(machine) %></li>
+          <li><%= link_to machine.title, subscriptions_path(playlist_id: playlist.id, arcade_machine_id: machine.id), method: :post %></li>
         <% end %>
       </ul>
     <% end %>
