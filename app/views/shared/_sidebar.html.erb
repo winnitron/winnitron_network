@@ -46,7 +46,7 @@ See application.html.erb for where it gets rendered.
         itemName: machine.title,
         itemInfo: machine.location,
         itemLink: arcade_machine_path(machine),
-        itemImageURL: machine.cover_image.url
+        itemImageURL: machine.cover_image.url(w: 115)
       %>
     <% end %>
 
@@ -74,7 +74,7 @@ See application.html.erb for where it gets rendered.
         itemName: game.title,
         itemInfo: "",
         itemLink: game_path(game),
-        itemImageURL: game.cover_image.url
+        itemImageURL: game.cover_image.url(w: 375)
       %>
     <% end %>
   </div>

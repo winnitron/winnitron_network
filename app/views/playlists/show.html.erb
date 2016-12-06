@@ -2,7 +2,7 @@
 PLAYLIST DETAIL VIEW
 -->
 
-<%= render "shared/detail_header", image: @playlist.cover_image.url, title: @playlist.title, description: @playlist.description %>
+<%= render "shared/detail_header", image: @playlist.cover_image.url(w: 980), title: @playlist.title, description: @playlist.description %>
 
 <div class="playlist detail">
 
@@ -53,7 +53,7 @@ PLAYLIST DETAIL VIEW
           itemLink: game_url(game),
           itemImageURL: game.images.first&.url || asset_url("rocket-ship")
         %>
-        
+
       <% end %>
     </div>
 

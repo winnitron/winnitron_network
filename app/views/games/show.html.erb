@@ -2,7 +2,7 @@
   GAME DETAIL VIEW
 -->
 
-<%= render "shared/detail_header", image: @game.cover_image.url, title: @game.title, description: @game.description %>
+<%= render "shared/detail_header", image: @game.cover_image.url(w: 980), title: @game.title, description: @game.description %>
 
 <div class="game detail">
 
