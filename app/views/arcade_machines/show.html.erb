@@ -25,7 +25,7 @@
       </div>
 
       <% if user_signed_in? && (current_user.owns?(@arcade_machine) || current_user.admin?) %>
-        <div class="api-key">
+        <div class="row col-md-12">
           <h4>API Key</h4>
           <code>
             <%= @arcade_machine.api_keys.first.token %>
@@ -35,18 +35,22 @@
 
       <hr />
 
-      <h4>Location</h4>
-      <p><%= @arcade_machine.location %></p>
+      <div class="row col-md-12">
+        <h4>Location</h4>
+        <p><%= @arcade_machine.location %></p>
+      </div>
 
-      <h4>Images</h4>
-      <%= render "images/list", imageable: @arcade_machine %>
+      <div class="row col-md-12">
+        <h4>Images</h4>
+        <%= render "images/list", imageable: @arcade_machine %>
+      </div>
 
 
-      <h4>
-        <%= @arcade_machine.users.size > 1 ? "Owners" : "Owner" %>
-      </h4>
+      <div class="row col-md-12">
+        <h4>
+          <%= @arcade_machine.users.size > 1 ? "Owners" : "Owner" %>
+        </h4>
 
-      <div class="clearfix">
         <% @arcade_machine.users.each do |user| %>
           <%= render "shared/item_cards_square",
             itemName: user.name,
@@ -56,6 +60,8 @@
           %>
         <% end %>
       </div>
+
+      <div class="clearfix"></div>
 
     </div>
 
