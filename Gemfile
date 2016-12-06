@@ -6,8 +6,8 @@ gem 'pg',    '~> 0.15'
 gem 'puma',  '~> 3.4.0'
 
 
-gem 'sass-rails', '~> 5.0'
-gem 'less-rails'
+gem 'sass-rails', '~> 5.0.6'
+gem 'less-rails', '~> 2.8.0'
 gem 'uglifier',   '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 gem 'therubyracer', platforms: :ruby
