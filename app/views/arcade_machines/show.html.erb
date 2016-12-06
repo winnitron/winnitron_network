@@ -2,7 +2,7 @@
   ARCADE MACHINE DETAIL VIEW
 -->
 
-<%= render "shared/detail_header", image: @arcade_machine.cover_image.url, title: @arcade_machine.title, description: @arcade_machine.description %>
+<%= render "shared/detail_header", image: @arcade_machine.cover_image.url(w: 980), title: @arcade_machine.title, description: @arcade_machine.description %>
 
 <div class="arcade-machine detail">
 

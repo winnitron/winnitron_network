@@ -10,7 +10,7 @@ GAME GRID VIEW
         <a
           class="quiet-link image-box"
           href="<%= game_path(game) %>"
-          style="background: url(<%= game.cover_image.url %>) center center; background-size: cover;">
+          style="background: url(<%= game.cover_image.url(w: 320) %>) center center; background-size: cover;">
         </a>
         <div class="caption">
           <h4 class="group inner list-group-item-heading title">

@@ -11,6 +11,7 @@ env:
     - AWS_BUCKET=fictional_winnitron_bucket
     - AWS_ACCESS_KEY_ID=abc123
     - AWS_SECRET_ACCESS_KEY=same_as_my_luggage
-    - AWS_REGION="delta-quadrant-2"
+    - AWS_REGION=delta-quadrant-2
+    - CLOUDIMAGE_TOKEN="qwerty"
 notifications:
   email: false

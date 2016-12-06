@@ -10,7 +10,7 @@
         <a
           class="quiet-link image-box"
           href="<%= arcade_machine_url(machine) %>"
-          style="background: url(<%= machine.cover_image.url %>) center center; background-size: cover;"
+          style="background: url(<%= machine.cover_image.url(w: 320) %>) center center; background-size: cover;"
         >
         </a>
         <div class="caption">

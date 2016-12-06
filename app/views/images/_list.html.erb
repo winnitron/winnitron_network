@@ -1,7 +1,7 @@
 <% imageable.images.each do |image| %>
   <div class="thumbnail col-sm-4">
     <a href="<%= image.url %>">
-      <img src="<%= image.url %>">
+      <img src="<%= image.url(w: 150) %>">
     </a>
 
     <% if user_signed_in? && (current_user.owns?(imageable) || current_user.admin?) %>
