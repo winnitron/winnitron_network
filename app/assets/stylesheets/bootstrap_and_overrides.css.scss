@@ -1,8 +1,9 @@
 @import "twitter/bootstrap/bootstrap";
 
 // Set the correct sprite paths
-@iconSpritePath: image-url("twitter/bootstrap/glyphicons-halflings.png");
-@iconWhiteSpritePath: image-url("twitter/bootstrap/glyphicons-halflings-white.png");
+/*
+@iconSpritePath: url("twitter/bootstrap/glyphicons-halflings.png");
+@iconWhiteSpritePath: url("twitter/bootstrap/glyphicons-halflings-white.png");
 
 // Set the Font Awesome (Font Awesome is default. You can disable by commenting below lines)
 @fontAwesomeEotPath: font-url("fontawesome-webfont.eot");
@@ -10,6 +11,7 @@
 @fontAwesomeWoffPath: font-url("fontawesome-webfont.woff");
 @fontAwesomeTtfPath: font-url("fontawesome-webfont.ttf");
 @fontAwesomeSvgPath: font-url("fontawesome-webfont.svg#fontawesomeregular");
+*/
 
 // Font Awesome
 @import "fontawesome/font-awesome";
@@ -27,4 +29,3 @@
 //
 // Example:
 // @link-color: #ff0000;
-
