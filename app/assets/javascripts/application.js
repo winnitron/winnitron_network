@@ -13,8 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
-//= require twitter/bootstrap
+//= require bootstrap-sprockets
 //= require s3_direct_upload
-//= require bootstrap-tagsinput
 //= require nested_form_fields
 //= require_tree .
