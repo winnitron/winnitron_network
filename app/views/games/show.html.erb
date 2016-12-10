@@ -66,10 +66,10 @@
 
         <% @game.users.each do |user| %>
           <%= render "shared/item_cards_square",
-            itemName: user.name,
-            itemInfo: "",
-            itemLink: user_url(user),
-            itemImageURL: user.gravatar_url
+            item_name: user.name,
+            item_info: "",
+            item_link: user_url(user),
+            item_image_url: user.gravatar_url
           %>
         <% end %>
 
@@ -77,8 +77,6 @@
       <div class="clearfix"></div>
 
     </div>
-
-
 
     <!-- Game Data -->
 
