@@ -42,6 +42,12 @@
     <label class="col-sm-3 control-label">Tags</label>
     <div class="col-sm-9">
       <%= f.text_field :tag_list, 'data-role'=>'tagsinput', value: @game.tag_list.join(","), class: "form-control" %>
+      <br>
+      <strong>popular tags:</strong>
+      <% links = ActsAsTaggableOn::Tag.order(taggings_count: :desc).limit(6).map do |tag| %>
+        <% link_to tag.name, search_path(kw: tag.name) %>
+      <% end %>
+      <%= links.join(", ").html_safe %>
     </div>
   </div>
 
@@ -49,8 +55,8 @@
   <% if @game.new_record? %>
     <div class="actions form-group">
       <div class="col-sm-offset-3 col-sm-9">
-        <input type="checkbox" name="copyright_persmission" id="copyright_permission" required>
-        <label for="copyright_permission">
+        <label>
+          <input type="checkbox" name="copyright_persmission" required>
           Yes, I have the right to distribute this game and to give
           The Winnitron Network permission to redistribute it.
         </label>
