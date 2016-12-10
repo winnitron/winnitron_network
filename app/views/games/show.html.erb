@@ -26,22 +26,24 @@
 
       <hr />
 
-      <h4>
-        <%=
-        if @game.min_players == @game.max_players
-          pluralize(@game.min_players, "player")
-        else
-          "#{@game.min_players}-#{@game.max_players} players"
-        end
-        %>
-      </h4>
+      <div class="col-sm-12">
+        <h4>
+          <%=
+          if @game.min_players == @game.max_players
+            pluralize(@game.min_players, "player")
+          else
+            "#{@game.min_players}-#{@game.max_players} players"
+          end
+          %>
+        </h4>
+      </div>
 
-      <div class="clearfix">
+      <div class="col-sm-12">
         <h4>Images</h4>
         <%= render "images/list", imageable: @game %>
       </div>
 
-      <div>
+      <div class="col-sm-12">
         <h4>Links</h4>
         <% @game.links.each do |link| %>
         <div class="link"><h4><%= link_to link.url, link.url %></h4></div>
@@ -49,13 +51,19 @@
       </div>
 
 
-      <h4>Tags</h4>
-      <p><%= @game.tag_list.join(", ") %></p>
+      <div class="col-sm-12">
+        <h4>Tags</h4>
+        <p>
+          <% @game.tags.each do |tag| %>
+            <%= link_to tag.name, search_path(kw: tag.name) %>
+          <% end %>
+        </p>
+      </div>
 
 
-      <h4><%= @game.users.size > 1 ? "Developers" : "Developer" %></h4>
+      <div class="col-sm-12">
+        <h4><%= @game.users.size > 1 ? "Developers" : "Developer" %></h4>
 
-      <div class="clearfix">
         <% @game.users.each do |user| %>
           <%= render "shared/item_cards_square",
             itemName: user.name,
@@ -64,11 +72,11 @@
             itemImageURL: user.gravatar_url
           %>
         <% end %>
+
       </div>
+      <div class="clearfix"></div>
 
     </div>
-
-
 
 
 
