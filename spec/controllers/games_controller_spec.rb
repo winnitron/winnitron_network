@@ -4,16 +4,16 @@ RSpec.describe GamesController, type: :controller do
   let(:admin) { FactoryGirl.create(:admin) }
 
   describe "GET index" do
-    before :each do
+    it "assigns games with zips" do
+      FactoryGirl.create_list(:game, 3)
+      Game.last.game_zips.last.destroy # lol
       get :index
-    end
-
-    it "assigns all games" do
-      FactoryGirl.create_list(:game, 2)
-      expect(assigns(:theirs)).to match_array Game.all
+      expect(assigns(:theirs).count).to eq 2
+      expect(assigns(:theirs)).to match_array Game.with_zip
     end
 
     it "returns 200 OK" do
+      get :index
       expect(response).to have_http_status :ok
     end
   end

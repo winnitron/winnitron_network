@@ -4,8 +4,8 @@ class GamesController < ApplicationController
   before_action :permission_check!, only: [:edit, :update, :destroy, :confirm_destroy]
 
   def index
-    @mine   = user_signed_in? ? current_user.games.order(title: :asc) : []
-    @theirs = Game.all
+    @mine   = user_signed_in? ? current_user.games.order(title: :asc) : Game.none
+    @theirs = Game.with_zip
                   .includes(:images)
                   .where.not(id: @mine.map(&:id))
                   .order(title: :asc)
