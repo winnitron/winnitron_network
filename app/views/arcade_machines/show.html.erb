@@ -8,8 +8,6 @@
 
   <div class="row">
 
-
-
     <!-- Metadata -->
 
     <div class="col-md-6">
@@ -25,7 +23,7 @@
       </div>
 
       <% if user_signed_in? && (current_user.owns?(@arcade_machine) || current_user.admin?) %>
-        <div class="row col-md-12">
+        <div class="col-md-12">
           <h4>API Key</h4>
           <code>
             <%= @arcade_machine.api_keys.first.token %>
@@ -35,18 +33,20 @@
 
       <hr />
 
-      <div class="row col-md-12">
+      <div class="col-md-12">
         <h4>Location</h4>
         <p><%= @arcade_machine.location %></p>
       </div>
 
-      <div class="row col-md-12">
-        <h4>Images</h4>
-        <%= render "images/list", imageable: @arcade_machine %>
-      </div>
+      <% if @arcade_machine.images.any? %>
+        <div class="col-md-12">
+          <h4>Images</h4>
+          <%= render "images/list", imageable: @arcade_machine %>
+        </div>
+      <% end %>
 
 
-      <div class="row col-md-12">
+      <div class="col-md-12">
         <h4>
           <%= @arcade_machine.users.size > 1 ? "Owners" : "Owner" %>
         </h4>

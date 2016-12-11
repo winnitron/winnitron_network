@@ -38,27 +38,32 @@
         </h4>
       </div>
 
-      <div class="col-sm-12">
-        <h4>Images</h4>
-        <%= render "images/list", imageable: @game %>
-      </div>
+      <% if @game.images.any? %>
+        <div class="col-sm-12">
+          <h4>Images</h4>
+          <%= render "images/list", imageable: @game %>
+        </div>
+      <% end %>
 
-      <div class="col-sm-12">
-        <h4>Links</h4>
-        <% @game.links.each do |link| %>
-        <div class="link"><h4><%= link_to link.url, link.url %></h4></div>
-        <% end %>
-      </div>
-
-
-      <div class="col-sm-12">
-        <h4>Tags</h4>
-        <p>
-          <% @game.tags.each do |tag| %>
-            <%= link_to tag.name, search_path(kw: tag.name) %>
+      <% if @game.links.any? %>
+        <div class="col-sm-12">
+          <h4>Links</h4>
+          <% @game.links.each do |link| %>
+          <div class="link"><h4><%= link_to link.url, link.url %></h4></div>
           <% end %>
-        </p>
-      </div>
+        </div>
+      <% end %>
+
+      <% if @game.tags.any? %>
+        <div class="col-sm-12">
+          <h4>Tags</h4>
+          <p>
+            <% @game.tags.each do |tag| %>
+              <%= link_to tag.name, search_path(kw: tag.name) %>
+            <% end %>
+          </p>
+        </div>
+      <% end %>
 
 
       <div class="col-sm-12">

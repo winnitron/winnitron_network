@@ -17,17 +17,16 @@ PLAYLIST DETAIL VIEW
 
         <!-- Edit Buttons -->
         <div class="detail-edit-buttons">
-            <%= render "edit_buttons", playlist: @playlist %>
+          <%= render "edit_buttons", playlist: @playlist %>
         </div>
       </div>
 
       <hr />
 
-      <h4>
-        Creator
-      </h4>
-
-      <div class="clearfix">
+      <div class="col-md-12">
+        <h4>
+          Creator
+        </h4>
         <%= render "shared/item_cards_square",
           item_name: @playlist.user.name,
           item_info: "",
@@ -35,6 +34,9 @@ PLAYLIST DETAIL VIEW
           item_image_url: @playlist.user.gravatar_url
         %>
       </div>
+
+      <div class="clearfix"></div>
+
 
     </div>
 
