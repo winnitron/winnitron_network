@@ -43,10 +43,10 @@ See application.html.erb for where it gets rendered.
     <% current_user.arcade_machines.each do |machine| %>
       <%=
         render "shared/item_cards_small",
-        itemName: machine.title,
-        itemInfo: machine.location,
-        itemLink: arcade_machine_path(machine),
-        itemImageURL: machine.cover_image.url(w: 115)
+        item_name: machine.title,
+        item_info: machine.location,
+        item_link: arcade_machine_path(machine),
+        item_image_url: machine.cover_image.url(w: 115)
       %>
     <% end %>
 
@@ -71,10 +71,10 @@ See application.html.erb for where it gets rendered.
     <% current_user.games.each do |game| %>
       <%=
         render "shared/item_cards_wide",
-        itemName: game.title,
-        itemInfo: "",
-        itemLink: game_path(game),
-        itemImageURL: game.cover_image.url(w: 375)
+        item_name: game.title,
+        item_info: "",
+        item_link: game_path(game),
+        item_image_url: game.cover_image.url(w: 375)
       %>
     <% end %>
   </div>
