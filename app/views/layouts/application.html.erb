@@ -5,6 +5,7 @@
 
     <div class="container-fluid">
       <div class="row">
+        <%= render "shared/navbar" %>
 
         <!-- Sidebar -->
         <% if user_signed_in? %>
@@ -14,14 +15,12 @@
             </div>
           </div>
           <div class="col-md-9" id="pane-content">
-            <%= render "shared/navbar" %>
             <% # bootstrap_flash %>
             <%= yield %>
           </div>
         <% else %>
           <!-- Sidebar doesn't show if not signed in -->
           <div class="col-md-12">
-            <%= render "shared/navbar" %>
             <% # bootstrap_flash %>
             <%= yield %>
           </div>

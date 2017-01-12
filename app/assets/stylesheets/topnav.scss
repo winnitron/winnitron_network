@@ -1,0 +1,24 @@
+@import url("http://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic,800,800italic");
+
+
+.logo {
+  background-color: #090842;
+  width: 30%;
+
+  li {
+    width: 100%;
+  }
+
+  a {
+    font-family: "Open Sans", Helvetica;
+    font-size: 1.3em;
+    color: white !important;
+    text-align: center;
+    font-weight: 800;
+    letter-spacing: 0.225em;
+  }
+
+  a:hover {
+    background: transparent;
+  }
+}
