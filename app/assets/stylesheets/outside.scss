@@ -1,0 +1,95 @@
+@import url("http://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic,800,800italic");
+
+html.outside {
+  height: 100%;
+  width: 100%;
+
+  body {
+    height: 100%;
+    width: 100%;
+
+    .vert-text {
+      display: table-cell;
+      vertical-align: middle;
+      text-align: center;
+    }
+
+    h1 {
+      font-family: "Open Sans", Helvetica;
+      display: inline-block;
+      padding: 0.35em 1em;
+      line-height: 1.75em;
+      margin: 0;
+      font-size: 2em;
+      border-top: 2px solid white;
+      border-bottom: 2px solid white;
+      font-weight: 800;
+      letter-spacing: 0.225em;
+    }
+
+    h2 {
+      margin-top: 50px;
+      font-size: 15pt;
+      letter-spacing: 0.225em;
+      font-weight: normal;
+    }
+
+    p {
+      font-size: 12pt;
+    }
+
+    .header {
+      display: table;
+      height: 100%;
+      width: 100%;
+      position: relative;
+      background: url(http://winnitron.com/images/background.png) no-repeat center center fixed;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
+    }
+
+    .title {
+      margin-bottom: 50px;
+    }
+
+    ul#menu {
+      list-style-type: none;
+      margin-top: 20px;
+      padding-left: 0;
+
+      li {
+        display: inline;
+      }
+
+      a {
+        display: inline-block;
+        text-transform: uppercase;
+        padding: 0.6em 4em;
+        border: 2px solid white;
+        border-radius: 3px;
+        color: white;
+        margin: 0 1em;
+        text-decoration: none;
+      }
+    }
+
+    @media (max-width: 768px) {
+
+      .header {
+        background: url(http://winnitron.com/images/background.png) no-repeat center center scroll;
+      }
+
+      .callout {
+        background: url(http://winnitron.com/images/background.png) no-repeat center center scroll;
+      }
+
+      .map {
+        height: 75%;
+      }
+
+    }
+  }
+}
+
