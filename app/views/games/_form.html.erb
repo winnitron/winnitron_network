@@ -31,12 +31,14 @@
     </div>
   </div>
 
+  <!--
   <div class="form-group">
     <%= f.label :legacy_controls, "Legacy Winnitron controls", class: "col-sm-3 control-label" %>
     <div class="col-sm-2">
       <%= f.check_box :legacy_controls %>
     </div>
   </div>
+  -->
 
   <div class="form-group">
     <label class="col-sm-3 control-label">Tags</label>
@@ -55,7 +57,7 @@
   <% if @game.new_record? %>
     <div class="actions form-group">
       <div class="col-sm-offset-3 col-sm-9">
-        <label>
+        <label class="check">
           <input type="checkbox" name="copyright_persmission" required>
           Yes, I have the right to distribute this game and to give
           The Winnitron Network permission to redistribute it.
