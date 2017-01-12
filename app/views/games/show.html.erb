@@ -67,7 +67,7 @@
 
 
       <div class="col-sm-12">
-        <h4><%= @game.users.size > 1 ? "Developers" : "Developer" %></h4>
+        <h4>Added By</h4>
 
         <% @game.users.each do |user| %>
           <%= render "shared/item_cards_square",
@@ -89,11 +89,17 @@
 
       <h4>Playable on these Winnitrons:</h4>
       <% if @game.arcade_machines.any? %>
-      <ul>
         <% @game.arcade_machines.each do |machine| %>
-        <li><%= link_to machine.title, arcade_machine_path(machine) %></li>
+          <%=
+            render "shared/item_cards_wide",
+            item_name: machine.title,
+            item_info: "",
+            item_link: arcade_machine_url(machine),
+            item_image_url: machine.cover_image
+          %>
         <% end %>
-      </ul>
+
+
       <% else %>
         <h5>
           Not on any Winnitrons yet.
@@ -107,11 +113,17 @@
 
       <h4>Included in these playlists:</h4>
       <% if @game.playlists.any? %>
-      <ul>
+
         <% @game.playlists.each do |playlist| %>
-        <li><%= link_to playlist.title, playlist_path(playlist) %></li>
+          <%=
+            render "shared/item_cards_wide",
+            item_name: playlist.title,
+            item_info: "",
+            item_link: playlist_url(playlist),
+            item_image_url: playlist.cover_image
+          %>
         <% end %>
-      </ul>
+
       <% else %>
         <h5>
           Not in any playlists yet.

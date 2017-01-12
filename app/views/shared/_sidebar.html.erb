@@ -85,6 +85,12 @@ See application.html.erb for where it gets rendered.
       </span>
     </h3>
 
+    <% if current_user.playlists.empty? %>
+      <div class="playlist">
+        <%= link_to "Create your first playlist!", new_playlist_path %>
+      </div>
+    <% end %>
+
     <% current_user.playlists.each do |playlist| %>
       <div class="playlist">
         <strong><%= link_to playlist.title, playlist_path(playlist) %></strong>
