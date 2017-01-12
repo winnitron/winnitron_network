@@ -1,8 +1,8 @@
 <div class="page">
   <%= page_heading :h2, "Sign In" %>
 
-  <%= render partial: "shared/third_party_auth", locals: { action: :Login } %>
   <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "form form-horizontal" }) do |f| %>
+    <%= render "devise/shared/errors", messages: [flash[:alert]] if flash[:alert] %>
 
     <div class="form-group">
       <%= f.label :email, class: "col-sm-3 control-label" %>
