@@ -7,6 +7,8 @@ class ApplicationController < ActionController::Base
   rescue_from ActiveRecord::RecordNotFound, with: :render_404
   rescue_from ActiveSupport::MessageVerifier::InvalidSignature, with: :render_500
 
+  layout :layout_by_resource
+
   protected
 
   def configure_permitted_parameters
@@ -45,5 +47,15 @@ class ApplicationController < ActionController::Base
 
   def render_500
     render file: 'public/500.html', status: 500, layout: false
+  end
+
+  private
+
+  def layout_by_resource
+    if devise_controller?
+      "outside"
+    else
+      "application"
+    end
   end
 end

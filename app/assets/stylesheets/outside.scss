@@ -90,6 +90,22 @@ html.outside {
       }
 
     }
+
+    .page {
+      background: url("background.png");
+      border: 1px solid #222;
+      border-radius: 5px;
+      padding: 25px;
+      margin: 0 auto;
+      width: 50%;
+      text-align: left;
+      color: #dedede;
+
+      h2 {
+        margin-top: 0;
+        letter-spacing: normal;
+      }
+    }
   }
 }
 

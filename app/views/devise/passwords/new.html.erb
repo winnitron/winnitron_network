@@ -1,20 +1,24 @@
-<%= page_heading :h2, 'Forgot your password?' %>
+<div class="page">
+  <%= page_heading :h2, 'Forgot your password?' %>
 
-<p><em>get your head in the game</em></p>
+  <p><em>get your head in the game</em></p>
 
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, class: "form form-horizontal" }) do |f| %>
-  <%= devise_error_messages! %>
+  <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, class: "form form-horizontal" }) do |f| %>
+    <%= devise_error_messages! %>
 
-  <div class="form-group">
-    <%= f.label :email, class: "col-sm-3 control-label" %>
-    <div class="col-sm-9">
-      <%= f.email_field :email, required: true, autofocus: true, class: "form-control" %>
+    <div class="form-group">
+      <%= f.label :email, class: "col-sm-3 control-label" %>
+      <div class="col-sm-9">
+        <%= f.email_field :email, required: true, autofocus: true, class: "form-control" %>
+      </div>
     </div>
-  </div>
 
-  <div class="actions from-group">
-    <div class="col-sm-offset-3 col-sm-9">
-      <%= f.submit "Send me reset password instructions", class: "btn btn-success" %>
+    <div class="actions from-group">
+      <div class="col-sm-offset-3 col-sm-9">
+        <%= f.submit "Send me reset password instructions", class: "btn btn-success" %>
+      </div>
     </div>
-  </div>
-<% end %>
+  <% end %>
+
+  <div class="clearfix"></div>
+</div>
