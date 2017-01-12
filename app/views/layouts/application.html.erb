@@ -21,6 +21,7 @@
         <% else %>
           <!-- Sidebar doesn't show if not signed in -->
           <div class="col-md-12">
+            <%= render "shared/navbar" %>
             <% # bootstrap_flash %>
             <%= yield %>
           </div>
@@ -33,7 +34,7 @@
       <span class="pull-right">
         problems? feedback? <a href="https://twitter.com/winnitron1000">twitter</a>. <a href="https://github.com/winnitron/winnitron_reborn/issues">github</a>.
       </span>
-    -->
+      -->
 
     </div> <!-- /container -->
 

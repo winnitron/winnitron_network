@@ -1,4 +1,6 @@
 class PagesController < ApplicationController
+  before_action :authenticate_user!, only: [:dash, :request_builder]
+
   def index
     if user_signed_in?
       redirect_to(dash_path)
