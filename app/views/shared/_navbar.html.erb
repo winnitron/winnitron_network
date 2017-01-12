@@ -19,6 +19,9 @@
       <ul class="nav navbar-nav">
         <% if user_signed_in? %>
           <li><%= link_to "Home", dash_path %></li>
+        <% else %>
+          <li><%= link_to "Sign Up", new_user_registration_path %></li>
+          <li><%= link_to "Sign In", new_user_session_path %></li>
         <% end %>
         <li><%= link_to "Games", games_path %></li>
         <li><%= link_to "Winnitrons", arcade_machines_path %></li>

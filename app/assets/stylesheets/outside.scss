@@ -7,6 +7,7 @@ html.outside {
   body {
     height: 100%;
     width: 100%;
+    color: white;
 
     .vert-text {
       display: table-cell;
@@ -72,6 +73,11 @@ html.outside {
         color: white;
         margin: 0 1em;
         text-decoration: none;
+      }
+
+      a:hover {
+        color: #ddd;
+        border-color: #ddd;
       }
     }
 
