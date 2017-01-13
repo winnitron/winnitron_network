@@ -2,14 +2,14 @@
   <%= render "shared/errors", object: @game %>
 
   <div class="form-group">
-    <%= f.label :title, class: "col-sm-3 control-label" %>
+    <%= f.label :title, class: "col-sm-2 control-label" %>
     <div class="col-sm-9">
       <%= f.text_field :title, required: true, class: "form-control" %>
     </div>
   </div>
 
   <div class="form-group">
-    <%= f.label :description, class: "col-sm-3 control-label" %>
+    <%= f.label :description, class: "col-sm-2 control-label" %>
     <div class="col-sm-9">
       <%= f.text_area :description, class: "form-control" %>
     </div>
@@ -18,14 +18,14 @@
   <%= render "shared/links_form", f: f, additional_link_types: Game::CUSTOM_LINK_TYPES %>
 
   <div class="form-group">
-    <%= f.label :min_players, class: "col-sm-3 control-label" %>
+    <%= f.label :min_players, class: "col-sm-2 control-label" %>
     <div class="col-sm-2">
       <%= f.number_field :min_players, class: "form-control", required: true %>
     </div>
   </div>
 
   <div class="form-group">
-    <%= f.label :max_players, class: "col-sm-3 control-label" %>
+    <%= f.label :max_players, class: "col-sm-2 control-label" %>
     <div class="col-sm-2">
       <%= f.number_field :max_players, class: "form-control" %>
     </div>
@@ -33,7 +33,7 @@
 
   <!--
   <div class="form-group">
-    <%= f.label :legacy_controls, "Legacy Winnitron controls", class: "col-sm-3 control-label" %>
+    <%= f.label :legacy_controls, "Legacy Winnitron controls", class: "col-sm-2 control-label" %>
     <div class="col-sm-2">
       <%= f.check_box :legacy_controls %>
     </div>
@@ -41,7 +41,7 @@
   -->
 
   <div class="form-group">
-    <label class="col-sm-3 control-label">Tags</label>
+    <label class="col-sm-2 control-label">Tags</label>
     <div class="col-sm-9">
       <%= f.text_field :tag_list, 'data-role'=>'tagsinput', value: @game.tag_list.join(","), class: "form-control" %>
       <br>
@@ -72,7 +72,7 @@
 <% end %>
 
 <div>
-  <div class="col-sm-3"></div>
+  <div class="col-sm-2"></div>
   <div class="col-sm-9">
     <div class="panel panel-default">
       <div class="panel-heading">Images</div>
@@ -105,14 +105,14 @@
 
 
 <div>
-  <div class="col-sm-3"></div>
+  <div class="col-sm-2"></div>
   <div class="col-sm-9">
     <div class="panel panel-default">
       <div class="panel-heading">Zip file</div>
       <div class="panel-body">
         <% if @game.current_zip %>
           <div class="row">
-            <label class="col-sm-3 control-label" for="current-zip" style="text-align: right">Current:</label>
+            <label class="col-sm-2 control-label" for="current-zip" style="text-align: right">Current:</label>
             <code id="current-zip">
               <%= link_to @game.current_zip.humanized_filename, @game.download_url %>
             </code>
@@ -138,7 +138,7 @@
         <div class="row">
           <div class="form form-horizontal">
             <div class="form-group">
-              <label class="col-sm-3 control-label" for="executable">Executable:</label>
+              <label class="col-sm-2 control-label" for="executable">Executable:</label>
               <div class="col-sm-6">
                 <%= text_field_tag :executable, "", placeholder: "the_game.exe", class: "executable-filename form-control" %>
                 <span class="note">Which file in the zip runs the game?</span>
@@ -154,7 +154,7 @@
 </div>
 
 <div class="actions form-group">
-  <div class="col-sm-offset-3 col-sm-9">
+  <div class="col-sm-offset-2 col-sm-9">
     <%= button_tag "Save", class: "game-save btn btn-success" %>
   </div>
 </div>
