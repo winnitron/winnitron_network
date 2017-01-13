@@ -1,4 +1,5 @@
-<%= page_heading :h1, 'So many Games!' %>
+<%= page_heading :h1, "Games" %>
+<p>&nbsp;</p>
 
 <%= render "list", games: @mine if @mine.any? %>
 <%= render "list", games: @theirs %>

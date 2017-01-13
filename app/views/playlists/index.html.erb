@@ -1,4 +1,4 @@
-<%= page_heading :h1, 'Playlists' %>
-
+<%= page_heading :h1, "Playlists" %>
+<p>&nbsp;</p>
 <%= render "list", playlists: @mine if @mine.any? %>
 <%= render "list", playlists: @theirs %>

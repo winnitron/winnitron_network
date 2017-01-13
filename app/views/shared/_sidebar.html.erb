@@ -12,16 +12,10 @@ See application.html.erb for where it gets rendered.
   <!-- WINNITRON BRAND STUFF -->
 
   <div class="col-xs-12">
-    <h1>
-      THE WINNITRON NETWORK
-    </h1>
-  </div>
-  <div class="col-xs-12">
     <ul class="nav navbar-nav">
       <li><%= link_to "my account", edit_user_registration_path  %></li>
       <li><%= link_to "my profile", current_user %></li>
       <li><%= link_to "feedback", feedback_path %></li>
-      <li><%= link_to "sign out", destroy_user_session_path, method: :delete  %></li>
     </ul>
   </div>
 
@@ -43,10 +37,10 @@ See application.html.erb for where it gets rendered.
     <% current_user.arcade_machines.each do |machine| %>
       <%=
         render "shared/item_cards_small",
-        itemName: machine.title,
-        itemInfo: machine.location,
-        itemLink: arcade_machine_path(machine),
-        itemImageURL: machine.cover_image.url(w: 115)
+        item_name: machine.title,
+        item_info: machine.location,
+        item_link: arcade_machine_path(machine),
+        item_image_url: machine.cover_image.url(w: 115)
       %>
     <% end %>
 
@@ -71,10 +65,10 @@ See application.html.erb for where it gets rendered.
     <% current_user.games.each do |game| %>
       <%=
         render "shared/item_cards_wide",
-        itemName: game.title,
-        itemInfo: "",
-        itemLink: game_path(game),
-        itemImageURL: game.cover_image.url(w: 375)
+        item_name: game.title,
+        item_info: "",
+        item_link: game_path(game),
+        item_image_url: game.cover_image.url(w: 375)
       %>
     <% end %>
   </div>
@@ -90,6 +84,12 @@ See application.html.erb for where it gets rendered.
         </a>
       </span>
     </h3>
+
+    <% if current_user.playlists.empty? %>
+      <div class="playlist">
+        <%= link_to "Create your first playlist!", new_playlist_path %>
+      </div>
+    <% end %>
 
     <% current_user.playlists.each do |playlist| %>
       <div class="playlist">

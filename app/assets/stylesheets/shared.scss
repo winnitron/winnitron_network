@@ -4,6 +4,12 @@ Application-wide styles
 
 */
 
+body
+{
+  /* background: url("background.png");
+  color: #FFFFFF;*/
+}
+
 a.quiet-link
 {
   color: black;
@@ -101,4 +107,15 @@ table.table.hover tr:hover {
 .text-shadow
 {
   text-shadow: 0px 2px 12px rgba(0, 0, 0, 1);
+}
+
+label.check {
+  font-weight: normal;
+}
+
+
+
+.devise-errors {
+  list-style-type: none;
+  padding: 0;
 }

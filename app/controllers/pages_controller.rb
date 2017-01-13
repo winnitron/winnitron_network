@@ -1,6 +1,12 @@
 class PagesController < ApplicationController
+  before_action :authenticate_user!, only: [:dash, :request_builder]
+
   def index
-    redirect_to(dash_path) if user_signed_in?
+    if user_signed_in?
+      redirect_to(dash_path)
+    else
+      render "pages/index", layout: "outside"
+    end
   end
 
   def dash

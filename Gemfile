@@ -7,15 +7,13 @@ gem 'puma',  '~> 3.4.0'
 
 
 gem 'sass-rails', '~> 5.0.6'
-gem 'less-rails', '~> 2.8.0'
 gem 'uglifier',   '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 gem 'therubyracer', platforms: :ruby
 
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
-gem 'twitter-bootstrap-rails', '~> 3.2.0'
-gem 'bootstrap-tagsinput-rails'
+gem 'bootstrap-sass', '~> 3.3.6'
 
 # Referencing my fork until my PR with a bugfix gets merged.
 gem 'nested_form_fields', git: "https://github.com/aaronklaassen/nested_form_fields.git", ref: "5ebe908534971fbd4af0cf6f633aed8fedbf0b5a"

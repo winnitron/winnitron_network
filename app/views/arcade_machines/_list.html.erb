@@ -14,12 +14,17 @@
         >
         </a>
         <div class="caption">
+          <span class="location pull-right">
+            <%= machine.location %>
+          </span>
+
           <h4 class="group inner list-group-item-heading">
-            <%= machine.title %>
+            <a class="quiet-link" href="<%= arcade_machine_path(machine) %>">
+              <%= machine.title %>
+            </a>
           </h4>
 
           <%= render "arcade_machines/edit_buttons", arcade_machine: machine %>
-
         </div>
       </div>
     </div>

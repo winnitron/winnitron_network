@@ -14,7 +14,9 @@ PLAYLIST GRID VIEW
       ></a>
       <div class="caption">
         <h4 class="group inner list-group-item-heading">
-          <%= playlist.title %>
+          <a class="quiet-link" href="<%= playlist_path(playlist) %>">
+            <%= playlist.title %>
+          </a>
         </h4>
 
         <%= render "playlists/edit_buttons", playlist: playlist %>

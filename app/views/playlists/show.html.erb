@@ -17,24 +17,26 @@ PLAYLIST DETAIL VIEW
 
         <!-- Edit Buttons -->
         <div class="detail-edit-buttons">
-            <%= render "edit_buttons", playlist: @playlist %>
+          <%= render "edit_buttons", playlist: @playlist %>
         </div>
       </div>
 
       <hr />
 
-      <h4>
-        Creator
-      </h4>
-
-      <div class="clearfix">
+      <div class="col-md-12">
+        <h4>
+          Creator
+        </h4>
         <%= render "shared/item_cards_square",
-          itemName: @playlist.user.name,
-          itemInfo: "",
-          itemLink: user_url(@playlist.user),
-          itemImageURL: @playlist.user.gravatar_url
+          item_name: @playlist.user.name,
+          item_info: "",
+          item_link: user_url(@playlist.user),
+          item_image_url: @playlist.user.gravatar_url
         %>
       </div>
+
+      <div class="clearfix"></div>
+
 
     </div>
 
@@ -48,10 +50,10 @@ PLAYLIST DETAIL VIEW
 
         <%=
           render "shared/item_cards_wide",
-          itemName: game.title,
-          itemInfo: "",
-          itemLink: game_url(game),
-          itemImageURL: game.images.first&.url || asset_url("rocket-ship")
+          item_name: game.title,
+          item_info: "",
+          item_link: game_url(game),
+          item_image_url: game.images.first&.url || asset_url("rocket-ship")
         %>
 
       <% end %>

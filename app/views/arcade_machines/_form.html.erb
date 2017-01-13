@@ -2,22 +2,22 @@
   <%= render "shared/errors", object: @arcade_machine %>
 
   <div class="form-group">
-    <%= f.label :title, class: "col-sm-3 control-label" %>
-    <div class="col-sm-9">
+    <%= f.label :title, class: "col-sm-2 control-label" %>
+    <div class="col-sm-7">
       <%= f.text_field :title, required: true, class: "form-control" %>
     </div>
   </div>
 
   <div class="form-group">
-    <%= f.label :location, class: "col-sm-3 control-label" %>
-    <div class="col-sm-9">
+    <%= f.label :location, class: "col-sm-2 control-label" %>
+    <div class="col-sm-7">
       <%= f.text_field :location, class: "form-control" %>
     </div>
   </div>
 
   <div class="form-group">
-    <%= f.label :description, class: "col-sm-3 control-label" %>
-    <div class="col-sm-9">
+    <%= f.label :description, class: "col-sm-2 control-label" %>
+    <div class="col-sm-7">
       <%= f.text_area :description, class: "form-control" %>
     </div>
   </div>
@@ -28,14 +28,14 @@
 <% end %>
 
 <div>
-  <div class="col-sm-3"></div>
-  <div class="col-sm-9">
+  <div class="col-sm-2"></div>
+  <div class="col-sm-7">
     <div class="panel panel-default">
       <div class="panel-heading">Images</div>
       <div class="panel-body">
         <div class="row current-images">
           <% @arcade_machine.images.each do |image| %>
-            <a href="<%= image.url %>" class="screenshot">
+            <a href="<%= image.url %>" class="col-sm-4 thumbnail">
               <img src="<%= image.url %>">
             </a>
           <% end %>
@@ -62,7 +62,7 @@
 
 
 <div class="actions form-group">
-  <div class="col-sm-offset-3 col-sm-9">
+  <div class="col-sm-offset-2 col-sm-7">
     <%= button_tag "Save Winnitron", class: "machine-save btn btn-success" %>
   </div>
 </div>

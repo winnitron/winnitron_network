@@ -9,32 +9,46 @@
 -->
 
 <div class="navbar navbar-default navbar-static-top">
+  <ul class="nav navbar-nav logo">
+    <li><a href="/">THE WINNITRON NETWORK</a></li>
+  </ul>
   <div class="container">
     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
+
+
     <div class="navbar-collapse collapse navbar-responsive-collapse">
       <ul class="nav navbar-nav">
-        <li><%= link_to "Home", dash_path %></li>
+        <% if user_signed_in? %>
+          <li><%= link_to "Home", dash_path %></li>
+        <% end %>
         <li><%= link_to "Games", games_path %></li>
         <li><%= link_to "Winnitrons", arcade_machines_path %></li>
         <li><%= link_to "Playlists", playlists_path %></li>
 
         <form  action="<%= search_path %>" method="GET"  class="navbar-form navbar-left">
           <div class="form-group">
-            <input type="text" class="form-control" placeholder="Search" name="kw" value="<%= params['kw'] %>">
+            <input type="text" class="form-control" placeholder="Search games" name="kw" value="<%= params['kw'] %>">
             <button type="submit" class="btn btn-default">🔍</button>
           </div>
         </form>
       </ul>
 
-      <% if current_user&.admin? %>
-        <ul class="nav navbar-nav pull-right">
-          <li><%= link_to "Users", admin_users_path %></li>
-        </ul>
-      <% end %>
+
+      <ul class="nav navbar-nav pull-right">
+        <% if !user_signed_in? %>
+          <li><%= link_to "Sign Up", new_user_registration_path %></li>
+          <li><%= link_to "Sign In", new_user_session_path %></li>
+        <% else %>
+          <% if current_user.admin? %>
+            <li><%= link_to "Users", admin_users_path %></li>
+          <% end %>
+          <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete  %></li>
+        <% end %>
+      </ul>
 
     </div>
   </div>
