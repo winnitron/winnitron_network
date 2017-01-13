@@ -35,7 +35,7 @@
       <div class="panel-body">
         <div class="row current-images">
           <% @arcade_machine.images.each do |image| %>
-            <a href="<%= image.url %>" class="screenshot">
+            <a href="<%= image.url %>" class="col-sm-4 thumbnail">
               <img src="<%= image.url %>">
             </a>
           <% end %>
