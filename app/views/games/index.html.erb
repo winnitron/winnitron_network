@@ -1,5 +1,10 @@
+<a href="<%= new_game_path %>" class="pull-right add-game">
+  <%= image_tag asset_path("plus") %>
+</a>
+
 <%= page_heading :h1, "Games" %>
 <p>&nbsp;</p>
+
 
 <%= render "list", games: @mine if @mine.any? %>
 <%= render "list", games: @theirs %>
