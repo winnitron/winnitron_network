@@ -16,4 +16,5 @@
 //= require bootstrap-sprockets
 //= require s3_direct_upload
 //= require nested_form_fields
+//= require bootstrap-tagsinput
 //= require_tree .

@@ -67,6 +67,8 @@ GEM
     bootstrap-sass (3.3.7)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
+    bootstrap-tagsinput-rails (0.4.2.1)
+      railties (>= 3.1)
     builder (3.2.2)
     coderay (1.1.1)
     coffee-rails (4.2.1)
@@ -285,6 +287,7 @@ DEPENDENCIES
   aws-sdk (~> 2.3.14)
   better_errors
   bootstrap-sass (~> 3.3.6)
+  bootstrap-tagsinput-rails
   devise (~> 4.2.0)
   factory_girl_rails (~> 4.7.0)
   faker

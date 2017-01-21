@@ -35,6 +35,7 @@ gem 'acts-as-taggable-on', '~> 3.4'
 gem 's3_direct_upload', '~> 0.1.7'
 gem 'postmark-rails'
 gem 'gravtastic'
+gem 'bootstrap-tagsinput-rails'
 
 gem 'newrelic_rpm'
 
