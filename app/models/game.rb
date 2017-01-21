@@ -9,6 +9,7 @@ class Game < ActiveRecord::Base
   before_validation :strip_whitespace
   before_validation :default_player_counts
   after_save :attach_game_zips
+  after_save :update_smart_listings
 
   validates :title, presence: true, uniqueness: true
 
@@ -43,6 +44,12 @@ class Game < ActiveRecord::Base
     game_zips.reorder(created_at: :desc).first
   end
 
+  def qualifies_for_playlist?(playlist)
+    return true if !playlist.smart?
+
+    playlist.smart_tags.all? { |t| tags.include?(t) }
+  end
+
   private
 
   def strip_whitespace
@@ -63,6 +70,17 @@ class Game < ActiveRecord::Base
   def attach_game_zips
     GameZip.where(game_uuid: uuid).each do |zip|
       zip.update(game_id: self.id)
+    end
+  end
+
+  def update_smart_listings
+    listings.select { |l| l.playlist.smart? }.each(&:destroy)
+    reload
+
+    playlists = Playlist.all.select(&:smart?).select { |p| qualifies_for_playlist?(p) }
+
+    playlists.each do |playlist|
+      listings.create(playlist: playlist)
     end
   end
 end

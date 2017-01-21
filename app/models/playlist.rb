@@ -37,9 +37,7 @@ class Playlist < ActiveRecord::Base
 
     # Yes, this is inefficient but I'll worry about that when we have
     # enough games for it to matter.
-    games = Game.with_zip.select do |g|
-      (g.tag_list & smart_tags.pluck(:name)).size == smart_tags.size
-    end
+    games = Game.with_zip.select { |g| g.qualifies_for_playlist?(self) }
 
     games.each { |game| listings.create(game: game) }
   end
