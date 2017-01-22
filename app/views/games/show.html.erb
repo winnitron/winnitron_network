@@ -95,7 +95,7 @@
             item_name: machine.title,
             item_info: "",
             item_link: arcade_machine_url(machine),
-            item_image_url: machine.cover_image
+            item_image_url: machine.cover_image.url(w: 450)
           %>
         <% end %>
 
@@ -120,7 +120,7 @@
             item_name: playlist.title,
             item_info: "",
             item_link: playlist_url(playlist),
-            item_image_url: playlist.cover_image
+            item_image_url: playlist.cover_image.url(w: 450)
           %>
         <% end %>
 
