@@ -7,14 +7,12 @@
     <% if user_signed_in? && (current_user.owns?(imageable) || current_user.admin?) %>
       <div class="image-controls pull-right">
         <% if image == imageable.cover_image %>
-          make cover
+          cover
         <% else %>
           <%= link_to "make cover", image_path(image, cover: true), method: :patch %>
-
         <% end %>
         |
-
-        <%= link_to "remove", image_path(image), method: :delete %>
+        <%= link_to image_tag("delete"), image_path(image), method: :delete %>
       </div>
     <% end %>
     <div class="clearfix"></div>
