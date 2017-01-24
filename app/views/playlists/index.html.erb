@@ -1,3 +1,7 @@
+<a href="<%= new_playlist_path %>" class="pull-right add-item">
+  <%= image_tag asset_path("plus") %>
+</a>
+
 <%= page_heading :h1, "Playlists" %>
 <p>&nbsp;</p>
 <%= render "list", playlists: @mine if @mine.any? %>
