@@ -93,7 +93,13 @@ See application.html.erb for where it gets rendered.
 
     <% current_user.playlists.each do |playlist| %>
       <div class="playlist">
-        <strong><%= link_to playlist.title, playlist_path(playlist) %></strong>
+        <%=
+          render "shared/item_cards_wide",
+          item_name: playlist.title,
+          item_info: "",
+          item_link: playlist_path(playlist),
+          item_image_url: playlist.cover_image.url(w: 375)
+        %>
       </div>
     <% end %>
   </div>
