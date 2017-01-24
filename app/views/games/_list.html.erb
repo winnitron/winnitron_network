@@ -21,9 +21,11 @@ GAME GRID VIEW
           <div class="group inner list-group-item-text description">
             <%= simple_format(game.description.squish) %>
           </div>
+
+          <%= render "games/edit_buttons", game: game %>
         </div>
 
-        <%= render "games/edit_buttons", game: game %>
+
 
       </div>
     </div>

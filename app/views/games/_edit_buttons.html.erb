@@ -3,23 +3,8 @@
 
   <!-- Add to Winnitron dropdown -->
   <div class="edit-buttons dropdown">
-    <% if !current_user.playlists.empty? %>
-      <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-        Add to Playlist
-        <span class="caret"></span>
-      </button>
 
-      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-        <% current_user.playlists.each do |playlist| %>
-          <li>
-            <a href="/listings?game_id=<%= game.id%>&playlist_id=<%= playlist.id %>" data-method="post">
-              <%= playlist.games.include?(game) ? "✓" : "" %>
-              <%= playlist.title %>
-            </a>
-          </li>
-        <% end %>
-      </ul>
-    <% end %>
+    <%= render "shared/add_to_playlist", game: game %>
 
     <!-- Editing Buttons if Owned -->
     <% if current_user.owns?(game) || current_user.admin? %>

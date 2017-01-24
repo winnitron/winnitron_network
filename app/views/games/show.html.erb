@@ -87,8 +87,9 @@
 
     <div class="col-md-6">
 
-      <h4>Playable on these Winnitrons:</h4>
       <% if @game.arcade_machines.any? %>
+        <h4>Playable on these Winnitrons:</h4>
+
         <% @game.arcade_machines.each do |machine| %>
           <%=
             render "shared/item_cards_wide",
@@ -98,17 +99,8 @@
             item_image_url: machine.cover_image.url(w: 450)
           %>
         <% end %>
-
-
-      <% else %>
-        <h5>
-          Not on any Winnitrons yet.
-          <br/>
-          Be the first to add this to a Winnitron playlist!
-        </h5>
+        <hr/>
       <% end %>
-
-      <hr/>
 
 
       <h4>Included in these playlists:</h4>
@@ -124,12 +116,19 @@
           %>
         <% end %>
 
-      <% else %>
-        <h5>
-          Not in any playlists yet.
-          <br/>
-          Be the first to add this to a playlist!
-        </h5>
+      <% elsif user_signed_in? %>
+        <em><%= @game.title %></em> isn't in any playlists yet.
+        Be the first to add it to one:
+
+        <% if current_user.playlists.any? %>
+          <div class="dropdown">
+            <%= render "shared/add_to_playlist", game: @game %>
+          </div>
+        <% else %>
+          <div>
+            <%= link_to "make a new playlist", new_playlist_path %>
+          </div>
+        <% end %>
       <% end %>
 
     </div>
