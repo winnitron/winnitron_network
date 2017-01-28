@@ -22,4 +22,29 @@ RSpec.describe User, type: :model do
       }.to raise_error(ArgumentError)
     end
   end
+
+  describe "#can_download?" do
+    let(:game) { FactoryGirl.create(:game) }
+    let(:some_chump) { FactoryGirl.build(:user) }
+    let(:admin) { FactoryGirl.build(:admin) }
+    let(:builder) { FactoryGirl.build(:user, builder: true) }
+    let(:owner) { game.users.first }
+
+    it "allows admins" do
+      expect(admin.can_download?(game)).to be true
+    end
+
+    it "allows builders" do
+      expect(builder.can_download?(game)).to be true
+    end
+
+    it "allows owners" do
+      expect(owner.can_download?(game)).to be true
+    end
+
+    it "disallows pathetic nobodies" do
+      expect(some_chump.can_download?(game)).to be false
+    end
+
+  end
 end
