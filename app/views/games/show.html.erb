@@ -24,7 +24,7 @@
 
       <hr>
 
-      <% if current_user&.can_download?(game) %>
+      <% if current_user&.can_download?(@game) %>
         <div class="download-link">
           <a href="<%= @game.download_url %>" class="btn btn-default">Download this game</a>
 
@@ -34,6 +34,9 @@
             <% elsif current_user.builder? %>
               As a builder, you can download individual games in case you want to
               test them on your Winnitron or even just take 'em for a spin.
+            <% elsif current_user.admin? %>
+              I'm going to let you download this game because you're
+              just so darned good lookin'.
             <% end %>
           </p>
 
