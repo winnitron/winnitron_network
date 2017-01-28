@@ -58,8 +58,9 @@ RSpec.describe Game, type: :model do
 
     it "removes game from playlist if the tags change" do
       game.save
-
       game.tag_list = ["william", "thomas"]
+      game.save
+
       expect(game.playlists).to_not include(matching_playlist)
     end
 
