@@ -11,6 +11,13 @@ item_name
 item_info
 -->
 
+
+<% if defined?(item_actions_partial) %>
+  <span class="pull-right item-actions">
+    <%= render item_actions_partial %>
+  </span>
+<% end %>
+
 <a href="<%= item_link %>" class="item-card item-card-wide row">
   <div class="col-xs-12 item-card-image" style="
   background: linear-gradient(

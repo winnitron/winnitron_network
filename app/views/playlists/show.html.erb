@@ -53,7 +53,8 @@ PLAYLIST DETAIL VIEW
           item_name: game.title,
           item_info: "",
           item_link: game_url(game),
-          item_image_url: game.images.first&.url || asset_url("rocket-ship")
+          item_image_url: game.images.first&.url || asset_url("rocket-ship"),
+          item_actions_partial: "playlists/games_actions"
         %>
 
       <% end %>
