@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
   include Gravtastic
   gravtastic secure: true, size: 200
 
+  CUSTOM_LINK_TYPES = ["Itch.io"]
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, :omniauth_providers => [:github, :facebook]
