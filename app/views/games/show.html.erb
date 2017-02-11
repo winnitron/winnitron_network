@@ -8,8 +8,6 @@
 
   <div class="row">
 
-
-
     <!-- Metadata -->
 
     <div class="col-md-6">
@@ -24,7 +22,27 @@
         </div>
       </div>
 
-      <hr />
+      <hr>
+
+      <% if current_user&.can_download?(@game) %>
+        <div class="download-link">
+          <a href="<%= @game.download_url %>" class="btn btn-default">Download this game</a>
+
+          <p>
+            <% if current_user.owns?(@game) %>
+              You can download this game because you're the one that uploaded it. 😂
+            <% elsif current_user.builder? %>
+              As a builder, you can download individual games in case you want to
+              test them on your Winnitron or even just take 'em for a spin.
+            <% elsif current_user.admin? %>
+              I'm going to let you download this game because you're
+              just so darned good lookin'.
+            <% end %>
+          </p>
+
+        </div>
+        <hr>
+      <% end %>
 
       <div class="col-sm-12">
         <h4>

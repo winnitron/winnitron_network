@@ -31,6 +31,10 @@ class User < ActiveRecord::Base
     self.public_send(assoc.to_sym).include?(item)
   end
 
+  def can_download?(game)
+    admin? || owns?(game) || builder?
+  end
+
   def self.from_omniauth(auth)
     where('(provider = ? AND uid = ?) OR (email = ?)',
           auth.provider,
