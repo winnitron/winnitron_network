@@ -88,7 +88,7 @@
         <h4>Added By</h4>
 
         <% @game.users.each do |user| %>
-          <%= render "shared/item_cards_square",
+          <%= render "shared/item_card_square",
             item_name: user.name,
             item_info: "",
             item_link: user_url(user),
