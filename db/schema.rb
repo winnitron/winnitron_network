@@ -58,7 +58,6 @@ ActiveRecord::Schema.define(version: 20170211203723) do
     t.integer  "user_id"
     t.datetime "file_last_modified"
     t.string   "executable"
-    t.string   "platform",           default: "windows"
   end
 
   add_index "game_zips", ["game_uuid"], name: "index_game_zips_on_game_uuid", using: :btree
@@ -98,25 +97,6 @@ ActiveRecord::Schema.define(version: 20170211203723) do
     t.integer  "template",   default: 0
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
-  end
-
-  create_table "keymaps", force: :cascade do |t|
-    t.integer  "game_id"
-    t.string   "start"
-    t.string   "p1_up"
-    t.string   "p1_down"
-    t.string   "p1_left"
-    t.string   "p1_right"
-    t.string   "p1_button1"
-    t.string   "p1_button2"
-    t.string   "p2_up"
-    t.string   "p2_down"
-    t.string   "p2_left"
-    t.string   "p2_right"
-    t.string   "p2_button1"
-    t.string   "p2_button2"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "links", force: :cascade do |t|
