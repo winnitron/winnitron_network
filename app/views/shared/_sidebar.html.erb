@@ -35,13 +35,7 @@ See application.html.erb for where it gets rendered.
     </h3>
 
     <% current_user.arcade_machines.each do |machine| %>
-      <%=
-        render "shared/item_cards_small",
-        item_name: machine.title,
-        item_info: machine.location,
-        item_link: arcade_machine_path(machine),
-        item_image_url: machine.cover_image.url(w: 115)
-      %>
+      <%= render "shared/item_card_small", item: machine, info: machine.location %>
     <% end %>
 
   </div>

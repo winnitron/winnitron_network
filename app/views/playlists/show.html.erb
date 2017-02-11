@@ -21,7 +21,7 @@ PLAYLIST DETAIL VIEW
         </div>
       </div>
 
-      <hr />
+      <hr>
 
       <div class="col-md-12">
         <h4>
@@ -36,26 +36,18 @@ PLAYLIST DETAIL VIEW
       </div>
 
       <div class="clearfix"></div>
-
-
     </div>
-
 
     <!-- Games Listing -->
     <div class="col-md-6">
-
       <h4>Games</h4>
       <% @playlist.games.each do |game| %>
         <%=
           render "shared/item_card_wide", item: game,
                                       optional: { actions_partial: "playlists/games_actions" }
         %>
-
       <% end %>
     </div>
-
-
-
   </div>
 
 </div>
