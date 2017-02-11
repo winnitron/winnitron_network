@@ -20,7 +20,9 @@ class Search
                                 .where(name: keywords, taggings: { taggable_type: klass })
                                 .uniq
 
-    tags.map(&:taggings).flatten.map(&:taggable)
+    tags.flat_map(&:taggings)
+        .select { |t| t.taggable_type == klass.to_s }
+        .map(&:taggable)
   end
 
   def matches_by_title
