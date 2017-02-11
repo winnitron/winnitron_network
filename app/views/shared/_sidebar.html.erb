@@ -63,13 +63,7 @@ See application.html.erb for where it gets rendered.
 
 
     <% current_user.games.each do |game| %>
-      <%=
-        render "shared/item_cards_wide",
-        item_name: game.title,
-        item_info: "",
-        item_link: game_path(game),
-        item_image_url: game.cover_image.url(w: 375)
-      %>
+      <%= render "shared/item_card_wide", item: game, width: 375 %>
     <% end %>
   </div>
 
@@ -93,13 +87,7 @@ See application.html.erb for where it gets rendered.
 
     <% current_user.playlists.each do |playlist| %>
       <div class="playlist">
-        <%=
-          render "shared/item_cards_wide",
-          item_name: playlist.title,
-          item_info: "",
-          item_link: playlist_path(playlist),
-          item_image_url: playlist.cover_image.url(w: 375)
-        %>
+        <%= render "shared/item_card_wide", item: playlist %>
       </div>
     <% end %>
   </div>

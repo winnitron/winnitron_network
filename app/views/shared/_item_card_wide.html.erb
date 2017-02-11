@@ -1,0 +1,33 @@
+<!--
+In-Line Item Cards
+
+Used for Users, Winnitrons, Games
+And other things with an image and title
+-->
+
+<%
+width ||= nil
+subtitle ||= nil
+%>
+
+<% if defined?(actions_partial) %>
+  <span class="pull-right item-actions">
+    <%= render actions_partial %>
+  </span>
+<% end %>
+
+<a href="<%= url_for(item) %>" class="item-card item-card-wide row">
+  <div class="col-xs-12 item-card-image" style="
+  background: linear-gradient(
+    rgba(0, 0, 0, 0.45),
+    rgba(0, 0, 0, 0.45)
+  ),url(<%= item.cover_image.url(w: width) %>);
+  background-position: center center;
+  background-size: cover;
+  ">
+    <div class="item-card-details">
+      <h3 class="item-card-title"><%= item.title %></h3>
+      <h4 class="item-card-info"><%= subtitle %></h4>
+    </div>
+  </div>
+</a>
