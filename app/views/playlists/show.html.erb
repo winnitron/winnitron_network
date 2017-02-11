@@ -36,31 +36,18 @@ PLAYLIST DETAIL VIEW
       </div>
 
       <div class="clearfix"></div>
-
-
     </div>
-
 
     <!-- Games Listing -->
     <div class="col-md-6">
-
       <h4>Games</h4>
       <% @playlist.games.each do |game| %>
-        <% listing = Listing.find_by(game: game, playlist: @playlist) %>
-
         <%=
-          render "shared/item_cards_wide",
-          item_name: game.title,
-          item_info: "",
-          item_link: game_url(game),
-          item_image_url: game.images.first&.url || asset_url("rocket-ship")
+          render "shared/item_card_wide", item: game,
+                                      optional: { actions_partial: "playlists/games_actions" }
         %>
-
       <% end %>
     </div>
-
-
-
   </div>
 
 </div>

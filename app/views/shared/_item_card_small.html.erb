@@ -1,0 +1,10 @@
+<a href="<%= url_for(item) %>" class="item-card item-card-small">
+  <div class="row">
+    <div class="col-xs-4 item-card-image" style="background: url(<%= item.cover_image.url(w: 140) %>) center center; background-size: cover;">
+    </div>
+    <div class="col-xs-8 item-card-details">
+      <h3 class="item-card-title"><%= item.title %></h3>
+      <h4 class="item-card-info"><%= info %></h4>
+    </div>
+  </div>
+</a>

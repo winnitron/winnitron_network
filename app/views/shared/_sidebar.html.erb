@@ -35,13 +35,7 @@ See application.html.erb for where it gets rendered.
     </h3>
 
     <% current_user.arcade_machines.each do |machine| %>
-      <%=
-        render "shared/item_cards_small",
-        item_name: machine.title,
-        item_info: machine.location,
-        item_link: arcade_machine_path(machine),
-        item_image_url: machine.cover_image.url(w: 115)
-      %>
+      <%= render "shared/item_card_small", item: machine, info: machine.location %>
     <% end %>
 
   </div>
@@ -63,13 +57,7 @@ See application.html.erb for where it gets rendered.
 
 
     <% current_user.games.each do |game| %>
-      <%=
-        render "shared/item_cards_wide",
-        item_name: game.title,
-        item_info: "",
-        item_link: game_path(game),
-        item_image_url: game.cover_image.url(w: 375)
-      %>
+      <%= render "shared/item_card_wide", item: game, optional: { width: 375 } %>
     <% end %>
   </div>
 
@@ -93,13 +81,7 @@ See application.html.erb for where it gets rendered.
 
     <% current_user.playlists.each do |playlist| %>
       <div class="playlist">
-        <%=
-          render "shared/item_cards_wide",
-          item_name: playlist.title,
-          item_info: "",
-          item_link: playlist_path(playlist),
-          item_image_url: playlist.cover_image.url(w: 375)
-        %>
+        <%= render "shared/item_card_wide", item: playlist, optional: { width: 375 } %>
       </div>
     <% end %>
   </div>

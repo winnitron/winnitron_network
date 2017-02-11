@@ -137,3 +137,15 @@ label.check {
     width: 16px;
   }
 }
+
+.item-actions {
+  position: relative;
+  top: 15px;
+  right: 3px;
+  z-index: 1000;
+
+  a {
+    color: red;
+    font-weight: bold;
+  }
+}
