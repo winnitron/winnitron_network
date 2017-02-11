@@ -15,7 +15,7 @@ optional = {
 
 <% if optional[:actions_partial] %>
   <span class="pull-right item-actions">
-    <%= render optional[:actions_partial] %>
+    <%= render optional[:actions_partial], item: item %>
   </span>
 <% end %>
 

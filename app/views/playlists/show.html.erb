@@ -46,10 +46,9 @@ PLAYLIST DETAIL VIEW
 
       <h4>Games</h4>
       <% @playlist.games.each do |game| %>
-        <% listing = Listing.find_by(game: game, playlist: @playlist) %>
-
         <%=
-          render "shared/item_card_wide", item: game, optional: { actions_partial: "playlists/games_actions" }
+          render "shared/item_card_wide", item: game,
+                                      optional: { actions_partial: "playlists/games_actions" }
         %>
 
       <% end %>

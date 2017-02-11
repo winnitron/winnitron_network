@@ -1,3 +1,2 @@
-<a href="">
-  x
-</a>
+<% listing = Listing.find_by(game: item, playlist: @playlist) %>
+<%= link_to "x", listing_path(listing), method: :delete, class: "js-remove-game-from-playlist" %>
