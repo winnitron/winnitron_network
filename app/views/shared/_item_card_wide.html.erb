@@ -6,13 +6,16 @@ And other things with an image and title
 -->
 
 <%
-width ||= nil
-subtitle ||= nil
+optional = {
+  subtitle: "",
+  width: 450,
+  actions_partial: nil
+}.merge!(optional || {})
 %>
 
-<% if defined?(actions_partial) %>
+<% if optional[:actions_partial] %>
   <span class="pull-right item-actions">
-    <%= render actions_partial %>
+    <%= render optional[:actions_partial] %>
   </span>
 <% end %>
 
@@ -21,13 +24,13 @@ subtitle ||= nil
   background: linear-gradient(
     rgba(0, 0, 0, 0.45),
     rgba(0, 0, 0, 0.45)
-  ),url(<%= item.cover_image.url(w: width) %>);
+  ),url(<%= item.cover_image.url(w: optional[:width]) %>);
   background-position: center center;
   background-size: cover;
   ">
     <div class="item-card-details">
       <h3 class="item-card-title"><%= item.title %></h3>
-      <h4 class="item-card-info"><%= subtitle %></h4>
+      <h4 class="item-card-info"><%= optional[:subtitle] %></h4>
     </div>
   </div>
 </a>

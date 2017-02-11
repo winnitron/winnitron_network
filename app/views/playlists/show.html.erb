@@ -49,7 +49,7 @@ PLAYLIST DETAIL VIEW
         <% listing = Listing.find_by(game: game, playlist: @playlist) %>
 
         <%=
-          render "shared/item_card_wide", item: game, actions_partial: "playlists/games_actions"
+          render "shared/item_card_wide", item: game, optional: { actions_partial: "playlists/games_actions" }
         %>
 
       <% end %>

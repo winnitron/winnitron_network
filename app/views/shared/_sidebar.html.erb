@@ -63,7 +63,7 @@ See application.html.erb for where it gets rendered.
 
 
     <% current_user.games.each do |game| %>
-      <%= render "shared/item_card_wide", item: game, width: 375 %>
+      <%= render "shared/item_card_wide", item: game, optional: { width: 375 } %>
     <% end %>
   </div>
 
@@ -87,7 +87,7 @@ See application.html.erb for where it gets rendered.
 
     <% current_user.playlists.each do |playlist| %>
       <div class="playlist">
-        <%= render "shared/item_card_wide", item: playlist %>
+        <%= render "shared/item_card_wide", item: playlist, optional: { width: 375 } %>
       </div>
     <% end %>
   </div>
