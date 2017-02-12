@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :game do
-    title       { Faker::Lorem.words(3).join(" ") }
+    title       { Faker::Lorem.words(4).join(" ") }
     description { Faker::Lorem.sentence(2) }
     uuid        { SecureRandom.uuid }
     min_players 1

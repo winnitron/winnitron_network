@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161127023653) do
+ActiveRecord::Schema.define(version: 20170211203723) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,10 +30,11 @@ ActiveRecord::Schema.define(version: 20161127023653) do
     t.string   "title"
     t.text     "description"
     t.string   "location"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.string   "uuid"
     t.string   "slug"
+    t.string   "platform",    default: "windows"
   end
 
   add_index "arcade_machines", ["uuid"], name: "index_arcade_machines_on_uuid", using: :btree
@@ -52,8 +53,8 @@ ActiveRecord::Schema.define(version: 20161127023653) do
     t.integer  "game_id"
     t.string   "game_uuid"
     t.string   "file_key"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
     t.integer  "user_id"
     t.datetime "file_last_modified"
     t.string   "executable"
@@ -90,6 +91,13 @@ ActiveRecord::Schema.define(version: 20161127023653) do
   add_index "images", ["parent_type", "parent_id"], name: "index_images_on_parent_type_and_parent_id", using: :btree
   add_index "images", ["parent_uuid"], name: "index_images_on_parent_uuid", using: :btree
   add_index "images", ["user_id"], name: "index_images_on_user_id", using: :btree
+
+  create_table "key_maps", force: :cascade do |t|
+    t.integer  "game_id"
+    t.integer  "template",   default: 0
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
 
   create_table "links", force: :cascade do |t|
     t.integer  "parent_id"

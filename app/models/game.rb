@@ -10,12 +10,16 @@ class Game < ActiveRecord::Base
   before_validation :default_player_counts
   after_save :attach_game_zips
   after_save :update_smart_listings
+  after_create -> { KeyMap.create!(game: self) }
 
   validates :title, presence: true, uniqueness: true
 
   validate :min_lt_max
   validates :min_players, numericality: { only_integer: true, greater_than: 0 }
   validates :max_players, numericality: { only_integer: true, greater_than: 0 }
+
+
+  has_one :key_map
 
   has_many :game_zips, dependent: :destroy
 

@@ -15,3 +15,5 @@
 # Ignore application configuration
 /config/application.yml
 coverage
+
+spec/examples.txt

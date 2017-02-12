@@ -72,4 +72,10 @@ RSpec.describe Game, type: :model do
       expect(game.playlists).to include(dumb_playlist)
     end
   end
+
+  it "inits with default keymap" do
+    game = FactoryGirl.create(:game)
+    expect(game.key_map).to_not be_nil
+    expect(game.key_map.template).to eq "default"
+  end
 end
