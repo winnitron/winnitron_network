@@ -69,6 +69,8 @@
   <% end %>
 
   <%= f.hidden_field :uuid %>
+  <%= hidden_field_tag "game[executable]", "", class: "js-executable-file" %>
+
   <input type="submit" id="submit" class="hidden">
 <% end %>
 
@@ -142,7 +144,11 @@
               <label class="col-sm-2 control-label" for="executable">Executable:</label>
               <div class="col-sm-6">
                 <%= text_field_tag :executable, "", placeholder: "the_game.exe", class: "executable-filename form-control" %>
-                <span class="note">Which file in the zip runs the game?</span>
+                <span class="note">
+                  Which file in the zip runs the game?
+                  <br>
+                  If this is a PICO8 game, use the html file.
+                </span>
               </div>
             </div>
           </div>

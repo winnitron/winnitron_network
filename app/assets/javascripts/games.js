@@ -34,6 +34,8 @@
 
     $("#zipfile-uploader .btn").addClass("disabled");
     $(".executable-filename").keyup(function(e) {
+      $(".js-executable-file").val($(".executable-filename").val());
+
       if ($(".executable-filename").val().length <= 4)
         $("#zipfile-uploader .btn").addClass("disabled");
       else

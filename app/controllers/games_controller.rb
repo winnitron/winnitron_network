@@ -22,11 +22,12 @@ class GamesController < ApplicationController
   end
 
   def create
-    @game = Game.new(game_params)
+    @game = Game.new(game_params.except(:executable))
     @game.users = [current_user]
 
     respond_to do |format|
       if @game.save
+        set_executable
         format.html { redirect_to @game, notice: 'Game was successfully created.' }
         format.json { render :show, status: :created, location: @game }
       else
@@ -38,7 +39,8 @@ class GamesController < ApplicationController
 
   def update
     respond_to do |format|
-      if @game.update(game_params)
+      if @game.update(game_params.except(:executable))
+        set_executable
         format.html { redirect_to @game, notice: 'Game was successfully updated.' }
         format.json { render :show, status: :ok, location: @game }
       else
@@ -68,13 +70,17 @@ class GamesController < ApplicationController
     @game = Game.find_by!(slug: params[:id])
   end
 
+  def set_executable
+    @game.current_zip.update(executable: game_params[:executable])
+  end
+
   def permission_check!
     require_admin_or_ownership!(@game)
   end
 
   def game_params
     params.fetch(:game, {}).permit(:title, :description, :uuid, :legacy_controls,
-                                   :min_players, :max_players, :tag_list,
+                                   :min_players, :max_players, :tag_list, :executable,
                                    links_attributes: [:id, :link_type, :url, :_destroy])
   end
 end
