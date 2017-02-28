@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170211203723) do
+ActiveRecord::Schema.define(version: 20170228234815) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,8 +72,10 @@ ActiveRecord::Schema.define(version: 20170211203723) do
     t.string   "uuid"
     t.boolean  "legacy_controls", default: false
     t.string   "slug"
+    t.datetime "published_at"
   end
 
+  add_index "games", ["published_at"], name: "index_games_on_published_at", using: :btree
   add_index "games", ["uuid"], name: "index_games_on_uuid", using: :btree
 
   create_table "images", force: :cascade do |t|

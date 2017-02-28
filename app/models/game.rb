@@ -37,6 +37,7 @@ class Game < ActiveRecord::Base
                                         reject_if: proc { |attrs| attrs["url"].blank? }
 
   scope :with_zip, -> { where(id: GameZip.pluck(:game_id)) }
+  scope :published, -> { where.not(published_at: nil) }
 
   def download_url
     return nil if game_zips.empty?
@@ -52,6 +53,10 @@ class Game < ActiveRecord::Base
     return true if !playlist.smart?
 
     playlist.smart_tags.all? { |t| tags.include?(t) }
+  end
+
+  def published?
+    !!published_at
   end
 
   private
