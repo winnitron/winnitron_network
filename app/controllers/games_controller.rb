@@ -5,7 +5,7 @@ class GamesController < ApplicationController
 
   def index
     @mine   = user_signed_in? ? current_user.games.order(title: :asc) : Game.none
-    @theirs = Game.with_zip
+    @theirs = Game.published
                   .includes(:images)
                   .where.not(id: @mine.map(&:id))
                   .order(title: :asc)
@@ -71,6 +71,7 @@ class GamesController < ApplicationController
   end
 
   def set_executable
+    return if !@game.current_zip
     @game.current_zip.update(executable: game_params[:executable])
   end
 

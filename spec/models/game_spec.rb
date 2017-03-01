@@ -78,4 +78,16 @@ RSpec.describe Game, type: :model do
     expect(game.key_map).to_not be_nil
     expect(game.key_map.template).to eq "default"
   end
+
+  describe "#published?" do
+    it "is true with published_at" do
+      game = Game.new(published_at: Time.now)
+      expect(game).to be_published
+    end
+
+    it "is false without published_at" do
+      game = Game.new
+      expect(game).to_not be_published
+    end
+  end
 end

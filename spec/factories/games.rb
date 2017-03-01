@@ -1,10 +1,11 @@
 FactoryGirl.define do
   factory :game do
-    title       { Faker::Lorem.words(4).join(" ") }
-    description { Faker::Lorem.sentence(2) }
-    uuid        { SecureRandom.uuid }
-    min_players 1
-    max_players 2
+    title        { Faker::Lorem.words(4).join(" ") }
+    description  { Faker::Lorem.sentence(2) }
+    uuid         { SecureRandom.uuid }
+    min_players  1
+    max_players  2
+    published_at Time.now
 
     after :create do |game|
       owner = FactoryGirl.create(:user)
