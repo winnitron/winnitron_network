@@ -1,10 +1,9 @@
 FactoryGirl.define do
   factory :game do
-    title       { Faker::Lorem.words(4).join(" ") }
-    description { Faker::Lorem.sentence(2) }
-    uuid        { SecureRandom.uuid }
-    min_players 1
-    max_players 2
+    title        { Faker::Lorem.words(4).join(" ") }
+    description  { Faker::Lorem.sentence(2) }
+    min_players  1
+    max_players  2
 
     after :create do |game|
       owner = FactoryGirl.create(:user)
@@ -18,8 +17,9 @@ FactoryGirl.define do
 
       Image.create(parent: game,
                    user: owner,
-                   file_key: "screenshot.png",
-                   parent_uuid: game.uuid)
+                   file_key: "screenshot.png")
+
+      game.update published_at: Time.now
     end
   end
 end

@@ -4,12 +4,12 @@ RSpec.describe GamesController, type: :controller do
   let(:admin) { FactoryGirl.create(:admin) }
 
   describe "GET index" do
-    it "assigns games with zips" do
+    it "assigns published games" do
       FactoryGirl.create_list(:game, 3)
-      Game.last.game_zips.last.destroy # lol
+      Game.last.update(published_at: nil)
       get :index
       expect(assigns(:theirs).count).to eq 2
-      expect(assigns(:theirs)).to match_array Game.with_zip
+      expect(assigns(:theirs)).to match_array Game.published
     end
 
     it "returns 200 OK" do
@@ -198,5 +198,80 @@ RSpec.describe GamesController, type: :controller do
       end
     end
 
+  end
+
+
+  describe "GET images" do
+    let(:game) { FactoryGirl.create(:game) }
+
+    it "allows admin user" do
+      sign_in admin
+      get :images, id: game.slug
+      expect(response).to have_http_status :ok
+    end
+
+    it "allows owner" do
+      sign_in game.users.first
+      get :images, id: game.slug
+      expect(response).to have_http_status :ok
+    end
+
+    it "disallows non-owner" do
+      sign_in FactoryGirl.create(:user)
+      get :images, id: game.slug
+      expect(response).to have_http_status :forbidden
+    end
+  end
+
+  describe "GET zip" do
+    let(:game) { FactoryGirl.create(:game) }
+
+    it "allows admin user" do
+      sign_in admin
+      get :zip, id: game.slug
+      expect(response).to have_http_status :ok
+    end
+
+    it "allows owner" do
+      sign_in game.users.first
+      get :zip, id: game.slug
+      expect(response).to have_http_status :ok
+    end
+
+    it "disallows non-owner" do
+      sign_in FactoryGirl.create(:user)
+      get :zip, id: game.slug
+      expect(response).to have_http_status :forbidden
+    end
+  end
+
+  describe "GET executable" do
+    let(:game) { FactoryGirl.create(:game) }
+
+    it "allows admin user" do
+      sign_in admin
+      get :executable, id: game.slug
+      expect(response).to have_http_status :ok
+    end
+
+    it "allows owner" do
+      sign_in game.users.first
+      get :executable, id: game.slug
+      expect(response).to have_http_status :ok
+    end
+
+    it "disallows non-owner" do
+      sign_in FactoryGirl.create(:user)
+      get :executable, id: game.slug
+      expect(response).to have_http_status :forbidden
+    end
+
+    it "redirects to zip if there isn't any upload yet" do
+      game.game_zips.destroy_all
+      sign_in game.users.first
+
+      get :executable, id: game.slug
+      expect(response).to redirect_to zip_game_path(game.slug)
+    end
   end
 end

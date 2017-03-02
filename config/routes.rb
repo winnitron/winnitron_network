@@ -7,19 +7,20 @@ Rails.application.routes.draw do
   resources :games do
     member do
       get :confirm_destroy
+      get :images
+      get :zip
+      get :executable
+      put :publish
     end
   end
 
-  # TODO refactor this
-  post "/games/:uuid/zip", to: "game_zips#create", as: :create_zipfile
-  put  "/games/:uuid/zips/:file_key", to: "game_zips#update", as: :update_zipfile
-  post "images/:uuid/", to: "images#create", as: :create_image
-
-  resources :images, only: [:update, :destroy]
+  resources :images, only: [:create, :update, :destroy]
+  resources :game_zips, only: [:create, :update]
 
   resources :arcade_machines do
     member do
       get :confirm_destroy
+      get :images
     end
   end
 

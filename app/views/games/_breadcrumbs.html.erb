@@ -1,0 +1,23 @@
+<%
+active = { active => "active" } # keep fit and have fun
+%>
+
+<div class="breadcrumbs col-sm-12">
+
+  <% if @game.persisted? %>
+    <a href="edit"   class="item col-sm-3 <%= active[:details] %>">Details</a>
+    <a href="images" class="item col-sm-3 <%= active[:images] %>">Images</a>
+    <a href="zip"    class="item col-sm-3 <%= active[:zip] %>">Zip Upload</a>
+  <% else %>
+    <div class="item col-sm-3 <%= active[:details] %>">Details</div>
+    <div class="item col-sm-3 <%= active[:images] %>">Images</div>
+    <div class="item col-sm-3 <%= active[:zip] %>">Zip Upload</div>
+  <% end %>
+
+  <% if @game.current_zip %>
+    <a href="executable" class="item col-sm-3 <%= active[:exec] %>">Executable</a>
+  <% else %>
+    <div class="item col-sm-3 <%= active[:exec] %>">Executable</div>
+  <% end %>
+
+</div>

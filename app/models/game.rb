@@ -8,16 +8,16 @@ class Game < ActiveRecord::Base
 
   before_validation :strip_whitespace
   before_validation :default_player_counts
-  after_save :attach_game_zips
+  #after_save :attach_game_zips
   after_save :update_smart_listings
   after_create -> { KeyMap.create!(game: self) }
 
   validates :title, presence: true, uniqueness: true
+  validate :ok_to_publish, if: -> { published_at_changed? }
 
   validate :min_lt_max
   validates :min_players, numericality: { only_integer: true, greater_than: 0 }
   validates :max_players, numericality: { only_integer: true, greater_than: 0 }
-
 
   has_one :key_map
 
@@ -37,11 +37,10 @@ class Game < ActiveRecord::Base
                                         reject_if: proc { |attrs| attrs["url"].blank? }
 
   scope :with_zip, -> { where(id: GameZip.pluck(:game_id)) }
+  scope :published, -> { where.not(published_at: nil) }
 
   def download_url
-    return nil if game_zips.empty?
-    object = Aws::S3::Object.new(bucket_name: ENV["AWS_BUCKET"], key: current_zip.file_key)
-    object.presigned_url(:get, expires_in: 1.hour)
+    current_zip&.expiring_url
   end
 
   def current_zip
@@ -54,7 +53,17 @@ class Game < ActiveRecord::Base
     playlist.smart_tags.all? { |t| tags.include?(t) }
   end
 
+  def published?
+    !!published_at
+  end
+
   private
+
+  def ok_to_publish
+    errors.add(:base, "You must upload at least one image.") if images.empty?
+    errors.add(:base, "You must upload a zip file") if game_zips.empty?
+    errors.add(:base, "Choose a file in the zip that launches the game.") if current_zip && !current_zip.executable
+  end
 
   def strip_whitespace
     self.title.to_s.strip!
@@ -68,12 +77,6 @@ class Game < ActiveRecord::Base
   def min_lt_max
     if max_players && min_players > max_players
       errors.add(:max_players, "must be greater than minimum players")
-    end
-  end
-
-  def attach_game_zips
-    GameZip.where(game_uuid: uuid).each do |zip|
-      zip.update(game_id: self.id)
     end
   end
 

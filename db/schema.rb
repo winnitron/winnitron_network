@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170211203723) do
+ActiveRecord::Schema.define(version: 20170302071732) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,12 +32,9 @@ ActiveRecord::Schema.define(version: 20170211203723) do
     t.string   "location"
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
-    t.string   "uuid"
     t.string   "slug"
     t.string   "platform",    default: "windows"
   end
-
-  add_index "arcade_machines", ["uuid"], name: "index_arcade_machines_on_uuid", using: :btree
 
   create_table "game_ownerships", force: :cascade do |t|
     t.integer  "user_id"
@@ -51,7 +48,6 @@ ActiveRecord::Schema.define(version: 20170211203723) do
 
   create_table "game_zips", force: :cascade do |t|
     t.integer  "game_id"
-    t.string   "game_uuid"
     t.string   "file_key"
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
@@ -60,8 +56,6 @@ ActiveRecord::Schema.define(version: 20170211203723) do
     t.string   "executable"
   end
 
-  add_index "game_zips", ["game_uuid"], name: "index_game_zips_on_game_uuid", using: :btree
-
   create_table "games", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
@@ -69,12 +63,12 @@ ActiveRecord::Schema.define(version: 20170211203723) do
     t.datetime "updated_at",                      null: false
     t.integer  "min_players"
     t.integer  "max_players"
-    t.string   "uuid"
     t.boolean  "legacy_controls", default: false
     t.string   "slug"
+    t.datetime "published_at"
   end
 
-  add_index "games", ["uuid"], name: "index_games_on_uuid", using: :btree
+  add_index "games", ["published_at"], name: "index_games_on_published_at", using: :btree
 
   create_table "images", force: :cascade do |t|
     t.integer  "parent_id"
@@ -83,13 +77,11 @@ ActiveRecord::Schema.define(version: 20170211203723) do
     t.datetime "file_last_modified"
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
-    t.string   "parent_uuid"
     t.integer  "user_id"
     t.boolean  "cover",              default: false
   end
 
   add_index "images", ["parent_type", "parent_id"], name: "index_images_on_parent_type_and_parent_id", using: :btree
-  add_index "images", ["parent_uuid"], name: "index_images_on_parent_uuid", using: :btree
   add_index "images", ["user_id"], name: "index_images_on_user_id", using: :btree
 
   create_table "key_maps", force: :cascade do |t|

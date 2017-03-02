@@ -1,8 +1,8 @@
 class ArcadeMachinesController < ApplicationController
-  before_action :set_arcade_machine, only: [:show, :edit, :update, :destroy, :confirm_destroy]
+  before_action :set_arcade_machine, except: [:index, :new, :create]
   before_action :authenticate_user!, except: [:index, :show]
   before_action :require_builder!, except: [:index, :show]
-  before_action :permission_check!, only: [:edit, :update, :destroy, :confirm_destroy]
+  before_action :permission_check!, only: [:edit, :update, :destroy, :images, :confirm_destroy]
 
   def index
     @arcade_machines = ArcadeMachine.all
@@ -12,10 +12,13 @@ class ArcadeMachinesController < ApplicationController
   end
 
   def new
-    @arcade_machine = ArcadeMachine.new(uuid: SecureRandom.hex)
+    @arcade_machine = ArcadeMachine.new
   end
 
   def edit
+  end
+
+  def images
   end
 
   def create
@@ -23,26 +26,18 @@ class ArcadeMachinesController < ApplicationController
     @arcade_machine.users    << current_user
     @arcade_machine.api_keys << ApiKey.new
 
-    respond_to do |format|
-      if @arcade_machine.save
-        format.html { redirect_to @arcade_machine, notice: 'Arcade machine was successfully created.' }
-        format.json { render :show, status: :created, location: @arcade_machine }
-      else
-        format.html { render :new }
-        format.json { render json: @arcade_machine.errors, status: :unprocessable_entity }
-      end
+    if @arcade_machine.save
+      redirect_to images_arcade_machine_path(@arcade_machine.slug)
+    else
+      render :new
     end
   end
 
   def update
-    respond_to do |format|
-      if @arcade_machine.update(arcade_machine_params)
-        format.html { redirect_to @arcade_machine, notice: 'Arcade machine was successfully updated.' }
-        format.json { render :show, status: :ok, location: @arcade_machine }
-      else
-        format.html { render :edit }
-        format.json { render json: @arcade_machine.errors, status: :unprocessable_entity }
-      end
+    if @arcade_machine.update(arcade_machine_params)
+      redirect_to @arcade_machine, notice: 'Arcade machine was successfully updated.'
+    else
+      render :edit
     end
   end
 
@@ -69,7 +64,7 @@ class ArcadeMachinesController < ApplicationController
     end
 
     def arcade_machine_params
-      params.fetch(:arcade_machine, {}).permit(:title, :description, :location, :uuid,
+      params.fetch(:arcade_machine, {}).permit(:title, :description, :location,
                                                links_attributes: [:id, :link_type, :url, :_destroy])
     end
 

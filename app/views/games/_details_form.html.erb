@@ -1,0 +1,77 @@
+<%= render "breadcrumbs", active: :details %>
+
+<div class="row">
+  <div class="alert alert-info col-sm-10 col-sm-offset-1">
+    Wondering about Winnitron game requirements?
+    <a href="https://github.com/winnitron/WinnitronLauncher/wiki/Requirements-for-Winnitron-Games">
+      <strong>Check out our wiki.</strong>
+    </a>
+  </div>
+</div>
+
+<%= form_for(@game, html: { class: "game form form-horizontal" }) do |f| %>
+  <%= render "shared/errors", object: @game %>
+
+  <div class="form-group">
+    <%= f.label :title, class: "col-sm-2 control-label" %>
+    <div class="col-sm-9">
+      <%= f.text_field :title, required: true, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :description, class: "col-sm-2 control-label" %>
+    <div class="col-sm-9">
+      <%= f.text_area :description, class: "form-control" %>
+    </div>
+  </div>
+
+  <%= render "shared/links_form", f: f, additional_link_types: Game::CUSTOM_LINK_TYPES %>
+
+  <div class="form-group">
+    <%= f.label :min_players, class: "col-sm-2 control-label" %>
+    <div class="col-sm-2">
+      <%= f.number_field :min_players, class: "form-control", required: true, min: 1 %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :max_players, class: "col-sm-2 control-label" %>
+    <div class="col-sm-2">
+      <%= f.number_field :max_players, class: "form-control", min: 1 %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Tags</label>
+    <div class="col-sm-9">
+      <%= f.text_field :tag_list, 'data-role'=>'tagsinput', value: @game.tag_list.join(","), class: "js-tag-list form-control" %>
+      <br>
+      <span class="popular-tags">
+        <strong>popular tags:</strong>
+        <% ActsAsTaggableOn::Tag.order(taggings_count: :desc).limit(6).each do |tag| %>
+          <a href="<%= tag.name %>" class="js-add-tag"><%= tag.name %></a>
+        <% end %>
+      </span>
+    </div>
+  </div>
+
+
+  <% if @game.new_record? %>
+    <div class="actions form-group">
+      <div class="col-sm-offset-2 col-sm-9">
+        <label class="check">
+          <input type="checkbox" name="copyright_persmission" required>
+          I have the right to distribute this game and to give
+          The Winnitron Network permission to redistribute it.
+        </label>
+      </div>
+    </div>
+
+  <% end %>
+
+  <div class="col-sm-offset-2 col-sm-9">
+    <% text = @game.published? ? "Save" : "Next Step" %>
+    <%= f.submit text, class: "btn btn-success pull-right" %>
+  </div>
+<% end %>

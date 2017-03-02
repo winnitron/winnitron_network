@@ -1,4 +1,3 @@
-<% set_title @game.title %>
-<h1><em><%= @game.title %></em></h1>
+<%= page_heading :h1, "<em>#{@game.title}</em>" %>
 
-<%= render "form" %>
+<%= render "details_form" %>

@@ -20,7 +20,7 @@ RSpec.describe Api::V1::PlaylistsController, type: :controller do
           {
             "title" => playlist.title,
             "slug"  => playlist.title.parameterize,
-            "games" => playlist.games.with_zip.map do |game|
+            "games" => playlist.games.published.map do |game|
               {
                 "title"           => game.title,
                 "slug"            => game.title.parameterize,
@@ -29,9 +29,9 @@ RSpec.describe Api::V1::PlaylistsController, type: :controller do
                 "description"     => game.description,
                 "legacy_controls" => game.legacy_controls,
                 "download_url"    => game.download_url,
-                "last_modified"   => game.current_zip.file_last_modified.iso8601,
+                "last_modified"   => game.current_zip.created_at.iso8601,
                 "executable"      => game.current_zip.executable,
-                "image_url"       => game.images.first.url,
+                "image_url"       => game.cover_image.url,
                 "keys"            => { "template" => game.key_map.template }
               }
             end
@@ -67,14 +67,14 @@ RSpec.describe Api::V1::PlaylistsController, type: :controller do
         expect(JSON.parse(response.body)["playlists"]).to match_array playlist_hash["playlists"]
       end
 
-      it "does not list games without zip files" do
-        no_zip = FactoryGirl.create(:game)
-        no_zip.game_zips.destroy_all
-        Listing.create!(game: no_zip, playlist: winnitron.playlists.first)
+      it "does not list unpublished games" do
+        unpublished = FactoryGirl.create(:game)
+        unpublished.update(published_at: nil)
+        Listing.create!(game: unpublished, playlist: winnitron.playlists.first)
 
         get :index, { api_key: token, format: "json" }
         game_titles = JSON.parse(response.body)["playlists"][0]["games"].map { |g| g["title"] }
-        expect(game_titles).to_not include(no_zip.title)
+        expect(game_titles).to_not include(unpublished.title)
       end
     end
   end

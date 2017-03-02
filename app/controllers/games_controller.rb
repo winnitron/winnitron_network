@@ -1,11 +1,11 @@
 class GamesController < ApplicationController
-  before_action :set_game, only: [:show, :edit, :update, :destroy, :confirm_destroy]
+  before_action :set_game, except: [:index, :new, :create]
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :permission_check!, only: [:edit, :update, :destroy, :confirm_destroy]
+  before_action :permission_check!, except: [:index, :show, :new]
 
   def index
     @mine   = user_signed_in? ? current_user.games.order(title: :asc) : Game.none
-    @theirs = Game.with_zip
+    @theirs = Game.published
                   .includes(:images)
                   .where.not(id: @mine.map(&:id))
                   .order(title: :asc)
@@ -15,38 +15,57 @@ class GamesController < ApplicationController
   end
 
   def new
-    @game = Game.new(uuid: SecureRandom.uuid)
+    @game = Game.new
   end
 
   def edit
   end
 
   def create
-    @game = Game.new(game_params.except(:executable))
+    @game = Game.new(game_params)
     @game.users = [current_user]
 
     respond_to do |format|
       if @game.save
-        set_executable
-        format.html { redirect_to @game, notice: 'Game was successfully created.' }
-        format.json { render :show, status: :created, location: @game }
+        format.html { redirect_to images_game_path(@game.slug) }
       else
         format.html { render :new }
-        format.json { render json: @game.errors, status: :unprocessable_entity }
       end
     end
   end
 
+  def images
+  end
+
+  def zip
+  end
+
+  def executable
+    if zip = @game.current_zip
+      zip.update(executable: zip.likely_executable) if !zip.executable
+    else
+      redirect_to zip_game_path(@game.slug)
+    end
+  end
+
   def update
-    respond_to do |format|
-      if @game.update(game_params.except(:executable))
-        set_executable
-        format.html { redirect_to @game, notice: 'Game was successfully updated.' }
-        format.json { render :show, status: :ok, location: @game }
+    if @game.update(game_params)
+      if @game.published?
+        redirect_to @game, notice: "Game was successfully updated."
       else
-        format.html { render :edit }
-        format.json { render json: @game.errors, status: :unprocessable_entity }
+        redirect_to images_game_path(@game.slug)
       end
+    else
+      render :edit
+    end
+  end
+
+  def publish
+    if @game.update(published_at: Time.now.utc)
+      redirect_to @game, notice: "Your game has been published!"
+    else
+      # TODO: redirect somewhere and put this in flash
+      render json: { errors: @game.errors.full_messages }
     end
   end
 
@@ -71,6 +90,7 @@ class GamesController < ApplicationController
   end
 
   def set_executable
+    return if !@game.current_zip
     @game.current_zip.update(executable: game_params[:executable])
   end
 
@@ -79,8 +99,7 @@ class GamesController < ApplicationController
   end
 
   def game_params
-    params.fetch(:game, {}).permit(:title, :description, :uuid, :legacy_controls,
-                                   :min_players, :max_players, :tag_list, :executable,
+    params.fetch(:game, {}).permit(:title, :description, :min_players, :max_players, :tag_list,
                                    links_attributes: [:id, :link_type, :url, :_destroy])
   end
 end

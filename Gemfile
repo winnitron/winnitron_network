@@ -37,6 +37,7 @@ gem 's3_direct_upload', '~> 0.1.7'
 gem 'postmark-rails'
 gem 'gravtastic'
 gem 'bootstrap-tagsinput-rails'
+gem 'rubyzip'
 
 gem 'newrelic_rpm'
 

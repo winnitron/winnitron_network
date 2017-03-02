@@ -5,7 +5,7 @@ json.playlists do
     json.slug  playlist.slug
 
     json.games do
-      json.array!(playlist.games.with_zip) do |game|
+      json.array!(playlist.games.published) do |game|
         json.partial! "games/game", game: game
       end
     end
