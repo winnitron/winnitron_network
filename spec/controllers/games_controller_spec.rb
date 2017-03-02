@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe GamesController, type: :controller do
   let(:admin) { FactoryGirl.create(:admin) }
+  let(:user) { FactoryGirl.create(:user) }
 
   describe "GET index" do
     it "assigns published games" do
@@ -52,9 +53,9 @@ RSpec.describe GamesController, type: :controller do
 
   describe "GET new" do
 
-    context "current user is admin" do
+    context "user is signed in" do
       before :each do
-        sign_in admin
+        sign_in user
         get :new
       end
 
@@ -83,14 +84,13 @@ RSpec.describe GamesController, type: :controller do
     let(:attributes) do
       {
         title: "Great",
-        description: "Okay",
-        zipfile_key: "ok.zip"
+        description: "Okay"
       }
     end
 
     context "valid attributes" do
       before :each do
-        sign_in admin
+        sign_in user
       end
 
       it "saves the Game" do
@@ -98,12 +98,11 @@ RSpec.describe GamesController, type: :controller do
           post :create, game: attributes
         }.to change(Game, :count).by 1
       end
-
     end
 
     context "bad attributes" do
       before :each do
-        sign_in admin
+        sign_in user
       end
 
       it "does not save the game" do

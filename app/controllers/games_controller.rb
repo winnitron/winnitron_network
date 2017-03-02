@@ -1,7 +1,7 @@
 class GamesController < ApplicationController
   before_action :set_game, except: [:index, :new, :create]
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :permission_check!, except: [:index, :show, :new]
+  before_action :permission_check!, except: [:index, :show, :new, :create]
 
   def index
     @mine   = user_signed_in? ? current_user.games.order(title: :asc) : Game.none
