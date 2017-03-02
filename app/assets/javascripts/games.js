@@ -8,6 +8,5 @@
       var field = $(".js-tag-list")
       field.tagsinput("add", $(this).attr("href"))
     })
-
   });
 })(window, jQuery)

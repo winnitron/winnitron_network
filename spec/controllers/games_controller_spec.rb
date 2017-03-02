@@ -222,4 +222,56 @@ RSpec.describe GamesController, type: :controller do
       expect(response).to have_http_status :forbidden
     end
   end
+
+  describe "GET zip" do
+    let(:game) { FactoryGirl.create(:game) }
+
+    it "allows admin user" do
+      sign_in admin
+      get :zip, id: game.slug
+      expect(response).to have_http_status :ok
+    end
+
+    it "allows owner" do
+      sign_in game.users.first
+      get :zip, id: game.slug
+      expect(response).to have_http_status :ok
+    end
+
+    it "disallows non-owner" do
+      sign_in FactoryGirl.create(:user)
+      get :zip, id: game.slug
+      expect(response).to have_http_status :forbidden
+    end
+  end
+
+  describe "GET executable" do
+    let(:game) { FactoryGirl.create(:game) }
+
+    it "allows admin user" do
+      sign_in admin
+      get :executable, id: game.slug
+      expect(response).to have_http_status :ok
+    end
+
+    it "allows owner" do
+      sign_in game.users.first
+      get :executable, id: game.slug
+      expect(response).to have_http_status :ok
+    end
+
+    it "disallows non-owner" do
+      sign_in FactoryGirl.create(:user)
+      get :executable, id: game.slug
+      expect(response).to have_http_status :forbidden
+    end
+
+    it "redirects to zip if there isn't any upload yet" do
+      game.game_zips.destroy_all
+      sign_in game.users.first
+
+      get :executable, id: game.slug
+      expect(response).to redirect_to zip_game_path(game.slug)
+    end
+  end
 end

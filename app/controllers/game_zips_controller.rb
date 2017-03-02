@@ -8,7 +8,6 @@ class GameZipsController < ApplicationController
                       user: current_user,
                       file_key: URI.decode(params[:filepath][1..-1]),
                       file_last_modified: Time.parse(params[:lastModifiedDate]))
-
     if zip.save
       render json: zip, status: :created
     else
@@ -16,10 +15,20 @@ class GameZipsController < ApplicationController
     end
   end
 
+  def update
+    @zip = @game.game_zips.find(params[:id])
+
+    if @zip.update(executable: params[:filename])
+      render json: @zip, status: :ok
+    else
+      render json: { errors: @zip.errors.full_messages }, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def set_game
-    @game = Game.find(params[:game_id])
+    @game = Game.find_by(id: params[:game_id])
   end
 
   def permission_check!

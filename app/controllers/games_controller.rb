@@ -40,6 +40,14 @@ class GamesController < ApplicationController
   def zip
   end
 
+  def executable
+    if zip = @game.current_zip
+      zip.update(executable: zip.likely_executable) if !zip.executable
+    else
+      redirect_to zip_game_path(@game.slug)
+    end
+  end
+
   def update
     respond_to do |format|
       if @game.update(game_params.except(:executable))

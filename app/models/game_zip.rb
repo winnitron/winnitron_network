@@ -18,20 +18,29 @@ class GameZip < ActiveRecord::Base
   end
 
   def root_files
-    # TODO cache this
+    Rails.cache.fetch("GameZip::#{id}::files") do
 
-    tmp_file = Tempfile.new("gamezip-#{id}")
+      tmp_file = Tempfile.new("gamezip-#{id}")
 
-    @files ||= begin
-      open(tmp_file.path, "wb") { |f| f << open(expiring_url).read }
+      @files ||= begin
+        open(tmp_file.path, "wb") { |f| f << open(expiring_url).read }
 
-      Zip::File.open(tmp_file) do |zip|
-        zip.entries.map(&:name).reject { |fn| fn.include?(File::SEPARATOR) }
+        Zip::File.open(tmp_file) do |zip|
+          zip.entries.map(&:name).reject { |fn| fn.include?(File::SEPARATOR) }
+        end
+      ensure
+        tmp_file.close
+        tmp_file.unlink
       end
-    ensure
-      tmp_file.close
-      tmp_file.unlink
+
     end
+  end
+
+  def likely_executable
+    exes = root_files.select { |file| file.split(".").last == "exe" }
+    html = root_files.select { |file| file.split(".").last == "html" }
+
+    exes.first || html.first
   end
 
   private

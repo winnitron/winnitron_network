@@ -9,11 +9,12 @@ Rails.application.routes.draw do
       get :confirm_destroy
       get :images
       get :zip
+      get :executable
     end
   end
 
-  resources :game_zips, only: [:create]
   resources :images, only: [:create, :update, :destroy]
+  resources :game_zips, only: [:create, :update]
 
   resources :arcade_machines do
     member do
