@@ -9,7 +9,7 @@ class GameZip < ActiveRecord::Base
   validate :is_a_zip
 
   def humanized_filename
-    file_key.sub("games/#{game_uuid}-", "")
+    file_key.sub("games/", "")
   end
 
   def expiring_url
