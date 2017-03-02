@@ -9,6 +9,11 @@ class GameZip < ActiveRecord::Base
     file_key.sub("games/#{game_uuid}-", "")
   end
 
+  def expiring_url
+    object = Aws::S3::Object.new(bucket_name: ENV["AWS_BUCKET"], key: file_key)
+    object.presigned_url(:get, expires_in: 1.hour)
+  end
+
   private
 
   def is_a_zip

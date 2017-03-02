@@ -39,9 +39,7 @@ class Game < ActiveRecord::Base
   scope :published, -> { where.not(published_at: nil) }
 
   def download_url
-    return nil if game_zips.empty?
-    object = Aws::S3::Object.new(bucket_name: ENV["AWS_BUCKET"], key: current_zip.file_key)
-    object.presigned_url(:get, expires_in: 1.hour)
+    current_zip&.expiring_url
   end
 
   def current_zip

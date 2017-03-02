@@ -37,6 +37,9 @@ class GamesController < ApplicationController
   def images
   end
 
+  def zip
+  end
+
   def update
     respond_to do |format|
       if @game.update(game_params.except(:executable))

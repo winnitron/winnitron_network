@@ -1,0 +1,40 @@
+<%= page_heading :h1, "Zip for <em>#{@game.title}</em>" %>
+
+<div class="col-sm-1"></div>
+<div class="col-sm-9">
+  <div class="panel panel-default">
+    <div class="panel-heading">Zip file</div>
+    <div class="panel-body">
+
+      <div class="col-sm-offset-3">
+        <% if @game.current_zip %>
+          <code id="current-zip">
+            <%= link_to @game.current_zip.humanized_filename, @game.download_url %>
+          </code>
+          <div class="note" id="zip-uploaded-date">
+            Uploaded: <span class="date"><%= @game.current_zip.created_at.to_date.to_s(:long) %></span>
+          </div>
+        <% end %>
+      </div>
+
+      <br>
+      <div class="row">
+        <%=
+          render "shared/uploader",
+            form_id: "zipfile-uploader",
+            label:   "Upload:",
+            form_options: { callback_url: game_zips_url(@game.slug),
+                            key: "games/#{@game.id}-{timestamp}-${filename}",
+                            key_starts_with: "games/" },
+            additional_data: { game_id: @game.id },
+            accept_filetypes: "application/zip"
+        %>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="clearfix"></div>
+
+<div class="col-sm-offset-8 col-sm-2">
+  <%= link_to "Publish!", "/", class: "btn btn-success pull-right" %>
+</div>
