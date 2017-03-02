@@ -1,11 +1,11 @@
 class UserMailer < ActionMailer::Base
-  default from: "Winnitron Network <winnitron.support@outerspacehero.com>"
+  default from: "Winnitron Network <winnitron.network@gmail.com>"
 
   layout "mail"
 
   def request_builder_status(user)
     @user = user
-    mail(to: "winnitron.support@outerspacehero.com", subject: "Request for builder status") do  |format|
+    mail(to: ENV["BUILDER_REQUEST_RECIPIENT"], subject: "Request for builder status") do  |format|
       format.html { render "mailers/request_builder_status" }
     end
 
