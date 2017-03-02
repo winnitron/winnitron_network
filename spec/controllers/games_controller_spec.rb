@@ -199,4 +199,27 @@ RSpec.describe GamesController, type: :controller do
     end
 
   end
+
+
+  describe "GET images" do
+    let(:game) { FactoryGirl.create(:game) }
+
+    it "allows admin user" do
+      sign_in admin
+      get :images, id: game.slug
+      expect(response).to have_http_status :ok
+    end
+
+    it "allows owner" do
+      sign_in game.users.first
+      get :images, id: game.slug
+      expect(response).to have_http_status :ok
+    end
+
+    it "disallows non-owner" do
+      sign_in FactoryGirl.create(:user)
+      get :images, id: game.slug
+      expect(response).to have_http_status :forbidden
+    end
+  end
 end

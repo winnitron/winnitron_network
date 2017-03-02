@@ -1,7 +1,7 @@
 class GamesController < ApplicationController
-  before_action :set_game, only: [:show, :edit, :update, :destroy, :confirm_destroy]
+  before_action :set_game, except: [:index, :new, :create]
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :permission_check!, only: [:edit, :update, :destroy, :confirm_destroy]
+  before_action :permission_check!, except: [:index, :show, :new]
 
   def index
     @mine   = user_signed_in? ? current_user.games.order(title: :asc) : Game.none
@@ -22,19 +22,19 @@ class GamesController < ApplicationController
   end
 
   def create
-    @game = Game.new(game_params.except(:executable))
+    @game = Game.new(game_params)
     @game.users = [current_user]
 
     respond_to do |format|
       if @game.save
-        set_executable
-        format.html { redirect_to @game, notice: 'Game was successfully created.' }
-        format.json { render :show, status: :created, location: @game }
+        format.html { redirect_to images_game_path(@game.slug) }
       else
         format.html { render :new }
-        format.json { render json: @game.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def images
   end
 
   def update

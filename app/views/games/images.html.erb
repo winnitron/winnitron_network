@@ -1,0 +1,33 @@
+<%= page_heading :h1, "Add Images to <em>#{@game.title}</em>" %>
+
+<div>
+  <div class="col-sm-2"></div>
+  <div class="col-sm-9">
+    <div class="panel panel-default">
+      <div class="panel-heading">Images</div>
+      <div class="panel-body">
+        <div class="row current-images">
+          <% @game.images.each do |image| %>
+            <a href="<%= image.url %>" class="col-sm-4 thumbnail">
+              <img src="<%= image.url %>">
+            </a>
+          <% end %>
+        </div>
+
+        <div class="row">
+          <%=
+            render "shared/uploader",
+              form_id: "image-uploader",
+              label: "Upload:",
+              form_options: { callback_url: create_image_url,
+                              key: "games/#{@game.id}-image-${filename}",
+                              key_starts_with: "games/",
+                            },
+              additional_data: { parent_type: "Game", parent_id: @game.id },
+              accept_filetypes: "image/*"
+          %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

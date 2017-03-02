@@ -8,7 +8,7 @@ class Game < ActiveRecord::Base
 
   before_validation :strip_whitespace
   before_validation :default_player_counts
-  after_save :attach_game_zips
+  #after_save :attach_game_zips
   after_save :update_smart_listings
   after_create -> { KeyMap.create!(game: self) }
 
@@ -17,7 +17,6 @@ class Game < ActiveRecord::Base
   validate :min_lt_max
   validates :min_players, numericality: { only_integer: true, greater_than: 0 }
   validates :max_players, numericality: { only_integer: true, greater_than: 0 }
-
 
   has_one :key_map
 
@@ -76,11 +75,11 @@ class Game < ActiveRecord::Base
     end
   end
 
-  def attach_game_zips
-    GameZip.where(game_uuid: uuid).each do |zip|
-      zip.update(game_id: self.id)
-    end
-  end
+  # def attach_game_zips
+  #   GameZip.where(game_uuid: uuid).each do |zip|
+  #     zip.update(game_id: self.id)
+  #   end
+  # end
 
   def update_smart_listings
     listings.select { |l| l.playlist.smart? }.each(&:destroy)
