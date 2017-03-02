@@ -1,3 +1,6 @@
+require "open-uri"
+require "zip"
+
 class GameZip < ActiveRecord::Base
   belongs_to :game
   belongs_to :user
@@ -12,6 +15,23 @@ class GameZip < ActiveRecord::Base
   def expiring_url
     object = Aws::S3::Object.new(bucket_name: ENV["AWS_BUCKET"], key: file_key)
     object.presigned_url(:get, expires_in: 1.hour)
+  end
+
+  def root_files
+    # TODO cache this
+
+    tmp_file = Tempfile.new("gamezip-#{id}")
+
+    @files ||= begin
+      open(tmp_file.path, "wb") { |f| f << open(expiring_url).read }
+
+      Zip::File.open(tmp_file) do |zip|
+        zip.entries.map(&:name).reject { |fn| fn.include?(File::SEPARATOR) }
+      end
+    ensure
+      tmp_file.close
+      tmp_file.unlink
+    end
   end
 
   private
