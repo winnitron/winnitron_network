@@ -5,7 +5,7 @@ class ImagesController < ApplicationController
   before_action :permission_check!
 
   def create
-    folder = params[:parent_type].downcase.pluralize
+    folder = params[:parent_type].underscore.pluralize
     filename = [
       @parent.id,
       "image",

@@ -1,0 +1,15 @@
+<%
+active = { active => "active" }
+%>
+
+<div class="breadcrumbs col-sm-12">
+
+  <% if @arcade_machine.persisted? %>
+    <a href="edit"   class="item col-sm-3 <%= active[:details] %>">Details</a>
+    <a href="images" class="item col-sm-3 <%= active[:images] %>">Images</a>
+  <% else %>
+    <div class="item col-sm-3 <%= active[:details] %>">Details</div>
+    <div class="item col-sm-3 <%= active[:images] %>">Images</div>
+  <% end %>
+
+</div>

@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   resources :arcade_machines do
     member do
       get :confirm_destroy
+      get :images
     end
   end
 
