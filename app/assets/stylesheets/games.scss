@@ -1,3 +1,19 @@
 .executable-list {
   cursor: pointer;
 }
+
+.breadcrumbs {
+  margin: 30px 0 60px 0;
+
+  .item {
+    background-color: #f5f5f5;
+    padding: 5px 0;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  .item.active {
+    color: white;
+    background-color: #5cb85c;
+  }
+}

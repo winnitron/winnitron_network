@@ -1,3 +1,5 @@
+<%= render "breadcrumbs", active: :details %>
+
 <%= form_for(@game, html: { class: "game form form-horizontal" }) do |f| %>
   <%= render "shared/errors", object: @game %>
 
@@ -60,7 +62,7 @@
   <% end %>
 
   <div class="col-sm-offset-2 col-sm-9">
-    <%= f.hidden_field :uuid %>
-    <%= f.submit "Next Step", class: "btn btn-success" %>
+    <% text = @game.published? ? "Save" : "Next Step" %>
+    <%= f.submit text, class: "btn btn-success pull-right" %>
   </div>
 <% end %>

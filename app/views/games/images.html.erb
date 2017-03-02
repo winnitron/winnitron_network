@@ -1,17 +1,16 @@
 <%= page_heading :h1, "Images for <em>#{@game.title}</em>" %>
 
+<%= render "breadcrumbs", active: :images %>
+
 <div class="col-sm-offset-1 col-sm-9">
   <div class="panel panel-default">
-    <div class="panel-heading">Images</div>
     <div class="panel-body">
       <div class="row current-images">
-
-          <% @game.images.each do |image| %>
-            <a href="<%= image.url %>">
-              <img src="<%= image.url(w: 150, h: 150) %>">
-            </a>
-          <% end %>
-
+        <% @game.images.each do |image| %>
+          <a href="<%= image.url %>">
+            <img src="<%= image.url(w: 150, h: 150) %>">
+          </a>
+        <% end %>
       </div>
 
       <div class="row">
@@ -19,7 +18,7 @@
           render "shared/uploader",
             form_id: "image-uploader",
             label: "Upload:",
-            form_options: { callback_url: create_image_url,
+            form_options: { callback_url: images_url,
                             key: "games/#{@game.id}-image-${filename}",
                             key_starts_with: "games/",
                           },
@@ -32,7 +31,8 @@
 </div>
 <div class="clearfix"></div>
 
-
-<div class="col-sm-offset-8 col-sm-2">
-  <%= link_to "Next Step", zip_game_path(@game.slug), class: "btn btn-success pull-right" %>
-</div>
+<% if !@game.published? %>
+  <div class="col-sm-offset-8 col-sm-2">
+    <%= link_to "Next Step", zip_game_path(@game.slug), class: "btn btn-success pull-right" %>
+  </div>
+<% end %>

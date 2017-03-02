@@ -15,7 +15,7 @@ class GamesController < ApplicationController
   end
 
   def new
-    @game = Game.new(uuid: SecureRandom.uuid)
+    @game = Game.new
   end
 
   def edit
@@ -50,7 +50,11 @@ class GamesController < ApplicationController
 
   def update
     if @game.update(game_params)
-      redirect_to @game, notice: "Game was successfully updated."
+      if @game.published?
+        redirect_to @game, notice: "Game was successfully updated."
+      else
+        redirect_to images_game_path(@game.slug)
+      end
     else
       render :edit
     end

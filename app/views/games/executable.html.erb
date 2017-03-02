@@ -2,6 +2,8 @@
   $(function() {
     if ($(".executable-list .list-group-item.active").length == 0) {
       $(".publish-button").addClass("disabled");
+      $(".publish-button").attr("disabled", "disabled");
+
     }
 
     $(".executable-list .list-group-item").click(function(e) {
@@ -21,6 +23,7 @@
                   $(".executable-list .list-group-item").removeClass("active");
                   _this.addClass("active");
                   $(".publish-button").removeClass("disabled");
+                  $(".publish-button").removeAttr("disabled", "disabled");
                 }
               });
 
@@ -29,8 +32,9 @@
   });
 </script>
 
-
 <%= page_heading :h1, "Executable for <em>#{@game.title}</em>" %>
+
+<%= render "breadcrumbs", active: :exec %>
 
 <div class="col-sm-1"></div>
 <div class="col-sm-9">
@@ -59,10 +63,12 @@
     <% end %>
   </ul>
 </div>
-
 <div class="clearfix"></div>
-<div class="col-sm-offset-8 col-sm-2">
-  <%= form_tag publish_game_path(@game.slug), method: :put do %>
-    <%= submit_tag "Publish!", class: "publish-button btn btn-success pull-right" %>
-  <% end %>
-</div>
+
+<% if !@game.published? %>
+  <div class="col-sm-offset-8 col-sm-2">
+    <%= form_tag publish_game_path(@game.slug), method: :put do %>
+      <%= submit_tag "Publish!", class: "publish-button btn btn-success pull-right" %>
+    <% end %>
+  </div>
+<% end %>
