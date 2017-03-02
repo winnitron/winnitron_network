@@ -29,7 +29,7 @@ RSpec.describe Api::V1::PlaylistsController, type: :controller do
                 "description"     => game.description,
                 "legacy_controls" => game.legacy_controls,
                 "download_url"    => game.download_url,
-                "last_modified"   => game.current_zip.file_last_modified.iso8601,
+                "last_modified"   => game.current_zip.created_at.iso8601,
                 "executable"      => game.current_zip.executable,
                 "image_url"       => game.cover_image.url,
                 "keys"            => { "template" => game.key_map.template }
