@@ -16,4 +16,9 @@
     color: white;
     background-color: #5cb85c;
   }
+
+  .item.disabled {
+    background-color: #e5e5e5;
+    color: #888;
+  }
 }
