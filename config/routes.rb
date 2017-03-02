@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       get :images
       get :zip
       get :executable
+      put :publish
     end
   end
 

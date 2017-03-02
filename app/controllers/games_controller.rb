@@ -49,15 +49,19 @@ class GamesController < ApplicationController
   end
 
   def update
-    respond_to do |format|
-      if @game.update(game_params.except(:executable))
-        set_executable
-        format.html { redirect_to @game, notice: 'Game was successfully updated.' }
-        format.json { render :show, status: :ok, location: @game }
-      else
-        format.html { render :edit }
-        format.json { render json: @game.errors, status: :unprocessable_entity }
-      end
+    if @game.update(game_params)
+      redirect_to @game, notice: "Game was successfully updated."
+    else
+      render :edit
+    end
+  end
+
+  def publish
+    if @game.update(published_at: Time.now.utc)
+      redirect_to @game, notice: "Your game has been published!"
+    else
+      # TODO: redirect somewhere and put this in flash
+      render json: { errors: @game.errors.full_messages }
     end
   end
 
@@ -91,8 +95,7 @@ class GamesController < ApplicationController
   end
 
   def game_params
-    params.fetch(:game, {}).permit(:title, :description, :uuid, :legacy_controls,
-                                   :min_players, :max_players, :tag_list, :executable,
+    params.fetch(:game, {}).permit(:title, :description, :min_players, :max_players, :tag_list,
                                    links_attributes: [:id, :link_type, :url, :_destroy])
   end
 end

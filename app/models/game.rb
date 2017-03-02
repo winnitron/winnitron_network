@@ -13,6 +13,7 @@ class Game < ActiveRecord::Base
   after_create -> { KeyMap.create!(game: self) }
 
   validates :title, presence: true, uniqueness: true
+  validate :ok_to_publish, if: -> { published_at_changed? }
 
   validate :min_lt_max
   validates :min_players, numericality: { only_integer: true, greater_than: 0 }
@@ -58,6 +59,12 @@ class Game < ActiveRecord::Base
 
   private
 
+  def ok_to_publish
+    errors.add(:base, "You must upload at least one image.") if images.empty?
+    errors.add(:base, "You must upload a zip file") if game_zips.empty?
+    errors.add(:base, "Choose a file in the zip that launches the game.") if current_zip && !current_zip.executable
+  end
+
   def strip_whitespace
     self.title.to_s.strip!
   end
@@ -72,12 +79,6 @@ class Game < ActiveRecord::Base
       errors.add(:max_players, "must be greater than minimum players")
     end
   end
-
-  # def attach_game_zips
-  #   GameZip.where(game_uuid: uuid).each do |zip|
-  #     zip.update(game_id: self.id)
-  #   end
-  # end
 
   def update_smart_listings
     listings.select { |l| l.playlist.smart? }.each(&:destroy)

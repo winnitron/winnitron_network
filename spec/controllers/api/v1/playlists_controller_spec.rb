@@ -31,7 +31,7 @@ RSpec.describe Api::V1::PlaylistsController, type: :controller do
                 "download_url"    => game.download_url,
                 "last_modified"   => game.current_zip.file_last_modified.iso8601,
                 "executable"      => game.current_zip.executable,
-                "image_url"       => game.images.first.url,
+                "image_url"       => game.cover_image.url,
                 "keys"            => { "template" => game.key_map.template }
               }
             end

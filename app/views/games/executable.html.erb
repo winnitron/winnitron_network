@@ -20,7 +20,7 @@
                 success: function(result) {
                   $(".executable-list .list-group-item").removeClass("active");
                   _this.addClass("active");
-                  //TODO: enable publish button
+                  $(".publish-button").removeClass("disabled");
                 }
               });
 
@@ -62,5 +62,7 @@
 
 <div class="clearfix"></div>
 <div class="col-sm-offset-8 col-sm-2">
-  <%= link_to "Publish!", "", class: "publish-button btn btn-success pull-right" %>
+  <%= form_tag publish_game_path(@game.slug), method: :put do %>
+    <%= submit_tag "Publish!", class: "publish-button btn btn-success pull-right" %>
+  <% end %>
 </div>
