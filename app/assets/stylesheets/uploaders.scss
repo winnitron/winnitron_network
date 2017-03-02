@@ -1,0 +1,21 @@
+.current-images {
+  padding-left: 10px;
+  margin-bottom: 30px;
+
+  img {
+    max-width: 150px;
+    max-height: 150px;
+  }
+
+  a {
+    border: none;
+    display: inline-block;
+    width: 155px;
+    height: 155px;
+    float: left;
+  }
+}
+
+.the-bars, .js-upload-status {
+  margin: 15px;
+}
