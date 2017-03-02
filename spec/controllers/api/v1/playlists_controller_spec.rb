@@ -20,7 +20,7 @@ RSpec.describe Api::V1::PlaylistsController, type: :controller do
           {
             "title" => playlist.title,
             "slug"  => playlist.title.parameterize,
-            "games" => playlist.games.with_zip.map do |game|
+            "games" => playlist.games.published.map do |game|
               {
                 "title"           => game.title,
                 "slug"            => game.title.parameterize,
