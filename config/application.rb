@@ -44,5 +44,7 @@ module WinnitronReborn
     config.action_mailer.postmark_settings = { api_token: ENV['POSTMARK_API_TOKEN'] }
 
     config.autoload_paths += Dir["#{config.root}/lib/"]
+
+    config.cache_store = :redis_store, ENV["REDIS_URL"]
   end
 end
