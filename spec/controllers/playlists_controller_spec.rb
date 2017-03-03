@@ -3,6 +3,15 @@ require 'rails_helper'
 RSpec.describe PlaylistsController, type: :controller do
   describe "GET index" do
     it_behaves_like "simple GET action", :index
+
+    it "does not list empty playlists" do
+      empty_playlist = FactoryGirl.create(:playlist)
+      playlist = FactoryGirl.create(:playlist)
+      Listing.create(playlist: playlist, game: FactoryGirl.create(:game))
+
+      get :index
+      expect(assigns(:theirs)).to match_array [playlist]
+    end
   end
 
   describe "GET show" do

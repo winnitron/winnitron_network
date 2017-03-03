@@ -5,7 +5,7 @@ class PlaylistsController < ApplicationController
 
   def index
     @mine   = user_signed_in? ? current_user.playlists.order(title: :asc) : []
-    @theirs = Playlist.all
+    @theirs = Playlist.with_games
                       .where.not(id: @mine.map(&:id))
                       .order(default: :desc, title: :asc)
   end

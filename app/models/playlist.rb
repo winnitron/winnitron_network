@@ -15,6 +15,7 @@ class Playlist < ActiveRecord::Base
   has_many :arcade_machines, through: :subscriptions
 
   scope :defaults, -> { where(default: true) }
+  scope :with_games, -> { where(id: Listing.pluck(:playlist_id).uniq) }
 
   after_save :update_smart_listings, if: -> { smart? }
 
