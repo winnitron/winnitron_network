@@ -54,6 +54,13 @@ RSpec.describe Api::V1::PlaylistsController, type: :controller do
       expect(response).to have_http_status(:ok)
     end
 
+    it "saves request" do
+      get :index, { api_key: token, format: "json" }
+      event = LoggedEvent.last
+      expect(event.actor).to eq winnitron
+      expect(event.details).to eq({ "user_agent" => "Rails Testing" })
+    end
+
     describe "with subscriptions" do
       before :each do
         playlists.each do |playlist|

@@ -2,6 +2,7 @@ class Api::V1::PlaylistsController < ApplicationController
   respond_to :json
 
   before_action :token_authentication!
+  before_action :record_sync
 
   def index
     @playlists = @arcade_machine.playlists
@@ -22,5 +23,9 @@ class Api::V1::PlaylistsController < ApplicationController
     else
       @arcade_machine = key.arcade_machine
     end
+  end
+
+  def record_sync
+    LoggedEvent.create(actor: @arcade_machine, details: { user_agent: request.headers["HTTP_USER_AGENT"] })
   end
 end
