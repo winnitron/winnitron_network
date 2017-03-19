@@ -67,5 +67,18 @@ describe Search do
     end
   end
 
+  it "saves the search" do
+    user = FactoryGirl.create(:user)
+    Search.new(Game, "first ever official", user).results
+
+    event = LoggedEvent.last
+    expected_details = {
+      "query"    => "first ever official",
+      "keywords" => %w(first ever official)
+    }
+    expect(event.actor).to eq user
+    expect(event.details).to eq expected_details
+  end
+
 
 end

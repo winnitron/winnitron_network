@@ -1,13 +1,17 @@
 class Search
-  attr_reader :klass, :keywords
+  attr_reader :klass, :query, :keywords, :user
 
-  def initialize(klass, query)
+  def initialize(klass, query, user = nil)
     @klass = klass
+    @query = query
     @keywords = query.gsub(/[^0-9a-z ]/i, "").split(" ").map(&:downcase)
+    @user = user
   end
 
   def results
     @results ||= begin
+      save_event
+
       all_matches = (matches_by_tag + matches_by_title).uniq
       all_matches.sort_by { |item| relevancy_score(item) }.reverse
     end
@@ -34,5 +38,9 @@ class Search
     title_score = keywords.select { |kw| item.title.downcase.include?(kw) }.size * 2
 
     tag_score + title_score
+  end
+
+  def save_event
+    LoggedEvent.create(actor: user, details: { query: query, keywords: keywords })
   end
 end
