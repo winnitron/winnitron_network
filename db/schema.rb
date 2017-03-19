@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170302071732) do
+ActiveRecord::Schema.define(version: 20170319204349) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,10 +30,9 @@ ActiveRecord::Schema.define(version: 20170302071732) do
     t.string   "title"
     t.text     "description"
     t.string   "location"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
     t.string   "slug"
-    t.string   "platform",    default: "windows"
   end
 
   create_table "game_ownerships", force: :cascade do |t|
@@ -49,8 +48,8 @@ ActiveRecord::Schema.define(version: 20170302071732) do
   create_table "game_zips", force: :cascade do |t|
     t.integer  "game_id"
     t.string   "file_key"
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
     t.integer  "user_id"
     t.datetime "file_last_modified"
     t.string   "executable"
@@ -111,6 +110,16 @@ ActiveRecord::Schema.define(version: 20170302071732) do
 
   add_index "listings", ["game_id"], name: "index_listings_on_game_id", using: :btree
   add_index "listings", ["playlist_id"], name: "index_listings_on_playlist_id", using: :btree
+
+  create_table "logged_events", force: :cascade do |t|
+    t.integer  "actor_id"
+    t.string   "actor_type"
+    t.json     "details"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "logged_events", ["actor_type", "actor_id"], name: "index_logged_events_on_actor_type_and_actor_id", using: :btree
 
   create_table "machine_ownerships", force: :cascade do |t|
     t.integer  "user_id"
