@@ -11,6 +11,13 @@
   </div>
 
   <div class="form-group">
+    <%= f.label :players, class: "col-sm-2 control-label" %>
+    <div class="col-sm-1">
+      <%= f.number_field :players, required: true, class: "form-control", min: 2, max: 4 %>
+    </div>
+  </div>
+
+  <div class="form-group">
     <%= f.label :location, class: "col-sm-2 control-label" %>
     <div class="col-sm-7">
       <%= f.text_field :location, class: "form-control" %>

@@ -3,6 +3,7 @@ class ArcadeMachine < ActiveRecord::Base
   include Slugged
 
   validates :title, presence: true
+  validates :players, numericality: { only_integer: true, greater_than: 1 }
 
   has_many :machine_ownerships, dependent: :destroy
   has_many :users, through: :machine_ownerships

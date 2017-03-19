@@ -8,7 +8,7 @@ class Game < ActiveRecord::Base
 
   before_validation :strip_whitespace
   before_validation :default_player_counts
-  #after_save :attach_game_zips
+
   after_save :update_smart_listings
   after_create -> { KeyMap.create!(game: self) }
 

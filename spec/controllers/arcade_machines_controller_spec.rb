@@ -68,7 +68,8 @@ RSpec.describe ArcadeMachinesController, type: :controller do
   describe "POST create" do
     let(:attributes) do
       {
-        title: "The Incredible Machine"
+        title: "The Incredible Machine",
+        players: 2
       }
     end
 
