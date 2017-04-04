@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: {
     registrations: "registrations",
-    omniauth_callbacks: "callbacks"
+    omniauth_callbacks: "omniauth_callbacks"
   }
 
   resources :games do
