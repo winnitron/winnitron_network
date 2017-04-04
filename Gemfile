@@ -25,8 +25,10 @@ gem 'sdoc',     '~> 0.4.0', group: :doc
 
 gem 'devise',  '~> 4.2.0'
 gem 'omniauth'
-gem 'omniauth-github'
-gem 'omniauth-facebook'
+gem 'omniauth-twitter'
+#gem 'omniauth-github'
+#gem 'omniauth-facebook'
+
 gem 'rails_12factor'
 gem 'figaro'
 gem 'aws-sdk', '~> 2.3.14'
