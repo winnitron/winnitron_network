@@ -1,4 +1,6 @@
-<% imageable.images.each do |image| %>
+<%
+  parent = { parent_type: imageable.class, parent_id: imageable.id }
+  imageable.images.each do |image| %>
   <div class="thumbnail col-sm-4">
     <a href="<%= image.url %>">
       <img src="<%= image.url(w: 150) %>">
@@ -9,10 +11,10 @@
         <% if image == imageable.cover_image %>
           cover
         <% else %>
-          <%= link_to "make cover", image_path(image, cover: true), method: :patch %>
+          <%= link_to "make cover", image_path(image, parent.merge(cover: true)), method: :patch %>
         <% end %>
         |
-        <%= link_to image_tag("delete"), image_path(image), method: :delete %>
+        <%= link_to image_tag("delete"), image_path(image, parent), method: :delete %>
       </div>
     <% end %>
     <div class="clearfix"></div>
