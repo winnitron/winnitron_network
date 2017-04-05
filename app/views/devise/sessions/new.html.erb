@@ -1,6 +1,8 @@
 <div class="page">
   <%= page_heading :h2, "Sign In" %>
 
+  <%= render "shared/third_party_auth", action: "Sign in" %>
+
   <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "form form-horizontal" }) do |f| %>
     <%= render "devise/shared/errors", messages: [flash[:alert]] if flash[:alert] %>
 
