@@ -27,7 +27,7 @@ RSpec.describe Api::V1::PlaylistsController, type: :controller do
                 "min_players"     => game.min_players,
                 "max_players"     => game.max_players,
                 "description"     => game.description,
-                "legacy_controls" => game.legacy_controls,
+                "legacy_controls" => game.key_map.template == "legacy",
                 "download_url"    => game.download_url,
                 "last_modified"   => game.current_zip.created_at.iso8601,
                 "executable"      => game.current_zip.executable,
