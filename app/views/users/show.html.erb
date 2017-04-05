@@ -2,7 +2,6 @@
   <div class="row">
     <%= image_tag @user.gravatar_url, class: "avatar pull-left" %>
     <%= page_heading :h1, @user.name %>
-    <%= render "compliment" %>
   </div>
 
   <div class="row">
@@ -11,33 +10,18 @@
     <% end %>
   </div>
 
-  <div class="row">
+  <% if @user.games.any? %>
+    <div class="row">
+      <h4>Games</h4>
+      <%= render "games/list", games: @user.games %>
+    </div>
+  <% end %>
 
-    <% if @user.games.any? %>
-      <div class="col-sm-6">
-        <h4>Games</h4>
-        <% @user.games.each do |game| %>
-          <div class="game-card">
-            <a href="<%= game_url(game) %>">
-              <% screenshot_url = game.images.first&.url || asset_url("rocket-ship") %>
-              <%= image_tag screenshot_url %>
-              <br>
-              <%= game.title %>
-            </a>
-          </div>
-        <% end %>
-      </div>
-    <% end %>
-
-
-    <div class="col-sm-6">
+  <% if @user.arcade_machines.any? %>
+    <div class="row">
       <h4>Winnitrons</h4>
       <%= render "arcade_machines/list", arcade_machines: @user.arcade_machines %>
     </div>
-
-  </div>
-
-
-
+  <% end %>
 
 </div>
