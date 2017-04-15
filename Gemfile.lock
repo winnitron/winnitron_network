@@ -48,6 +48,7 @@ GEM
       tzinfo (~> 1.1)
     acts-as-taggable-on (3.5.0)
       activerecord (>= 3.2, < 5)
+    acts_as_commentable (4.0.2)
     arel (6.0.3)
     autoprefixer-rails (6.5.3.1)
       execjs
@@ -290,6 +291,7 @@ PLATFORMS
 
 DEPENDENCIES
   acts-as-taggable-on (~> 3.4)
+  acts_as_commentable
   aws-sdk (~> 2.3.14)
   better_errors
   bootstrap-sass (~> 3.3.6)

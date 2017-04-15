@@ -28,6 +28,7 @@ gem 'omniauth'
 gem 'omniauth-twitter'
 #gem 'omniauth-github'
 #gem 'omniauth-facebook'
+gem 'acts_as_commentable'
 
 gem 'rails_12factor'
 gem 'figaro'
