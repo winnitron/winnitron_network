@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-  default from: "Winnitron Network <winnitron.network@gmail.com>"
+  default from: "Winnitron Network <winnitron.support@outerspacehero.com>"
 
   layout "mail"
 
