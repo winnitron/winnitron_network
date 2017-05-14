@@ -5,6 +5,7 @@ class Game < ActiveRecord::Base
   CUSTOM_LINK_TYPES = ["Itch.io", "Trailer"]
 
   acts_as_taggable
+  acts_as_commentable
 
   before_validation :strip_whitespace
   before_validation :default_player_counts
