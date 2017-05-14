@@ -35,6 +35,18 @@ class User < ActiveRecord::Base
     admin? || owns?(game) || builder?
   end
 
+  def can_comment?(game)
+    admin? || owns?(game) || builder?
+  end
+
+  def blings(game)
+    (
+      [admin? ? "Admin" : nil]     +
+      arcade_machines.map(&:title) +
+      [owns?(game) ? game.title : nil]
+    ).compact
+  end
+
   def self.from_omniauth(auth)
     where('(provider = ? AND uid = ?) OR (email = ?)',
           auth.provider,

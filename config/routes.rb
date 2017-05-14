@@ -34,6 +34,8 @@ Rails.application.routes.draw do
   resources :subscriptions, only: [:create, :destroy]
   resources :users, only: [:show]
 
+  resources :comments, only: [:create, :destroy]
+
   namespace :api, defaults: { format: "json" } do
     namespace :v1 do
       resources :playlists, only: [:index]

@@ -8,5 +8,9 @@ FactoryGirl.define do
     factory :admin do
       admin true
     end
+
+    factory :builder do
+      builder true
+    end
   end
 end

@@ -1,0 +1,14 @@
+<div class="comment">
+  <div class="author">
+    <span class="name">
+      <%= link_to comment.user.name, comment.user %>
+    </span>
+
+    <div class="bling">
+      <% comment.user.blings(comment.commentable).each do |bling| %>
+        <span><%= bling %></span>
+      <% end %>
+    </div>
+  </div>
+  <div class="text"><%= simple_format(comment.comment) %></div>
+</div>

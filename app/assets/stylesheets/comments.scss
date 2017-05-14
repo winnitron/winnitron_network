@@ -1,0 +1,21 @@
+.comments .comment {
+
+  .author {
+    .name {
+      font-weight :bold;
+    }
+
+    .bling {
+      display: inline-block;
+
+      span {
+        background-color: #eee;
+        color: #555;
+        font-size: 12px;
+        text-transform: lowercase;
+        padding: 0px 2px;
+      }
+    }
+  }
+}
+
