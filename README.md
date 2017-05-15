@@ -4,7 +4,7 @@
 
 ![Born Again](https://i.imgur.com/7T5mkXs.png)
 
-The Winnitron Network is [going to be] a library of developer-submitted games that you can select and download to be played on your [Winnitron](http://winnitron.com).
+The Winnitron Network is a library of developer-submitted games that you can select and download to be played on your [Winnitron](http://winnitron.com).
 
 It lives at **[http://network.winnitron.com/](http://network.winnitron.com/)**.
 
