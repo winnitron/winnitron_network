@@ -1,0 +1,28 @@
+default:
+  p1_up: "Up"
+  p1_down: "Down"
+  p1_right: "Right"
+  p1_left: "Left"
+  p1_button1: "/"
+  p1_button2: "."
+
+  p2_up: "w"
+  p2_down: "s"
+  p2_right: "d"
+  p2_left: "a"
+  p2_button1: "`"
+  p2_button2: "1"
+
+  p3_up: "i"
+  p3_down: "k"
+  p3_right: "l"
+  p3_left: "j"
+  p3_button1: "g"
+  p3_button2: "h"
+
+  p4_up: "Numpad8"
+  p4_down: "Numpad5"
+  p4_right: "Numpad6"
+  p4_left: "Numpad4"
+  p4_button1: "Numpad1"
+  p4_button2: "Numpad2"

@@ -64,6 +64,7 @@ class Game < ActiveRecord::Base
     errors.add(:base, "You must upload at least one image.") if images.empty?
     errors.add(:base, "You must upload a zip file") if game_zips.empty?
     errors.add(:base, "Choose a file in the zip that launches the game.") if current_zip && !current_zip.executable
+    # TODO check that there's a valid & complete key map
   end
 
   def strip_whitespace
