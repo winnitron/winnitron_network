@@ -1,4 +1,4 @@
-default:
+default: &default
   p1_up: "Up"
   p1_down: "Down"
   p1_right: "Right"
@@ -26,3 +26,32 @@ default:
   p4_left: "Numpad4"
   p4_button1: "Numpad1"
   p4_button2: "Numpad2"
+
+legacy: &legacy
+  <<: *default
+
+  p1_button1: "x"
+  p1_button2: "z"
+
+  p2_up: "i"
+  p2_down: "k"
+  p2_right: "l"
+  p2_left: "j"
+  p2_button1: "n"
+  p2_button2: "m"
+
+flash:
+  <<: *legacy
+
+pico8:
+  <<: *default
+
+  p1_button1: "m"
+  p1_button2: "n"
+
+  p2_up: "e"
+  p2_down: "d"
+  p2_right: "f"
+  p2_left: "s"
+  p2_button1: "q"
+  p2_button2: "w"
