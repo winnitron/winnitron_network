@@ -32,7 +32,10 @@ RSpec.describe Api::V1::PlaylistsController, type: :controller do
                 "last_modified"   => game.current_zip.created_at.iso8601,
                 "executable"      => game.current_zip.executable,
                 "image_url"       => game.cover_image.url,
-                "keys"            => { "template" => game.key_map.template }
+                "keys"            => {
+                                       "template" => game.key_map.template,
+                                       "bindings" => game.key_map.bindings
+                                     }
               }
             end
           }
