@@ -20,7 +20,8 @@ class Playlist < ActiveRecord::Base
   after_save :update_smart_listings, if: -> { smart? }
 
   def cover_image
-    games.map(&:cover_image).compact.first || Image.placeholder
+    images = Image.where(parent: games)
+    images.find(&:cover) || images.first || Image.placeholder
   end
 
   def smart?
