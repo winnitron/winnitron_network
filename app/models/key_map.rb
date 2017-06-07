@@ -48,16 +48,14 @@ class KeyMap < ActiveRecord::Base
     (1..12).map { |i| "F#{i}" }
   ).freeze
 
-  CONTROLS = (1..4).flat_map do |p|
-    [
-      "UP",
-      "DOWN",
-      "LEFT",
-      "RIGHT",
-      "BUTTON1",
-      "BUTTON2"
-    ].map { |c| "P#{p}_#{c}"}
-  end.freeze
+  CONTROLS = [
+    "UP",
+    "DOWN",
+    "LEFT",
+    "RIGHT",
+    "BUTTON1",
+    "BUTTON2"
+  ].freeze
 
   enum template: [:default, :custom, :legacy, :flash, :pico8]
 
@@ -67,12 +65,13 @@ class KeyMap < ActiveRecord::Base
     custom? ? custom_map : KEY_MAP_TEMPLATES[template]
   end
 
-  def set(control, new_key)
+  def set(player, control, new_key)
     raise ArgumentError, "Cannot set custom key on non-custom template" if !custom?
     raise ArgumentError, "Invalid control: #{control}" if !CONTROLS.include?(control)
     raise ArgumentError, "Invalid key: #{new_key}" if !KEYS.include?(new_key)
+    raise ArgumentError, "Invalid player: #{player}" if !(game.min_players..game.max_players).include?(player)
 
     self.custom_map ||= {}
-    custom_map[control.downcase.to_sym] = new_key
+    custom_map[player][control.downcase.to_sym] = new_key
   end
 end
