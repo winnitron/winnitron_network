@@ -11,6 +11,10 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  def current_user
+    @current_user ||= super && User.includes(:games, :arcade_machines, playlists: [:games]).find(@current_user.id)
+  end
+
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
     devise_parameter_sanitizer.permit(:account_update, keys: [:website,
