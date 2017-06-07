@@ -6,8 +6,8 @@ module HasImages
   end
 
   def cover_image
-    images.find_by(cover: true) ||
-      images.first              ||
+    images.find(&:cover) ||
+      images.first       ||
       Image.placeholder
   end
 end
