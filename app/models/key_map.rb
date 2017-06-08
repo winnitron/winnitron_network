@@ -62,7 +62,7 @@ class KeyMap < ActiveRecord::Base
   belongs_to :game
 
   def bindings
-    custom? ? custom_map : KEY_MAP_TEMPLATES[template]
+    custom? ? custom_map : KEY_MAP_TEMPLATES[template].slice(*(1..game.max_players))
   end
 
   def set(player, control, new_key)
