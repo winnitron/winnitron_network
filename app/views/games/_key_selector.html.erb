@@ -1,18 +1,30 @@
-<div class="key-selector">
+<div class="player<%= player %>">
   <table class="table table-condensed">
     <thead>
       <tr>
-        <th>Control</th>
+        <th class="control">Control</th>
         <th>Key</th>
       </tr>
     </thead>
 
     <tbody>
+
+      <tr>
+        <td class="control">BACK / HOME</td>
+        <td>ESC (required!)</td>
+      </tr>
+      <tr><td>&nbsp;</td><td></td></tr>
+
+
       <% KeyMap::CONTROLS.each do |control| %>
         <tr>
-          <td><%= control %></td>
+          <td class="control"><%= control %></td>
           <td>
-            <select></select>
+            <span class="<%= control %> current-key">
+              <a href="">
+                <%= @game.key_map.bindings[player][control.downcase] %>
+              </a>
+            </span>
           </td>
         </tr>
       <% end %>

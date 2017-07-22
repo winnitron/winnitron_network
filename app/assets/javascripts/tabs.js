@@ -2,6 +2,8 @@
 
   $(function() {
     $(".nav .tab a").click(function(e) {
+      e.preventDefault();
+
       $(this).parents("li.tab").siblings("li.tab").removeClass("active");
       $(this).parents("li.tab").addClass("active");
 

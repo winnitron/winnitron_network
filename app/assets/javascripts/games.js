@@ -12,5 +12,14 @@
     $("#zipfile-uploader").bind("s3_upload_complete", function(e, content) {
       $(".next-step").removeClass("disabled");
     });
+
+
+    $(".template-select select").change(function (e) {
+      if ($(this).val() == "custom") {
+        $(".custom-warning").css("visibility", "visible");
+      } else {
+        $(".custom-warning").css("visibility", "hidden");
+      }
+    });
   });
 })(window, jQuery)

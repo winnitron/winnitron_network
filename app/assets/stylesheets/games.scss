@@ -22,3 +22,35 @@
     color: #888;
   }
 }
+
+.key-selector {
+
+  margin-top: 25px;
+
+  .tab-content {
+    padding-top: 25px;
+  }
+
+  .nav.nav-pills li.active {
+
+    .player1 {
+      background-color: #404cbf;
+    }
+
+    .player2 {
+      background-color: #bf4055;
+    }
+
+    .player3 {
+      background-color: #46bf40;
+    }
+
+    .player4 {
+      background-color: #bfb640;
+    }
+  }
+
+  table .control {
+    width: 25%;
+  }
+}
