@@ -19,12 +19,9 @@ class KeyMap < ActiveRecord::Base
       "NumpadSub",
       "NumpadEnter",
 
-      "LControl",
-      "RControl",
-      "LShift",
-      "RShift",
-      "LAlt",
-      "RAlt",
+      "Control",
+      "Shift",
+      "Alt",
 
       "Delete",
       "Insert",
