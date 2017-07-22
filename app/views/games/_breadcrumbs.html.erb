@@ -23,6 +23,9 @@ active = { active => "active" } # keep fit and have fun
     <div class="item col-sm-2 <%= active[:exec] %>">Executable</div>
   <% end %>
 
-
-  <div class="item col-sm-2 disabled">Key Bindings</div>
+  <% if @game.persisted? %>
+    <a href="keys" class="item col-sm-2 <%= active[:keys] %>">Key Bindings</a>
+  <% else %>
+    <div class="item col-sm-2 <%= active[:keys] %>">Key Bindings</div>
+  <% end %>
 </div>
