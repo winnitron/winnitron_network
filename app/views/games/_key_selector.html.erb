@@ -1,0 +1,21 @@
+<div class="key-selector">
+  <table class="table table-condensed">
+    <thead>
+      <tr>
+        <th>Control</th>
+        <th>Key</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% KeyMap::CONTROLS.each do |control| %>
+        <tr>
+          <td><%= control %></td>
+          <td>
+            <select></select>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

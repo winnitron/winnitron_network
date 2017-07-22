@@ -10,18 +10,19 @@
       </ul>
 
       <div class="tab-content">
+
         <% (1..@game.max_players).each do |num| %>
-
           <div id="player<%= num %>" role="tabpanel" class="tab-pane">
-            <%= num %>
+            <%= render "key_selector", player: num %>
           </div>
-
         <% end %>
+
       </div>
     </div>
   </div>
 </div>
 
+<%= render "keyboard" %>
 
 <% if !@game.published? %>
   <div class="col-sm-offset-8 col-sm-2">
