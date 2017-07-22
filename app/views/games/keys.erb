@@ -1,6 +1,27 @@
 <%= render "breadcrumbs", active: :keys %>
 
-keys
+<div class="col-sm-offset-1 col-sm-10">
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <ul class="nav nav-pills">
+        <% (1..@game.max_players).each do |num| %>
+          <li class="tab"><a href="#player<%= num %>">Player <%= num %></a></li>
+        <% end %>
+      </ul>
+
+      <div class="tab-content">
+        <% (1..@game.max_players).each do |num| %>
+
+          <div id="player<%= num %>" role="tabpanel" class="tab-pane">
+            <%= num %>
+          </div>
+
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <% if !@game.published? %>
   <div class="col-sm-offset-8 col-sm-2">
