@@ -44,7 +44,7 @@ html.outside {
       height: 100%;
       width: 100%;
       position: relative;
-      background: url(http://winnitron.com/images/background.png) no-repeat center center fixed;
+      background: url(<%= asset_path "winnitron_background.png" %>) no-repeat center center fixed;
       -webkit-background-size: cover;
       -moz-background-size: cover;
       -o-background-size: cover;
@@ -84,11 +84,11 @@ html.outside {
     @media (max-width: 768px) {
 
       .header {
-        background: url(http://winnitron.com/images/background.png) no-repeat center center scroll;
+        background: url(<%= asset_path "winnitron_background.png" %>) no-repeat center center scroll;
       }
 
       .callout {
-        background: url(http://winnitron.com/images/background.png) no-repeat center center scroll;
+        background: url(<%= asset_path "winnitron_background.png" %>) no-repeat center center scroll;
       }
 
       .map {
@@ -98,7 +98,7 @@ html.outside {
     }
 
     .page {
-      background: url("background.png");
+      background: url(<%= asset_path "winnitron_background.png" %>);
       border: 1px solid #222;
       border-radius: 5px;
       padding: 25px;
