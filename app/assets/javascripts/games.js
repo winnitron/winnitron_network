@@ -14,12 +14,38 @@
     });
 
 
-    $(".template-select select").change(function (e) {
+    $(".template-select select").change(function(e) {
       if ($(this).val() == "custom") {
         $(".custom-warning").css("visibility", "visible");
       } else {
         $(".custom-warning").css("visibility", "hidden");
       }
     });
+
+    // TODO:
+    // .template-select form submit
+    // on success, GET bindings, updateKeySelector()
+
+    for(var p = 1; p <= 4; p++) {
+      highlightKeyboard(p);
+    }
   });
+
+  function highlightKeyboard(player) {
+    colors = [undefined,
+      "#404cbf",
+      "#bf4055",
+      "#46bf40",
+      "#bfb640"
+    ];
+
+    $(".player" + player + " a.ahk-key").each(function(i, element) {
+      var key = element.text.trim();
+      $("#keyboard li[data-ahk='" + key + "'").css("background-color", colors[player]);
+      $("#keyboard li[data-ahk='" + key + "'").css("color", "white");
+    });
+
+
+  }
+
 })(window, jQuery)

@@ -31,14 +31,14 @@
     <div class="panel-body">
       <ul class="nav nav-pills">
         <% (1..@game.max_players).each do |num| %>
-        <li class="tab"><a href="#player<%= num %>" class="player<%= num %>">Player <%= num %></a></li>
+        <li class="tab player<%=num%>"><a href="#player<%= num %>" class="player<%= num %>">Player <%= num %></a></li>
         <% end %>
       </ul>
 
       <div class="tab-content">
 
         <% (1..@game.max_players).each do |num| %>
-          <div id="player<%= num %>" role="tabpanel" class="tab-pane">
+          <div id="player<%= num %>" role="tabpanel" class="selected-keys tab-pane">
             <%= render "key_selector", player: num %>
           </div>
         <% end %>
