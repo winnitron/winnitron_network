@@ -31,22 +31,46 @@
     padding-top: 25px;
   }
 
-  .nav.nav-pills li.active {
+  .nav.nav-pills li {
+    a {
+      color: #111;
+    }
 
     .player1 {
-      background-color: #404cbf;
+      background-color: rgba(64, 76, 191, 0.4); /* #404cbf */
     }
 
     .player2 {
-      background-color: #bf4055;
+      background-color: rgba(191, 64, 85, 0.4); /* #bf4055; */
     }
 
     .player3 {
-      background-color: #46bf40;
+      background-color: rgba(70, 191, 64, 0.4); /* #46bf40; */
     }
 
     .player4 {
-      background-color: #bfb640;
+      background-color: rgba(191, 182, 64, 0.4); /* #bfb640; */
+    }
+  }
+
+  .nav.nav-pills li.active {
+    a {
+      color: white;
+    }
+    .player1 {
+      background-color: rgba(64, 76, 191, 1); /* #404cbf */
+    }
+
+    .player2 {
+      background-color: rgba(191, 64, 85, 1); /* #bf4055; */
+    }
+
+    .player3 {
+      background-color: rgba(70, 191, 64, 1); /* #46bf40; */
+    }
+
+    .player4 {
+      background-color: rgba(191, 182, 64, 1); /* #bfb640; */
     }
   }
 

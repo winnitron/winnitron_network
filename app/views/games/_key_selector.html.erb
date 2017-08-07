@@ -20,7 +20,7 @@
         <tr>
           <td class="control"><%= control %></td>
           <td>
-            <span class="<%= control %> current-key">
+            <span class="<%= control.downcase %> current-key">
               <a href="" class="ahk-key">
                 <%= @game.key_map.bindings[player][control.downcase] %>
               </a>

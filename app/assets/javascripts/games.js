@@ -22,16 +22,42 @@
       }
     });
 
-    // TODO:
-    // .template-select form submit
-    // on success, GET bindings, updateKeySelector()
+    $(".template-select button.apply-template").click(function(e) {
+      e.preventDefault();
 
-    for(var p = 1; p <= 4; p++) {
-      highlightKeyboard(p);
-    }
+      var template = $("select.template").val();
+
+      if (template == "custom")
+        return;
+
+      $.get("/key_maps", function(templates) {
+        var keyMap = templates[template];
+
+        for (var p = 1; p <= 4; p++) {
+          for (var control in keyMap[p]) {
+            var key = keyMap[p][control];
+
+            $(".player" + p + " ." + control + " a.ahk-key").html(key);
+          }
+        }
+
+        highlightKeyboard();
+      });
+
+    });
+
+
+    highlightKeyboard();
   });
 
-  function highlightKeyboard(player) {
+  function resetKeyboard() {
+    $("#keyboard li.symbol, #keyboard li.letter").css("background-color", "#f0f0f0");
+    $("#keyboard li.symbol, #keyboard li.letter").css("color", "black");
+  }
+
+  function highlightKeyboard() {
+    resetKeyboard();
+
     colors = [undefined,
       "#404cbf",
       "#bf4055",
@@ -39,12 +65,13 @@
       "#bfb640"
     ];
 
-    $(".player" + player + " a.ahk-key").each(function(i, element) {
-      var key = element.text.trim();
-      $("#keyboard li[data-ahk='" + key + "'").css("background-color", colors[player]);
-      $("#keyboard li[data-ahk='" + key + "'").css("color", "white");
-    });
-
+    for(var player = 1; player <= 4; player++) {
+      $(".player" + player + " a.ahk-key").each(function(i, element) {
+        var key = element.text.trim();
+        $("#keyboard li[data-ahk='" + key + "'").css("background-color", colors[player]);
+        $("#keyboard li[data-ahk='" + key + "'").css("color", "white");
+      });
+    }
 
   }
 
