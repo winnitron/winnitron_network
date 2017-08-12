@@ -14,6 +14,8 @@ gem 'therubyracer', platforms: :ruby
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'bootstrap-sass', '~> 3.3.6'
+gem 'bootstrap-tagsinput-rails'
+gem 'bootstrap-modal-rails'
 
 # Referencing my fork until my PR with a bugfix gets merged.
 gem 'nested_form_fields', git: "https://github.com/aaronklaassen/nested_form_fields.git", ref: "5ebe908534971fbd4af0cf6f633aed8fedbf0b5a"
@@ -39,7 +41,6 @@ gem 'acts-as-taggable-on', '~> 3.4'
 gem 's3_direct_upload', '~> 0.1.7'
 gem 'postmark-rails'
 gem 'gravtastic'
-gem 'bootstrap-tagsinput-rails'
 gem 'rubyzip'
 
 gem 'newrelic_rpm'

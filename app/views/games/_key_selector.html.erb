@@ -21,13 +21,16 @@
           <td class="control"><%= control %></td>
           <td>
             <span class="<%= control.downcase %> current-key">
-              <a href="" class="ahk-key">
+              <a href="" class="ahk-key" data-toggle="modal" data-target="#select-modal-<%= player %>-<%= control %>">
                 <%= @game.key_map.bindings[player][control.downcase] %>
               </a>
             </span>
+
+            <%= render "define_key_modal", player: player, control: control %>
           </td>
         </tr>
       <% end %>
+
     </tbody>
   </table>
 </div>
