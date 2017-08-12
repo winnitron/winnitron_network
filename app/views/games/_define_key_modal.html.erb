@@ -1,5 +1,4 @@
-
-<div class="modal fade" id="select-modal-<%= player %>-<%= control %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade select-key-modal" id="select-modal-<%= player %>-<%= control %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -17,7 +16,6 @@
 
 
         <div class="custom-key-display"><%= @game.key_map.bindings[player][control.downcase] %></div>
-
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
