@@ -80,10 +80,13 @@
 
   .modal-dialog {
     width: 800px;
+
+    .modal-body {
+      text-align: center;
+    }
   }
 
   .custom-key-display {
-    text-align: center;
     text-transform: uppercase;
     font-size: 8em;
   }
