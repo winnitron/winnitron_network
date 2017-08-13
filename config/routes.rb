@@ -12,6 +12,7 @@ Rails.application.routes.draw do
       get :executable
       get :keys
       put :save_keys
+      get :checklist
       put :publish
     end
   end
