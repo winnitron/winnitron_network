@@ -74,7 +74,9 @@ RSpec.describe Api::V1::PlaylistsController, type: :controller do
 
       it "returns the machine's playlists" do
         get :index, { api_key: token, format: "json" }
-        expect(JSON.parse(response.body)["playlists"]).to match_array playlist_hash["playlists"]
+        actual = JSON.parse(response.body)["playlists"]
+        expected = playlist_hash["playlists"]
+        expect(actual).to match_array expected
       end
 
       it "does not list unpublished games" do
