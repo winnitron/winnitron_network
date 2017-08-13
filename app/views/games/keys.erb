@@ -11,9 +11,19 @@
       </span>
       <span class="col-sm-5">
         <select name="template" class="form-control template">
-          <option value="default" data-desc="">Default Winnitron</option>
-          <option value="pico8" data-desc="">PICO8</option>
-          <option value="custom" data-desc="">Custom</option>
+          <%
+            templates = {
+              "default" => "Default Winnitron",
+              "pico8"   => "PICO8",
+              "custom"  => "Custom"
+            }
+          %>
+          <% templates.each do |val, human| %>
+          <%
+            sel = val == @game.key_map.template ? "selected='selected'" : ""
+          %>
+            <option value="<%= val %>" <%= sel %>><%= human %></option>
+          <% end %>
         </select>
       </span>
       <span class="col-sm-1">
@@ -39,12 +49,20 @@
 
       <div class="tab-content">
 
-        <% (1..@game.max_players).each do |num| %>
-          <div id="player<%= num %>" role="tabpanel" class="selected-keys tab-pane">
-            <%= render "key_selector", player: num %>
-          </div>
+        <%= form_tag save_keys_game_path(@game.slug), method: :put, remote: true, id: "save-keys" do %>
+
+          <% (1..@game.max_players).each do |num| %>
+            <div id="player<%= num %>" role="tabpanel" class="selected-keys tab-pane">
+              <%= render "key_selector", player: num.to_s %>
+            </div>
+          <% end %>
+
+          <input name="template" value="<%= @game.key_map.template %>" type="hidden">
+          <%= submit_tag "Save custom keys", class: "btn btn-success", disabled: @game.key_map.template != "custom" %>
+
         <% end %>
 
+        </form>
       </div>
     </div>
   </div>
@@ -52,10 +70,5 @@
 
 <%= render "keyboard" %>
 
-<% if !@game.published? %>
-  <div class="col-sm-offset-8 col-sm-2">
-    <%= form_tag publish_game_path(@game.slug), method: :put do %>
-      <%= submit_tag "Publish!", class: "publish-button btn btn-success pull-right" %>
-    <% end %>
-  </div>
-<% end %>
+<div class="col-lg-12">&nbsp;</div>
+

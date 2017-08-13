@@ -1,0 +1,7 @@
+<% if @game.published? %>
+  <div class="col-sm-offset-9 col-sm-2">
+    <%= form_tag publish_game_path(@game.slug), method: :put do %>
+      <%= submit_tag "Publish!", class: "publish-button btn btn-success pull-right" %>
+    <% end %>
+  </div>
+<% end %>

@@ -16,8 +16,10 @@
 
     $(".template-select select").change(function(e) {
       if ($(this).val() == "custom") {
+        $("form#save-keys input[type='submit']").removeAttr("disabled");
         $(".custom-warning").css("visibility", "visible");
       } else {
+        $("form#save-keys input[type='submit']").attr("disabled", "disabled");
         $(".custom-warning").css("visibility", "hidden");
       }
     });
@@ -26,6 +28,7 @@
       e.preventDefault();
 
       var template = $("select.template").val();
+      $("input[name='template'").val(template);
 
       if (template == "custom")
         return;
@@ -47,12 +50,25 @@
     $(".modal.select-key-modal button.save").click(function(e) {
       var newValue = $(this).closest(".modal").find(".custom-key-display").html();
       $(this).closest(".key").find(".current-key a").html(newValue);
+      $(this).closest(".key").find(".current-key input").val(newValue);
+
+      var template = $("select.template").val();
+      if (template == "custom")
+        $("input[name='template'").val(template);
+
+      highlightKeyboard();
     });
 
     $(".modal.select-key-modal button.cancel").click(function(e) {
       var oldValue = $(this).closest(".key").find(".current-key a").html();
       $(this).closest(".modal").find(".custom-key-display").html(oldValue);
     });
+
+    // $("form#save-keys").submit(function(e) {
+
+    // });
+
+
 
 
     highlightKeyboard();

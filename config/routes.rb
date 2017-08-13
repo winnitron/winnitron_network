@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       get :zip
       get :executable
       get :keys
+      put :save_keys
       put :publish
     end
   end
