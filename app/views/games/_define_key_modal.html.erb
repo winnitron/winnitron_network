@@ -12,7 +12,9 @@
       </div>
       <div class="modal-body">
 
-        <p>🌹🌹🌹🌹Oh boy now you hit the key that you want this to bind to❤️💛💚💙💜</p>
+        <p>
+          <strong>Press a key</strong> to bind it to <strong>player <%= player %> <%= control %></strong>
+        </p>
 
         <div class="custom-key-display"><%= @game.key_map.bindings[player][control.downcase] %></div>
       </div>
