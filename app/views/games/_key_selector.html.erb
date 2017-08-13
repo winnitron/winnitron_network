@@ -19,7 +19,7 @@
       <% KeyMap::CONTROLS.each do |control| %>
         <tr>
           <td class="control"><%= control %></td>
-          <td>
+          <td class="key">
             <span class="<%= control.downcase %> current-key">
               <a href="" class="ahk-key" data-toggle="modal" data-target="#select-modal-<%= player %>-<%= control %>">
                 <%= @game.key_map.bindings[player][control.downcase] %>

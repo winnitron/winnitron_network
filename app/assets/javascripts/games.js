@@ -42,7 +42,16 @@
 
         highlightKeyboard();
       });
+    });
 
+    // TODO
+    $("modal save").click(function(e) {
+      // set the new value in the key_selector (non-modal)
+    });
+
+    $(".modal.select-key-modal button.cancel").click(function(e) {
+      var oldValue = $(this).closest(".key").find(".current-key a").html();
+      $(this).closest(".modal").find(".custom-key-display").html(oldValue);
     });
 
 
