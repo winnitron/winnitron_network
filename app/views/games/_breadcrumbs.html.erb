@@ -23,7 +23,7 @@ active = { active => "active" } # keep fit and have fun
 
   <% if @game.persisted? %>
     <a href="keys" class="item col-sm-2 <%= active[:keys] %>">Key Bindings</a>
-    <a href="keys" class="item col-sm-2 <%= active[:publish] %>">Publish</a>
+    <a href="checklist" class="item col-sm-2 <%= active[:publish] %>">Publish</a>
   <% else %>
     <div class="item col-sm-2 <%= active[:keys] %>">Key Bindings</div>
     <div class="item col-sm-2 <%= active[:publish] %>">Publish</div>

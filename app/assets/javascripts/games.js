@@ -31,7 +31,6 @@
     }).on("ajax:success", function(e, data, status, xhr) {
       var button = $("form#save-keys input[type='submit']")
       button.val("Save custom keys");
-
       $("#save-keys-check").show().fadeOut(2000);
       $("form#save-keys input[type='submit']").removeAttr("disabled");
     }).on("ajax:error", function(e, data, status, xhr) {
@@ -62,13 +61,16 @@
     });
 
     $(".modal.select-key-modal button.save").click(function(e) {
+      var oldValue = $(this).closest(".key").find(".current-key input").val()
       var newValue = $(this).closest(".modal").find(".custom-key-display").html();
+
       $(this).closest(".key").find(".current-key a").html(newValue);
       $(this).closest(".key").find(".current-key input").val(newValue);
 
-      var template = $("select.template").val();
-      if (template == "custom")
-        $("input[name='template'").val(template);
+      if (newValue != oldValue) {
+        $("select.template").val("custom").trigger("change");
+        $("input[name='template'").val("custom");
+      }
 
       highlightKeyboard();
     });
@@ -81,11 +83,6 @@
     highlightKeyboard();
 
     document.querySelector("#pane-content").onkeydown = function(e) {
-
-      if (!e.metaKey) {
-        e.preventDefault();
-      }
-
       var key = keyCodeToAHK(e.keyCode);
       if (key.ahk != undefined)
         $(".modal.select-key-modal.in .custom-key-display").html(key.ahk);
