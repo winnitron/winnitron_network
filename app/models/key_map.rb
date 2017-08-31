@@ -19,12 +19,9 @@ class KeyMap < ActiveRecord::Base
       "NumpadSub",
       "NumpadEnter",
 
-      "LControl",
-      "RControl",
-      "LShift",
-      "RShift",
-      "LAlt",
-      "RAlt",
+      "Control",
+      "Shift",
+      "Alt",
 
       "Delete",
       "Insert",
@@ -62,16 +59,6 @@ class KeyMap < ActiveRecord::Base
   belongs_to :game
 
   def bindings
-    custom? ? custom_map : KEY_MAP_TEMPLATES[template].slice(*(1..game.max_players))
-  end
-
-  def set(player, control, new_key)
-    raise ArgumentError, "Cannot set custom key on non-custom template" if !custom?
-    raise ArgumentError, "Invalid control: #{control}" if !CONTROLS.include?(control)
-    raise ArgumentError, "Invalid key: #{new_key}" if !KEYS.include?(new_key)
-    raise ArgumentError, "Invalid player: #{player}" if !(game.min_players..game.max_players).include?(player)
-
-    self.custom_map ||= {}
-    custom_map[player][control.downcase.to_sym] = new_key
+    custom? ? custom_map : KEY_MAP_TEMPLATES[template].slice(*(1..game.max_players).map(&:to_s))
   end
 end

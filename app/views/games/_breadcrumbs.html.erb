@@ -5,8 +5,6 @@ active = { active => "active" } # keep fit and have fun
 
 <div class="breadcrumbs col-sm-12">
 
-  <div class="col-sm-1"></div>
-
   <% if @game.persisted? %>
     <a href="edit"   class="item col-sm-2 <%= active[:details] %>">Details</a>
     <a href="images" class="item col-sm-2 <%= active[:images] %>">Images</a>
@@ -23,6 +21,12 @@ active = { active => "active" } # keep fit and have fun
     <div class="item col-sm-2 <%= active[:exec] %>">Executable</div>
   <% end %>
 
+  <% if @game.persisted? %>
+    <a href="keys" class="item col-sm-2 <%= active[:keys] %>">Key Bindings</a>
+    <a href="checklist" class="item col-sm-2 <%= active[:publish] %>">Publish</a>
+  <% else %>
+    <div class="item col-sm-2 <%= active[:keys] %>">Key Bindings</div>
+    <div class="item col-sm-2 <%= active[:publish] %>">Publish</div>
+  <% end %>
 
-  <div class="item col-sm-2 disabled">Key Bindings</div>
 </div>

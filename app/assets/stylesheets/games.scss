@@ -22,3 +22,117 @@
     color: #888;
   }
 }
+
+.key-selector {
+
+  margin-top: 25px;
+
+  .tab-content {
+    padding-top: 25px;
+  }
+
+  .nav.nav-pills li {
+    a {
+      color: #111;
+    }
+
+    .player1 {
+      background-color: rgba(64, 76, 191, 0.4); /* #404cbf */
+    }
+
+    .player2 {
+      background-color: rgba(191, 64, 85, 0.4); /* #bf4055; */
+    }
+
+    .player3 {
+      background-color: rgba(70, 191, 64, 0.4); /* #46bf40; */
+    }
+
+    .player4 {
+      background-color: rgba(191, 182, 64, 0.4); /* #bfb640; */
+    }
+  }
+
+  .nav.nav-pills li.active {
+    a {
+      color: white;
+    }
+    .player1 {
+      background-color: rgba(64, 76, 191, 1); /* #404cbf */
+    }
+
+    .player2 {
+      background-color: rgba(191, 64, 85, 1); /* #bf4055; */
+    }
+
+    .player3 {
+      background-color: rgba(70, 191, 64, 1); /* #46bf40; */
+    }
+
+    .player4 {
+      background-color: rgba(191, 182, 64, 1); /* #bfb640; */
+    }
+  }
+
+  table .control {
+    width: 25%;
+  }
+
+  .modal-dialog {
+    width: 800px;
+
+    .modal-body {
+      text-align: center;
+    }
+  }
+
+  .custom-key-display {
+    font-family: monospace;
+    text-transform: uppercase;
+    font-size: 8em;
+  }
+
+  #save-keys-check {
+    display: none;
+    margin-top: -5px;
+    margin-right: 20px;
+    font-size: 2em;
+
+    em {
+      margin-left: -5px;
+      line-height: 0.75em;
+      font-size: 0.75em;
+      color: #222;
+    }
+  }
+}
+
+.check-mark {
+  color: green;
+}
+
+.x-mark {
+  color: red;
+}
+
+.publish-checklist {
+  font-size: 1.5em;
+
+  h2 {
+    margin-top: -20px;
+  }
+
+  ul.yesno {
+    list-style-type: none;
+    margin-top: 40px;
+  }
+
+  .publish-button-container {
+    margin-top: 40px;
+    text-align: center;
+
+    .btn {
+      font-size: 1em;
+    }
+  }
+}

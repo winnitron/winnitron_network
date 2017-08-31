@@ -1,0 +1,27 @@
+<div class="modal fade select-key-modal" id="select-modal-<%= player %>-<%= control %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h5 class="modal-title">
+          CUSTOMIZE PLAYER <%= player %> <%= control %>
+        </h5>
+      </div>
+      <div class="modal-body">
+
+        <p>
+          <strong>Press a key</strong> to bind it to <strong>player <%= player %> <%= control %></strong>
+        </p>
+
+        <div class="custom-key-display"><%= @game.key_map.bindings[player][control.downcase] %></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary cancel" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary save" data-dismiss="modal">Set</button>
+      </div>
+    </div>
+  </div>
+</div>

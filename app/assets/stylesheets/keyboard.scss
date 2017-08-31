@@ -1,0 +1,74 @@
+#keyboard {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+#keyboard li {
+  float: left;
+  margin: 0 4px 4px 0;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  background: #f0f0f0;
+  border: 1px solid #e9e9e9;
+  font-size: 10px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
+
+#keyboard li.spacer {
+  background: #fff;
+  border: none;
+  width: 14px;
+}
+
+#keyboard li.full-spacer {
+  background: #fff;
+  border: none;
+}
+
+#keyboard li.tall {
+}
+
+#keyboard .firstitem {
+  clear: left;
+}
+
+#keyboard .tab, #keyboard .delete {
+  width: 50px;
+}
+
+#keyboard .capslock {
+  width: 60px;
+}
+
+#keyboard .return {
+  width: 55px;
+}
+
+#keyboard .left-shift {
+  width: 70px;
+}
+
+#keyboard .right-shift {
+  width: 80px;
+}
+
+.lastitem {
+  margin-right: 0;
+}
+
+#keyboard .ctrl, #keyboard .alt {
+  width: 45px;
+}
+
+#keyboard .zero {
+  width: 64px;
+}
+
+#keyboard .space {
+  width: 262px;
+}
+

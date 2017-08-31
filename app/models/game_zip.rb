@@ -28,6 +28,9 @@ class GameZip < ActiveRecord::Base
         Zip::File.open(tmp_file) do |zip|
           zip.entries.map(&:name).reject { |fn| fn.include?(File::SEPARATOR) }
         end
+      rescue OpenURI::HTTPError => e
+        NewRelic::Agent.notice_error(e)
+        []
       ensure
         tmp_file.close
         tmp_file.unlink

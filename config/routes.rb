@@ -10,6 +10,9 @@ Rails.application.routes.draw do
       get :images
       get :zip
       get :executable
+      get :keys
+      put :save_keys
+      get :checklist
       put :publish
     end
   end
@@ -35,6 +38,8 @@ Rails.application.routes.draw do
   resources :users, only: [:show]
 
   resources :comments, only: [:create, :destroy]
+
+  resources :key_maps, only: [:index]
 
   namespace :api, defaults: { format: "json" } do
     namespace :v1 do

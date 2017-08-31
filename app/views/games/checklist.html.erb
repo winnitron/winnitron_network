@@ -1,0 +1,58 @@
+<%= page_heading :h1, "<em>#{@game.title}</em>" %>
+
+<%= render "breadcrumbs", active: :publish %>
+
+
+<div class="col-sm-1"></div>
+<div class="col-sm-9 publish-checklist">
+
+  <h2>Ready to go?</h2>
+
+  <ul class="yesno">
+    <li>
+      <% if @game.images.any? %>
+        <span class="check-mark">✓</span>
+      <% else %>
+        <span class="x-mark">✖</span>
+      <% end %>
+      Upload at least one image
+    </li>
+
+    <li>
+      <% if @game.game_zips.any? %>
+        <span class="check-mark">✓</span>
+      <% else %>
+        <span class="x-mark">✖</span>
+      <% end %>
+      Upload your game as a zip file
+    </li>
+
+    <li>
+      <% if @game.current_zip&.executable %>
+        <span class="check-mark">✓</span>
+      <% else %>
+        <span class="x-mark">✖</span>
+      <% end %>
+      Designate the executable file inside the zip
+    </li>
+
+  </ul>
+
+  <p>&nbsp;</p>
+  <p>And a few last things:</p>
+
+  <ul>
+    <li>Your game should play in fullscreen mode and not allow the player to change that.</li>
+    <li>It should not pop up any dialog boxes on launch.</li>
+  </ul>
+
+  <div class="publish-button-container">
+    <% if @game.published? %>
+      <button class="btn btn-disabled">Already published!</button>
+    <% else %>
+      <%= form_tag publish_game_path(@game.slug), method: :put do %>
+        <%= submit_tag "Publish!", class: "publish-button btn btn-success" %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

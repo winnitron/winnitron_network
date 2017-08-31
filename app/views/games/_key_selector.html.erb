@@ -1,0 +1,37 @@
+<div class="player<%= player %>">
+  <table class="table table-condensed">
+    <thead>
+      <tr>
+        <th class="control">Control</th>
+        <th>Key</th>
+      </tr>
+    </thead>
+
+    <tbody>
+
+      <tr>
+        <td class="control">BACK / HOME</td>
+        <td>ESC (required!)</td>
+      </tr>
+      <tr><td>&nbsp;</td><td></td></tr>
+
+
+      <% KeyMap::CONTROLS.each do |control| %>
+        <tr>
+          <td class="control"><%= control %></td>
+          <td class="key">
+            <span class="<%= control.downcase %> current-key">
+              <a href="" class="ahk-key" data-toggle="modal" data-target="#select-modal-<%= player %>-<%= control %>">
+                <%= @game.key_map.bindings[player][control.downcase] %>
+              </a>
+              <input name="key_map[<%= player %>][<%= control.downcase %>]" value="<%= @game.key_map.bindings[player][control.downcase] %>" type="hidden">
+            </span>
+
+            <%= render "define_key_modal", player: player, control: control %>
+          </td>
+        </tr>
+      <% end %>
+
+    </tbody>
+  </table>
+</div>

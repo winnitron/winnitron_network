@@ -63,12 +63,9 @@
     <% end %>
   </ul>
 </div>
-<div class="clearfix"></div>
 
-<% if !@game.published? %>
-  <div class="col-sm-offset-8 col-sm-2">
-    <%= form_tag publish_game_path(@game.slug), method: :put do %>
-      <%= submit_tag "Publish!", class: "publish-button btn btn-success pull-right" %>
-    <% end %>
-  </div>
-<% end %>
+<div class="clearfix"></div>
+<div class="col-sm-offset-8 col-sm-2">
+  <% dis = @game.current_zip ? "" : "disabled" %>
+  <%= link_to "Next Step", keys_game_path(@game.slug), class: "next-step btn btn-success pull-right #{dis}" %>
+</div>

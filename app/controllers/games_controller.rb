@@ -11,14 +11,8 @@ class GamesController < ApplicationController
                   .order(title: :asc)
   end
 
-  def show
-  end
-
   def new
     @game = Game.new
-  end
-
-  def edit
   end
 
   def create
@@ -32,12 +26,6 @@ class GamesController < ApplicationController
         format.html { render :new }
       end
     end
-  end
-
-  def images
-  end
-
-  def zip
   end
 
   def executable
@@ -57,6 +45,14 @@ class GamesController < ApplicationController
       end
     else
       render :edit
+    end
+  end
+
+  def save_keys
+    if @game.key_map.update(template: params[:template], custom_map: params[:key_map])
+      render json: @game.key_map
+    else
+      render json: { errors: @game.key_map.full_messages }, status: :unprocessable_entity
     end
   end
 
