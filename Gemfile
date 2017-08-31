@@ -56,6 +56,7 @@ end
 
 group :test do
   gem 'rspec-rails', '~> 3.4.2'
+  gem 'capybara'
   gem 'factory_girl_rails', '~> 4.7.0'
   gem 'faker'
   gem 'simplecov', require: false
