@@ -60,7 +60,7 @@
           <input name="template" value="<%= @game.key_map.template %>" type="hidden">
 
           <%= submit_tag "Save custom keys", class: "btn btn-success pull-right", disabled: @game.key_map.template != "custom" %>
-          <span id="save-keys-check" class="pull-right">✓ <em>nailed it</em></span>
+          <span id="save-keys-check" class="check-mark pull-right">✓ <em>nailed it</em></span>
 
         <% end %>
 
