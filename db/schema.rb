@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170901214217) do
+ActiveRecord::Schema.define(version: 20170901215025) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,16 @@ ActiveRecord::Schema.define(version: 20170901214217) do
   add_index "api_keys", ["arcade_machine_id"], name: "index_api_keys_on_arcade_machine_id", using: :btree
   add_index "api_keys", ["token"], name: "index_api_keys_on_token", using: :btree
 
+  create_table "approval_requests", force: :cascade do |t|
+    t.integer  "approvable_id"
+    t.string   "approvable_type"
+    t.text     "notes"
+    t.datetime "approved_at"
+    t.datetime "refused_at"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
   create_table "arcade_machines", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
@@ -34,7 +44,6 @@ ActiveRecord::Schema.define(version: 20170901214217) do
     t.datetime "updated_at",  null: false
     t.string   "slug"
     t.integer  "players"
-    t.datetime "approved_at"
   end
 
   create_table "comments", force: :cascade do |t|
