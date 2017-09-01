@@ -7,6 +7,7 @@ FactoryGirl.define do
     after :create do |machine|
       ApiKey.create arcade_machine: machine
       MachineOwnership.create arcade_machine: machine, user: FactoryGirl.create(:user, builder: true)
+      ApprovalRequest.create approvable: machine, approved_at: Time.now.utc
     end
   end
 end
