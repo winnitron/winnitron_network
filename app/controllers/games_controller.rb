@@ -4,11 +4,19 @@ class GamesController < ApplicationController
   before_action :permission_check!, except: [:index, :show, :new, :create]
 
   def index
+    set_sort
+
     @mine   = user_signed_in? ? current_user.games.order(title: :asc) : Game.none
     @theirs = Game.published
                   .includes(:images)
                   .where.not(id: @mine.map(&:id))
-                  .order(title: :asc)
+
+    case @sort
+    when "new"
+      @theirs = @theirs.reorder(published_at: :asc)
+    when "name"
+      @theirs = @theirs.reorder(title: :asc)
+    end
   end
 
   def new
@@ -88,6 +96,13 @@ class GamesController < ApplicationController
   def set_executable
     return if !@game.current_zip
     @game.current_zip.update(executable: game_params[:executable])
+  end
+
+  def set_sort
+    valid = ["new", "name"]
+    @sort = valid.include?(params[:sort]) ? params[:sort].downcase : "new"
+    @active_sort = {}
+    @active_sort[@sort.to_sym] = "active"
   end
 
   def permission_check!

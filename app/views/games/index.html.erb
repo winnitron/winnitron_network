@@ -3,6 +3,14 @@
 </a>
 
 <%= page_heading :h1, "Games" %>
+
+<div class="col-sm-12 text-right sorting-options">
+  sort:
+  <% ["new", "name"].each do |sort| %>
+    <a href="?sort=<%= sort %>" class="<%= @active_sort[sort.to_sym] %>"><%= sort %></a>
+  <% end %>
+</div>
+
 <p>&nbsp;</p>
 
 
