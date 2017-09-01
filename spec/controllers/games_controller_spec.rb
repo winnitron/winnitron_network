@@ -17,6 +17,18 @@ RSpec.describe GamesController, type: :controller do
       get :index
       expect(response).to have_http_status :ok
     end
+
+    it "sorts by new" do
+      FactoryGirl.create_list(:game, 3)
+      get :index, { sort: "new" }
+      expect(assigns(:theirs).map(&:id)).to eq Game.published.order(published_at: :asc).map(&:id)
+    end
+
+    it "sorts by name" do
+      FactoryGirl.create_list(:game, 3)
+      get :index, { sort: "name" }
+      expect(assigns(:theirs).map(&:id)).to eq Game.published.order(title: :asc).map(&:id)
+    end
   end
 
   describe "GET show" do
