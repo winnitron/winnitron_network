@@ -29,6 +29,18 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def require_approval!(object)
+    if object.respond_to?(:approved?)
+      if object.approved?
+        true
+      else
+        require_admin_or_ownership!(object)
+      end
+    else
+      true
+    end
+  end
+
   def require_builder!
     if user_signed_in? && (current_user.admin? || current_user.builder?)
       true
