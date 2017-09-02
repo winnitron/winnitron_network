@@ -15,7 +15,11 @@ RSpec.describe PlaylistsController, type: :controller do
   end
 
   describe "GET show" do
-    it_behaves_like "simple GET action", :show, { id: FactoryGirl.create(:playlist).slug }
+    it_behaves_like "simple GET action", :show do
+      let(:params) do
+        { id: FactoryGirl.create(:playlist).slug }
+      end
+    end
   end
 
   describe "GET new" do
@@ -35,7 +39,11 @@ RSpec.describe PlaylistsController, type: :controller do
   end
 
   describe "GET edit" do
-    it_behaves_like "requires sign in", :edit, { id: FactoryGirl.create(:playlist).slug }
+    it_behaves_like "requires sign in", :edit do
+      let(:params) do
+        { id: FactoryGirl.create(:playlist).slug }
+      end
+    end
 
     context "user is signed in" do
       let(:user) { FactoryGirl.create(:user) }
