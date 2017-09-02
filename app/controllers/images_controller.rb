@@ -38,7 +38,7 @@ class ImagesController < ApplicationController
   private
 
   def set_parent
-    valid = ["Game", "ArcadeMachine"]
+    valid = ["Game", "ArcadeMachine", "ApprovalRequest"]
     raise ArgumentError, "Invalid parent type #{params[:parent_type]}" if !valid.include?(params[:parent_type])
 
     klass = params[:parent_type].constantize

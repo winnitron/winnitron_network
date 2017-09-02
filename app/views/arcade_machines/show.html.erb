@@ -8,6 +8,15 @@
 
   <div class="row">
 
+    <% if !@arcade_machine.approved? %>
+      <div class="col-lg-offset-1 col-lg-10 alert alert-warning approval-warning">
+        <strong>This Winnitron isn't approved yet!</strong>
+        Before you can sync additional playlists and games to your Winnitron,
+        <%= link_to "submit an approval request", new_approval_request_path(@arcade_machine) %>
+        and we'll take a look to give you the thumbs-up!
+      </div>
+    <% end %>
+
     <!-- Metadata -->
 
     <div class="col-md-6">

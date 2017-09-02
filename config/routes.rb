@@ -24,6 +24,8 @@ Rails.application.routes.draw do
     member do
       get :confirm_destroy
       get :images
+
+      resources :approval_requests, only: [:new, :update, :show], controller: :approval_requests
     end
   end
 
