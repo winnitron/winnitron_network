@@ -7,6 +7,8 @@ class ApplicationController < ActionController::Base
   rescue_from ActiveRecord::RecordNotFound, with: :render_404
   rescue_from ActiveSupport::MessageVerifier::InvalidSignature, with: :render_500
 
+  add_flash_types :success, :info, :warning, :danger
+
   layout :layout_by_resource
 
   protected

@@ -1,0 +1,7 @@
+<% bootstrap_classes ||= "" %>
+
+<% flash.keys.select { |type| flash[type] }.each do |type| %>
+  <div class="<%= bootstrap_classes %> alert alert-<%= type %>">
+    <%= flash[type] %>
+  </div>
+<% end %>

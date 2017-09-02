@@ -3,6 +3,8 @@ class ApprovalRequest < ActiveRecord::Base
 
   belongs_to :approvable, polymorphic: true
 
+  validates :notes, presence: true
+
   def approved?
     !!approved_at
   end
