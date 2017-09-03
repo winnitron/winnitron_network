@@ -53,9 +53,6 @@ Rails.application.routes.draw do
     resources :users, ony: [:index, :edit, :update]
   end
 
-  get "/request_builder" => "pages#request_builder", as: :request_builder
-  post "/request_builder" => "users#send_builder_request", as: :send_builder_request
-
   get "/search" => "search#index", as: :search
   get "/feedback" => "pages#feedback", as: :feedback
   get "/dash" => "pages#dash", as: :dash

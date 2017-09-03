@@ -10,7 +10,9 @@ FactoryGirl.define do
     end
 
     factory :builder do
-      builder true
+      after :create do |user|
+        user.arcade_machines << FactoryGirl.create(:arcade_machine)
+      end
     end
   end
 end

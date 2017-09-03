@@ -87,10 +87,9 @@ RSpec.describe ArcadeMachinesController, type: :controller do
   describe "GET new" do
 
     it_behaves_like "requires sign in", :new
-    it_behaves_like "requires builder", :get, :new
 
     context "user is a builder" do
-      let(:user) { FactoryGirl.create(:user, builder: true) }
+      let(:user) { FactoryGirl.create(:builder) }
 
       before :each do
         sign_in user
@@ -107,14 +106,8 @@ RSpec.describe ArcadeMachinesController, type: :controller do
       end
     end
 
-    it_behaves_like "requires builder", :get, :edit do
-      let(:params) do
-        { id: FactoryGirl.create(:arcade_machine).slug }
-      end
-    end
-
     context "user is a builder" do
-      let(:user) { FactoryGirl.create(:user, builder: true) }
+      let(:user) { FactoryGirl.create(:builder) }
 
       before :each do
         sign_in user
@@ -157,10 +150,9 @@ RSpec.describe ArcadeMachinesController, type: :controller do
       }
     end
 
-    let(:user) { FactoryGirl.create(:user, builder: true) }
+    let(:user) { FactoryGirl.create(:builder) }
 
     it "requires sign in"
-    it_behaves_like "requires builder", :post, :create, { arcade_macine: { title: "Machine" } }
 
     context "valid attributes" do
       before :each do
@@ -208,14 +200,6 @@ RSpec.describe ArcadeMachinesController, type: :controller do
     end
 
     it "requires sign in"
-    it_behaves_like "requires builder", :put, :update do
-      let(:params) do
-        {
-          id: FactoryGirl.create(:arcade_machine).slug,
-          arcade_machine: { title: "Machine" }
-        }
-      end
-    end
 
     context "signed-in" do
 
@@ -246,7 +230,7 @@ RSpec.describe ArcadeMachinesController, type: :controller do
 
         it "redirects to request-builder page" do
           put :update, { id: arcade_machine.slug, arcade_machine: attributes }
-          expect(response).to redirect_to request_builder_path
+          expect(response).to have_http_status :forbidden
         end
       end
 
@@ -276,11 +260,6 @@ RSpec.describe ArcadeMachinesController, type: :controller do
     let!(:arcade_machine) { FactoryGirl.create(:arcade_machine) }
 
     it "requires sign in"
-    it_behaves_like "requires builder", :delete, :destroy do
-      let(:params) do
-        { id: FactoryGirl.create(:arcade_machine).slug }
-      end
-    end
 
     context "signed in" do
       let(:admin) { FactoryGirl.create(:admin) }

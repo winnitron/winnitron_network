@@ -1,6 +1,4 @@
 class ApplicationController < ActionController::Base
-  # Prevent CSRF attacks by raising an exception.
-  # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
   before_action :configure_permitted_parameters, if: :devise_controller?
@@ -40,14 +38,6 @@ class ApplicationController < ActionController::Base
       end
     else
       true
-    end
-  end
-
-  def require_builder!
-    if user_signed_in? && (current_user.admin? || current_user.builder?)
-      true
-    else
-      redirect_to request_builder_path
     end
   end
 

@@ -27,7 +27,7 @@ RSpec.describe User, type: :model do
     let(:game) { FactoryGirl.create(:game) }
     let(:some_chump) { FactoryGirl.build(:user) }
     let(:admin) { FactoryGirl.build(:admin) }
-    let(:builder) { FactoryGirl.build(:user, builder: true) }
+    let(:builder) { FactoryGirl.create(:builder) }
     let(:owner) { game.users.first }
 
     it "allows admins" do
