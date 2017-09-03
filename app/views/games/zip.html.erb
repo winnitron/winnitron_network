@@ -25,7 +25,7 @@
             form_id: "zipfile-uploader",
             label:   "Upload:",
             form_options: { callback_url: game_zips_url(@game.slug),
-                            key: "games/#{@game.id}-{timestamp}-${filename}",
+                            key: "games/#{@game.id}-{timestamp}-#{@game.slug}.{extension}",
                             key_starts_with: "games/" },
             additional_data: { game_id: @game.id },
             accept_filetypes: "application/zip"
