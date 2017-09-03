@@ -9,7 +9,7 @@ class ApprovalRequestsController < ApplicationController
   def update
     @approval_request = @approvable.approval_request
     @approval_request.update(notes: params[:notes])
-    # TODO: send email to admin
+    AdminMailer.alert_approval_request(@approval_request).deliver_now
     redirect_to new_approval_request_path(@approvable), info: "Thanks! We'll get back to you soon!"
   end
 

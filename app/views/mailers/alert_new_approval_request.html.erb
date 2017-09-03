@@ -1,0 +1,9 @@
+<strong>New Winnitron approval request</strong>
+
+<ul>
+  <li>User: <%= @user.name %> (<%= @user.id %>)</li>
+  <li>Winnitron: <%= @approval_request.approvable.slug %></li>
+  <% @approval_request.images.each do |image| %>
+    <li><a href="<%= image.url %>"><%= image.url %></a></li>
+  <% end %>
+</ul>
