@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
-  before_action :authenticate_user!, only: [:dash, :request_builder]
+  before_action :authenticate_user!, only: [:dash]
 
   def index
     if user_signed_in?
@@ -10,9 +10,6 @@ class PagesController < ApplicationController
   end
 
   def dash
-  end
-
-  def request_builder
   end
 
   def feedback

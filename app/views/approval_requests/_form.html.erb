@@ -1,0 +1,57 @@
+<%= form_tag(approval_request_path(@approval_request.approvable), { method: :put, class: "approval-request form" }) do %>
+  <%= render "shared/errors", object: @approval_request %>
+
+  <p>&nbsp;</p>
+
+  <div class="col-sm-8">
+    <p>
+      <strong>We are always pumped for more Winnitrons!</strong>
+      Even if it's still a work-in-progress, we wanna hear about it.
+    </p>
+  </div>
+  <div class="col-sm-8">
+    <div class="form-group">
+      <%= text_area_tag :notes, @approval_request.notes, required: true, class: "form-control", rows: 5, placeholder: "Tell us a bit about your project!" %>
+    </div>
+  </div>
+
+<% end %>
+
+
+<div class="col-sm-8">
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <div>
+        Got some work-in-progress photos? We'd love to see 'em.
+      </div>
+      <div class="row current-images">
+        <% @approval_request.images.each do |image| %>
+          <a href="<%= image.url %>">
+            <img src="<%= image.url(w: 150, h: 150) %>">
+          </a>
+        <% end %>
+      </div>
+
+      <div class="col-sm-offset-1 row">
+        <%=
+          render "shared/uploader",
+            form_id: "image-uploader",
+            form_options: { callback_url: images_url,
+                            key: "approval_requests/#{@approval_request.id}-image-${filename}",
+                            key_starts_with: "approval_requests/",
+                          },
+            additional_data: { parent_type: "ApprovalRequest", parent_id: @approval_request.id },
+            accept_filetypes: "image/*"
+        %>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="col-sm-8 text-right">
+    <div class="form-group">
+      <button class="btn btn-success approval-request">Submit Request</button>
+    </div>
+  </div>

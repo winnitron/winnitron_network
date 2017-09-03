@@ -21,6 +21,23 @@ RSpec.describe ArcadeMachine, type: :model do
 
   end
 
+  describe "#approved?" do
+    it "is true if there is an approved request" do
+      expect(arcade_machine).to be_approved
+    end
+
+    it "is false if non-approved request" do
+      arcade_machine.approval_request.update(approved_at: nil)
+      expect(arcade_machine).to_not be_approved
+    end
+
+    it "is false if no request" do
+      arcade_machine.approval_request.destroy
+      arcade_machine.reload
+      expect(arcade_machine).to_not be_approved
+    end
+  end
+
   describe "default playlists" do
     let!(:default_playlist) { FactoryGirl.create(:playlist, default: true) }
     let!(:nondefault_playlist) { FactoryGirl.create(:playlist, default: false) }

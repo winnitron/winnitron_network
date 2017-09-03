@@ -5,7 +5,7 @@ class Api::V1::PlaylistsController < ApplicationController
   before_action :record_sync
 
   def index
-    @playlists = @arcade_machine.playlists
+    @playlists = @arcade_machine.approved? ? @arcade_machine.playlists : Playlist.defaults
   end
 
   private

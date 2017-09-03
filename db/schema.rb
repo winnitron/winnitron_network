@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170520184823) do
+ActiveRecord::Schema.define(version: 20170903003909) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,16 @@ ActiveRecord::Schema.define(version: 20170520184823) do
 
   add_index "api_keys", ["arcade_machine_id"], name: "index_api_keys_on_arcade_machine_id", using: :btree
   add_index "api_keys", ["token"], name: "index_api_keys_on_token", using: :btree
+
+  create_table "approval_requests", force: :cascade do |t|
+    t.integer  "approvable_id"
+    t.string   "approvable_type"
+    t.text     "notes"
+    t.datetime "approved_at"
+    t.datetime "refused_at"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
 
   create_table "arcade_machines", force: :cascade do |t|
     t.string   "title"
@@ -187,23 +197,22 @@ ActiveRecord::Schema.define(version: 20170520184823) do
   add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  default: "",    null: false
-    t.string   "encrypted_password",     default: "",    null: false
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,     null: false
+    t.integer  "sign_in_count",          default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
     t.boolean  "admin"
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.string   "name"
     t.string   "provider"
     t.string   "uid"
-    t.boolean  "builder",                default: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

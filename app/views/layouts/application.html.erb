@@ -15,13 +15,11 @@
             </div>
           </div>
           <div class="col-md-9" id="pane-content">
-            <% # bootstrap_flash %>
             <%= yield %>
           </div>
         <% else %>
           <!-- Sidebar doesn't show if not signed in -->
           <div class="col-md-12">
-            <% # bootstrap_flash %>
             <%= yield %>
           </div>
         <% end %>

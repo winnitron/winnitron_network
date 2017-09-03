@@ -9,40 +9,43 @@ RSpec.describe Api::V1::PlaylistsController, type: :controller do
   before :each do
     allow_any_instance_of(Game).to receive(:download_url).and_return("http://example.com/game.zip")
     allow_any_instance_of(Image).to receive(:url).and_return("http://example.com/screenshot.png")
+
+    playlists.first.update(default: true)
+  end
+
+  def playlist_hash(playlist)
+    {
+      "title" => playlist.title,
+      "slug"  => playlist.title.parameterize,
+      "games" => playlist.games.published.map do |game|
+        {
+          "title"           => game.title,
+          "slug"            => game.title.parameterize,
+          "min_players"     => game.min_players,
+          "max_players"     => game.max_players,
+          "description"     => game.description,
+          "legacy_controls" => game.key_map.template == "legacy",
+          "download_url"    => game.download_url,
+          "last_modified"   => game.current_zip.created_at.iso8601,
+          "executable"      => game.current_zip.executable,
+          "image_url"       => game.cover_image.url,
+          "keys"            => {
+                                 "template" => game.key_map.template,
+                                 "bindings" => game.key_map.bindings
+                               }
+        }
+      end
+    }
   end
 
   describe "GET index" do
     render_views
 
-    let(:playlist_hash) do
+    let(:playlists_hash) do
       {
-        "playlists" => winnitron.playlists.map do |playlist|
-          {
-            "title" => playlist.title,
-            "slug"  => playlist.title.parameterize,
-            "games" => playlist.games.published.map do |game|
-              {
-                "title"           => game.title,
-                "slug"            => game.title.parameterize,
-                "min_players"     => game.min_players,
-                "max_players"     => game.max_players,
-                "description"     => game.description,
-                "legacy_controls" => game.key_map.template == "legacy",
-                "download_url"    => game.download_url,
-                "last_modified"   => game.current_zip.created_at.iso8601,
-                "executable"      => game.current_zip.executable,
-                "image_url"       => game.cover_image.url,
-                "keys"            => {
-                                       "template" => game.key_map.template,
-                                       "bindings" => game.key_map.bindings
-                                     }
-              }
-            end
-          }
-        end
+        "playlists" => winnitron.playlists.map { |p| playlist_hash(p) }
       }
     end
-
 
     include_examples "disallows bad API keys", :get, :index
 
@@ -72,21 +75,35 @@ RSpec.describe Api::V1::PlaylistsController, type: :controller do
         end
       end
 
-      it "returns the machine's playlists" do
-        get :index, { api_key: token, format: "json" }
-        actual = JSON.parse(response.body)["playlists"]
-        expected = playlist_hash["playlists"]
-        expect(actual).to match_array expected
+      context "approved machine" do
+        it "returns the machine's playlists" do
+          get :index, { api_key: token, format: "json" }
+          actual = JSON.parse(response.body)["playlists"]
+          expected = playlists_hash["playlists"]
+          expect(actual).to match_array expected
+        end
+
+        it "does not list unpublished games" do
+          unpublished = FactoryGirl.create(:game)
+          unpublished.update(published_at: nil)
+          Listing.create!(game: unpublished, playlist: winnitron.playlists.first)
+
+          get :index, { api_key: token, format: "json" }
+          game_titles = JSON.parse(response.body)["playlists"][0]["games"].map { |g| g["title"] }
+          expect(game_titles).to_not include(unpublished.title)
+        end
       end
 
-      it "does not list unpublished games" do
-        unpublished = FactoryGirl.create(:game)
-        unpublished.update(published_at: nil)
-        Listing.create!(game: unpublished, playlist: winnitron.playlists.first)
+      context "unapproved machine" do
+        it "only returns default playlists" do
+          winnitron.approval_request.update approved_at: nil
 
-        get :index, { api_key: token, format: "json" }
-        game_titles = JSON.parse(response.body)["playlists"][0]["games"].map { |g| g["title"] }
-        expect(game_titles).to_not include(unpublished.title)
+          get :index, { api_key: token, format: "json" }
+          actual = JSON.parse(response.body)["playlists"]
+          expected = [playlist_hash(playlists.first)]
+
+          expect(actual).to match_array expected
+        end
       end
     end
   end

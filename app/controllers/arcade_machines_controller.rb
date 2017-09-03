@@ -1,11 +1,13 @@
 class ArcadeMachinesController < ApplicationController
   before_action :set_arcade_machine, except: [:index, :new, :create]
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :require_builder!, except: [:index, :show]
   before_action :permission_check!, only: [:edit, :update, :destroy, :images, :confirm_destroy]
+  before_action only: [:show] do
+    require_approval!(@arcade_machine)
+  end
 
   def index
-    @arcade_machines = ArcadeMachine.all
+    @arcade_machines = ArcadeMachine.approved
   end
 
   def show

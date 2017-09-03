@@ -24,6 +24,8 @@ Rails.application.routes.draw do
     member do
       get :confirm_destroy
       get :images
+
+      resources :approval_requests, only: [:new, :update, :show], controller: :approval_requests
     end
   end
 
@@ -50,9 +52,6 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :users, ony: [:index, :edit, :update]
   end
-
-  get "/request_builder" => "pages#request_builder", as: :request_builder
-  post "/request_builder" => "users#send_builder_request", as: :send_builder_request
 
   get "/search" => "search#index", as: :search
   get "/feedback" => "pages#feedback", as: :feedback

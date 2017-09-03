@@ -14,10 +14,16 @@ class ArcadeMachine < ActiveRecord::Base
   has_many :api_keys, dependent: :destroy
   has_many :links, as: :parent, dependent: :destroy
 
+  has_one :approval_request, as: :approvable, dependent: :destroy
+
   after_create :subscribe_to_defaults
+
+  scope :approved, -> { joins(:approval_request).where("approval_requests.approved_at IS NOT NULL") }
 
   accepts_nested_attributes_for :links, allow_destroy: true,
                                         reject_if: proc { |attrs| attrs["url"].blank? }
+
+  delegate :approved?, to: :approval_request, allow_nil: true
 
   def subscribed?(playlist)
     playlists.include?(playlist)

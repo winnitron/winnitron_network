@@ -3,19 +3,93 @@ require 'rails_helper'
 RSpec.describe ArcadeMachinesController, type: :controller do
   describe "GET index" do
     it_behaves_like "simple GET action", :index
+
+    it "only shows approved arcade machines" do
+      machines = FactoryGirl.create_list(:arcade_machine, 3)
+      machines.last.approval_request.destroy
+      get :index
+      expect(assigns(:arcade_machines).map(&:id)).to match_array machines.first(2).map(&:id)
+    end
   end
 
   describe "GET show" do
-    it_behaves_like "simple GET action", :show, { id: FactoryGirl.create(:arcade_machine).slug }
+    it_behaves_like "simple GET action", :show do
+      let(:params) do
+        { id: FactoryGirl.create(:arcade_machine).slug }
+      end
+    end
+
+    context "machine isn't approved" do
+      context "there is no approval request" do
+        let(:machine) do
+          machine = FactoryGirl.create(:arcade_machine)
+          machine.approval_request.destroy
+          machine.reload
+        end
+
+        it "fails if not signed in" do
+          get :show, { id: machine.slug }
+          expect(response).to have_http_status :forbidden
+        end
+
+        it "fails if not owner" do
+          sign_in FactoryGirl.create(:user)
+          get :show, { id: machine.slug }
+          expect(response).to have_http_status :forbidden
+        end
+
+        it "succeeds for owner" do
+          sign_in machine.users.first
+          get :show, { id: machine.slug }
+          expect(response).to have_http_status :ok
+        end
+
+        it "succeeds for admin" do
+          sign_in FactoryGirl.create(:admin)
+          get :show, { id: machine.slug }
+          expect(response).to have_http_status :ok
+        end
+      end
+
+      context "there is a pending approval request" do
+        let(:machine) do
+          machine = FactoryGirl.create(:arcade_machine)
+          machine.approval_request.update(approved_at: nil)
+          machine.reload
+        end
+
+        it "fails if not signed in" do
+          get :show, { id: machine.slug }
+          expect(response).to have_http_status :forbidden
+        end
+
+        it "fails if not owner" do
+          sign_in FactoryGirl.create(:user)
+          get :show, { id: machine.slug }
+          expect(response).to have_http_status :forbidden
+        end
+
+        it "succeeds for owner" do
+          sign_in machine.users.first
+          get :show, { id: machine.slug }
+          expect(response).to have_http_status :ok
+        end
+
+        it "succeeds for admin" do
+          sign_in FactoryGirl.create(:admin)
+          get :show, { id: machine.slug }
+          expect(response).to have_http_status :ok
+        end
+      end
+    end
   end
 
   describe "GET new" do
 
     it_behaves_like "requires sign in", :new
-    it_behaves_like "requires builder", :get, :new
 
     context "user is a builder" do
-      let(:user) { FactoryGirl.create(:user, builder: true) }
+      let(:user) { FactoryGirl.create(:builder) }
 
       before :each do
         sign_in user
@@ -26,11 +100,14 @@ RSpec.describe ArcadeMachinesController, type: :controller do
   end
 
   describe "GET edit" do
-    it_behaves_like "requires sign in", :edit, { id: FactoryGirl.create(:arcade_machine).slug }
-    it_behaves_like "requires builder", :get, :edit, { id: FactoryGirl.create(:arcade_machine).slug }
+    it_behaves_like "requires sign in", :edit do
+      let(:params) do
+        { id: FactoryGirl.create(:arcade_machine).slug }
+      end
+    end
 
     context "user is a builder" do
-      let(:user) { FactoryGirl.create(:user, builder: true) }
+      let(:user) { FactoryGirl.create(:builder) }
 
       before :each do
         sign_in user
@@ -73,10 +150,9 @@ RSpec.describe ArcadeMachinesController, type: :controller do
       }
     end
 
-    let(:user) { FactoryGirl.create(:user, builder: true) }
+    let(:user) { FactoryGirl.create(:builder) }
 
     it "requires sign in"
-    it_behaves_like "requires builder", :post, :create, { arcade_macine: { title: "Machine" } }
 
     context "valid attributes" do
       before :each do
@@ -124,8 +200,6 @@ RSpec.describe ArcadeMachinesController, type: :controller do
     end
 
     it "requires sign in"
-    it_behaves_like "requires builder", :put, :update, { id: FactoryGirl.create(:arcade_machine).slug,
-                                             arcade_machine: { title: "Machine" } }
 
     context "signed-in" do
 
@@ -156,7 +230,7 @@ RSpec.describe ArcadeMachinesController, type: :controller do
 
         it "redirects to request-builder page" do
           put :update, { id: arcade_machine.slug, arcade_machine: attributes }
-          expect(response).to redirect_to request_builder_path
+          expect(response).to have_http_status :forbidden
         end
       end
 
@@ -186,7 +260,6 @@ RSpec.describe ArcadeMachinesController, type: :controller do
     let!(:arcade_machine) { FactoryGirl.create(:arcade_machine) }
 
     it "requires sign in"
-    it_behaves_like "requires builder", :delete, :destroy, { id: FactoryGirl.create(:arcade_machine).slug }
 
     context "signed in" do
       let(:admin) { FactoryGirl.create(:admin) }

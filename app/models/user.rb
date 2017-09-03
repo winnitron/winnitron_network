@@ -39,6 +39,10 @@ class User < ActiveRecord::Base
     admin? || owns?(game) || builder?
   end
 
+  def builder?
+    arcade_machines.any?(&:approved?)
+  end
+
   def blings(game)
     (
       [admin? ? "Admin" : nil]     +
