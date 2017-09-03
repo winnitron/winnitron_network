@@ -2,7 +2,7 @@
   parent = { parent_type: imageable.class, parent_id: imageable.id }
   imageable.images.each do |image| %>
   <div class="thumbnail col-sm-4">
-    <a href="<%= image.url %>">
+    <a href="<%= image.url %>" data-toggle="lightbox" data-gallery="<%= parent.to_s.parameterize %>-gallery">
       <img src="<%= image.url(w: 150, h: 100) %>">
     </a>
 
@@ -20,3 +20,10 @@
     <div class="clearfix"></div>
   </div>
 <% end %>
+
+<script>
+  $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+    event.preventDefault();
+    $(this).ekkoLightbox();
+  });
+</script>

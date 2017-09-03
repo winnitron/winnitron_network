@@ -7,7 +7,7 @@ class Image < ActiveRecord::Base
   default_scope { order(cover: :desc) }
 
   def self.placeholder
-    Image.new(file_key: "games/420afd91-2a29-4d21-bff1-94aaa603f48f-image-blank_grey.png")
+    Image.new(file_key: "ben-neale-297658.jpg")
   end
 
   def url(w: nil, h: nil)
