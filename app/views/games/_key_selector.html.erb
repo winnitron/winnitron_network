@@ -21,7 +21,8 @@
           <td class="control"><%= control %></td>
           <td class="key">
             <span class="<%= control.downcase %> current-key">
-              <a href="" class="ahk-key" data-toggle="modal" data-target="#select-modal-<%= player %>-<%= control %>">
+              <!--  data-target="#select-modal-<%= player %>-<%= control %>" -->
+              <a href="" class="ahk-key" data-toggle="modal">
                 <%= @game.key_map.bindings[player][control.downcase] %>
               </a>
               <input name="key_map[<%= player %>][<%= control.downcase %>]" value="<%= @game.key_map.bindings[player][control.downcase] %>" type="hidden">
