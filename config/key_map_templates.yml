@@ -4,8 +4,8 @@ default: &default
     down: "Down"
     right: "Right"
     left: "Left"
-    button1: "/"
-    button2: "."
+    button1: "."
+    button2: "/"
 
   "2":
     up: "w"
