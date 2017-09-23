@@ -24,4 +24,11 @@
     </div>
   <% end %>
 
+  <% if @user.playlists.any? %>
+    <div class="row">
+      <h4>Playlists</h4>
+      <%= render "playlists/list", playlists: @user.playlists %>
+    </div>
+  <% end %>
+
 </div>
