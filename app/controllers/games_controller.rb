@@ -13,7 +13,7 @@ class GamesController < ApplicationController
 
     case @sort
     when "new"
-      @theirs = @theirs.reorder(published_at: :asc)
+      @theirs = @theirs.reorder(published_at: :desc)
     when "name"
       @theirs = @theirs.reorder(title: :asc)
     end
