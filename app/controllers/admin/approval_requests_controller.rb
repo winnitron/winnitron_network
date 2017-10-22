@@ -12,7 +12,7 @@ class Admin::ApprovalRequestsController < ApplicationController
   def update
     @approval_request = ApprovalRequest.find(params[:id])
     @approval_request.update(approved_at: Time.now.utc)
-    # TODO: notification
+    UserMailer.request_approved(@approval_request).deliver_now
     redirect_to edit_admin_approval_request_path(@approval_request), notice: "Request approved"
   end
 

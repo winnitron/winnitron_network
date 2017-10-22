@@ -40,9 +40,12 @@
     <% end %>
   </div>
 
-  <div class="col-md-12">
-    <%= form_tag admin_approval_request_path(@approval_request), method: :put do %>
-      <%= submit_tag "Approve", class: "btn btn-success" %>
-    <% end %>
-  </div>
+  <% if !@approval_request.approved? %>
+    <div class="col-md-12">
+      <%= form_tag admin_approval_request_path(@approval_request), method: :put do %>
+        <%= submit_tag "Approve", class: "btn btn-success" %>
+        <span class="note">This will notify the user by email.</span>
+      <% end %>
+    </div>
+  <% end %>
 </div>
