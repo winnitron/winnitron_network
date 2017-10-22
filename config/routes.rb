@@ -56,6 +56,7 @@ Rails.application.routes.draw do
 
   get "/search" => "search#index", as: :search
   get "/feedback" => "pages#feedback", as: :feedback
+  get "/contact" => "pages#feedback", as: :contact
   get "/dash" => "pages#dash", as: :dash
   get "/terms" => "pages#terms", as: :terms
   root "pages#index"
