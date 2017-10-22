@@ -1,0 +1,30 @@
+<% set_title "Approval Requests" %>
+
+<div class="row col-lg-12">
+  <h1>Pending Approval Requests</h1>
+
+  <div class="col-lg-8">
+    <table class="table table-condensed table-hover">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Winnitron</th>
+          <th>User</th>
+          <th>Images</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @approval_requests.each do |req| %>
+          <tr>
+            <td><strong><%= link_to "View", edit_admin_approval_request_path(req) %></strong></td>
+            <td><%= link_to req.approvable.title, arcade_machine_path(req.approvable.slug) %></td>
+            <td><%= link_to req.user.name, user_path(req.user) %></td>
+            <td><%= req.images.count %></td>
+          </tr>
+        <% end %>
+      </tbody>
+
+    </table>
+  </div>
+
+</div>
