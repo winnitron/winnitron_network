@@ -51,6 +51,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :users, ony: [:index, :edit, :update]
+    resources :approval_requests, only: [:index, :edit, :update]
   end
 
   get "/search" => "search#index", as: :search

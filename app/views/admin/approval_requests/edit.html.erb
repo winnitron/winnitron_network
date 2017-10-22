@@ -1,0 +1,48 @@
+<div class="row col-lg-9">
+
+  <%= page_heading :h2, "Approval request for #{@approval_request.approvable.title}" %>
+
+  <%= render "shared/flashes" %>
+
+  <div class="col-md-12">
+    <ul>
+      <li>
+        Winnitron: <%= link_to @approval_request.approvable.title, arcade_machine_path(@approval_request.approvable) %>
+      </li>
+      <li>
+        Status: <strong><%= @approval_request.status %></strong>
+      </li>
+      <li>
+        Submitted: <%= @approval_request.created_at.to_date.to_s(:long) %>
+      </li>
+      <li>
+        Approved: <%= @approval_request.approved_at&.to_date&.to_s(:long) || "N/A" %>
+      </li>
+      <li>
+        Refused: <%= @approval_request.refused_at&.to_date&.to_s(:long) || "N/A"  %>
+      </li>
+    </ul>
+
+  </div>
+
+
+  <div class="col-md-12">
+    <h4>Notes</h4>
+    <%= simple_format(@approval_request.notes) %>
+  </div>
+
+  <div class="col-md-12">
+    <h4>Images</h4>
+    <% if @approval_request.images.any? %>
+      <%= render "images/list", imageable: @approval_request %>
+    <% else %>
+      <p><em>None</em></p>
+    <% end %>
+  </div>
+
+  <div class="col-md-12">
+    <%= form_tag admin_approval_request_path(@approval_request), method: :put do %>
+      <%= submit_tag "Approve", class: "btn btn-success" %>
+    <% end %>
+  </div>
+</div>

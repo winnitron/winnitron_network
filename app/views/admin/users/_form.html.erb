@@ -1,6 +1,6 @@
 <div class="row col-lg-9">
 
-  <%= page_heading :h2, 'My Account' %>
+  <%= page_heading :h2, @user.name %>
 
   <%= form_for(@user, url: admin_user_path(@user), html: { method: :put, class: "form form-horizontal" }) do |f| %>
 
