@@ -18,7 +18,6 @@ RSpec.describe ArcadeMachine, type: :model do
     it "is false for playlists not subscribed to" do
       expect(arcade_machine.subscribed?(bad_playlist)).to eq false
     end
-
   end
 
   describe "#approved?" do
@@ -48,6 +47,45 @@ RSpec.describe ArcadeMachine, type: :model do
 
     it "does not subscribe to non-defaults" do
       expect(arcade_machine.playlists).to_not include(nondefault_playlist)
+    end
+  end
+
+  describe "geocoding" do
+    let(:machine) { FactoryGirl.build(:arcade_machine) }
+
+    it "sets coords to nil if location is nil" do
+      machine.update latitude: 123, longitude: 456
+
+      machine.update location: nil
+      expect(machine.latitude).to be_nil
+      expect(machine.longitude).to be_nil
+    end
+
+    context "machine is mappable" do
+      it "does not make request if location is blank" do
+        allow(machine).to receive(:geocode)
+
+        machine.update location: nil
+        expect(machine).to_not have_received(:geocode)
+      end
+    end
+
+    context "machine is not mappable" do
+      before :each do
+        machine.mappable = false
+      end
+
+      it "does not make geocode request" do
+        allow(machine).to receive(:geocode)
+
+        machine.update location: "New York, NY"
+        expect(machine).to_not have_received(:geocode)
+      end
+
+      it "sets coords to nil" do
+        machine.save
+        expect(machine.to_coordinates).to eq [nil, nil]
+      end
     end
   end
 end
