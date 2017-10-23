@@ -66,7 +66,7 @@ class ArcadeMachinesController < ApplicationController
     end
 
     def arcade_machine_params
-      params.fetch(:arcade_machine, {}).permit(:title, :description, :location, :players,
+      params.fetch(:arcade_machine, {}).permit(:title, :description, :location, :players, :mappable,
                                                links_attributes: [:id, :link_type, :url, :_destroy])
     end
 
