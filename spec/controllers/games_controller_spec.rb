@@ -21,7 +21,7 @@ RSpec.describe GamesController, type: :controller do
     it "sorts by new" do
       FactoryGirl.create_list(:game, 3)
       get :index, { sort: "new" }
-      expect(assigns(:theirs).map(&:id)).to eq Game.published.order(published_at: :asc).map(&:id)
+      expect(assigns(:theirs).map(&:id)).to eq Game.published.order(published_at: :desc).map(&:id)
     end
 
     it "sorts by name" do
