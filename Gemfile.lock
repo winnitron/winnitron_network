@@ -110,6 +110,7 @@ GEM
     geocoder (1.4.4)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
+    gmaps4rails (2.1.2)
     gravtastic (3.2.6)
     hashie (3.4.6)
     i18n (0.8.6)
@@ -314,6 +315,7 @@ DEPENDENCIES
   faker
   figaro
   geocoder
+  gmaps4rails
   gravtastic
   jbuilder (~> 2.0)
   jquery-rails

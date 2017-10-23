@@ -1,6 +1,6 @@
 class ArcadeMachinesController < ApplicationController
-  before_action :set_arcade_machine, except: [:index, :new, :create]
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :set_arcade_machine, except: [:index, :new, :create, :map]
+  before_action :authenticate_user!, except: [:index, :show, :map]
   before_action :permission_check!, only: [:edit, :update, :destroy, :images, :confirm_destroy]
   before_action only: [:show] do
     require_approval!(@arcade_machine)
@@ -53,6 +53,15 @@ class ArcadeMachinesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to arcade_machines_url, notice: 'Arcade machine was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def map
+    @arcade_machines = ArcadeMachine.approved.geocoded.map do |am|
+      {
+        lat: am.latitude,
+        lng: am.longitude
+      }
     end
   end
 

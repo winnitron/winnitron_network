@@ -21,6 +21,10 @@ Rails.application.routes.draw do
   resources :game_zips, only: [:create, :update]
 
   resources :arcade_machines do
+    collection do
+      get "map" => "arcade_machines#map", as: :map
+    end
+
     member do
       get :confirm_destroy
       get :images

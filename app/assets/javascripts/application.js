@@ -18,4 +18,6 @@
 //= require nested_form_fields
 //= require bootstrap-tagsinput
 //= require ekko-lightbox
+
+//= require gmaps/google
 //= require_tree .

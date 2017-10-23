@@ -22,6 +22,7 @@ gem 'nested_form_fields', git: "https://github.com/aaronklaassen/nested_form_fie
 gem 'nokogiri', '1.6.8'
 gem 'redis-rails', '~> 4'
 gem 'geocoder'
+gem 'gmaps4rails'
 
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc',     '~> 0.4.0', group: :doc
