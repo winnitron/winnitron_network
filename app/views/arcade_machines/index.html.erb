@@ -3,6 +3,9 @@
 </a>
 
 <%= page_heading :h1, "Winnitrons!" %>
+<div>
+  <h5>This list is now available in <%= link_to "convenient map form", map_arcade_machines_path %>!</h5>
+</div>
 <p>&nbsp;</p>
 <div>
   <% mine, theirs = @arcade_machines.partition { |am| user_signed_in? && current_user.owns?(am) } %>

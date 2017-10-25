@@ -23,7 +23,7 @@
       <%= f.text_area :location, class: "form-control", rows: 4 %>
       <%= f.check_box :mappable %>
       <label for="arcade_machine_mappable" class="control-label">
-        Show this Winnitron on the map
+        Show this Winnitron on <%= link_to "the map", map_arcade_machines_path %>
       </label>
     </div>
   </div>
