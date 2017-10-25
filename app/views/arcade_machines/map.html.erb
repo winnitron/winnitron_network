@@ -10,19 +10,40 @@
 
 
 <script>
-  var data = <%=raw @markers.to_json %>;
+  function infoWindowContent(am) {
+    return '<h5><a href="/arcade_machines/' + am.slug + '">' + am.title + '</a></h5>' +
+           '<div>' + am.location + '</div>'
+  }
+
+  var data = <%=raw @arcade_machines.to_json %>;
+  var infos = []
 
   handler = Gmaps.build("Google");
   handler.buildMap({ provider: {}, internal: { id: 'map' }});
 
-  data.map(function(coords) {
-    return new google.maps.Marker({
-      position: new google.maps.LatLng(coords.lat, coords.lng),
+  var markers = data.map(function(machine) {
+
+    var marker = new google.maps.Marker({
+      position: new google.maps.LatLng(machine.latitude, machine.longitude),
       map: handler.getMap(),
-      icon: "<%= asset_url('arcade32.png') %>"
+      icon: "<%= asset_url('arcade32.png') %>",
+      title: machine.title
     });
+
+    var info = new google.maps.InfoWindow({
+      content: infoWindowContent(machine)
+    });
+    infos.push(info);
+
+    marker.addListener("click", function() {
+      infos.forEach(function(i) { i.close() });
+      info.open(handler.getMap(), marker);
+    })
+
+    return marker;
   });
 
+  //var cluster = new MarkerClusterer(handler.getMap(), markers, { gridSize: 20, minimumClusterSize: 3 });
   handler.map.centerOn({ lat: 20, lng: 0 });
   handler.getMap().setZoom(2);
 </script>
