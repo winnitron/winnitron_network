@@ -4,18 +4,25 @@
 
 <%= page_heading :h2, "Winnitron Map" %>
 
-<div style="width: 900px">
-  <div id="map" style="width: 900px; height: 500px;"></div>
+<div style="height: 100%">
+  <div id="map" style="width: 100%; height: 80%;"></div>
 </div>
 
 
 <script>
+  var data = <%=raw @markers.to_json %>;
+
   handler = Gmaps.build("Google");
-  handler.buildMap({ provider: {}, internal: { id: 'map' }}, function() {
-    var data = <%=raw @arcade_machines.to_json %>
-    var markers = handler.addMarkers(data);
-    handler.bounds.extendWith(markers);
-    handler.fitMapToBounds();
-    //handler.getMap().setZoom(2);
+  handler.buildMap({ provider: {}, internal: { id: 'map' }});
+
+  data.map(function(coords) {
+    return new google.maps.Marker({
+      position: new google.maps.LatLng(coords.lat, coords.lng),
+      map: handler.getMap(),
+      icon: "<%= asset_url('arcade32.png') %>"
+    });
   });
+
+  handler.map.centerOn({ lat: 20, lng: 0 });
+  handler.getMap().setZoom(2);
 </script>

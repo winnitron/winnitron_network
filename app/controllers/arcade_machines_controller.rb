@@ -57,7 +57,7 @@ class ArcadeMachinesController < ApplicationController
   end
 
   def map
-    @arcade_machines = ArcadeMachine.approved.geocoded.map do |am|
+    @markers = ArcadeMachine.approved.geocoded.map do |am|
       {
         lat: am.latitude,
         lng: am.longitude
