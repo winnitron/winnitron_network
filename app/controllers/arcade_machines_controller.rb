@@ -1,6 +1,6 @@
 class ArcadeMachinesController < ApplicationController
-  before_action :set_arcade_machine, except: [:index, :new, :create]
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :set_arcade_machine, except: [:index, :new, :create, :map]
+  before_action :authenticate_user!, except: [:index, :show, :map]
   before_action :permission_check!, only: [:edit, :update, :destroy, :images, :confirm_destroy]
   before_action only: [:show] do
     require_approval!(@arcade_machine)
@@ -56,6 +56,10 @@ class ArcadeMachinesController < ApplicationController
     end
   end
 
+  def map
+    @arcade_machines = ArcadeMachine.approved.geocoded
+  end
+
   private
     def set_arcade_machine
       @arcade_machine = ArcadeMachine.find_by!(slug: params[:id])
@@ -66,7 +70,7 @@ class ArcadeMachinesController < ApplicationController
     end
 
     def arcade_machine_params
-      params.fetch(:arcade_machine, {}).permit(:title, :description, :location, :players,
+      params.fetch(:arcade_machine, {}).permit(:title, :description, :location, :players, :mappable,
                                                links_attributes: [:id, :link_type, :url, :_destroy])
     end
 
