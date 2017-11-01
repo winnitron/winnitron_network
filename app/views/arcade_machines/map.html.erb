@@ -43,7 +43,7 @@
     return marker;
   });
 
-  //var cluster = new MarkerClusterer(handler.getMap(), markers, { gridSize: 20, minimumClusterSize: 3 });
+  var cluster = new MarkerClusterer(handler.getMap(), markers, { gridSize: 10, minimumClusterSize: 4 });
   handler.map.centerOn({ lat: 20, lng: 0 });
   handler.getMap().setZoom(2);
 </script>
