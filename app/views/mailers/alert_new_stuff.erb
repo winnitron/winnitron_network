@@ -1,0 +1,34 @@
+<strong>New stuff on the Winnitron Network since <%= @since.to_date.to_s(:long) %></strong>
+
+<% if @machines.any? %>
+  <strong>Winnitrons</strong>
+  <ul>
+    <% @machines.each do |machine| %>
+      <li>
+        <%= link_to machine.title, arcade_machine_url(machine.slug) %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
+<% if @games.any? %>
+  <strong>Games</strong>
+  <ul>
+    <% @games.each do |game| %>
+      <li>
+        <%= link_to game.title, game_url(game.slug) %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
+<% if @people.any? %>
+  <strong>People</strong>
+  <ul>
+    <% @people.each do |user| %>
+      <li>
+        <%= link_to user.name, user_url(user) %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
