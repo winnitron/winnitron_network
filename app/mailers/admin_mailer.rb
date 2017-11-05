@@ -13,4 +13,16 @@ class AdminMailer < ActionMailer::Base
     end
   end
 
+  def alert_new_stuff(since)
+    @since = since.days.ago
+    @machines = ArcadeMachine.where("created_at >= ?", @since)
+    @games = Game.where("created_at >= ?", @since)
+    @people = User.where("created_at >= ?", @since)
+    @comments = Comment.where("created_at >= ?", @since)
+
+    mail(subject: "New stuff this week on the Winnitron Network") do  |format|
+      format.html { render "mailers/alert_new_stuff" }
+    end
+  end
+
 end
