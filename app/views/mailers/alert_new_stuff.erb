@@ -32,3 +32,22 @@
     <% end %>
   </ul>
 <% end %>
+
+<% if @comments.any? %>
+  <strong>Comments</strong>
+  <ul>
+    <% @comments.each do |comment| %>
+      <% commentable = comment.commentable %>
+      <li>
+        <%= comment.user.name %> commented on
+        <% if commentable.is_a?(Game) %>
+          <%= link_to commentable.title, game_url(commentable.slug) %>
+        <% elsif commentable.is_a?(ArcadeMachine) %>
+          <%= link_to commentable.title, arcade_machine_url(commentable.slug) %>
+        <% else %>
+          <%= commentable.title %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
