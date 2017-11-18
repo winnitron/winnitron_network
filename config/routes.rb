@@ -14,6 +14,8 @@ Rails.application.routes.draw do
       put :save_keys
       get :checklist
       put :publish
+
+      get :stats
     end
   end
 

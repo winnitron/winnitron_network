@@ -1,0 +1,10 @@
+<table class="table table-condensed">
+  <% @plays.each do |play| %>
+    <tr>
+      <td><%= play.arcade_machine.title %></td>
+      <td><%= play.start %></td>
+      <td><%= play.stop %></td>
+      <td><%= play.duration %>s</td>
+    </tr>
+  <% end %>
+</table>

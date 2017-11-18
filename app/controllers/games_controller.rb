@@ -87,6 +87,10 @@ class GamesController < ApplicationController
     end
   end
 
+  def stats
+    @plays = @game.plays.order(start: :asc).complete
+  end
+
   private
 
   def set_game
