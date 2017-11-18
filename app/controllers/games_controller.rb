@@ -98,6 +98,8 @@ class GamesController < ApplicationController
                         .where(start: start.beginning_of_day..stop.end_of_day)
                         .order(start: :asc)
 
+    @total = @plays.to_a.sum(&:duration)
+
     respond_to do |format|
       format.html {}
       format.json { render json: build_plays_json(@plays) }
