@@ -18,6 +18,8 @@ class ArcadeMachine < ActiveRecord::Base
   has_many :api_keys, dependent: :destroy
   has_many :links, as: :parent, dependent: :destroy
 
+  has_many :plays
+
   has_one :approval_request, as: :approvable, dependent: :destroy
 
   after_create :subscribe_to_defaults
