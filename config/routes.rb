@@ -50,6 +50,15 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: "json" } do
     namespace :v1 do
       resources :playlists, only: [:index]
+      resources :plays, only: [] do
+        collection do
+          post :start
+        end
+
+        member do
+          put  :stop
+        end
+      end
     end
   end
 
