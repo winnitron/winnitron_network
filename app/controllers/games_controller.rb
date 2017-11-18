@@ -93,9 +93,16 @@ class GamesController < ApplicationController
 
     @start = start.iso8601
     @stop = stop.iso8601
-    @plays = @game.plays.complete
+    @plays = @game.plays.includes(:arcade_machine)
+                        .complete
                         .where(start: start.beginning_of_day..stop.end_of_day)
                         .order(start: :asc)
+
+    respond_to do |format|
+      format.html {}
+      format.json { render json: build_plays_json(@plays) }
+      format.csv { render text: build_plays_csv(@plays) }
+    end
   end
 
   private
@@ -123,5 +130,37 @@ class GamesController < ApplicationController
   def game_params
     params.fetch(:game, {}).permit(:title, :description, :min_players, :max_players, :tag_list,
                                    links_attributes: [:id, :link_type, :url, :_destroy])
+  end
+
+  def build_plays_json(plays)
+    {
+      game: {
+        title: @game.title,
+        url: game_url(@game.slug)
+      },
+      sessions: plays.map do |play|
+        {
+          arcade: {
+            name: play.arcade_machine.title,
+            url:  arcade_machine_url(play.arcade_machine.slug)
+          },
+          start: play.start,
+          stop: play.stop
+        }
+      end
+    }
+  end
+
+  def build_plays_csv(plays)
+    headers = "Arcade,Start,Stop"
+    data = plays.map do |play|
+      [
+        play.arcade_machine.title,
+        play.start,
+        play.stop
+      ].join(",")
+    end
+
+    ([headers] + data).join("\n")
   end
 end
