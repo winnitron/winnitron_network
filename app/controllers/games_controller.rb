@@ -88,7 +88,14 @@ class GamesController < ApplicationController
   end
 
   def stats
-    @plays = @game.plays.complete.order(start: :asc)
+    start = params[:start] ? Date.parse(params[:start]) : 7.days.ago.to_date
+    stop = params[:stop] ? Date.parse(params[:stop]) : Date.today
+
+    @start = start.iso8601
+    @stop = stop.iso8601
+    @plays = @game.plays.complete
+                        .where(start: start.beginning_of_day..stop.end_of_day)
+                        .order(start: :asc)
   end
 
   private
