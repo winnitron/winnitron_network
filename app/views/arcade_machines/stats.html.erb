@@ -1,4 +1,4 @@
-<%= page_heading :h1, "#{@game.title} play session stats" %>
+<%= page_heading :h1, "#{@arcade_machine.title} play session stats" %>
 
 <div class="col-lg-12">
   <%= render "shared/stats_form" %>
@@ -10,7 +10,7 @@
   <% if @total > 0 %>
     <div class="col-sm-12 text-center">
       <h2>
-        <em><%= @game.title %></em> has been played for a total of
+        <em><%= @arcade_machine.title %></em> has been played for a total of
         <br>
         <strong>
           <%= precise_duration_in_words(@total) %>!
@@ -23,7 +23,7 @@
 <%
   data = @plays.map do |play|
     {
-      winnitron: play.arcade_machine.title,
+      game: play.game.title,
       start: play.start,
       stop: play.stop,
     }
@@ -37,7 +37,7 @@
   function drawChart() {
     parsed = data.map(function(play) {
       return [
-        play.winnitron,
+        play.game,
         "",
         tooltipHTML(play),
         new Date(play.start),
@@ -48,7 +48,7 @@
     var container = document.getElementById('timeline');
     var chart = new google.visualization.Timeline(container);
     var dataTable = new google.visualization.DataTable();
-    dataTable.addColumn({ type: 'string', id: 'Winnitron' });
+    dataTable.addColumn({ type: 'string', id: 'Game' });
     dataTable.addColumn({ type: 'string', id: 'dummy bar label' });
     dataTable.addColumn({ type: 'string', role: 'tooltip', 'p': { 'html': true } });
     dataTable.addColumn({ type: 'datetime', id: 'Start' });

@@ -8,18 +8,18 @@ namespace :data do
 
   desc "Generate a bunch of fake gameplay data"
   task seed_gameplay: :environment do
-    game = Game.first
-    machines = ArcadeMachine.limit(2)
+    games = Game.limit(2)
+    machines = ArcadeMachine.where(id: [3,6])
 
     plays = (7.days.ago.to_date..Date.today).map do |date|
-      sessions = rand(5)
+      sessions = rand(10)
 
       sessions.times.map do
 
         start = date.to_time + rand(60 * 60 * 23).seconds
         stop  = start + (rand(20) + 1).minutes
 
-        Play.create! game: game,
+        Play.create! game: games.sample,
            arcade_machine: machines.sample,
                     start: start,
                      stop: stop

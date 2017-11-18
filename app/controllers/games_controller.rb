@@ -1,4 +1,6 @@
 class GamesController < ApplicationController
+  include StatsHelper
+
   before_action :set_game, except: [:index, :new, :create]
   before_action :authenticate_user!, except: [:index, :show]
   before_action :permission_check!, except: [:index, :show, :new, :create]
@@ -132,37 +134,5 @@ class GamesController < ApplicationController
   def game_params
     params.fetch(:game, {}).permit(:title, :description, :min_players, :max_players, :tag_list,
                                    links_attributes: [:id, :link_type, :url, :_destroy])
-  end
-
-  def build_plays_json(plays)
-    {
-      game: {
-        title: @game.title,
-        url: game_url(@game.slug)
-      },
-      sessions: plays.map do |play|
-        {
-          arcade: {
-            name: play.arcade_machine.title,
-            url:  arcade_machine_url(play.arcade_machine.slug)
-          },
-          start: play.start,
-          stop: play.stop
-        }
-      end
-    }
-  end
-
-  def build_plays_csv(plays)
-    headers = "Arcade,Start,Stop"
-    data = plays.map do |play|
-      [
-        play.arcade_machine.title,
-        play.start,
-        play.stop
-      ].join(",")
-    end
-
-    ([headers] + data).join("\n")
   end
 end
