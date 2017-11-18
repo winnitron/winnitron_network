@@ -1,10 +1,85 @@
-<table class="table table-condensed">
-  <% @plays.each do |play| %>
-    <tr>
-      <td><%= play.arcade_machine.title %></td>
-      <td><%= play.start %></td>
-      <td><%= play.stop %></td>
-      <td><%= play.duration %>s</td>
-    </tr>
-  <% end %>
-</table>
+<div class="col-lg-12">
+  <%
+
+
+
+  %>
+
+  <div id="chart"></div>
+
+  <table class="table table-condensed">
+    <% @plays.each do |play| %>
+      <tr>
+        <td><%= play.arcade_machine.title %></td>
+        <td><%= play.start %></td>
+        <td><%= play.stop %></td>
+        <td><%= play.duration %>s</td>
+      </tr>
+    <% end %>
+  </table>
+</div>
+
+
+<%
+  data = @plays.map do |play|
+    {
+      winnitron: play.arcade_machine.title,
+      start: play.start,
+      stop: play.stop,
+    }
+  end
+%>
+
+<script>
+
+  var data = <%=raw data.to_json %>;
+  google.charts.load("current", {packages:["timeline"]});
+  google.charts.setOnLoadCallback(drawChart);
+  function drawChart() {
+    parsed = data.map(function(play) {
+      return [
+        play.winnitron,
+        "",
+        tooltipHTML(play),
+        new Date(play.start),
+        new Date(play.stop),
+      ]
+    });
+
+
+    var container = document.getElementById('chart');
+    var chart = new google.visualization.Timeline(container);
+    var dataTable = new google.visualization.DataTable();
+    dataTable.addColumn({ type: 'string', id: 'Winnitron' });
+    dataTable.addColumn({ type: 'string', id: 'dummy bar label' });
+    dataTable.addColumn({ type: 'string', role: 'tooltip', 'p': { 'html': true } });
+    dataTable.addColumn({ type: 'datetime', id: 'Start' });
+    dataTable.addColumn({ type: 'datetime', id: 'Stop' });
+    dataTable.addRows(parsed);
+
+    var options = {
+      timeline: { showRowLabels: true },
+      avoidOverlappingGridLines: false,
+      tooltip: { isHtml: true }
+    };
+
+    chart.draw(dataTable, options);
+  }
+
+  function tooltipHTML(play) {
+    var start = new Date(play.start);
+    var stop = new Date(play.stop);
+    var duration = (stop - start) / 1000 / 60
+
+    var tooltip = "<div class='timeline-tooltip'>" +
+      $.datepicker.formatDate('M d', start) + "<br>" +
+      start.getHours() + ":" + start.getMinutes() + "-" +
+      stop.getHours() + ":" + stop.getMinutes() + "<br>" +
+      duration + " minutes"
+    "</div>"
+
+    console.log(tooltip);
+    return tooltip;
+
+  }
+</script>

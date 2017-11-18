@@ -88,7 +88,7 @@ class GamesController < ApplicationController
   end
 
   def stats
-    @plays = @game.plays.order(start: :asc).complete
+    @plays = @game.plays.complete.order(start: :asc)
   end
 
   private
