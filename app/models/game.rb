@@ -60,6 +60,10 @@ class Game < ActiveRecord::Base
     !!published_at
   end
 
+  def total_time_played_on(machine)
+    plays.complete.where(arcade_machine: machine).to_a.sum(&:duration)
+  end
+
   private
 
   def ok_to_publish

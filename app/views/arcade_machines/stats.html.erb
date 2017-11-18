@@ -7,6 +7,27 @@
     <div id="timeline"></div>
   </div>
 
+  <div class="col-sm-12">
+    <h3>Most popular games</h3>
+    <table class="table table-condensed">
+      <thead>
+        <tr>
+          <th>Game</th>
+          <th>Times played</th>
+          <th>Total time played</th>
+        </tr>
+      </thead>
+
+      <% @popular.each do |game| %>
+        <tr>
+          <td><%= link_to game.title, game_path(game.slug) %></td>
+          <td><%= game.plays.complete.where(arcade_machine: @arcade_machine).count %></td>
+          <td><%= precise_duration_in_words(game.total_time_played_on(@arcade_machine))  %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+
   <% if @total > 0 %>
     <div class="col-sm-12 text-center">
       <h2>
