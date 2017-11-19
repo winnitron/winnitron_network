@@ -20,8 +20,10 @@ class AdminMailer < ActionMailer::Base
     @people = User.where("created_at >= ?", @since)
     @comments = Comment.where("created_at >= ?", @since)
 
-    mail(subject: "New stuff this week on the Winnitron Network") do  |format|
-      format.html { render "mailers/alert_new_stuff" }
+    User.admins.find_each do |admin|
+      mail(to: admin.email, subject: "New stuff this week on the Winnitron Network") do  |format|
+        format.html { render "mailers/alert_new_stuff" }
+      end
     end
   end
 

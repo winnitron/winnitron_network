@@ -23,6 +23,8 @@ class User < ActiveRecord::Base
                                         reject_if: proc { |attrs| attrs["url"].blank? }
 
 
+  scope :admins, -> { where(admin: true) }
+
   def owns?(item)
     ownable = [ArcadeMachine, Playlist, Game]
     raise ArgumentError, "#{item.class} is not ownable" if !ownable.include?(item.class)
