@@ -14,6 +14,8 @@ Rails.application.routes.draw do
       put :save_keys
       get :checklist
       put :publish
+
+      get :stats
     end
   end
 
@@ -28,6 +30,7 @@ Rails.application.routes.draw do
     member do
       get :confirm_destroy
       get :images
+      get :stats
 
       resources :approval_requests, only: [:new, :update, :show], controller: :approval_requests
     end
@@ -50,6 +53,15 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: "json" } do
     namespace :v1 do
       resources :playlists, only: [:index]
+      resources :plays, only: [] do
+        collection do
+          post :start
+        end
+
+        member do
+          put  :stop
+        end
+      end
     end
   end
 

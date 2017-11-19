@@ -1,4 +1,6 @@
 class GamesController < ApplicationController
+  include StatsHelper
+
   before_action :set_game, except: [:index, :new, :create]
   before_action :authenticate_user!, except: [:index, :show]
   before_action :permission_check!, except: [:index, :show, :new, :create]
@@ -84,6 +86,26 @@ class GamesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to games_url, notice: 'Game was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def stats
+    start = params[:start] ? Date.parse(params[:start]) : 7.days.ago.to_date
+    stop = params[:stop] ? Date.parse(params[:stop]) : Date.today
+
+    @start = start.iso8601
+    @stop = stop.iso8601
+    @plays = @game.plays.includes(:arcade_machine)
+                        .complete
+                        .where(start: start.beginning_of_day..stop.end_of_day)
+                        .order(start: :asc)
+
+    @total = @plays.to_a.sum(&:duration)
+
+    respond_to do |format|
+      format.html {}
+      format.json { render json: build_plays_json(@plays) }
+      format.csv { render text: build_plays_csv(@plays) }
     end
   end
 

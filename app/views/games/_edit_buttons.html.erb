@@ -1,4 +1,6 @@
 <!-- EDIT BUTTONS -->
+<% show_stats ||= false %>
+
 <% if user_signed_in? %>
 
   <!-- Add to Winnitron dropdown -->
@@ -13,11 +15,20 @@
           Edit
         </button>
       </a>
+
       <a href="<%= confirm_destroy_game_path(game) %>">
         <button class="btn btn-danger" type="button">
           Delete
         </button>
       </a>
+
+      <% if show_stats %>
+        <a href="<%= stats_game_path(game) %>" class="pull-right">
+          <button class="btn btn-default">
+            Stats
+          </button>
+        </a>
+      <% end %>
     <% end %>
   </div>
 

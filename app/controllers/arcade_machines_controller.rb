@@ -1,4 +1,6 @@
 class ArcadeMachinesController < ApplicationController
+  include StatsHelper
+
   before_action :set_arcade_machine, except: [:index, :new, :create, :map]
   before_action :authenticate_user!, except: [:index, :show, :map]
   before_action :permission_check!, only: [:edit, :update, :destroy, :images, :confirm_destroy]
@@ -58,6 +60,29 @@ class ArcadeMachinesController < ApplicationController
 
   def map
     @arcade_machines = ArcadeMachine.approved.geocoded
+  end
+
+  def stats
+    start = params[:start] ? Date.parse(params[:start]) : 7.days.ago.to_date
+    stop = params[:stop] ? Date.parse(params[:stop]) : Date.today
+
+    @start = start.iso8601
+    @stop = stop.iso8601
+    @plays = @arcade_machine.plays.includes(:game)
+                            .complete
+                            .where(start: start.beginning_of_day..stop.end_of_day)
+                            .order(start: :asc)
+
+    @total = @plays.to_a.sum(&:duration)
+    games = @plays.map(&:game).uniq
+    @popular = games.sort { |g| g.total_time_played_on(@arcade_machine) }.reverse.first(10)
+
+
+    respond_to do |format|
+      format.html {}
+      format.json { render json: build_plays_json(@plays) }
+      format.csv { render text: build_plays_csv(@plays) }
+    end
   end
 
   private

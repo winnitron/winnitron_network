@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171023013312) do
+ActiveRecord::Schema.define(version: 20171118005435) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -171,6 +171,15 @@ ActiveRecord::Schema.define(version: 20171023013312) do
   end
 
   add_index "playlists", ["user_id"], name: "index_playlists_on_user_id", using: :btree
+
+  create_table "plays", force: :cascade do |t|
+    t.integer  "arcade_machine_id"
+    t.integer  "game_id"
+    t.datetime "start"
+    t.datetime "stop"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
 
   create_table "subscriptions", force: :cascade do |t|
     t.integer  "arcade_machine_id"

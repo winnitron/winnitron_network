@@ -1,4 +1,5 @@
 <!-- EDIT BUTTONS -->
+<% show_stats ||= false %>
 
 <% if user_signed_in? %>
 
@@ -16,6 +17,14 @@
           Delete
         </button>
       </a>
+
+      <% if show_stats %>
+        <a href="<%= stats_arcade_machine_path(arcade_machine) %>" class="pull-right">
+          <button class="btn btn-default">
+            Stats
+          </button>
+        </a>
+      <% end %>
     <% end %>
 
   </div>

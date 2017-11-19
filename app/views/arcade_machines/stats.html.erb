@@ -1,0 +1,104 @@
+<%= page_heading :h1, "#{@arcade_machine.title} play session stats" %>
+
+<div class="col-lg-12">
+  <%= render "shared/stats_form" %>
+
+  <div class="col-sm-12">
+    <div id="timeline"></div>
+  </div>
+
+  <div class="col-sm-12">
+    <h3>Most popular games</h3>
+    <table class="table table-condensed">
+      <thead>
+        <tr>
+          <th>Game</th>
+          <th>Times played</th>
+          <th>Total time played</th>
+        </tr>
+      </thead>
+
+      <% @popular.each do |game| %>
+        <tr>
+          <td><%= link_to game.title, game_path(game.slug) %></td>
+          <td><%= game.plays.complete.where(arcade_machine: @arcade_machine).count %></td>
+          <td><%= precise_duration_in_words(game.total_time_played_on(@arcade_machine))  %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+
+  <% if @total > 0 %>
+    <div class="col-sm-12 text-center">
+      <h2>
+        <em><%= @arcade_machine.title %></em> has been played for a total of
+        <br>
+        <strong>
+          <%= precise_duration_in_words(@total) %>!
+        </strong>
+      </h2>
+    </div>
+  <% end %>
+</div>
+
+<%
+  data = @plays.map do |play|
+    {
+      game: play.game.title,
+      start: play.start,
+      stop: play.stop,
+    }
+  end
+%>
+
+<script>
+  var data = <%=raw data.to_json %>;
+  google.charts.load("current", {packages:["timeline"]});
+  google.charts.setOnLoadCallback(drawChart);
+  function drawChart() {
+    parsed = data.map(function(play) {
+      return [
+        play.game,
+        "",
+        tooltipHTML(play),
+        new Date(play.start),
+        new Date(play.stop),
+      ]
+    });
+
+    var container = document.getElementById('timeline');
+    var chart = new google.visualization.Timeline(container);
+    var dataTable = new google.visualization.DataTable();
+    dataTable.addColumn({ type: 'string', id: 'Game' });
+    dataTable.addColumn({ type: 'string', id: 'dummy bar label' });
+    dataTable.addColumn({ type: 'string', role: 'tooltip', 'p': { 'html': true } });
+    dataTable.addColumn({ type: 'datetime', id: 'Start' });
+    dataTable.addColumn({ type: 'datetime', id: 'Stop' });
+    dataTable.addRows(parsed);
+
+    var options = {
+      timeline: { showRowLabels: true },
+      avoidOverlappingGridLines: false,
+      tooltip: { isHtml: true }
+    };
+
+    chart.draw(dataTable, options);
+  }
+
+  function tooltipHTML(play) {
+    var start = new Date(play.start);
+    var stop = new Date(play.stop);
+    var duration = (stop - start) / 1000 / 60
+
+    var tooltip = "<div class='timeline-tooltip'><strong>" +
+      $.datepicker.formatDate('M d', start) + "</strong><br>" +
+      start.getHours() + ":" + start.getMinutes() + "-" +
+      stop.getHours() + ":" + stop.getMinutes() + "<br>" +
+      duration + " minutes"
+    "</div>"
+
+    console.log(tooltip);
+    return tooltip;
+
+  }
+</script>

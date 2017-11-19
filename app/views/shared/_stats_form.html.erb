@@ -1,0 +1,23 @@
+<p>&nbsp;</p>
+<div class="col-sm-12">
+  <div class="pull-right">
+    Download as:
+    <a href="stats.json">json</a> or
+    <a href="stats.csv">csv</a>
+  </div>
+
+  <form>
+    <label>Dates:</label>
+    <input type="date" name="start" value="<%= @start %>">
+    to
+    <input type="date" name="stop"  value="<%= @stop %>">
+    <input type="submit" value="update">
+  </form>
+
+  <% if @plays.empty? %>
+    <p>&nbsp;</p>
+    <div class="alert alert-warning col-sm-8">
+      Sorry, no game session data found for that date range.
+    </div>
+  <% end %>
+</div>
