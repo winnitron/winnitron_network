@@ -11,7 +11,11 @@ class Api::V1::PlaysController < Api::V1::ApiController
   end
 
   def stop
-    play = @arcade_machine.plays.find(play_params[:id])
+    game = Game.find_by(slug: play_params[:id])
+    play = @arcade_machine.plays.where(game: game, stop: nil).order(start: :desc).first
+
+    raise ActiveRecord::RecordNotFound, "Play session not found: #{params}" if !play
+
     if play.update(stop: Time.now.utc)
       render json: play.to_json
     else
