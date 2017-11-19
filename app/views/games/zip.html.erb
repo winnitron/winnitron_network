@@ -4,6 +4,35 @@
 
 <div class="col-sm-1"></div>
 <div class="col-sm-9">
+  <div>
+    <p>
+      <strong>Quick reminder!</strong> Make sure that insize your zip file, your game isn't entirely
+      contained in a top-level folder.
+    </p>
+    <div class="col-sm-5">
+      ✔ it <strong>should</strong> look like this:
+      <pre>
+- Nailed_It.zip
+  - nailed_it.exe
+  - nailed_it_cover.png
+  - nails/
+    - nailed_the_levels_too.dat
+    - and_the_sounds.dat
+      </pre>
+    </div>
+    <div class="col-sm-6">
+      ✖️ <strong>not</strong> like this:
+      <pre>
+- Try_Again.zip
+  - Try_Again/   <strong>-- uh oh!</strong>
+    - try_again.exe
+    - try_again.png
+    - tries/
+      - need_to_try_again.dat
+      </pre>
+    </div>
+  </div>
+  <div class="clearfix"></div>
   <div class="panel panel-default">
     <div class="panel-body">
 
