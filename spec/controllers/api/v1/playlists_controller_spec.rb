@@ -16,6 +16,7 @@ RSpec.describe Api::V1::PlaylistsController, type: :controller do
   def playlist_hash(playlist)
     {
       "title" => playlist.title,
+      "description" => playlist.description,
       "slug"  => playlist.title.parameterize,
       "games" => playlist.games.published.map do |game|
         {
