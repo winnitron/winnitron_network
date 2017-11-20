@@ -72,11 +72,11 @@ class ArcadeMachinesController < ApplicationController
                             .complete
                             .where(start: start.beginning_of_day..stop.end_of_day)
                             .order(start: :asc)
+                            .select(&:game)
 
     @total = @plays.to_a.sum(&:duration)
     games = @plays.map(&:game).uniq
     @popular = games.sort { |g| g.total_time_played_on(@arcade_machine) }.reverse.first(10)
-
 
     respond_to do |format|
       format.html {}
