@@ -23,7 +23,7 @@
     });
 
     $("#<%= form_id %>").bind("s3_upload_failed", function(e, content) {
-      $(".js-upload-status.<%= form_id %>.alert-danger").html("#{content.filename} failed to upload : #{content.error_thrown}");
+      $(".js-upload-status.<%= form_id %>.alert-danger").html(content.filename + " failed to upload. " + content.error_thrown);
       $(".js-upload-status.<%= form_id %>.alert-danger").fadeIn("fast");
     });
 
