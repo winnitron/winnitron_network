@@ -46,7 +46,6 @@
           </div>
         <% end %>
       </div>
-
       <br>
       <div class="row">
         <%=
@@ -59,6 +58,11 @@
             additional_data: { game_id: @game.id },
             accept_filetypes: "application/zip"
         %>
+        <div class="col-md-offset-1 col-md-10">
+          <strong>Max file size is 500MB</strong>.
+          <br>Is your zip file bigger than that? Send us an email at
+          winnitron.support@outerspacehero.com and we'll hook you up.
+        </div>
       </div>
     </div>
   </div>
