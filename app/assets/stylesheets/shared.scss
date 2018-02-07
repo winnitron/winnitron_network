@@ -146,13 +146,14 @@ label.check {
 
 .item-actions {
   position: relative;
-  top: 15px;
-  right: 3px;
+  top: 25px;
+  right: 4px;
   z-index: 1000;
 
   a {
     color: red;
     font-weight: bold;
+    text-decoration: none;
   }
 }
 

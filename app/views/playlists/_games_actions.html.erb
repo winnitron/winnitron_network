@@ -1,4 +1,4 @@
 <% if user_signed_in? && (current_user.admin? || current_user.owns?(@playlist)) %>
   <% listing = Listing.find_by(game: item, playlist: @playlist) %>
-  <%= link_to "x", listing_path(listing), method: :delete, class: "js-remove-game-from-playlist" %>
+  <%= link_to "❌", listing_path(listing), method: :delete, class: "remove js-remove-game-from-playlist", title: "Remove #{item.title} from #{@playlist.title}" %>
 <% end %>
