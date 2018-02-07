@@ -1,6 +1,6 @@
 /*
 
-  For the grid view.
+For the grid view.
 
 */
 
@@ -8,90 +8,86 @@
 
 .thumbnail
 {
-    margin-bottom: 20px;
-    margin-right: 2px;
-    padding: 0px;
-    -webkit-border-radius: 0px;
-    -moz-border-radius: 0px;
-    border-radius: 0px;
+  margin-bottom: 20px;
+  margin-right: 2px;
+  padding: 0px;
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  border-radius: 0px;
 
-    .image-box
+  .image-box
+  {
+    display: block;
+    height: 225px;
+    overflow-y: hidden;
+  }
+
+  .description
+  {
+    height: 80px;
+    overflow: hidden;
+
+    p
     {
-        display: block;
-        height: 225px;
-        overflow-y: hidden;
+      display: block; /* Fallback for non-webkit */
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow-y: hidden;
+      text-overflow: ellipsis;
     }
-
-    .description
-    {
-        height: 80px;
-
-        p
-        {
-        display: block; /* Fallback for non-webkit */
-        display: -webkit-box;
-        -webkit-line-clamp: 3;
-        -webkit-box-orient: vertical;
-        overflow-y: hidden;
-        text-overflow: ellipsis;
-        }
-    }
-
-    .title
-    {
-        //height: 40px;
-    }
+  }
 }
 
 .item.tall
 {
-    height: 433px;
+  height: 433px;
 }
 
 .item.list-group-item
 {
-    float: none;
-    width: 100%;
-    background-color: #fff;
-    margin-bottom: 10px;
+  float: none;
+  width: 100%;
+  background-color: #fff;
+  margin-bottom: 10px;
 }
 .item.list-group-item:nth-of-type(odd):hover,.item.list-group-item:hover
 {
-    background: #428bca;
+  background: #428bca;
 }
 
 .item.list-group-item .list-group-image
 {
-    margin-right: 10px;
+  margin-right: 10px;
 }
 .item.list-group-item .thumbnail
 {
-    margin-bottom: 0px;
+  margin-bottom: 0px;
 }
 .item.list-group-item .caption
 {
-    padding: 9px 9px 0px 9px;
+  padding: 9px 9px 0px 9px;
 }
 .item.list-group-item:nth-of-type(odd)
 {
-    background: #eeeeee;
+  background: #eeeeee;
 }
 
 .item.list-group-item:before, .item.list-group-item:after
 {
-    display: table;
-    content: " ";
+  display: table;
+  content: " ";
 }
 
 .item.list-group-item img
 {
-    float: left;
+  float: left;
 }
 .item.list-group-item:after
 {
-    clear: both;
+  clear: both;
 }
 .list-group-item-text
 {
-    margin: 0 0 11px;
+  margin: 0 0 11px;
 }
