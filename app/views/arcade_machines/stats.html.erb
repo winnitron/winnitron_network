@@ -4,7 +4,11 @@
   <%= render "shared/stats_form" %>
 
   <div class="col-sm-12">
-    <div id="timeline"></div>
+    <%
+      games = @plays.map(&:game_id).uniq.count
+      height = [500, games * 50].min
+    %>
+    <div id="timeline" style="height: <%= height %>px"></div>
   </div>
 
   <div class="col-sm-12">
@@ -48,7 +52,7 @@
       start: play.start,
       stop: play.stop,
     }
-  end
+  end.sort_by { |p| p[:game] }
 %>
 
 <script>
@@ -83,24 +87,23 @@
     };
 
     chart.draw(dataTable, options);
-  }
-
-  function tooltipHTML(play) {
-    var start = new Date(play.start);
-    var stop = new Date(play.stop);
-    var seconds_total = Math.ceil((stop - start) / 1000);
-    var minutes = Math.ceil(seconds_total / 60);
 
 
-    var tooltip = "<div class='timeline-tooltip'><strong>" +
-      $.datepicker.formatDate('M d', start) + "</strong><br>" +
-      start.getHours() + ":" + start.getMinutes() + "-" +
-      stop.getHours() + ":" + stop.getMinutes() + "<br>" +
-      minutes + " minutes" +
-    "</div>"
+    function tooltipHTML(play) {
+      var start = new Date(play.start);
+      var stop = new Date(play.stop);
+      var seconds_total = Math.ceil((stop - start) / 1000);
+      var minutes = Math.ceil(seconds_total / 60);
 
-    console.log(tooltip);
-    return tooltip;
+      var tooltip = "<div class='timeline-tooltip'><strong>" +
+        $.datepicker.formatDate('M d', start) + "</strong><br>" +
+        start.getHours() + ":" + start.getMinutes() + "-" +
+        stop.getHours() + ":" + stop.getMinutes() + "<br>" +
+        minutes + " min" +
+      "</div>"
 
+      // console.log(tooltip);
+      return tooltip;
+    }
   }
 </script>
