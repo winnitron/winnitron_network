@@ -4,7 +4,7 @@ Sidebar related.
 
 */
 
-@media (min-width: 768px){
+@media (min-width: 768px) {
   #pane-sidebar {
     position: absolute;
     top: 50px;
@@ -23,7 +23,14 @@ Sidebar related.
     right: 0;
     overflow-y: scroll;
     overflow-x: hidden;
+  }
+
+  #pane-content.logged-in {
     width: 70%;
+  }
+
+  #pane-content.logged-out {
+    width: 100%;
   }
 }
 

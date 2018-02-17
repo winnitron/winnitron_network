@@ -14,12 +14,12 @@
               <%= render "shared/sidebar" %>
             </div>
           </div>
-          <div class="col-md-9" id="pane-content">
+          <div class="col-md-9 logged-in" id="pane-content">
             <%= yield %>
           </div>
         <% else %>
           <!-- Sidebar doesn't show if not signed in -->
-          <div class="col-md-12" id="pane-content">
+          <div class="col-md-12 logged-out" id="pane-content">
             <%= yield %>
           </div>
         <% end %>
