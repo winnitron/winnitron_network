@@ -1,5 +1,5 @@
 shared_examples "disallows non-admins" do |method, action|
-  let(:user) { FactoryGirl.create(:user) }
+  let(:user) { FactoryBot.create(:user) }
   let(:parameters) { defined?(params) ? params : {} }
 
   it "returns 403 for non-admin" do

@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :game do
     title        { Faker::Lorem.words(4).join(" ") }
     description  { Faker::Lorem.sentence(2) }
@@ -6,7 +6,7 @@ FactoryGirl.define do
     max_players  2
 
     after :create do |game|
-      owner = FactoryGirl.create(:user)
+      owner = FactoryBot.create(:user)
       GameOwnership.create game: game, user: owner
 
       GameZip.create(game:     game,

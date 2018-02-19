@@ -1,8 +1,8 @@
 require "rails_helper"
 
 RSpec.describe ImagesController, type: :controller do
-  let(:admin) { FactoryGirl.create(:admin) }
-  let!(:parent) { FactoryGirl.create(:game) }
+  let(:admin) { FactoryBot.create(:admin) }
+  let!(:parent) { FactoryBot.create(:game) }
   let(:owner) { parent.users.first }
 
   let(:params) do
@@ -17,26 +17,26 @@ RSpec.describe ImagesController, type: :controller do
   describe "POST create" do
     it "allows owners" do
       sign_in owner
-      post :create, params
+      post :create, params: params
       expect(response).to have_http_status(:created)
     end
 
     it "disallows non-owners" do
-      sign_in FactoryGirl.create(:user)
-      post :create, params
+      sign_in FactoryBot.create(:user)
+      post :create, params: params
       expect(response).to have_http_status(:forbidden)
     end
 
     it "creates the image" do
       sign_in owner
       expect {
-        post :create, params
+        post :create, params: params
       }.to change { parent.images.count }.by(1)
     end
   end
 
   describe "destroy" do
-    let!(:image) { FactoryGirl.create(:image, parent: parent) }
+    let!(:image) { FactoryBot.create(:image, parent: parent) }
     let(:params) do
       {
         id: image.id,
@@ -48,20 +48,20 @@ RSpec.describe ImagesController, type: :controller do
 
     it "allows owners" do
       sign_in owner
-      delete :destroy, params
+      delete :destroy, params: params
       expect(response).to have_http_status(:found)
     end
 
     it "disallows non-owners" do
-      sign_in FactoryGirl.create(:user)
-      delete :destroy, params
+      sign_in FactoryBot.create(:user)
+      delete :destroy, params: params
       expect(response).to have_http_status(:forbidden)
     end
 
     it "deletes the image" do
       sign_in owner
       expect {
-        delete :destroy, params
+        delete :destroy, params: params
       }.to change { parent.images.count }.by(-1)
     end
   end

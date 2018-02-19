@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::PlaylistsController, type: :controller do
-  let(:winnitron) { FactoryGirl.create(:arcade_machine) }
+  let(:winnitron) { FactoryBot.create(:arcade_machine) }
   let(:token) { winnitron.api_keys.first.token }
-  let(:playlists) { FactoryGirl.create_list(:playlist, 3) }
-  let(:games) { FactoryGirl.create_list(:game, 5) }
+  let(:playlists) { FactoryBot.create_list(:playlist, 3) }
+  let(:games) { FactoryBot.create_list(:game, 5) }
 
   before :each do
     allow_any_instance_of(Game).to receive(:download_url).and_return("http://example.com/game.zip")
@@ -51,7 +51,7 @@ RSpec.describe Api::V1::PlaylistsController, type: :controller do
     include_examples "disallows bad API keys", :get, :index
 
     it "accepts API key in params" do
-      get :index, { api_key: token, format: "json" }
+      get :index, params: { api_key: token, format: "json" }
       expect(response).to have_http_status(:ok)
     end
 
@@ -62,7 +62,7 @@ RSpec.describe Api::V1::PlaylistsController, type: :controller do
     end
 
     it "saves request" do
-      get :index, { api_key: token, format: "json" }
+      get :index, params: { api_key: token, format: "json" }
       event = LoggedEvent.last
       expect(event.actor).to eq winnitron
       expect(event.details).to eq({ "user_agent" => "Rails Testing" })
@@ -78,18 +78,18 @@ RSpec.describe Api::V1::PlaylistsController, type: :controller do
 
       context "approved machine" do
         it "returns the machine's playlists" do
-          get :index, { api_key: token, format: "json" }
+          get :index, params: { api_key: token, format: "json" }
           actual = JSON.parse(response.body)["playlists"]
           expected = playlists_hash["playlists"]
           expect(actual).to match_array expected
         end
 
         it "does not list unpublished games" do
-          unpublished = FactoryGirl.create(:game)
+          unpublished = FactoryBot.create(:game)
           unpublished.update(published_at: nil)
           Listing.create!(game: unpublished, playlist: winnitron.playlists.first)
 
-          get :index, { api_key: token, format: "json" }
+          get :index, params: { api_key: token, format: "json" }
           game_titles = JSON.parse(response.body)["playlists"][0]["games"].map { |g| g["title"] }
           expect(game_titles).to_not include(unpublished.title)
         end
@@ -99,7 +99,7 @@ RSpec.describe Api::V1::PlaylistsController, type: :controller do
         it "only returns default playlists" do
           winnitron.approval_request.update approved_at: nil
 
-          get :index, { api_key: token, format: "json" }
+          get :index, params: { api_key: token, format: "json" }
           actual = JSON.parse(response.body)["playlists"]
           expected = [playlist_hash(playlists.first)]
 

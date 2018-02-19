@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :user do
     name  { Faker::Name.name }
     email { Faker::Internet.email }
@@ -11,7 +11,7 @@ FactoryGirl.define do
 
     factory :builder do
       after :create do |user|
-        user.arcade_machines << FactoryGirl.create(:arcade_machine)
+        user.arcade_machines << FactoryBot.create(:arcade_machine)
       end
     end
   end

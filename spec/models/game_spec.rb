@@ -25,26 +25,26 @@ RSpec.describe Game, type: :model do
 
   describe "smart listings" do
     let(:game) do
-      g = FactoryGirl.build(:game)
+      g = FactoryBot.build(:game)
       g.tag_list = ["hood", "enterprise", "titan"]
       g
     end
 
     let!(:matching_playlist) do
-      p = FactoryGirl.build(:playlist)
+      p = FactoryBot.build(:playlist)
       p.smart_tag_list = ["enterprise", "titan"]
       p.save
       p
     end
 
     let!(:non_matching_playlist) do
-      p = FactoryGirl.build(:playlist)
+      p = FactoryBot.build(:playlist)
       p.smart_tag_list = ["enterprise", "melbourne"]
       p.save
       p
     end
 
-    let!(:dumb_playlist) { FactoryGirl.create(:playlist, description: "dumb") }
+    let!(:dumb_playlist) { FactoryBot.create(:playlist, description: "dumb") }
 
     it "adds the game to matching playlists" do
       game.save
@@ -74,7 +74,7 @@ RSpec.describe Game, type: :model do
   end
 
   it "inits with default keymap" do
-    game = FactoryGirl.create(:game)
+    game = FactoryBot.create(:game)
     expect(game.key_map).to_not be_nil
     expect(game.key_map.template).to eq "default"
   end

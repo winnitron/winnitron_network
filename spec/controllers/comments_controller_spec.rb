@@ -1,12 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe CommentsController, type: :controller do
-  let!(:game) { FactoryGirl.create(:game) }
+  let!(:game) { FactoryBot.create(:game) }
 
-  let(:admin) { FactoryGirl.create(:admin) }
+  let(:admin) { FactoryBot.create(:admin) }
   let(:dev) { game.users.first }
-  let(:builder) { FactoryGirl.create(:builder) }
-  let(:joeshmoe) { FactoryGirl.create(:user) }
+  let(:builder) { FactoryBot.create(:builder) }
+  let(:joeshmoe) { FactoryBot.create(:user) }
 
   let(:valid_attrs) do
     {
@@ -23,7 +23,7 @@ RSpec.describe CommentsController, type: :controller do
 
       it "creates the comment" do
         expect {
-          post :create, valid_attrs
+          post :create, params: valid_attrs
         }.to change { Comment.count }.by(1)
 
         expected = {
@@ -37,19 +37,19 @@ RSpec.describe CommentsController, type: :controller do
 
     it "allows builders" do
       sign_in builder
-      post :create, valid_attrs
+      post :create, params: valid_attrs
       expect(response).to have_http_status :created
     end
 
     it "allows game owner" do
       sign_in dev
-      post :create, valid_attrs
+      post :create, params: valid_attrs
       expect(response).to have_http_status :created
     end
 
     it "does not allow other users" do
       sign_in joeshmoe
-      post :create, valid_attrs
+      post :create, params: valid_attrs
       expect(response).to have_http_status :forbidden
     end
   end

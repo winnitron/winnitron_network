@@ -3,7 +3,7 @@ require "rails_helper"
 describe Search do
 
   let!(:games) do
-    games = FactoryGirl.create_list(:game, 3)
+    games = FactoryBot.create_list(:game, 3)
 
     games[0].title = "First Best Game Ever"
     games[0].tag_list = "official,1v1,good"
@@ -42,7 +42,7 @@ describe Search do
     let(:search) { Search.new(Game, "Best Game Ever") }
 
     it "does not include games that do not match a keyword" do
-      nonmatch = FactoryGirl.create(:game, title: "something else")
+      nonmatch = FactoryBot.create(:game, title: "something else")
       expect(search.results).to_not include(nonmatch)
     end
 
@@ -68,7 +68,7 @@ describe Search do
   end
 
   it "saves the search" do
-    user = FactoryGirl.create(:user)
+    user = FactoryBot.create(:user)
     Search.new(Game, "first ever official", user).results
 
     event = LoggedEvent.last

@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  let(:user) { FactoryGirl.create(:user) }
+  let(:user) { FactoryBot.create(:user) }
 
   describe "#owns?" do
-    let(:mine) { FactoryGirl.create(:arcade_machine) }
-    let(:theirs) { FactoryGirl.create(:arcade_machine) }
+    let(:mine) { FactoryBot.create(:arcade_machine) }
+    let(:theirs) { FactoryBot.create(:arcade_machine) }
 
     it "returns true if the user owns it" do
       MachineOwnership.create user: user, arcade_machine: mine
@@ -24,10 +24,10 @@ RSpec.describe User, type: :model do
   end
 
   describe "#can_download?" do
-    let(:game) { FactoryGirl.create(:game) }
-    let(:some_chump) { FactoryGirl.build(:user) }
-    let(:admin) { FactoryGirl.build(:admin) }
-    let(:builder) { FactoryGirl.create(:builder) }
+    let(:game) { FactoryBot.create(:game) }
+    let(:some_chump) { FactoryBot.build(:user) }
+    let(:admin) { FactoryBot.build(:admin) }
+    let(:builder) { FactoryBot.create(:builder) }
     let(:owner) { game.users.first }
 
     it "allows admins" do

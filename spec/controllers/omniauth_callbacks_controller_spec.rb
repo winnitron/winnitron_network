@@ -51,7 +51,7 @@ RSpec.describe OmniauthCallbacksController, type: :controller do
 
     context "signing in" do
       let!(:user) do
-        FactoryGirl.create(:user, provider: "twitter", uid: "1234567890", email: "jshimoda@starfleet.eng.fed")
+        FactoryBot.create(:user, provider: "twitter", uid: "1234567890", email: "jshimoda@starfleet.eng.fed")
       end
 
       it "does not create a new user" do

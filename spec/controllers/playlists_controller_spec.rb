@@ -5,9 +5,9 @@ RSpec.describe PlaylistsController, type: :controller do
     it_behaves_like "simple GET action", :index
 
     it "does not list empty playlists" do
-      empty_playlist = FactoryGirl.create(:playlist)
-      playlist = FactoryGirl.create(:playlist)
-      Listing.create(playlist: playlist, game: FactoryGirl.create(:game))
+      empty_playlist = FactoryBot.create(:playlist)
+      playlist = FactoryBot.create(:playlist)
+      Listing.create(playlist: playlist, game: FactoryBot.create(:game))
 
       get :index
       expect(assigns(:theirs)).to match_array [playlist]
@@ -17,7 +17,7 @@ RSpec.describe PlaylistsController, type: :controller do
   describe "GET show" do
     it_behaves_like "simple GET action", :show do
       let(:params) do
-        { id: FactoryGirl.create(:playlist).slug }
+        { id: FactoryBot.create(:playlist).slug }
       end
     end
   end
@@ -27,7 +27,7 @@ RSpec.describe PlaylistsController, type: :controller do
     it_behaves_like "requires sign in", :new
 
     context "user is logged in" do
-      let(:user) { FactoryGirl.create(:user) }
+      let(:user) { FactoryBot.create(:user) }
 
       before :each do
         sign_in user
@@ -41,19 +41,19 @@ RSpec.describe PlaylistsController, type: :controller do
   describe "GET edit" do
     it_behaves_like "requires sign in", :edit do
       let(:params) do
-        { id: FactoryGirl.create(:playlist).slug }
+        { id: FactoryBot.create(:playlist).slug }
       end
     end
 
     context "user is signed in" do
-      let(:user) { FactoryGirl.create(:user) }
+      let(:user) { FactoryBot.create(:user) }
 
       before :each do
         sign_in user
       end
 
       context "user owns the playlist" do
-        let(:playlist) { FactoryGirl.create(:playlist, user: user) }
+        let(:playlist) { FactoryBot.create(:playlist, user: user) }
         let(:params) { { id: playlist.slug } }
 
         it_behaves_like "simple GET action", :edit
@@ -61,19 +61,19 @@ RSpec.describe PlaylistsController, type: :controller do
 
       context "user does not own the playlist" do
         context "user is admin" do
-          let(:user) { FactoryGirl.create(:admin) }
+          let(:user) { FactoryBot.create(:admin) }
 
-          let(:playlist) { FactoryGirl.create(:playlist) }
+          let(:playlist) { FactoryBot.create(:playlist) }
           let(:params) { { id: playlist.slug } }
 
           it_behaves_like "simple GET action", :edit
         end
 
         context "user is not admin" do
-          let(:playlist) { FactoryGirl.create(:playlist) }
+          let(:playlist) { FactoryBot.create(:playlist) }
 
           it "responds 403" do
-            get :edit, id: playlist.slug
+            get :edit, params: { id: playlist.slug }
             expect(response).to have_http_status :forbidden
           end
         end
@@ -88,7 +88,7 @@ RSpec.describe PlaylistsController, type: :controller do
       }
     end
 
-    let(:user) { FactoryGirl.create(:user) }
+    let(:user) { FactoryBot.create(:user) }
 
     it "requires sign in"
 
@@ -99,12 +99,12 @@ RSpec.describe PlaylistsController, type: :controller do
 
       it "saves the playlist" do
         expect {
-          post :create, playlist: attributes
+          post :create, params: { playlist: attributes }
         }.to change(Playlist, :count).by 1
       end
 
       it "assins ownership to the logged-in user" do
-        post :create, playlist: attributes
+        post :create, params: { playlist: attributes }
         expect(Playlist.last.user).to eq user
       end
     end
@@ -117,19 +117,19 @@ RSpec.describe PlaylistsController, type: :controller do
 
       it "does not save the playlist" do
          expect {
-          post :create, playlist: bad_attrs
+          post :create, params: { playlist: bad_attrs }
         }.to_not change(Playlist, :count)
       end
 
       it "renders new" do
-        post :create, playlist: bad_attrs
+        post :create, params: { playlist: bad_attrs }
         expect(response).to render_template(:new)
       end
     end
   end
 
   describe "PUT update" do
-    let(:playlist) { FactoryGirl.create(:playlist) }
+    let(:playlist) { FactoryBot.create(:playlist) }
 
     let(:attributes) do
       {
@@ -143,7 +143,7 @@ RSpec.describe PlaylistsController, type: :controller do
 
       context "user is admin or owns the playlist" do
 
-        let(:admin) { FactoryGirl.create(:admin) }
+        let(:admin) { FactoryBot.create(:admin) }
         let(:owner) { playlist.user }
 
         context "valid attributes" do
@@ -151,7 +151,7 @@ RSpec.describe PlaylistsController, type: :controller do
             [admin, owner].each do |user|
               sign_in user
 
-              put :update, { id: playlist.slug, playlist: attributes }
+              put :update, params: { id: playlist.slug, playlist: attributes }
               expect(playlist.reload.title).to eq attributes[:title]
             end
           end
@@ -160,14 +160,14 @@ RSpec.describe PlaylistsController, type: :controller do
       end
 
       context "user does not own the playlist" do
-        let(:user) { FactoryGirl.create(:user) }
+        let(:user) { FactoryBot.create(:user) }
 
         before :each do
           sign_in user
         end
 
         it "responds 403" do
-          put :update, { id: playlist.slug, playlist: attributes }
+          put :update, params: { id: playlist.slug, playlist: attributes }
           expect(response).to have_http_status :forbidden
         end
       end
@@ -179,12 +179,12 @@ RSpec.describe PlaylistsController, type: :controller do
         end
 
         it "does not save the playlist" do
-          put :update, { id: playlist.slug, playlist: { title: "" } }
+          put :update, params: { id: playlist.slug, playlist: { title: "" } }
           expect(Playlist.find_by(slug: playlist.slug).title).to eq playlist.title
         end
 
         it "renders edit" do
-          put :update, { id: playlist.slug, playlist: { title: "" } }
+          put :update, params: { id: playlist.slug, playlist: { title: "" } }
           expect(response).to render_template(:edit)
         end
 
@@ -194,13 +194,13 @@ RSpec.describe PlaylistsController, type: :controller do
   end
 
   describe "DELETE destroy" do
-    let!(:playlist) { FactoryGirl.create(:playlist) }
+    let!(:playlist) { FactoryBot.create(:playlist) }
 
 
     it "requires sign in"
 
     context "signed in" do
-      let(:admin) { FactoryGirl.create(:admin) }
+      let(:admin) { FactoryBot.create(:admin) }
       let(:owner) { playlist.user }
 
       before :each do
@@ -211,12 +211,12 @@ RSpec.describe PlaylistsController, type: :controller do
         let(:user) { admin }
 
         it "redirects to playlist index" do
-          delete :destroy, id: playlist.slug
+          delete :destroy, params: { id: playlist.slug }
           expect(response).to redirect_to(playlists_path)
         end
 
         it "removes the playlist" do
-          delete :destroy, id: playlist.slug
+          delete :destroy, params: { id: playlist.slug }
           expect {
             Playlist.find(playlist.slug)
           }.to raise_error(ActiveRecord::RecordNotFound)
@@ -228,12 +228,12 @@ RSpec.describe PlaylistsController, type: :controller do
         let(:user) { owner }
 
         it "redirects to playlist index" do
-          delete :destroy, id: playlist.slug
+          delete :destroy, params: { id: playlist.slug }
           expect(response).to redirect_to(playlists_path)
         end
 
         it "removes the playlist" do
-          delete :destroy, id: playlist.slug
+          delete :destroy, params: { id: playlist.slug }
           expect {
             Playlist.find(playlist.slug)
           }.to raise_error(ActiveRecord::RecordNotFound)
@@ -241,11 +241,11 @@ RSpec.describe PlaylistsController, type: :controller do
       end
 
       context "user is not owner" do
-        let(:user) { FactoryGirl.create(:user) }
+        let(:user) { FactoryBot.create(:user) }
 
         it "does not remove the playlist" do
           expect {
-            delete :destroy, id: playlist.slug
+            delete :destroy, params: { id: playlist.slug }
           }.to_not change(Playlist, :count)
         end
       end
