@@ -1,8 +1,9 @@
 source 'https://rubygems.org'
-ruby '2.3.0'
+ruby '2.4.0'
 
 gem 'rails', '~> 5.1.5'
 gem 'railties'
+gem 'rails-controller-testing'
 gem 'pg',    '~> 0.15'
 gem 'puma',  '~> 3.4.0'
 
