@@ -1,12 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe GamesController, type: :controller do
-  let(:admin) { FactoryGirl.create(:admin) }
-  let(:user) { FactoryGirl.create(:user) }
+  let(:admin) { FactoryBot.create(:admin) }
+  let(:user) { FactoryBot.create(:user) }
 
   describe "GET index" do
     it "assigns published games" do
-      FactoryGirl.create_list(:game, 3)
+      FactoryBot.create_list(:game, 3)
       Game.last.update(published_at: nil)
       get :index
       expect(assigns(:theirs).count).to eq 2
@@ -19,20 +19,20 @@ RSpec.describe GamesController, type: :controller do
     end
 
     it "sorts by new" do
-      FactoryGirl.create_list(:game, 3)
+      FactoryBot.create_list(:game, 3)
       get :index, params: { sort: "new" }
       expect(assigns(:theirs).map(&:id)).to eq Game.published.order(published_at: :desc).map(&:id)
     end
 
     it "sorts by name" do
-      FactoryGirl.create_list(:game, 3)
+      FactoryBot.create_list(:game, 3)
       get :index, params: { sort: "name" }
       expect(assigns(:theirs).map(&:id)).to eq Game.published.order(title: :asc).map(&:id)
     end
   end
 
   describe "GET show" do
-    let (:game) { FactoryGirl.create(:game) }
+    let (:game) { FactoryBot.create(:game) }
 
     context "it exists" do
       it "assigns the game" do
@@ -78,7 +78,7 @@ RSpec.describe GamesController, type: :controller do
   end
 
   describe "GET edit" do
-    let(:game) { FactoryGirl.create(:game) }
+    let(:game) { FactoryBot.create(:game) }
 
     context "current user is admin" do
       before :each do
@@ -132,7 +132,7 @@ RSpec.describe GamesController, type: :controller do
   end
 
   describe "PUT update" do
-    let(:game) { FactoryGirl.create(:game) }
+    let(:game) { FactoryBot.create(:game) }
 
     let(:attributes) do
       {
@@ -169,11 +169,11 @@ RSpec.describe GamesController, type: :controller do
   end
 
   describe "DELETE destroy" do
-    let(:game) { FactoryGirl.create(:game) }
+    let(:game) { FactoryBot.create(:game) }
 
     context "non-owner" do
       before :each do
-        sign_in FactoryGirl.create(:user)
+        sign_in FactoryBot.create(:user)
       end
 
       it "does not delete the game" do
@@ -213,7 +213,7 @@ RSpec.describe GamesController, type: :controller do
 
 
   describe "GET images" do
-    let(:game) { FactoryGirl.create(:game) }
+    let(:game) { FactoryBot.create(:game) }
 
     it "allows admin user" do
       sign_in admin
@@ -228,14 +228,14 @@ RSpec.describe GamesController, type: :controller do
     end
 
     it "disallows non-owner" do
-      sign_in FactoryGirl.create(:user)
+      sign_in FactoryBot.create(:user)
       get :images, params: { id: game.slug }
       expect(response).to have_http_status :forbidden
     end
   end
 
   describe "GET zip" do
-    let(:game) { FactoryGirl.create(:game) }
+    let(:game) { FactoryBot.create(:game) }
 
     it "allows admin user" do
       sign_in admin
@@ -250,14 +250,14 @@ RSpec.describe GamesController, type: :controller do
     end
 
     it "disallows non-owner" do
-      sign_in FactoryGirl.create(:user)
+      sign_in FactoryBot.create(:user)
       get :zip, params: { id: game.slug }
       expect(response).to have_http_status :forbidden
     end
   end
 
   describe "GET executable" do
-    let(:game) { FactoryGirl.create(:game) }
+    let(:game) { FactoryBot.create(:game) }
 
     it "allows admin user" do
       sign_in admin
@@ -272,7 +272,7 @@ RSpec.describe GamesController, type: :controller do
     end
 
     it "disallows non-owner" do
-      sign_in FactoryGirl.create(:user)
+      sign_in FactoryBot.create(:user)
       get :executable, params: { id: game.slug }
       expect(response).to have_http_status :forbidden
     end

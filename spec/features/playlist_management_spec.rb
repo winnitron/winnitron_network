@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.feature "Playlist management" do
 
   before :each do
-    login_as FactoryGirl.create(:user)
+    login_as FactoryBot.create(:user)
   end
 
   scenario "create new playlist" do

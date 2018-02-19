@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::PlaylistsController, type: :controller do
-  let(:winnitron) { FactoryGirl.create(:arcade_machine) }
+  let(:winnitron) { FactoryBot.create(:arcade_machine) }
   let(:token) { winnitron.api_keys.first.token }
-  let(:playlists) { FactoryGirl.create_list(:playlist, 3) }
-  let(:games) { FactoryGirl.create_list(:game, 5) }
+  let(:playlists) { FactoryBot.create_list(:playlist, 3) }
+  let(:games) { FactoryBot.create_list(:game, 5) }
 
   before :each do
     allow_any_instance_of(Game).to receive(:download_url).and_return("http://example.com/game.zip")
@@ -85,7 +85,7 @@ RSpec.describe Api::V1::PlaylistsController, type: :controller do
         end
 
         it "does not list unpublished games" do
-          unpublished = FactoryGirl.create(:game)
+          unpublished = FactoryBot.create(:game)
           unpublished.update(published_at: nil)
           Listing.create!(game: unpublished, playlist: winnitron.playlists.first)
 

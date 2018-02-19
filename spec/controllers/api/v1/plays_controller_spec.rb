@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::PlaysController, type: :controller do
-  let(:winnitron) { FactoryGirl.create(:arcade_machine) }
+  let(:winnitron) { FactoryBot.create(:arcade_machine) }
   let(:token) { winnitron.api_keys.first.token }
-  let(:game) { FactoryGirl.create(:game) }
+  let(:game) { FactoryBot.create(:game) }
 
   describe "POST start" do
     render_views
@@ -74,7 +74,7 @@ RSpec.describe Api::V1::PlaysController, type: :controller do
 
     it "404s for mismatched arcade machine" do
       play.update stop: Time.now.utc
-      someone_else = FactoryGirl.create(:arcade_machine)
+      someone_else = FactoryBot.create(:arcade_machine)
       other_play = Play.create(game: game, arcade_machine: someone_else, start: Time.now.utc)
 
       put :stop, params: { id: game.slug, api_key: token }

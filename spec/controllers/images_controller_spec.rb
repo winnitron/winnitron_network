@@ -1,8 +1,8 @@
 require "rails_helper"
 
 RSpec.describe ImagesController, type: :controller do
-  let(:admin) { FactoryGirl.create(:admin) }
-  let!(:parent) { FactoryGirl.create(:game) }
+  let(:admin) { FactoryBot.create(:admin) }
+  let!(:parent) { FactoryBot.create(:game) }
   let(:owner) { parent.users.first }
 
   let(:params) do
@@ -22,7 +22,7 @@ RSpec.describe ImagesController, type: :controller do
     end
 
     it "disallows non-owners" do
-      sign_in FactoryGirl.create(:user)
+      sign_in FactoryBot.create(:user)
       post :create, params: params
       expect(response).to have_http_status(:forbidden)
     end
@@ -36,7 +36,7 @@ RSpec.describe ImagesController, type: :controller do
   end
 
   describe "destroy" do
-    let!(:image) { FactoryGirl.create(:image, parent: parent) }
+    let!(:image) { FactoryBot.create(:image, parent: parent) }
     let(:params) do
       {
         id: image.id,
@@ -53,7 +53,7 @@ RSpec.describe ImagesController, type: :controller do
     end
 
     it "disallows non-owners" do
-      sign_in FactoryGirl.create(:user)
+      sign_in FactoryBot.create(:user)
       delete :destroy, params: params
       expect(response).to have_http_status(:forbidden)
     end

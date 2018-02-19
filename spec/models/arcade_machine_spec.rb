@@ -1,11 +1,11 @@
 require "rails_helper"
 
 RSpec.describe ArcadeMachine, type: :model do
-  let(:arcade_machine) { FactoryGirl.create(:arcade_machine) }
+  let(:arcade_machine) { FactoryBot.create(:arcade_machine) }
 
   describe "#subscribed?" do
-    let(:good_playlist) { FactoryGirl.create(:playlist) }
-    let(:bad_playlist)  { FactoryGirl.create(:playlist) }
+    let(:good_playlist) { FactoryBot.create(:playlist) }
+    let(:bad_playlist)  { FactoryBot.create(:playlist) }
 
     before :each do
       Subscription.create! arcade_machine: arcade_machine, playlist: good_playlist
@@ -38,8 +38,8 @@ RSpec.describe ArcadeMachine, type: :model do
   end
 
   describe "default playlists" do
-    let!(:default_playlist) { FactoryGirl.create(:playlist, default: true) }
-    let!(:nondefault_playlist) { FactoryGirl.create(:playlist, default: false) }
+    let!(:default_playlist) { FactoryBot.create(:playlist, default: true) }
+    let!(:nondefault_playlist) { FactoryBot.create(:playlist, default: false) }
 
     it "automatically subscribes to defaults" do
       expect(arcade_machine.playlists).to include(default_playlist)
@@ -51,7 +51,7 @@ RSpec.describe ArcadeMachine, type: :model do
   end
 
   describe "geocoding" do
-    let(:machine) { FactoryGirl.build(:arcade_machine) }
+    let(:machine) { FactoryBot.build(:arcade_machine) }
 
     it "sets coords to nil if location is nil" do
       machine.update latitude: 123, longitude: 456

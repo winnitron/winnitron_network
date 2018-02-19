@@ -1,12 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe CommentsController, type: :controller do
-  let!(:game) { FactoryGirl.create(:game) }
+  let!(:game) { FactoryBot.create(:game) }
 
-  let(:admin) { FactoryGirl.create(:admin) }
+  let(:admin) { FactoryBot.create(:admin) }
   let(:dev) { game.users.first }
-  let(:builder) { FactoryGirl.create(:builder) }
-  let(:joeshmoe) { FactoryGirl.create(:user) }
+  let(:builder) { FactoryBot.create(:builder) }
+  let(:joeshmoe) { FactoryBot.create(:user) }
 
   let(:valid_attrs) do
     {

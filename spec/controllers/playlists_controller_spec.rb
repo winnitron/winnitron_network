@@ -5,9 +5,9 @@ RSpec.describe PlaylistsController, type: :controller do
     it_behaves_like "simple GET action", :index
 
     it "does not list empty playlists" do
-      empty_playlist = FactoryGirl.create(:playlist)
-      playlist = FactoryGirl.create(:playlist)
-      Listing.create(playlist: playlist, game: FactoryGirl.create(:game))
+      empty_playlist = FactoryBot.create(:playlist)
+      playlist = FactoryBot.create(:playlist)
+      Listing.create(playlist: playlist, game: FactoryBot.create(:game))
 
       get :index
       expect(assigns(:theirs)).to match_array [playlist]
@@ -17,7 +17,7 @@ RSpec.describe PlaylistsController, type: :controller do
   describe "GET show" do
     it_behaves_like "simple GET action", :show do
       let(:params) do
-        { id: FactoryGirl.create(:playlist).slug }
+        { id: FactoryBot.create(:playlist).slug }
       end
     end
   end
@@ -27,7 +27,7 @@ RSpec.describe PlaylistsController, type: :controller do
     it_behaves_like "requires sign in", :new
 
     context "user is logged in" do
-      let(:user) { FactoryGirl.create(:user) }
+      let(:user) { FactoryBot.create(:user) }
 
       before :each do
         sign_in user
@@ -41,19 +41,19 @@ RSpec.describe PlaylistsController, type: :controller do
   describe "GET edit" do
     it_behaves_like "requires sign in", :edit do
       let(:params) do
-        { id: FactoryGirl.create(:playlist).slug }
+        { id: FactoryBot.create(:playlist).slug }
       end
     end
 
     context "user is signed in" do
-      let(:user) { FactoryGirl.create(:user) }
+      let(:user) { FactoryBot.create(:user) }
 
       before :each do
         sign_in user
       end
 
       context "user owns the playlist" do
-        let(:playlist) { FactoryGirl.create(:playlist, user: user) }
+        let(:playlist) { FactoryBot.create(:playlist, user: user) }
         let(:params) { { id: playlist.slug } }
 
         it_behaves_like "simple GET action", :edit
@@ -61,16 +61,16 @@ RSpec.describe PlaylistsController, type: :controller do
 
       context "user does not own the playlist" do
         context "user is admin" do
-          let(:user) { FactoryGirl.create(:admin) }
+          let(:user) { FactoryBot.create(:admin) }
 
-          let(:playlist) { FactoryGirl.create(:playlist) }
+          let(:playlist) { FactoryBot.create(:playlist) }
           let(:params) { { id: playlist.slug } }
 
           it_behaves_like "simple GET action", :edit
         end
 
         context "user is not admin" do
-          let(:playlist) { FactoryGirl.create(:playlist) }
+          let(:playlist) { FactoryBot.create(:playlist) }
 
           it "responds 403" do
             get :edit, params: { id: playlist.slug }
@@ -88,7 +88,7 @@ RSpec.describe PlaylistsController, type: :controller do
       }
     end
 
-    let(:user) { FactoryGirl.create(:user) }
+    let(:user) { FactoryBot.create(:user) }
 
     it "requires sign in"
 
@@ -129,7 +129,7 @@ RSpec.describe PlaylistsController, type: :controller do
   end
 
   describe "PUT update" do
-    let(:playlist) { FactoryGirl.create(:playlist) }
+    let(:playlist) { FactoryBot.create(:playlist) }
 
     let(:attributes) do
       {
@@ -143,7 +143,7 @@ RSpec.describe PlaylistsController, type: :controller do
 
       context "user is admin or owns the playlist" do
 
-        let(:admin) { FactoryGirl.create(:admin) }
+        let(:admin) { FactoryBot.create(:admin) }
         let(:owner) { playlist.user }
 
         context "valid attributes" do
@@ -160,7 +160,7 @@ RSpec.describe PlaylistsController, type: :controller do
       end
 
       context "user does not own the playlist" do
-        let(:user) { FactoryGirl.create(:user) }
+        let(:user) { FactoryBot.create(:user) }
 
         before :each do
           sign_in user
@@ -194,13 +194,13 @@ RSpec.describe PlaylistsController, type: :controller do
   end
 
   describe "DELETE destroy" do
-    let!(:playlist) { FactoryGirl.create(:playlist) }
+    let!(:playlist) { FactoryBot.create(:playlist) }
 
 
     it "requires sign in"
 
     context "signed in" do
-      let(:admin) { FactoryGirl.create(:admin) }
+      let(:admin) { FactoryBot.create(:admin) }
       let(:owner) { playlist.user }
 
       before :each do
@@ -241,7 +241,7 @@ RSpec.describe PlaylistsController, type: :controller do
       end
 
       context "user is not owner" do
-        let(:user) { FactoryGirl.create(:user) }
+        let(:user) { FactoryBot.create(:user) }
 
         it "does not remove the playlist" do
           expect {

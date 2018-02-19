@@ -5,7 +5,7 @@ RSpec.describe ArcadeMachinesController, type: :controller do
     it_behaves_like "simple GET action", :index
 
     it "only shows approved arcade machines" do
-      machines = FactoryGirl.create_list(:arcade_machine, 3)
+      machines = FactoryBot.create_list(:arcade_machine, 3)
       machines.last.approval_request.destroy
       get :index
       expect(assigns(:arcade_machines).map(&:id)).to match_array machines.first(2).map(&:id)
@@ -15,14 +15,14 @@ RSpec.describe ArcadeMachinesController, type: :controller do
   describe "GET show" do
     it_behaves_like "simple GET action", :show do
       let(:params) do
-        { id: FactoryGirl.create(:arcade_machine).slug }
+        { id: FactoryBot.create(:arcade_machine).slug }
       end
     end
 
     context "machine isn't approved" do
       context "there is no approval request" do
         let(:machine) do
-          machine = FactoryGirl.create(:arcade_machine)
+          machine = FactoryBot.create(:arcade_machine)
           machine.approval_request.destroy
           machine.reload
         end
@@ -33,7 +33,7 @@ RSpec.describe ArcadeMachinesController, type: :controller do
         end
 
         it "fails if not owner" do
-          sign_in FactoryGirl.create(:user)
+          sign_in FactoryBot.create(:user)
           get :show, params: { id: machine.slug }
           expect(response).to have_http_status :forbidden
         end
@@ -45,7 +45,7 @@ RSpec.describe ArcadeMachinesController, type: :controller do
         end
 
         it "succeeds for admin" do
-          sign_in FactoryGirl.create(:admin)
+          sign_in FactoryBot.create(:admin)
           get :show, params: { id: machine.slug }
           expect(response).to have_http_status :ok
         end
@@ -53,7 +53,7 @@ RSpec.describe ArcadeMachinesController, type: :controller do
 
       context "there is a pending approval request" do
         let(:machine) do
-          machine = FactoryGirl.create(:arcade_machine)
+          machine = FactoryBot.create(:arcade_machine)
           machine.approval_request.update(approved_at: nil)
           machine.reload
         end
@@ -64,7 +64,7 @@ RSpec.describe ArcadeMachinesController, type: :controller do
         end
 
         it "fails if not owner" do
-          sign_in FactoryGirl.create(:user)
+          sign_in FactoryBot.create(:user)
           get :show, params: { id: machine.slug }
           expect(response).to have_http_status :forbidden
         end
@@ -76,7 +76,7 @@ RSpec.describe ArcadeMachinesController, type: :controller do
         end
 
         it "succeeds for admin" do
-          sign_in FactoryGirl.create(:admin)
+          sign_in FactoryBot.create(:admin)
           get :show, params: { id: machine.slug }
           expect(response).to have_http_status :ok
         end
@@ -89,7 +89,7 @@ RSpec.describe ArcadeMachinesController, type: :controller do
     it_behaves_like "requires sign in", :new
 
     context "user is a builder" do
-      let(:user) { FactoryGirl.create(:builder) }
+      let(:user) { FactoryBot.create(:builder) }
 
       before :each do
         sign_in user
@@ -102,19 +102,19 @@ RSpec.describe ArcadeMachinesController, type: :controller do
   describe "GET edit" do
     it_behaves_like "requires sign in", :edit do
       let(:params) do
-        { id: FactoryGirl.create(:arcade_machine).slug }
+        { id: FactoryBot.create(:arcade_machine).slug }
       end
     end
 
     context "user is a builder" do
-      let(:user) { FactoryGirl.create(:builder) }
+      let(:user) { FactoryBot.create(:builder) }
 
       before :each do
         sign_in user
       end
 
       context "user owns the arcade_machine" do
-        let(:arcade_machine) { FactoryGirl.create(:arcade_machine, users: [user]) }
+        let(:arcade_machine) { FactoryBot.create(:arcade_machine, users: [user]) }
         let(:params) { { id: arcade_machine.slug } }
 
         it_behaves_like "simple GET action", :edit
@@ -122,16 +122,16 @@ RSpec.describe ArcadeMachinesController, type: :controller do
 
       context "user does not own the arcade_machine" do
         context "user is admin" do
-          let(:user) { FactoryGirl.create(:admin) }
+          let(:user) { FactoryBot.create(:admin) }
 
-          let(:arcade_machine) { FactoryGirl.create(:arcade_machine) }
+          let(:arcade_machine) { FactoryBot.create(:arcade_machine) }
           let(:params) { { id: arcade_machine.slug } }
 
           it_behaves_like "simple GET action", :edit
         end
 
         context "user is not admin" do
-          let(:arcade_machine) { FactoryGirl.create(:arcade_machine) }
+          let(:arcade_machine) { FactoryBot.create(:arcade_machine) }
 
           it "responds 403" do
             get :edit, params: { id: arcade_machine.slug }
@@ -150,7 +150,7 @@ RSpec.describe ArcadeMachinesController, type: :controller do
       }
     end
 
-    let(:user) { FactoryGirl.create(:builder) }
+    let(:user) { FactoryBot.create(:builder) }
 
     it "requires sign in"
 
@@ -191,7 +191,7 @@ RSpec.describe ArcadeMachinesController, type: :controller do
   end
 
   describe "PUT update" do
-    let(:arcade_machine) { FactoryGirl.create(:arcade_machine) }
+    let(:arcade_machine) { FactoryBot.create(:arcade_machine) }
 
     let(:attributes) do
       {
@@ -205,7 +205,7 @@ RSpec.describe ArcadeMachinesController, type: :controller do
 
       context "user is admin or owns the arcade_machine" do
 
-        let(:admin) { FactoryGirl.create(:admin) }
+        let(:admin) { FactoryBot.create(:admin) }
         let(:owner) { arcade_machine.users.first }
 
         context "valid attributes" do
@@ -222,7 +222,7 @@ RSpec.describe ArcadeMachinesController, type: :controller do
       end
 
       context "user does not own the arcade_machine" do
-        let(:user) { FactoryGirl.create(:user) }
+        let(:user) { FactoryBot.create(:user) }
 
         before :each do
           sign_in user
@@ -257,12 +257,12 @@ RSpec.describe ArcadeMachinesController, type: :controller do
   end
 
   describe "DELETE destroy" do
-    let!(:arcade_machine) { FactoryGirl.create(:arcade_machine) }
+    let!(:arcade_machine) { FactoryBot.create(:arcade_machine) }
 
     it "requires sign in"
 
     context "signed in" do
-      let(:admin) { FactoryGirl.create(:admin) }
+      let(:admin) { FactoryBot.create(:admin) }
       let(:owner) { arcade_machine.users.first }
 
       before :each do
@@ -303,7 +303,7 @@ RSpec.describe ArcadeMachinesController, type: :controller do
       end
 
       context "user is not owner" do
-        let(:user) { FactoryGirl.create(:user) }
+        let(:user) { FactoryBot.create(:user) }
 
         it "does not remove the arcade_machine" do
           expect {
