@@ -21,7 +21,7 @@ class Search
 
   def matches_by_tag
     tags = ActsAsTaggableOn::Tag.joins(:taggings)
-                                .where(name: keywords, taggings: { taggable_type: klass })
+                                .where(name: keywords, taggings: { taggable_type: klass.name })
                                 .uniq
 
     tags.flat_map(&:taggings)
