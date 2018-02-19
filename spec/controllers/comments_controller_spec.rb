@@ -23,7 +23,7 @@ RSpec.describe CommentsController, type: :controller do
 
       it "creates the comment" do
         expect {
-          post :create, valid_attrs
+          post :create, params: valid_attrs
         }.to change { Comment.count }.by(1)
 
         expected = {
@@ -37,19 +37,19 @@ RSpec.describe CommentsController, type: :controller do
 
     it "allows builders" do
       sign_in builder
-      post :create, valid_attrs
+      post :create, params: valid_attrs
       expect(response).to have_http_status :created
     end
 
     it "allows game owner" do
       sign_in dev
-      post :create, valid_attrs
+      post :create, params: valid_attrs
       expect(response).to have_http_status :created
     end
 
     it "does not allow other users" do
       sign_in joeshmoe
-      post :create, valid_attrs
+      post :create, params: valid_attrs
       expect(response).to have_http_status :forbidden
     end
   end

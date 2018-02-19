@@ -17,20 +17,20 @@ RSpec.describe GameZipsController, type: :controller do
 
     it "allows owners" do
       sign_in owner
-      post :create, params
+      post :create, params: params
       expect(response).to have_http_status(:created)
     end
 
     it "disallows non-owners" do
       sign_in FactoryGirl.create(:user)
-      post :create, params
+      post :create, params: params
       expect(response).to have_http_status(:forbidden)
     end
 
     it "creates the zip" do
       sign_in owner
       expect {
-        post :create, params
+        post :create, params: params
       }.to change { game.game_zips.count }.by(1)
     end
 

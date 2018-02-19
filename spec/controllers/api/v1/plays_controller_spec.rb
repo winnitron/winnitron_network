@@ -12,12 +12,12 @@ RSpec.describe Api::V1::PlaysController, type: :controller do
 
     it "creates Play" do
       expect {
-        post :start, { game: game.slug, api_key: token }
+        post :start, params: { game: game.slug, api_key: token }
       }.to change { Play.count }.by(1)
     end
 
     it "renders Play" do
-      post :start, { game: game.slug, api_key: token }
+      post :start, params: { game: game.slug, api_key: token }
 
       play = JSON.parse(response.body).symbolize_keys
       expected = {
@@ -30,7 +30,7 @@ RSpec.describe Api::V1::PlaysController, type: :controller do
     end
 
     it "renders errors" do
-      post :start, { api_key: token }
+      post :start, params: { api_key: token }
 
       errors = JSON.parse(response.body)["errors"]
       expect(errors).to eq ["Game can't be blank"]
@@ -49,12 +49,12 @@ RSpec.describe Api::V1::PlaysController, type: :controller do
     end
 
     it "adds stop time" do
-      put :stop, { id: game.slug, api_key: token }
+      put :stop, params: { id: game.slug, api_key: token }
       expect(play.reload.stop).to_not be nil
     end
 
     it "renders play" do
-      put :stop, { id: game.slug, api_key: token }
+      put :stop, params: { id: game.slug, api_key: token }
 
       rendered = JSON.parse(response.body).symbolize_keys
       expected = {
@@ -68,7 +68,7 @@ RSpec.describe Api::V1::PlaysController, type: :controller do
     end
 
     it "404s for nonexistent Play" do
-      put :stop, { id: "fake", api_key: token }
+      put :stop, params: { id: "fake", api_key: token }
       expect(response).to have_http_status :not_found
     end
 
@@ -77,7 +77,7 @@ RSpec.describe Api::V1::PlaysController, type: :controller do
       someone_else = FactoryGirl.create(:arcade_machine)
       other_play = Play.create(game: game, arcade_machine: someone_else, start: Time.now.utc)
 
-      put :stop, { id: game.slug, api_key: token }
+      put :stop, params: { id: game.slug, api_key: token }
       expect(response).to have_http_status :not_found
     end
 

@@ -73,7 +73,7 @@ RSpec.describe PlaylistsController, type: :controller do
           let(:playlist) { FactoryGirl.create(:playlist) }
 
           it "responds 403" do
-            get :edit, id: playlist.slug
+            get :edit, params: { id: playlist.slug }
             expect(response).to have_http_status :forbidden
           end
         end
@@ -99,12 +99,12 @@ RSpec.describe PlaylistsController, type: :controller do
 
       it "saves the playlist" do
         expect {
-          post :create, playlist: attributes
+          post :create, params: { playlist: attributes }
         }.to change(Playlist, :count).by 1
       end
 
       it "assins ownership to the logged-in user" do
-        post :create, playlist: attributes
+        post :create, params: { playlist: attributes }
         expect(Playlist.last.user).to eq user
       end
     end
@@ -117,12 +117,12 @@ RSpec.describe PlaylistsController, type: :controller do
 
       it "does not save the playlist" do
          expect {
-          post :create, playlist: bad_attrs
+          post :create, params: { playlist: bad_attrs }
         }.to_not change(Playlist, :count)
       end
 
       it "renders new" do
-        post :create, playlist: bad_attrs
+        post :create, params: { playlist: bad_attrs }
         expect(response).to render_template(:new)
       end
     end
@@ -151,7 +151,7 @@ RSpec.describe PlaylistsController, type: :controller do
             [admin, owner].each do |user|
               sign_in user
 
-              put :update, { id: playlist.slug, playlist: attributes }
+              put :update, params: { id: playlist.slug, playlist: attributes }
               expect(playlist.reload.title).to eq attributes[:title]
             end
           end
@@ -167,7 +167,7 @@ RSpec.describe PlaylistsController, type: :controller do
         end
 
         it "responds 403" do
-          put :update, { id: playlist.slug, playlist: attributes }
+          put :update, params: { id: playlist.slug, playlist: attributes }
           expect(response).to have_http_status :forbidden
         end
       end
@@ -179,12 +179,12 @@ RSpec.describe PlaylistsController, type: :controller do
         end
 
         it "does not save the playlist" do
-          put :update, { id: playlist.slug, playlist: { title: "" } }
+          put :update, params: { id: playlist.slug, playlist: { title: "" } }
           expect(Playlist.find_by(slug: playlist.slug).title).to eq playlist.title
         end
 
         it "renders edit" do
-          put :update, { id: playlist.slug, playlist: { title: "" } }
+          put :update, params: { id: playlist.slug, playlist: { title: "" } }
           expect(response).to render_template(:edit)
         end
 
@@ -211,12 +211,12 @@ RSpec.describe PlaylistsController, type: :controller do
         let(:user) { admin }
 
         it "redirects to playlist index" do
-          delete :destroy, id: playlist.slug
+          delete :destroy, params: { id: playlist.slug }
           expect(response).to redirect_to(playlists_path)
         end
 
         it "removes the playlist" do
-          delete :destroy, id: playlist.slug
+          delete :destroy, params: { id: playlist.slug }
           expect {
             Playlist.find(playlist.slug)
           }.to raise_error(ActiveRecord::RecordNotFound)
@@ -228,12 +228,12 @@ RSpec.describe PlaylistsController, type: :controller do
         let(:user) { owner }
 
         it "redirects to playlist index" do
-          delete :destroy, id: playlist.slug
+          delete :destroy, params: { id: playlist.slug }
           expect(response).to redirect_to(playlists_path)
         end
 
         it "removes the playlist" do
-          delete :destroy, id: playlist.slug
+          delete :destroy, params: { id: playlist.slug }
           expect {
             Playlist.find(playlist.slug)
           }.to raise_error(ActiveRecord::RecordNotFound)
@@ -245,7 +245,7 @@ RSpec.describe PlaylistsController, type: :controller do
 
         it "does not remove the playlist" do
           expect {
-            delete :destroy, id: playlist.slug
+            delete :destroy, params: { id: playlist.slug }
           }.to_not change(Playlist, :count)
         end
       end
