@@ -17,28 +17,6 @@ class GameZip < ActiveRecord::Base
     object.presigned_url(:get, expires_in: 1.hour)
   end
 
-  def root_files
-    Rails.cache.fetch("GameZip::#{id}::files") do
-
-      tmp_file = Tempfile.new("gamezip-#{id}")
-
-      @files ||= begin
-        open(tmp_file.path, "wb") { |f| f << open(expiring_url).read }
-
-        Zip::File.open(tmp_file) do |zip|
-          zip.entries.map(&:name).reject { |fn| fn.include?(File::SEPARATOR) }
-        end
-      rescue OpenURI::HTTPError => e
-        NewRelic::Agent.notice_error(e)
-        []
-      ensure
-        tmp_file.close
-        tmp_file.unlink
-      end
-
-    end
-  end
-
   def likely_executable
     exes = root_files.select { |file| file.split(".").last == "exe" }
     html = root_files.select { |file| file.split(".").last == "html" }

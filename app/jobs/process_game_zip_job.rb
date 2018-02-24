@@ -15,7 +15,7 @@ class ProcessGameZipJob < ApplicationJob
     #   @game_zip.update(file_key:)
     # end
 
-    # @game_zip.update(root_files: root_files)
+    game_zip.update(root_files: root_files)
   ensure
     local_tmp_file&.close
     local_tmp_file&.unlink
