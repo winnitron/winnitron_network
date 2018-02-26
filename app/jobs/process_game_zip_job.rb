@@ -14,17 +14,16 @@ class ProcessGameZipJob < ApplicationJob
     #   upload it
     #   @game_zip.update(file_key:)
     # end
-
     game_zip.update(root_files: root_files)
   ensure
     local_tmp_file&.close
-    local_tmp_file&.unlink
+    local_tmp_file&.unlink if local_tmp_file.respond_to?(:unlink)
   end
 
   private
 
   def root_files
-    Zip::File.open(local_tmp_file) do |zip|
+    ::Zip::File.open(local_tmp_file) do |zip|
       zip.entries.map(&:name).reject { |fn| fn.include?(File::SEPARATOR) }
     end
   end

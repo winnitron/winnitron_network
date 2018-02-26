@@ -20,6 +20,7 @@ RSpec.configure do |config|
 
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Warden::Test::Helpers, type: :feature
+  config.include ActiveJob::TestHelper, type: :job
 end
 
 Geocoder.configure(lookup: :test)

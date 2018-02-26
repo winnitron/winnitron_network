@@ -5,7 +5,7 @@ class GameZip < ActiveRecord::Base
   belongs_to :game
   belongs_to :user
 
-  validates :user, :file_key, :file_last_modified, presence: true
+  validates :user_id, :game_id, :file_key, :file_last_modified, presence: true
   validate :is_a_zip
 
   def humanized_filename
