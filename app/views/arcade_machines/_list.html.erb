@@ -15,7 +15,7 @@
         </a>
         <div class="caption">
           <span class="location pull-right">
-            <%= machine.location.split("\n").first %>
+            <%= (machine.location || "").split("\n").first %>
           </span>
 
           <h4 class="group inner list-group-item-heading">
