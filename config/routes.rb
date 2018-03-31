@@ -20,7 +20,11 @@ Rails.application.routes.draw do
   end
 
   resources :images, only: [:create, :update, :destroy]
-  resources :game_zips, only: [:create, :update]
+  resources :game_zips, only: [:create, :update] do
+    member do
+      get :root_files
+    end
+  end
 
   resources :arcade_machines do
     collection do

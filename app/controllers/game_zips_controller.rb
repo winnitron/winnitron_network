@@ -25,6 +25,11 @@ class GameZipsController < ApplicationController
     end
   end
 
+  def root_files
+    @zip = @game.game_zips.find(params[:id])
+    render :root_files, layout: false
+  end
+
   private
 
   def set_game
