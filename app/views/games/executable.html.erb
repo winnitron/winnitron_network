@@ -2,7 +2,8 @@
   var detectedFiles = <%=raw (@zip.root_files || []).to_json %>
 
   $(function() {
-    $.ajax({
+    setInterval(function() {
+      $.ajax({
              url: "/game_zips/<%= @zip.id %>/root_files",
              type: "GET",
              data: {
@@ -11,7 +12,8 @@
              success: function(result) {
                $(".file-list").html(result);
              }
-          });
+          })
+    }, 2000);
 
 
     if ($(".executable-list .list-group-item.active").length == 0) {
