@@ -40,6 +40,7 @@ module WinnitronReborn
     config.action_mailer.delivery_method = :postmark
     config.action_mailer.postmark_settings = { api_token: ENV['POSTMARK_API_TOKEN'] }
 
+    config.enable_dependency_loading = true
     config.autoload_paths += Dir["#{config.root}/lib/"]
     config.autoload_paths += Dir["#{config.root}/jobs/"]
 
