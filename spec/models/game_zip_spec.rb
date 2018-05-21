@@ -1,9 +1,6 @@
 require "rails_helper"
 
 RSpec.describe GameZip, type: :model do
-  describe "#root_files" do
-    it "uh, works"
-  end
 
   describe "#likely_executable" do
     let(:zip) { GameZip.new }

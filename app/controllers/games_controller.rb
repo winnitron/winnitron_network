@@ -39,8 +39,9 @@ class GamesController < ApplicationController
   end
 
   def executable
-    if zip = @game.current_zip
-      zip.update(executable: zip.likely_executable) if !zip.executable
+    if @zip = @game.current_zip
+      # set default executable
+      @zip.update(executable: @zip.likely_executable) if !@zip.executable
     else
       redirect_to zip_game_path(@game.slug)
     end

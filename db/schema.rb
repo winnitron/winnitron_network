@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180219004003) do
+ActiveRecord::Schema.define(version: 20180224194936) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,6 +78,7 @@ ActiveRecord::Schema.define(version: 20180219004003) do
     t.integer "user_id"
     t.datetime "file_last_modified"
     t.string "executable"
+    t.string "root_files", array: true
   end
 
   create_table "games", id: :serial, force: :cascade do |t|
