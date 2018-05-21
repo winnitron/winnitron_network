@@ -2,6 +2,8 @@ require "open-uri"
 require "zip"
 
 class GameZip < ActiveRecord::Base
+  after_create -> { ProcessGameZipJob.perform_later(self.id) }
+
   belongs_to :game
   belongs_to :user
 
