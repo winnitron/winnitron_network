@@ -15,7 +15,7 @@ gem 'therubyracer', platforms: :ruby
 
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
-gem 'bootstrap-sass', '~> 3'
+gem 'bootstrap', '~> 4.1.1'
 gem 'bootstrap-tagsinput-rails'
 gem 'bootstrap-modal-rails'
 
