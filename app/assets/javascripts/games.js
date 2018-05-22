@@ -82,11 +82,11 @@
 
     highlightKeyboard();
 
-    document.querySelector("#pane-content").onkeydown = function(e) {
-      var key = keyCodeToAHK(e.keyCode);
-      if (key.ahk != undefined)
-        $(".modal.select-key-modal.in .custom-key-display").html(key.ahk);
-    }
+    // document.querySelector("#pane-content").onkeydown = function(e) {
+    //   var key = keyCodeToAHK(e.keyCode);
+    //   if (key.ahk != undefined)
+    //     $(".modal.select-key-modal.in .custom-key-display").html(key.ahk);
+    // }
   });
 
   function resetKeyboard() {

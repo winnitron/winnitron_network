@@ -1,9 +1,3 @@
-<a href="<%= new_game_path %>" class="pull-right add-item">
-  <%= image_tag asset_path("plus") %>
-</a>
-
-<%= page_heading :h1, "Games" %>
-
 <div class="col-sm-12 text-right sorting-options">
   sort:
   <% ["new", "name"].each do |sort| %>
@@ -11,7 +5,7 @@
   <% end %>
 </div>
 
-<p>&nbsp;</p>
+<%= page_heading :h1, "Games" %>
 
 
 <%= render "list", games: @mine if @mine.any? %>

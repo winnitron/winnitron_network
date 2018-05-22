@@ -1,15 +1,45 @@
-/*
-
-Application-wide styles
-
-*/
-
 body
 {
-  /* background: url("background.png");
-  color: #FFFFFF;*/
+
 }
 
+.games {
+  .portfolio-item {
+
+    .card.active {
+      cursor: pointer;
+
+      .card-img-container {
+        background-color: black;
+      }
+
+      .card-img {
+        opacity: 0.3;
+      }
+
+      .card-title {
+        visibility: visible !important;
+      }
+
+    }
+
+    .card-title {
+      margin-top: 50px;
+    }
+
+    .card-title a {
+      color: white;
+
+      &:hover
+      {
+        text-decoration: none;
+      }
+    }
+
+  }
+}
+
+/*
 a.quiet-link
 {
   color: black;
@@ -180,3 +210,4 @@ label.check {
   margin: 25px 0;
   min-height: 200px;
 }
+*/
