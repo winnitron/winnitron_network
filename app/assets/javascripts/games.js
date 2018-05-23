@@ -82,6 +82,7 @@
 
     highlightKeyboard();
 
+    // TODO: fix this
     // document.querySelector("#pane-content").onkeydown = function(e) {
     //   var key = keyCodeToAHK(e.keyCode);
     //   if (key.ahk != undefined)

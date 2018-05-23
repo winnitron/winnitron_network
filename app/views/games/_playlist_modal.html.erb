@@ -1,8 +1,8 @@
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="playlistModal" tabindex="-1" role="dialog" aria-labelledby="playlistModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add to Playlist</h5>
+        <h5 class="modal-title" id="playlistModalLabel">Add to Playlist</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -10,9 +10,9 @@
       <div class="modal-body">
         <% current_user.playlists.each do |playlist| %>
           <div class="row col-sm-12 p-0 m-1 add-to-playlist" style="background-image: url('<%= playlist.cover_image.url(w: 450, h: 25) %>');">
-            <a class="p-3">
+            <a href="<%= playlist.id %>" class="p-3" data-playlist-id="<%= playlist.id %>">
               <%= playlist.title %>
-              <span class="float-right">Y</span>
+              <span class="float-right playlist-check invisible">✓</span>
             </a>
           </div>
         <% end %>
@@ -20,9 +20,6 @@
         <div class="row col-sm-12 p-0 m-1 add-to-playlist">
           <a href="" class="mt-3 p-3">make a new playlist</a>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>
