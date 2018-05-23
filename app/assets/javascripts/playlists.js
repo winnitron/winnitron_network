@@ -5,7 +5,12 @@
 
   $(function() {
     $(".open-playlist-modal").click(function() {
-      game_id = $(this).attr("data-game-id");
+      game_id = parseInt($(this).attr("data-game-id"));
+      addPlaylistChecks()
+    });
+
+    $("#playlistModal").on("hidden.bs.modal", function (e) {
+      $("span.playlist-check").addClass("invisible");
     });
 
     $(".add-to-playlist a").click(function(e) {
@@ -29,6 +34,26 @@
       })
     });
   });
+
+
+  function addPlaylistChecks() {
+    $.ajax({
+      type: "GET",
+      url: "/playlists/all_listings",
+      success: function(data) {
+        for (playlist_id in data) {
+          var game_ids = data[playlist_id]
+
+          var check = $(".add-to-playlist a[data-playlist-id='" + playlist_id + "'] .playlist-check");
+
+          if (game_ids.includes(game_id)) {
+            check.removeClass("invisible");
+          }
+
+        }
+      }
+    })
+  }
 
 })(window, jQuery)
 

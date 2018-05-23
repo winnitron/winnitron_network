@@ -41,6 +41,10 @@ Rails.application.routes.draw do
   end
 
   resources :playlists do
+    collection do
+      get :all_listings
+    end
+
     member do
       get :confirm_destroy
     end

@@ -1,7 +1,7 @@
 class PlaylistsController < ApplicationController
   before_action :set_playlist, only: [:show, :edit, :update, :destroy, :confirm_destroy]
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :permission_check!, only: [:edit, :update, :destroy, :confirm_destroy]
+  before_action :permission_check!, only: [:edit, :update, :destroy, :confirm_destroy, :list_games]
 
   def index
     @mine   = user_signed_in? ? current_user.playlists.order(title: :asc) : []
@@ -18,6 +18,13 @@ class PlaylistsController < ApplicationController
   end
 
   def edit
+  end
+
+  def all_listings
+    mapping = current_user.playlists.each_with_object({}) do |playlist, hsh|
+      hsh[playlist.id] = playlist.game_ids
+    end
+    render json: mapping
   end
 
   def create
