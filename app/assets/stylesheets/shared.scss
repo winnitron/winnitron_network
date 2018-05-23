@@ -5,6 +5,9 @@ body
 
 .games {
   .portfolio-item {
+    .card {
+      border: none;
+    }
 
     .card.active {
       cursor: pointer;
@@ -36,7 +39,27 @@ body
       }
     }
 
+    .card-controls {
+      padding: 2px 0px;
+    }
+
   }
+}
+
+.add-to-playlist {
+  a {
+    display: block;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    cursor: pointer;
+
+    color: white;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+
 }
 
 /*

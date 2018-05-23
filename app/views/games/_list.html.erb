@@ -12,12 +12,17 @@
             <a href="<%= game_path(game) %>" class=""><%= game.title %></a>
           </h4>
         </div>
+
+        <%= render "card_controls", game: game %>
       </div>
+
+
     </div>
   <% end %>
 
 </div> <!-- /.row -->
 
+<%= render "playlist_modal" %>
 
 <script>
   $(function() {

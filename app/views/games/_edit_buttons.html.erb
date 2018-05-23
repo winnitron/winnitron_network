@@ -6,8 +6,6 @@
   <!-- Add to Winnitron dropdown -->
   <div class="edit-buttons dropdown">
 
-    <%= render "shared/add_to_playlist", game: game %>
-
     <!-- Editing Buttons if Owned -->
     <% if current_user.owns?(game) || current_user.admin? %>
       <a href="<%= edit_game_path(game) %>">
