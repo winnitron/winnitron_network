@@ -3,6 +3,11 @@ body
 
 }
 
+nav.navbar {
+  background: asset-url("winnitron_background");
+  background-position: top;
+}
+
 .games {
   .portfolio-item {
     .card {
