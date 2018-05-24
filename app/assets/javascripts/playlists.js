@@ -6,6 +6,8 @@
   $(function() {
     $(".open-playlist-modal").click(function() {
       game_id = parseInt($(this).attr("data-game-id"));
+
+      $("a.create-playlist").attr("href", "/playlists/new?game_id=" + game_id);
       addPlaylistChecks()
     });
 
@@ -13,7 +15,7 @@
       $("span.playlist-check").addClass("invisible");
     });
 
-    $(".add-to-playlist a").click(function(e) {
+    $(".add-to-playlist a.existing-playlist").click(function(e) {
       e.preventDefault();
 
       var playlist_id = $(this).attr("href");

@@ -10,7 +10,7 @@
       <div class="modal-body">
         <% current_user.playlists.each do |playlist| %>
           <div class="row col-sm-12 p-0 m-1 add-to-playlist" style="background-image: url('<%= playlist.cover_image.url(w: 450, h: 25) %>');">
-            <a href="<%= playlist.id %>" class="p-3" data-playlist-id="<%= playlist.id %>">
+            <a href="<%= playlist.id %>" class="p-3 existing-playlist" data-playlist-id="<%= playlist.id %>">
               <%= playlist.title %>
               <span class="float-right playlist-check invisible">✓</span>
             </a>
@@ -18,7 +18,7 @@
         <% end %>
 
         <div class="row col-sm-12 p-0 m-1 add-to-playlist">
-          <a href="" class="mt-3 p-3">make a new playlist</a>
+          <a href="/playlists/new" class="mt-3 p-3 create-playlist">add this game to a new playlist</a>
         </div>
       </div>
     </div>

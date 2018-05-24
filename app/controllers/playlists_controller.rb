@@ -14,7 +14,8 @@ class PlaylistsController < ApplicationController
   end
 
   def new
-    @playlist = Playlist.new
+    initial_game = Game.published.find(params[:game_id])
+    @playlist = Playlist.new(games: [initial_game])
   end
 
   def edit
@@ -28,7 +29,8 @@ class PlaylistsController < ApplicationController
   end
 
   def create
-    @playlist = Playlist.new(playlist_params.merge(user: current_user))
+    @playlist = Playlist.new(playlist_params.except(:game_id).merge(user: current_user))
+    @playlist.games = Game.published.where(id: playlist_params[:game_id])
 
     respond_to do |format|
       if @playlist.save
@@ -67,15 +69,16 @@ class PlaylistsController < ApplicationController
   end
 
   private
-    def set_playlist
-      @playlist = Playlist.find_by!(slug: params[:id])
-    end
 
-    def permission_check!
-      require_admin_or_ownership!(@playlist)
-    end
+  def set_playlist
+    @playlist = Playlist.find_by!(slug: params[:id])
+  end
 
-    def playlist_params
-      params.fetch(:playlist, {}).permit(:title, :description)
-    end
+  def permission_check!
+    require_admin_or_ownership!(@playlist)
+  end
+
+  def playlist_params
+    params.fetch(:playlist, {}).permit(:title, :description, :game_id)
+  end
 end
