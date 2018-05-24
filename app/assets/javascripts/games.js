@@ -1,6 +1,13 @@
 (function(window, $, undefined) {
 
   $(function() {
+    $(".games .card").hover(function() {
+      $(this).addClass("active");
+    },
+    function() {
+      $(this).removeClass("active");
+    });
+
     $(".add_nested_fields_link").click();
 
     $(".popular-tags .js-add-tag").click(function(e) {

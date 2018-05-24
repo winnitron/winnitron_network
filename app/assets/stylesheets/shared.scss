@@ -42,7 +42,6 @@ body
     .card-controls {
       padding: 2px 0px;
     }
-
   }
 }
 
@@ -57,8 +56,17 @@ body
     color: white;
     text-decoration: none;
     text-transform: uppercase;
+    font-weight: bold;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.4);
+      text-shadow: 1px 1px black;
+    }
   }
 
+  .playlist-check {
+    color: #4ac967;
+  }
 
 }
 
