@@ -3,11 +3,21 @@
 
 <% if user_signed_in? %>
 
-  <!-- Add to Winnitron dropdown -->
-  <div class="edit-buttons dropdown">
+  <div class="edit-buttons">
 
-    <!-- Editing Buttons if Owned -->
     <% if current_user.owns?(game) || current_user.admin? %>
+      <% if show_stats %>
+        <a href="<%= stats_game_path(game) %>" class="pull-right">
+          <button class="btn btn-light">
+            Stats
+          </button>
+        </a>
+      <% end %>
+
+      <% if current_user.can_download?(game) %>
+        <a href="<%= @game.download_url %>" class="btn btn-light">Download this game</a>
+      <% end %>
+
       <a href="<%= edit_game_path(game) %>">
         <button class="btn btn-success">
           Edit
@@ -20,13 +30,6 @@
         </button>
       </a>
 
-      <% if show_stats %>
-        <a href="<%= stats_game_path(game) %>" class="pull-right">
-          <button class="btn btn-default">
-            Stats
-          </button>
-        </a>
-      <% end %>
     <% end %>
   </div>
 

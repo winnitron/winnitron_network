@@ -1,151 +1,105 @@
-<!--
-  GAME DETAIL VIEW
--->
+<% content_for(:title) { @game.title } %>
 
-<%= render "shared/detail_header", image: @game.cover_image.url(w: 980), title: @game.title, description: @game.description %>
+<div class="float-right">
+  <%= render "edit_buttons", game: @game, show_stats: true %>
+</div>
 
-<div class="game detail">
+<h1 class="mt-4 mb-3">
+  <%= @game.title %>
+</h1>
 
-  <div class="row">
-
-    <!-- Metadata -->
-
-    <div class="col-md-6">
-
-      <!-- Game Description -->
-      <div class="detail-description">
-        <%= simple_format(@game.description) %>
-
-        <!-- Edit Buttons -->
-        <div class="detail-edit-buttons">
-          <%= render "edit_buttons", game: @game, show_stats: true %>
-        </div>
-      </div>
-
-      <hr>
-
-      <% if current_user&.can_download?(@game) %>
-        <div class="download-link">
-          <a href="<%= @game.download_url %>" class="btn btn-default">Download this game</a>
-
-          <p>
-            <% if current_user.owns?(@game) %>
-              You can download this game because you're the one that uploaded it. 😂
-            <% elsif current_user.builder? %>
-              As a builder, you can download individual games in case you want to
-              test them on your Winnitron or even just take 'em for a spin.
-            <% elsif current_user.admin? %>
-              I'm going to let you download this game because you're
-              just so darned good lookin'.
-            <% end %>
-          </p>
-
-        </div>
-        <hr>
-      <% end %>
-
-      <div class="col-sm-12">
-        <h4>
-          <%=
-          if @game.min_players == @game.max_players
-            pluralize(@game.min_players, "player")
-          else
-            "#{@game.min_players}-#{@game.max_players} players"
-          end
-          %>
-        </h4>
-      </div>
-
-      <% if @game.images.any? %>
-        <div class="col-sm-12">
-          <h4>Images</h4>
-          <%= render "images/list", imageable: @game %>
-        </div>
-      <% end %>
-
-      <% if @game.links.any? %>
-        <div class="col-sm-12">
-          <h4>Links</h4>
-          <% @game.links.each do |link| %>
-          <div class="link"><h4><%= link_to link.url, link.url %></h4></div>
-          <% end %>
-        </div>
-      <% end %>
-
-      <% if @game.tags.any? %>
-        <div class="col-sm-12">
-          <h4>Tags</h4>
-          <p>
-            <% @game.tags.each do |tag| %>
-              <%= link_to tag.name, search_path(kw: tag.name) %>
-            <% end %>
-          </p>
-        </div>
-      <% end %>
+<div class="row">
+  <div class="col-md-12">
+    <img class="img-fluid" src="<%= @game.cover_image.url(w: 1280) %>" alt="<%= @game.title %>">
+  </div>
+</div>
 
 
-      <div class="col-sm-12">
-        <h4>Added By</h4>
+<div class="row my-4">
+  <% @game.images.each do |img| %>
+    <div class="col-md-3 col-sm-6 mb-4">
+      <a href="<%= img.url %>" data-toggle="lightbox" data-gallery="game-gallery">
+        <img src="<%= img.url(w: 500, h: 300) %>" class="img-fluid">
+      </a>
+    </div>
+  <% end %>
+</div>
 
-        <% @game.users.each do |user| %>
-          <%= render "shared/item_card_square",
-            item_name: user.name,
-            item_info: "",
-            item_link: user_url(user),
-            item_image_url: user.gravatar_url
-          %>
-        <% end %>
-
-      </div>
-
-      <div class="col-sm-12">
-        <%= render "shared/comment_list", parent: @game %>
-      </div>
-
-      <div class="clearfix"></div>
-
+<div class="row">
+  <div class="col-md-6">
+    <div class="float-right">
+      <%= @game.users.first.name %>
     </div>
 
-    <!-- Game Data -->
+    <div class="mb-1">
+      <h4>
+        <%=
+        if @game.min_players == @game.max_players
+          pluralize(@game.min_players, "player")
+        else
+          "#{@game.min_players}-#{@game.max_players} players"
+        end
+        %>
+      </h4>
+    </div>
 
-    <div class="col-md-6">
+    <div class="mb-1">
+      <%= simple_format(@game.description) %>
+    </div>
 
-      <% if @game.arcade_machines.any? %>
-        <h4>Playable on these Winnitrons:</h4>
-
-        <% @game.arcade_machines.each do |machine| %>
-          <%= render "shared/item_card_wide", item: machine, width: 450 %>
-        <% end %>
-        <hr/>
+     <div class="mb-1">
+      <% @game.tags.each do |tag| %>
+        <%= link_to tag.name, search_path(kw: tag.name) %>
       <% end %>
+    </div>
 
+    <hr>
 
-      <h4>Included in these playlists:</h4>
-      <% if @game.playlists.any? %>
-
-        <% @game.playlists.each do |playlist| %>
-          <%= render "shared/item_card_wide", item: playlist, width: 450 %>
-        <% end %>
-
-      <% elsif user_signed_in? %>
-        <em><%= @game.title %></em> isn't in any playlists yet.
-        Be the first to add it to one:
-
-        <% if current_user.playlists.any? %>
-          <div class="dropdown">
-            <%= render "shared/add_to_playlist", game: @game %>
-          </div>
-        <% else %>
-          <div>
-            <%= link_to "make a new playlist", new_playlist_path %>
-          </div>
-        <% end %>
+    <div>
+      <% @game.links.each do |link| %>
+        <div class="pb-2">
+          <strong>
+            <%= link_to link.url, link.url %>
+          </strong>
+        </div>
       <% end %>
+    </div>
 
+    <hr>
+
+    <div>
+      <%= render "shared/comment_list", parent: @game %>
     </div>
 
 
 
   </div>
 
+  <div class="col-md-6">
+
+    <% if @game.arcade_machines.any? %>
+      <h4>Playable on these Winnitrons:</h4>
+
+      <% @game.arcade_machines.each do |machine| %>
+        <%= render "shared/item_card", item: machine, width: 450 %>
+      <% end %>
+      <hr/>
+    <% end %>
+
+
+    <h4>Included in these playlists:</h4>
+    <% if @game.playlists.any? %>
+
+      <% @game.playlists.each do |playlist| %>
+        <%= render "shared/item_card", item: playlist, width: 450 %>
+      <% end %>
+
+    <% elsif user_signed_in? %>
+      <em><%= @game.title %></em> isn't in any playlists yet.
+      Be the first to add it to one:
+    <% end %>
+
+  </div>
+
 </div>
+

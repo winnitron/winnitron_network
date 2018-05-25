@@ -5,7 +5,18 @@ body
 
 nav.navbar {
   background: asset-url("winnitron_background");
+  background-size: cover;
   background-position: top;
+}
+
+footer {
+  background-image: asset-url("winnitron_background");
+  background-size: cover;
+  background-position: bottom;
+}
+
+a:hover {
+  text-decoration: none;
 }
 
 .games {
@@ -81,6 +92,26 @@ nav.navbar {
   h4 {
     color: white;
     line-height: 1em;
+  }
+}
+
+.item-card {
+  background-position: center center;
+  background-size: cover;
+
+  a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(25, 25, 38, 0.3);
+
+    color: #eee;
+    text-shadow: black 1px 1px;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0);
+      color: white;
+    }
   }
 }
 
