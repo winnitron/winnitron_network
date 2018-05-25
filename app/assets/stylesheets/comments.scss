@@ -1,19 +1,22 @@
 .comments .comment {
+  border-left: 5px solid #eee;
+  padding-left: 10px;
 
   .author {
     .name {
-      font-weight :bold;
+      font-weight: bold;
     }
 
     .bling {
       display: inline-block;
+      float: right;
 
       span {
         background-color: #eee;
         color: #555;
         font-size: 12px;
         text-transform: lowercase;
-        padding: 0px 2px;
+        padding: 1px 3px;
       }
     }
   }
