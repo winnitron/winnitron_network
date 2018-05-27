@@ -13,6 +13,16 @@ footer {
   background-image: asset-url("winnitron_background");
   background-size: cover;
   background-position: bottom;
+
+  color: #aaa;
+  text-align: right;
+
+  a {
+    color: #aaa;
+    &:hover {
+      color: white;
+    }
+  }
 }
 
 a:hover {
@@ -72,6 +82,7 @@ a:hover {
     }
   }
 }
+
 .add-to-playlist {
   a {
     display: block;
