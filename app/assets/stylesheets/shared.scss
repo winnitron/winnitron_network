@@ -19,7 +19,8 @@ a:hover {
   text-decoration: none;
 }
 
-.games {
+.games,
+.machines {
   .portfolio-item {
     .card {
       border: none;
@@ -61,6 +62,16 @@ a:hover {
   }
 }
 
+.machines {
+  .card {
+    a {
+      color: black;
+      &:hover {
+        color: black;
+      }
+    }
+  }
+}
 .add-to-playlist {
   a {
     display: block;

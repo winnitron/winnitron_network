@@ -1,12 +1,18 @@
-<!-- EDIT BUTTONS -->
 <% show_stats ||= false %>
 
 <% if user_signed_in? %>
 
   <div class="edit-buttons dropdown">
 
-    <!-- Editing Buttons if Owned -->
     <% if current_user.owns?(arcade_machine) || current_user.admin? %>
+      <% if show_stats %>
+        <a href="<%= stats_arcade_machine_path(arcade_machine) %>" class="pull-right">
+          <button class="btn btn-light">
+            Stats
+          </button>
+        </a>
+      <% end %>
+
       <a href="<%= edit_arcade_machine_path(arcade_machine) %>">
         <button class="btn btn-success">
           Edit
@@ -18,15 +24,7 @@
         </button>
       </a>
 
-      <% if show_stats %>
-        <a href="<%= stats_arcade_machine_path(arcade_machine) %>" class="pull-right">
-          <button class="btn btn-default">
-            Stats
-          </button>
-        </a>
-      <% end %>
     <% end %>
-
   </div>
 
 <% end %>
