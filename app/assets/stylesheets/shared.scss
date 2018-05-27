@@ -30,7 +30,8 @@ a:hover {
 }
 
 .games,
-.machines {
+.machines,
+.playlists {
   .portfolio-item {
     .card {
       border: none;
@@ -44,7 +45,8 @@ a:hover {
       }
 
       .card-img {
-        opacity: 0.3;
+        filter: blur(3px);
+        opacity: 0.4;
       }
 
       .card-title {
@@ -69,6 +71,16 @@ a:hover {
     .card-controls {
       padding: 2px 0px;
     }
+  }
+}
+
+.playlists {
+  .card.active {
+    .card-img {
+      filter: blur(2px);
+      opacity: 0.6 !important;
+    }
+    text-shadow: black 1px 1px;
   }
 }
 
