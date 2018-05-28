@@ -1,20 +1,9 @@
-<% if user_signed_in? %>
+<% if user_signed_in? && current_user.arcade_machines.any? %>
 
   <div class="card-controls">
-
-    <% if current_user.arcade_machines.count == 1 %>
-      <% machine = current_user.arcade_machines.first %>
-
-      <%= form_for Subscription.new, remote: true, authenticity_token: true do |f| %>
-        <%= hidden_field_tag :playlist_id, playlist.id %>
-        <%= hidden_field_tag :arcade_machine_id, machine.id %>
-        <%= f.submit "Add to #{machine.title}", class: "btn btn-secondary col-sm-8" %>
-      <% end %>
-
-    <% else %>
-      <%# TODO: Dropdown or something? %>
-    <% end %>
-
+    <button class="btn btn-secondary col-sm-8 open-machine-modal" type="button" data-toggle="modal" data-target="#machineModal" data-playlist-id="<%= playlist.id %>">
+      Winnitron Subscriptions
+    </button>
   </div>
 
 <% end %>

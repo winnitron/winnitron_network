@@ -22,4 +22,6 @@
 
 </div> <!-- /.row -->
 
-<%= render "playlist_modal" %>
+<% if user_signed_in? %>
+  <%= render "playlist_modal" %>
+<% end %>

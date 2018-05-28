@@ -1,9 +1,9 @@
 class ArcadeMachinesController < ApplicationController
   include StatsHelper
 
-  before_action :set_arcade_machine, except: [:index, :new, :create, :map]
+  before_action :set_arcade_machine, except: [:index, :new, :create, :map, :all_subscriptions]
   before_action :authenticate_user!, except: [:index, :show, :map]
-  before_action :permission_check!, only: [:edit, :update, :destroy, :images, :confirm_destroy]
+  before_action :permission_check!, only: [:edit, :update, :destroy, :images, :all_subscriptions, :confirm_destroy]
   before_action only: [:show] do
     require_approval!(@arcade_machine)
   end
@@ -85,18 +85,26 @@ class ArcadeMachinesController < ApplicationController
     end
   end
 
+  def all_subscriptions
+    mapping = current_user.arcade_machines.each_with_object({}) do |machine, hsh|
+      hsh[machine.id] = machine.playlist_ids
+    end
+    render json: mapping
+  end
+
   private
-    def set_arcade_machine
-      @arcade_machine = ArcadeMachine.find_by!(slug: params[:id])
-    end
 
-    def permission_check!
-      require_admin_or_ownership!(@arcade_machine)
-    end
+  def set_arcade_machine
+    @arcade_machine = ArcadeMachine.find_by!(slug: params[:id])
+  end
 
-    def arcade_machine_params
-      params.fetch(:arcade_machine, {}).permit(:title, :description, :location, :players, :mappable,
-                                               links_attributes: [:id, :link_type, :url, :_destroy])
-    end
+  def permission_check!
+    require_admin_or_ownership!(@arcade_machine)
+  end
+
+  def arcade_machine_params
+    params.fetch(:arcade_machine, {}).permit(:title, :description, :location, :players, :mappable,
+                                             links_attributes: [:id, :link_type, :url, :_destroy])
+  end
 
 end
