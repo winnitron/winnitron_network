@@ -137,6 +137,7 @@ GEM
       railties (>= 3.2.16)
     json (1.8.6)
     libv8 (3.16.14.19)
+    lightbox-bootstrap-rails (5.1.0.1)
     loofah (2.2.2)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -340,6 +341,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   jquery-ui-rails
+  lightbox-bootstrap-rails (= 5.1.0.1)
   nested_form_fields!
   newrelic_rpm
   nokogiri

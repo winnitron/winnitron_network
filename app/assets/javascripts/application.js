@@ -18,6 +18,6 @@
 //= require s3_direct_upload
 //= require nested_form_fields
 //= require bootstrap-tagsinput
-//= require ekko-lightbox
+//= require lightbox-bootstrap
 //= require gmaps/google
 //= require_tree .
