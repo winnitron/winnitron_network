@@ -2,9 +2,9 @@
 
 <%= render "breadcrumbs", active: :images %>
 
-<div class="col-sm-offset-1 col-sm-9">
-  <div class="panel panel-default">
-    <div class="panel-body">
+<div class="col-sm-9 mt-5">
+  <div class="card">
+    <div class="card-body">
       <div class="row current-images">
         <% @arcade_machine.images.each do |image| %>
           <a href="<%= image.url %>">
@@ -31,6 +31,6 @@
 </div>
 <div class="clearfix"></div>
 
-<div class="col-sm-offset-8 col-sm-2">
+<div class="offset-sm-8 col-sm-2 mt-3">
   <%= link_to "Done", @arcade_machine, class: "btn btn-success pull-right" %>
 </div>
