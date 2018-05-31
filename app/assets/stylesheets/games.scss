@@ -1,5 +1,13 @@
 .executable-list {
   cursor: pointer;
+
+  .list-group-item {
+
+    &.disabled {
+      background-color: #eee;
+      cursor: not-allowed;
+    }
+  }
 }
 
 .key-selector {

@@ -2,11 +2,10 @@
 
 <%= render "breadcrumbs", active: :zip %>
 
-<div class="col-sm-1"></div>
-<div class="col-sm-9">
-  <div>
+<div class="offset-sm-1 col-sm-9 mt-5">
+  <div class="row">
     <p>
-      <strong>Quick reminder!</strong> Make sure that insize your zip file, your game isn't entirely
+      <strong>Quick reminder!</strong> Make sure that inside your zip file, your game isn't entirely
       contained in a top-level folder.
     </p>
     <div class="col-sm-5">
@@ -32,11 +31,13 @@
       </pre>
     </div>
   </div>
-  <div class="clearfix"></div>
-  <div class="panel panel-default">
-    <div class="panel-body">
 
-      <div class="col-sm-offset-3">
+
+  <div class="clearfix"></div>
+  <div class="card">
+    <div class="card-body">
+
+      <div class="offset-sm-3">
         <% if @game.current_zip %>
           <code id="current-zip">
             <%= link_to @game.current_zip.humanized_filename, @game.download_url %>
@@ -58,7 +59,7 @@
             additional_data: { game_id: @game.id },
             accept_filetypes: "application/zip"
         %>
-        <div class="col-md-offset-1 col-md-10">
+        <div class="offset-md-1 col-md-10">
           <strong>Max file size is 500MB</strong>.
           <br>Is your zip file bigger than that? Send us an email at
           winnitron.support@outerspacehero.com and we'll hook you up.
@@ -69,7 +70,8 @@
 </div>
 
 <div class="clearfix"></div>
-<div class="col-sm-offset-8 col-sm-2">
+
+<div class="offset-sm-8 col-sm-2 mt-5">
   <% dis = @game.current_zip ? "" : "disabled" %>
-  <%= link_to "Next Step", executable_game_path(@game.slug), class: "next-step btn btn-success pull-right #{dis}" %>
+  <%= link_to "Next Step", executable_game_path(@game.slug), class: "next-step btn btn-success float-right #{dis}" %>
 </div>

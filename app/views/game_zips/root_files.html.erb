@@ -1,11 +1,14 @@
 <% if @zip.root_files %>
+
   <ul class="executable-list list-group">
     <% @game.current_zip.root_files.each do |file| %>
       <%
         item_class = if file == @zip.executable || (!@zip.executable && file == @game.current_zip.likely_executable)
-          item_class = "active"
+          "active"
+        elsif @game.current_zip.candidates.include?(file)
+          ""
         else
-          item_class = "disabled"
+          "disabled"
         end
       %>
       <li class="list-group-item <%= item_class %>" data-file-name="<%= file %>">
@@ -13,7 +16,9 @@
       </li>
     <% end %>
   </ul>
+
 <% else %>
+
   <div class="plz-wait-spinner">
     <%= image_tag "spin.gif" %>
     <p>
@@ -22,4 +27,5 @@
       <span class="note">keep your pants on, sheesh</span>
     </p>
   </div>
+
 <% end %>

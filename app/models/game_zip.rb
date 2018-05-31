@@ -26,6 +26,13 @@ class GameZip < ActiveRecord::Base
     exes.first || html.first
   end
 
+  def candidates
+    root_files.select do |file|
+      ext = file.split(".").last
+      ext == "exe" || ext == "html"
+    end
+  end
+
   private
 
   def is_a_zip

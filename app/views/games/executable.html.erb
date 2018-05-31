@@ -1,8 +1,9 @@
 <script>
-  var detectedFiles = <%=raw (@zip.root_files || []).to_json %>
+  var detectedFiles = <%=raw (@zip.root_files || []).to_json %>;
+  var processedCheck;
 
   $(function() {
-    setInterval(function() {
+    processedCheck = setInterval(function() {
       $.ajax({
              url: "/game_zips/<%= @zip.id %>/root_files",
              type: "GET",
@@ -11,20 +12,18 @@
              },
              success: function(result) {
                $(".file-list").html(result);
+               clearInterval(processedCheck);
+               bindListEvents();
              }
           })
     }, 2000);
+  });
 
-
-    if ($(".executable-list .list-group-item.active").length == 0) {
-      $(".publish-button").addClass("disabled");
-      $(".publish-button").attr("disabled", "disabled");
-    }
+  function bindListEvents() {
 
     $(".executable-list .list-group-item").click(function(e) {
 
       if (!$(this).hasClass("disabled")) {
-
         var _this = $(this);
         var selected = $(this).attr("data-file-name");
 
@@ -38,22 +37,19 @@
                success: function(result) {
                  $(".executable-list .list-group-item").removeClass("active");
                  _this.addClass("active");
-                 $(".publish-button").removeClass("disabled");
-                 $(".publish-button").removeAttr("disabled", "disabled");
                }
               });
 
       }
     });
-  });
+  }
 </script>
 
 <%= page_heading :h1, "<em>#{@game.title}</em>" %>
 
 <%= render "breadcrumbs", active: :exec %>
 
-<div class="col-sm-1"></div>
-<div class="col-sm-9">
+<div class="offset-sm-1 col-sm-9 mt-5">
   <p class="note">
     Select which file the Winnitron should run to launch your game.
     <br>
@@ -63,7 +59,7 @@
 </div>
 
 <div class="clearfix"></div>
-<div class="col-sm-offset-8 col-sm-2">
+<div class="offset-sm-8 col-sm-2 mt-5">
   <% dis = @game.current_zip ? "" : "disabled" %>
-  <%= link_to "Next Step", keys_game_path(@game.slug), class: "next-step btn btn-success pull-right #{dis}" %>
+  <%= link_to "Next Step", keys_game_path(@game.slug), class: "next-step btn btn-success float-right #{dis}" %>
 </div>

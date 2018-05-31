@@ -2,9 +2,9 @@
 
 <%= render "breadcrumbs", active: :images %>
 
-<div class="col-sm-offset-1 col-sm-9">
-  <div class="panel panel-default">
-    <div class="panel-body">
+<div class="offset-sm-1 col-sm-9 mt-5">
+  <div class="card">
+    <div class="card-body">
       <div class="row current-images">
         <% @game.images.each do |image| %>
           <a href="<%= image.url %>">
@@ -32,7 +32,7 @@
 <div class="clearfix"></div>
 
 <% if !@game.published? %>
-  <div class="col-sm-offset-8 col-sm-2">
-    <%= link_to "Next Step", zip_game_path(@game.slug), class: "btn btn-success pull-right" %>
+  <div class="offset-sm-8 col-sm-2">
+    <%= link_to "Next Step", zip_game_path(@game.slug), class: "btn btn-success float-right" %>
   </div>
 <% end %>

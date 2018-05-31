@@ -1,9 +1,12 @@
 //@import "bootstrap-sprockets";
 @import "bootstrap";
+@import "jquery-ui";
 @import "modern-business";
 @import "shared";
 @import "comments";
 @import "uploaders";
+@import "s3_direct_upload_progress_bars";
+@import "games";
 
 /*
 
@@ -15,14 +18,12 @@
 @import "dragndrop";
 @import "outside";
 @import "topnav";
-@import "games";
+
 
 @import "comments";
 @import "tabs";
 @import "keyboard";
 
-@import "jquery-ui";
-@import "s3_direct_upload_progress_bars";
 @import "ekko-lightbox";
-@import "bootstrap-tagsinput.scss";
+
 */
