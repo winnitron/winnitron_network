@@ -1,4 +1,4 @@
-<div class="playlists row">
+<div class="playlists row col-lg-12 col-sm-12">
 
   <% playlists.each do |playlist| %>
 
@@ -14,7 +14,7 @@
           </h4>
         </div>
 
-        <%= render "card_controls", playlist: playlist %>
+        <%= render "playlists/card_controls", playlist: playlist %>
       </div>
 
 
@@ -25,5 +25,5 @@
 
 
 <% if user_signed_in? %>
-  <%= render "arcade_machine_modal" %>
+  <%= render "playlists/arcade_machine_modal" %>
 <% end %>

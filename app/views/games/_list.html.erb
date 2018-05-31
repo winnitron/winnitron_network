@@ -1,4 +1,4 @@
-<div class="games row">
+<div class="games row col-lg-12 col-sm-12">
 
   <% games.each do |game| %>
     <div class="col-lg-4 col-sm-6 portfolio-item">
@@ -13,7 +13,7 @@
           </h4>
         </div>
 
-        <%= render "card_controls", game: game %>
+        <%= render "games/card_controls", game: game %>
       </div>
 
 
@@ -23,5 +23,5 @@
 </div> <!-- /.row -->
 
 <% if user_signed_in? %>
-  <%= render "playlist_modal" %>
+  <%= render "games/playlist_modal" %>
 <% end %>
