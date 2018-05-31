@@ -45,7 +45,7 @@ class PlaylistsController < ApplicationController
 
   def update
     respond_to do |format|
-      if @playlist.update(playlist_params)
+      if @playlist.update(playlist_params.except(:game_id))
         format.html { redirect_to @playlist, notice: 'Playlist was successfully updated.' }
         format.json { render :show, status: :ok, location: @playlist }
       else

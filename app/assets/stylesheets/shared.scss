@@ -101,7 +101,7 @@ a:hover {
     display: block;
     height: 100%;
     width: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.6);
     cursor: pointer;
 
     color: white;
@@ -125,8 +125,11 @@ a:hover {
   border-radius: 0.25em;
 
   h4 {
+    background-color: rgba(0, 0, 0, 0.4);
     color: white;
-    line-height: 1em;
+    height: 100%;
+    width: 100%;
+    text-shadow: black 1px 1px;
   }
 }
 
