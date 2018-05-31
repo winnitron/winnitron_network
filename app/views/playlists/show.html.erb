@@ -24,9 +24,6 @@
 
 <div class="clearfix"></div>
 
-<div>
-  <% @playlist.games.each do |game| %>
-    <div class="col-lg-2"></div>
-    <%= render "games/card_small", game: game %>
-  <% end %>
+<div class="mt-5">
+  <%= render "games/list", games: @playlist.games %>
 </div>
