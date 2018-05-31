@@ -30,7 +30,7 @@
         <li><%= link_to "Playlists", playlists_path %></li>
 
         <form  action="<%= search_path %>" method="GET"  class="navbar-form navbar-left">
-          <div class="form-group">
+          <div class="row form-group">
             <input type="text" class="form-control" placeholder="Search games" name="kw" value="<%= params['kw'] %>">
             <button type="submit" class="btn btn-default">🔍</button>
           </div>

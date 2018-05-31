@@ -2,16 +2,16 @@
 
   <%= page_heading :h2, @user.name %>
 
-  <%= form_for(@user, url: admin_user_path(@user), html: { method: :put, class: "form form-horizontal" }) do |f| %>
+  <%= form_for(@user, url: admin_user_path(@user), html: { method: :put, class: "form" }) do |f| %>
 
-    <div class="form-group">
+    <div class="row form-group">
       <%= f.label :name, class: "col-sm-3 control-label" %>
       <div class="col-sm-9">
         <%= f.text_field :name, required: true, class: "form-control" %>
       </div>
     </div>
 
-    <div class="form-group">
+    <div class="row form-group">
       <%= f.label :email, class: "col-sm-3 control-label" %>
       <div class="col-sm-9">
         <%= f.email_field :email, required: true, class: "form-control" %>

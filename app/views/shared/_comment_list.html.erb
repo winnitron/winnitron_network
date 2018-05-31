@@ -2,8 +2,8 @@
   <div class="comments">
 
     <div>
-      <%= form_for Comment.new, html: { class: "form form-horizontal" }, remote: true, authenticity_token: true do |f| %>
-        <div class="form-group">
+      <%= form_for Comment.new, html: { class: "form" }, remote: true, authenticity_token: true do |f| %>
+        <div class="row form-group">
           <%= f.text_area :comment, class: "control-label col-sm-12", required: true, rows: 3, placeholder: "Love this game? How does it run on your Winnitron?"%>
         </div>
 

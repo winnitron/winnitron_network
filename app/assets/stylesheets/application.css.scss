@@ -1,4 +1,3 @@
-//@import "bootstrap-sprockets";
 @import "bootstrap";
 @import "jquery-ui";
 @import "modern-business";
@@ -10,6 +9,8 @@
 @import "games";
 @import "keyboard";
 
+@import "outside";
+
 /*
 
 @import "itemgridview";
@@ -18,13 +19,11 @@
 @import "mixins";
 @import "detailviews";
 @import "dragndrop";
-@import "outside";
+
 @import "topnav";
 
 
 @import "comments";
-
-
 
 @import "ekko-lightbox";
 

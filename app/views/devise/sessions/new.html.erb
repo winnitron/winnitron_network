@@ -3,17 +3,17 @@
 
   <%= render "shared/third_party_auth", action: "Sign in" %>
 
-  <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "form form-horizontal" }) do |f| %>
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "form" }) do |f| %>
     <%= render "devise/shared/errors", messages: [flash[:alert]] if flash[:alert] %>
 
-    <div class="form-group">
+    <div class="row form-group">
       <%= f.label :email, class: "col-sm-3 control-label" %>
       <div class="col-sm-9">
         <%= f.email_field :email, class: "form-control" %>
       </div>
     </div>
 
-    <div class="form-group">
+    <div class="row form-group">
       <%= f.label :password, class: "col-sm-3 control-label" %>
       <div class="col-sm-9">
         <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
@@ -21,8 +21,8 @@
     </div>
 
     <% if devise_mapping.rememberable? -%>
-      <div class="form-group">
-        <div class="col-sm-offset-3 col-sm-9">
+      <div class="row form-group">
+        <div class="offset-sm-3 col-sm-9">
           <%= f.check_box :remember_me, checked: true %>
           <%= f.label :remember_me %>
         </div>
@@ -30,15 +30,15 @@
     <% end -%>
 
     <div class="actions form-group">
-      <div class="col-sm-offset-3 col-sm-9">
+      <div class="offset-sm-3 col-sm-9">
         <%= f.submit "Sign in", class: "btn btn-success" %>
       </div>
     </div>
   <% end %>
 
 
-  <div class="form-group">
-    <div class="col-sm-offset-3 col-sm-9">
+  <div class="row form-group">
+    <div class="offset-sm-3 col-sm-9">
       <%= link_to "forgot your password?", new_user_password_path %>
     </div>
   </div>

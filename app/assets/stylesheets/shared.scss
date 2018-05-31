@@ -196,6 +196,27 @@ a:hover {
   }
 }
 
+.third-party-auth {
+  margin-left: -10px;
+  margin-bottom: 10px;
+
+  a {
+    margin-right: 10px;
+  }
+
+  .facebook {
+    background-color: #3b5998;
+    border-color: #1B3469;
+    color: white;
+  }
+
+  .twitter {
+    background-color: #1b95e0;
+    border-color: #0084B4;
+    color: white;
+  }
+}
+
 /*
 a.quiet-link
 {
@@ -228,27 +249,6 @@ a.collapse-arrow:focus {
 }
 
 
-
-.third-party-auth {
-  margin-left: -10px;
-  margin-bottom: 10px;
-
-  a {
-    margin-right: 10px;
-  }
-
-  .facebook {
-    background-color: #3b5998;
-    border-color: #1B3469;
-    color: white;
-  }
-
-  .twitter {
-    background-color: #1b95e0;
-    border-color: #0084B4;
-    color: white;
-  }
-}
 
 
 
