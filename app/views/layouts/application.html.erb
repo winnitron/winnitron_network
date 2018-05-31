@@ -40,18 +40,24 @@
 
               <% if current_user.admin? %>
                 <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Admin
                   </a>
-                  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
+                  <div class="dropdown-menu dropdown-menu-right">
                     <a class="dropdown-item" href="/admin/users">Users</a>
                     <a class="dropdown-item" href="/admin/approval_requests">Approval Requests</a>
                   </div>
                 </li>
               <% end %>
 
-              <li class="nav-item">
-                <%= link_to "Sign Out", destroy_user_session_path, class: "nav-link", method: :delete  %>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Account
+                </a>
+                <div class="dropdown-menu dropdown-menu-right">
+                  <%= link_to "Edit Profile", edit_user_registration_path, class: "dropdown-item" %>
+                  <%= link_to "Sign Out", destroy_user_session_path, class: "dropdown-item", method: :delete  %>
+                </div>
               </li>
 
             <% end %>
