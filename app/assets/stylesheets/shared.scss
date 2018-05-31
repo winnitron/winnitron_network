@@ -177,6 +177,25 @@ a:hover {
   }
 }
 
+.dash
+{
+  .dash-item
+  {
+    a {
+      text-decoration: none;
+    }
+
+    .icon {
+      width: 80px;
+    }
+
+    .text {
+      padding-left: 25px;
+      font-size: 40px;
+    }
+  }
+}
+
 /*
 a.quiet-link
 {
@@ -201,24 +220,7 @@ footer {
   display: inline;
 }
 
-.dash
-{
-  .dash-item
-  {
-    a {
-      text-decoration: none;
-    }
 
-    .icon {
-      width: 80px;
-    }
-
-    .text {
-      padding-left: 25px;
-      font-size: 40px;
-    }
-  }
-}
 
 a.collapse-arrow:hover,
 a.collapse-arrow:focus {

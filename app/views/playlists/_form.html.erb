@@ -1,29 +1,31 @@
-<%= form_for(@playlist, html: { class: "form form-horizontal" }) do |f| %>
+<%= form_for(@playlist, html: { class: "form" }) do |f| %>
   <%= render "shared/errors", object: @playlist %>
 
-  <div class="form-group">
+  <div class="row form-group">
     <%= f.label :title, class: "col-sm-2 control-label" %>
     <div class="col-sm-7">
       <%= f.text_field :title, required: true, class: "form-control" %>
     </div>
   </div>
-  <div class="form-group">
+  <div class="row form-group">
     <%= f.label :description, class: "col-sm-2 control-label" %>
     <div class="col-sm-7">
       <%= f.text_area :description, class: "form-control" %>
     </div>
   </div>
 
-  <div class="form-group">
-    <label class="col-sm-2 control-label">Games</label>
-    <% @playlist.games.each do |game| %>
-      <%= render "games/card_small", game: game %>
-      <%= hidden_field_tag "playlist[game_id]", game.id %>
-    <% end %>
-  </div>
+  <% if @playlist.games.any? %>
+    <div class="row form-group">
+      <label class="col-sm-2 control-label">Games</label>
+      <% @playlist.games.each do |game| %>
+        <%= render "games/card_small", game: game %>
+        <%= hidden_field_tag "playlist[game_id]", game.id %>
+      <% end %>
+    </div>
+  <% end %>
 
   <div class="actions form-group">
-    <div class="col-sm-offset-2 col-sm-7">
+    <div class="offset-sm-2">
       <%= f.submit "Save", class: "btn btn-success" %>
     </div>
   </div>

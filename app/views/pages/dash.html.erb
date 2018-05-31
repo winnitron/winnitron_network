@@ -1,9 +1,10 @@
 <% set_title 'Dashboard' %>
+
 <div class="dash">
   <h1>Whatcha up to?</h1>
 
-  <div class="dash-item panel panel-default">
-    <div class="panel-body">
+  <div class="dash-item card mt-5">
+    <div class="card-body">
       <a href="<%= new_game_path %>">
         <%= image_tag "rocket-ship.png", class: "icon" %>
         <span class="text">Submit a game</span>
@@ -11,8 +12,8 @@
     </div>
   </div>
 
-  <div class="dash-item panel panel-default">
-    <div class="panel-body">
+  <div class="dash-item card mt-5">
+    <div class="card-body">
       <a href="<%= new_arcade_machine_path %>">
         <%= image_tag "game-console.png", class: "icon" %>
         <span class="text">Register a Winnitron</span>
@@ -20,8 +21,8 @@
     </div>
   </div>
 
-  <div class="dash-item panel panel-default">
-    <div class="panel-body">
+  <div class="dash-item card mt-5">
+    <div class="card-body">
       <a href="<%= new_playlist_path %>">
         <%= image_tag "add-list.png", class: "icon" %>
         <span class="text">Make a playlist</span>
@@ -29,15 +30,4 @@
     </div>
   </div>
 
-  <!--
-
-  <div class="dash-item panel panel-default">
-    <div class="panel-body">
-      <a href="<%= playlists_path %>">
-        <%= image_tag "heart-list.png", class: "icon" %>
-        <span class="text">Manage playlist subscriptions</span>
-      </a>
-    </div>
-  </div>
-  -->
 </div>

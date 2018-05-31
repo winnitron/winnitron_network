@@ -14,8 +14,8 @@ class PlaylistsController < ApplicationController
   end
 
   def new
-    initial_game = Game.published.find(params[:game_id])
-    @playlist = Playlist.new(games: [initial_game])
+    initial_game = Game.published.where(id: params[:game_id]).first
+    @playlist = Playlist.new(games: [initial_game].compact)
   end
 
   def edit

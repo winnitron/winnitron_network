@@ -22,7 +22,9 @@
   </div>
 </div>
 
-<div class="">
+<div class="clearfix"></div>
+
+<div>
   <% @playlist.games.each do |game| %>
     <div class="col-lg-2"></div>
     <%= render "games/card_small", game: game %>
