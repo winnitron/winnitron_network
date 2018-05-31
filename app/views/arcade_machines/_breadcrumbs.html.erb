@@ -2,17 +2,15 @@
 active = { active => "active" }
 %>
 
-<div class="breadcrumbs col-sm-12">
-
-  <div class="col-sm-2"></div>
+<div class="row breadcrumbs col-sm-12 m-1 mt-3">
 
   <% if @arcade_machine.persisted? %>
-    <a href="edit"   class="item col-sm-2 <%= active[:details] %>">Details</a>
-    <a href="images" class="item col-sm-2 <%= active[:images] %>">Images</a>
+    <a href="edit"   class="item p-1 col-sm-2 <%= active[:details] %>">Details</a>
+    <a href="images" class="item p-1 col-sm-2 <%= active[:images] %>">Images</a>
   <% else %>
-    <div class="item col-sm-2 <%= active[:details] %>">Details</div>
-    <div class="item col-sm-2 <%= active[:images] %>">Images</div>
+    <div class="item p-1 col-sm-2 <%= active[:details] %>">Details</div>
+    <div class="item p-1 col-sm-2 <%= active[:images] %>">Images</div>
   <% end %>
 
-  <div class="item col-sm-2 disabled">Key Bindings</div>
+  <div class="item p-1 col-sm-2 disabled">Key Bindings</div>
 </div>
