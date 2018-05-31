@@ -1,28 +1,29 @@
-<!--
-PLAYLIST GRID VIEW
--->
+<div class="playlists row col-lg-12 col-sm-12">
 
-<div class="row list-group">
   <% playlists.each do |playlist| %>
-  <div class="item col-lg-4">
 
-    <div class="thumbnail">
-      <a
-        class="quiet-link image-box"
-        href="<%= playlist_path(playlist) %>"
-        style="background: url(<%= playlist.cover_image.url(w: 320) %>) center center; background-size: cover;"
-      ></a>
-      <div class="caption">
-        <h4 class="group inner list-group-item-heading">
-          <a class="quiet-link" href="<%= playlist_path(playlist) %>">
-            <%= playlist.title %>
-          </a>
-        </h4>
+    <div class="col-lg-4 col-sm-6 portfolio-item">
+      <div class="card h-100 active">
+        <span class="card-img-container">
+          <img class="card-img" src="<%= playlist.cover_image.url(w: 340, h: 200) %>" alt="<%= playlist.title %>" title="<%= playlist.title %>">
+        </span>
 
-        <%= render "playlists/edit_buttons", playlist: playlist %>
+        <div class="card-img-overlay">
+          <h4 class="card-title text-center invisible">
+            <a href="<%= playlist_path(playlist) %>" class=""><%= playlist.title %></a>
+          </h4>
+        </div>
 
+        <%= render "playlists/card_controls", playlist: playlist %>
       </div>
+
+
     </div>
-  </div>
   <% end %>
+
 </div>
+
+
+<% if user_signed_in? %>
+  <%= render "playlists/arcade_machine_modal" %>
+<% end %>

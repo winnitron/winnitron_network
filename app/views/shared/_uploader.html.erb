@@ -33,9 +33,9 @@
 <div class="uploader <%= form_id %>">
 
   <div class="row">
-    <%= s3_uploader_form({ id: form_id, class: "form form-horizontal" }.merge(form_options)) do %>
+    <%= s3_uploader_form({ id: form_id, class: "form" }.merge(form_options)) do %>
 
-      <div class="form-group">
+      <div class="row form-group">
         <% if label %>
           <label class="col-sm-3 control-label"><%= label %></label>
         <% end %>

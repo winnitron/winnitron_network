@@ -1,37 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
+
   <%= render "layouts/head" %>
+
   <body>
 
-    <div class="container-fluid">
-      <div class="row">
-        <%= render "shared/navbar" %>
-
-        <!-- Sidebar -->
-        <% if user_signed_in? %>
-          <div class="col-md-3" id="pane-sidebar">
-            <div class="sidebar-nav">
-              <%= render "shared/sidebar" %>
-            </div>
+    <!--
+    <form  action="<%= search_path %>" method="GET"  class="navbar-form navbar-left">
+          <div class="row form-group">
+            <input type="text" class="form-control" placeholder="Search games" name="kw" value="<%= params['kw'] %>">
+            <button type="submit" class="btn btn-default">🔍</button>
           </div>
-          <div class="col-md-9 logged-in" id="pane-content">
-            <%= yield %>
-          </div>
-        <% else %>
-          <!-- Sidebar doesn't show if not signed in -->
-          <div class="col-md-12 logged-out" id="pane-content">
-            <%= yield %>
-          </div>
-        <% end %>
+        </form>
+    -->
 
+    <!-- Navigation -->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="/">The Winnitron Network</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/games">Games</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/arcade_machines">Winnitrons</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/playlists">Playlists</a>
+            </li>
 
-      </div><!--/row-->
+            <% if user_signed_in? %>
 
-      <footer>
-        &nbsp;
-      </footer>
+              <% if current_user.admin? %>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Admin
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" href="/admin/users">Users</a>
+                    <a class="dropdown-item" href="/admin/approval_requests">Approval Requests</a>
+                  </div>
+                </li>
+              <% end %>
 
-    </div> <!-- /container -->
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Account
+                </a>
+                <div class="dropdown-menu dropdown-menu-right">
+                  <%= link_to "Edit Profile", edit_user_registration_path, class: "dropdown-item" %>
+                  <%= link_to "Sign Out", destroy_user_session_path, class: "dropdown-item", method: :delete  %>
+                </div>
+              </li>
+
+            <% end %>
+
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container content">
+
+      <%= yield %>
+
+    </div> <!-- /.container -->
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark mt-5">
+      <div class="container">
+        <a href="/contact">contact</a>
+      </div>
+      <!-- /.container -->
+    </footer>
+
 
   </body>
 

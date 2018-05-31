@@ -30,7 +30,7 @@ class Game < ActiveRecord::Base
   has_many :listings, dependent: :destroy
   has_many :playlists, through: :listings
 
-  has_many :arcade_machines, through: :playlists
+  has_many :arcade_machines, -> { distinct }, through: :playlists
 
   has_many :links, as: :parent, dependent: :destroy
 

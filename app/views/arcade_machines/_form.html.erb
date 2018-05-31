@@ -1,23 +1,30 @@
 <%= render "breadcrumbs", active: :details %>
 
-<%= form_for(@arcade_machine, html: { class: "machine form form-horizontal" }) do |f| %>
+<%= form_for(@arcade_machine, html: { class: "machine form mt-5" }) do |f| %>
   <%= render "shared/errors", object: @arcade_machine %>
 
-  <div class="form-group">
+  <div class="row form-group">
     <%= f.label :title, class: "col-sm-2 control-label" %>
-    <div class="col-sm-7">
+    <div class="col-sm-6">
       <%= f.text_field :title, required: true, class: "form-control" %>
     </div>
   </div>
 
-  <div class="form-group">
+  <div class="row form-group">
+    <%= f.label :description, class: "col-sm-2 control-label" %>
+    <div class="col-sm-6">
+      <%= f.text_area :description, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="row form-group">
     <%= f.label :players, class: "col-sm-2 control-label" %>
     <div class="col-sm-1">
       <%= f.number_field :players, required: true, class: "form-control", min: 2, max: 4 %>
     </div>
   </div>
 
-  <div class="form-group">
+  <div class="row form-group">
     <%= f.label :location, class: "col-sm-2 control-label" %>
     <div class="col-sm-4">
       <%= f.text_area :location, class: "form-control", rows: 4 %>
@@ -28,19 +35,12 @@
     </div>
   </div>
 
-  <div class="form-group">
-    <%= f.label :description, class: "col-sm-2 control-label" %>
-    <div class="col-sm-7">
-      <%= f.text_area :description, class: "form-control" %>
-    </div>
-  </div>
-
   <%= render "shared/links_form", f: f %>
 
 
-  <div class="actions form-group">
-    <div class="col-sm-offset-2 col-sm-7">
-      <%= f.submit "Save Winnitron", class: "machine-save btn btn-success" %>
+  <div class="actions mt-3">
+    <div class="offset-sm-6">
+      <%= f.submit "Save Winnitron", class: "machine-save btn btn-success col-sm-4" %>
     </div>
   </div>
 

@@ -10,13 +10,14 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery
+//= require jquery3
 //= require jquery_ujs
-//= require jquery-ui
+//= require popper
 //= require bootstrap-sprockets
+
 //= require s3_direct_upload
 //= require nested_form_fields
 //= require bootstrap-tagsinput
-//= require ekko-lightbox
+//= require lightbox-bootstrap
 //= require gmaps/google
 //= require_tree .

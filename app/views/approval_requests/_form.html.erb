@@ -10,7 +10,7 @@
     </p>
   </div>
   <div class="col-sm-8">
-    <div class="form-group">
+    <div class="row form-group">
       <%= text_area_tag :notes, @approval_request.notes, required: true, class: "form-control", rows: 5, placeholder: "Tell us a bit about your project!" %>
     </div>
   </div>
@@ -51,7 +51,7 @@
 
 
 <div class="col-sm-8 text-right">
-    <div class="form-group">
+    <div class="row form-group">
       <button class="btn btn-success approval-request">Submit Request</button>
     </div>
   </div>

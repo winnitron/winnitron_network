@@ -1,33 +1,27 @@
-<!--
-GAME GRID VIEW
--->
+<div class="games row col-lg-12 col-sm-12">
 
-<div class="row list-group">
   <% games.each do |game| %>
-    <div class="item col-lg-4 tall">
+    <div class="col-lg-4 col-sm-6 portfolio-item">
+      <div class="card h-100">
+        <span class="card-img-container">
+          <img class="card-img" src="<%= game.cover_image.url(w: 340, h: 200) %>" alt="<%= game.title %>" title="<%= game.title %>">
+        </span>
 
-      <div class="thumbnail">
-        <a
-          class="quiet-link image-box"
-          href="<%= game_path(game) %>"
-          style="background: url(<%= game.cover_image.url(w: 320) %>) center center; background-size: cover;">
-        </a>
-        <div class="caption">
-          <h4 class="group inner list-group-item-heading title">
-            <a class="quiet-link" href="<%= game_path(game) %>">
-              <%= game.title %>
-            </a>
+        <div class="card-img-overlay">
+          <h4 class="card-title text-center invisible">
+            <a href="<%= game_path(game) %>" class=""><%= game.title %></a>
           </h4>
-          <div class="group inner list-group-item-text description">
-            <%= simple_format(game.description.squish) %>
-          </div>
-
-          <%= render "games/edit_buttons", game: game %>
         </div>
 
-
-
+        <%= render "games/card_controls", game: game %>
       </div>
+
+
     </div>
   <% end %>
-</div>
+
+</div> <!-- /.row -->
+
+<% if user_signed_in? %>
+  <%= render "games/playlist_modal" %>
+<% end %>

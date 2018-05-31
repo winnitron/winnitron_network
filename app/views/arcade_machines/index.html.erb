@@ -1,13 +1,13 @@
-<a href="<%= new_arcade_machine_path %>" class="pull-right add-item">
-  <%= image_tag asset_path("plus") %>
+<a href="<%= new_arcade_machine_path %>" class="float-right mt-1 add-item btn btn-success">
+  Register your new Winnitron
 </a>
 
 <%= page_heading :h1, "Winnitrons!" %>
-<div>
+<div class="mb-5">
   <h5>This list is now available in <%= link_to "convenient map form", map_arcade_machines_path %>!</h5>
 </div>
-<p>&nbsp;</p>
-<div>
+
+<div class="row">
   <% mine, theirs = @arcade_machines.partition { |am| user_signed_in? && current_user.owns?(am) } %>
 
   <%= render "arcade_machines/list", arcade_machines: mine %>

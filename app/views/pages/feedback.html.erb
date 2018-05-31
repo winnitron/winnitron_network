@@ -1,28 +1,54 @@
-<% set_title "Contact" %>
-<div class="row col-lg-7">
-  <h1>Got words?</h1>
 
-  <p>We bet you have opinions.</p>
+<h1 class="mt-4 mb-3">Contact
+  <small>We bet you've got opinions.</small>
+</h1>
 
-  <p>
-    If you've got a bug report or a feature request, we've got ongoing issue lists on GitHub, both
-    <a href="https://github.com/winnitron/winnitron_reborn/issues">for this website</a>
-    and <a href="https://github.com/winnitron/WinnitronLauncher/issues">for the Winnitron Launcher</a>.
-  </p>
+<div class="row">
+  <div class="col-lg-7 mb-4">
+    <img src="<%= ArcadeMachine.find_by(slug: "winnitron-1000").cover_image.url(h: 400) %>">
+  </div>
 
-  <p>
-    Another option for questions and suggestions:
-    <a href="https://reddit.com/r/winnitron/">our Winnitron subreddit</a>.
-  </p>
+  <!-- Contact Details Column -->
+  <div class="col-lg-4 mb-4">
 
-  <p>
-    You can also email us at <strong>winnitron.support@outerspacehero.com</strong>, or heck even send
-    angry tweets from your <strike>egg</strike> account to:
-    <ul>
-      <li><a href="https://twitter.com/mr_m_wiebe">Marlon Wiebe</a> (mostly launcher stuff);</li>
-      <li><a href="https://twitter.com/aaronklaassen">Aaron Klaassen</a> (mostly website stuff);</li>
-      <li>or <a href="https://twitter.com/winnitron1000">the Winnitron 1000 itself</a> (mostly yelling at a machine).</li>
-    </ul>
-  </p>
+    <p>
+      <h5>Bug reports and feature requests:</h5>
 
+      <%= image_tag("github-logo.png", size: 20) %>
+      <a href="https://github.com/winnitron/winnitron_reborn/issues">the Winnitron Network</a>
+
+      <br>
+      <%= image_tag("github-logo.png", size: 20) %>
+      <a href="https://github.com/winnitron/winnitronlauncher/issues">the Winnitron Launcher</a>
+    </p>
+
+    <p>
+      <h5>The Twitters</h5>
+
+      <%= image_tag("twitter-logo.png", size: 20) %>
+      <a href="https://twitter.com/winnitron1000">@Winnitron1000</a>
+
+
+      <br>
+      <%= image_tag("twitter-logo.png", size: 20) %>
+      <a href="https://twitter.com/aaronklaassen">Aaron Klaassen</a> (mostly website stuff)
+
+      <br>
+      <%= image_tag("twitter-logo.png", size: 20) %>
+      <a href="https://twitter.com/mr_m_wiebe">Marlon Wiebe</a> (mostly launcher stuff)
+    </p>
+
+    <p>
+      <h5>Email</h5>
+      <%= image_tag("email-icon.png", size: 20) %>
+      <a href="mailto:winnitron.support@outerspacehero.com">winnitron.support@outerspacehero.com</a>
+    </p>
+
+    <p>
+      <h5>Reddit</h5>
+      <%= image_tag("reddit-logo.png", size: 20) %>
+      <a href="https://reddit.com/r/winnitron">reddit.com/r/winnitron</a>
+    </p>
+
+  </div>
 </div>

@@ -2,10 +2,10 @@
 
 <%= render "breadcrumbs", active: :keys %>
 
-<div class="col-sm-offset-1 col-sm-10 template-select">
+<div class="offset-sm-1 col-sm-10 mt-5 template-select">
 
-  <form action="" class="form form-horizontal template-select">
-    <div class="form-group">
+  <form action="" class="form template-select">
+    <div class="row form-group">
       <span class="col-sm-2">
         <label class="control-label">Key template:</label>
       </span>
@@ -30,7 +30,7 @@
         <button class="apply-template btn btn-primary">apply</button>
       </span>
     </div>
-    <span class="col-sm-offset-2 note custom-warning invisible">
+    <span class="offset-sm-2 note custom-warning invisible">
       Games using custom key bindings will only be playable on Winnitrons running
       Launcher v2.1 or later.
     </span>
@@ -38,12 +38,14 @@
 
 </div>
 
-<div class="key-selector col-sm-offset-1 col-sm-10">
-  <div class="panel panel-default">
-    <div class="panel-body">
+<div class="key-selector offset-sm-1 col-sm-10">
+  <div class="card">
+    <div class="card-body">
       <ul class="nav nav-pills">
         <% (1..@game.max_players).each do |num| %>
-        <li class="tab player<%=num%>"><a href="#player<%= num %>" class="player<%= num %>">Player <%= num %></a></li>
+        <li class="tab player<%=num%>">
+          <a href="#player<%= num %>" class="btn mr-1 player<%= num %>">Player <%= num %></a>
+        </li>
         <% end %>
       </ul>
 
@@ -59,12 +61,11 @@
 
           <input name="template" value="<%= @game.key_map.template %>" type="hidden">
 
-          <%= submit_tag "Save custom keys", class: "btn btn-success pull-right", disabled: @game.key_map.template != "custom" %>
-          <span id="save-keys-check" class="check-mark pull-right">✓ <em>nailed it</em></span>
+          <%= submit_tag "Save custom keys", class: "btn btn-success float-right", disabled: @game.key_map.template != "custom" %>
+          <span id="save-keys-check" class="check-mark float-right">✓ <em>nailed it</em></span>
 
         <% end %>
 
-        </form>
       </div>
     </div>
   </div>
@@ -72,11 +73,11 @@
 
 <%= render "keyboard" %>
 
-<div class="col-lg-12">&nbsp;</div>
+<div class="clearfix"></div>
 
 <% if !@game.published? %>
-  <div class="col-sm-offset-9 col-sm-2">
-    <%= link_to "Next Step", checklist_game_path(@game.slug), class: "next-step btn btn-success pull-right" %>
+  <div class="offset-sm-9 col-sm-2">
+    <%= link_to "Next Step", checklist_game_path(@game.slug), class: "next-step btn btn-success float-right" %>
   </div>
 <% end %>
 

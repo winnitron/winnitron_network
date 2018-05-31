@@ -2,31 +2,33 @@
 active = { active => "active" } # keep fit and have fun
 %>
 
+<div class="offset-sm-1">
 
-<div class="breadcrumbs col-sm-12">
+  <div class="row breadcrumbs col-sm-12 mt-4">
 
-  <% if @game.persisted? %>
-    <a href="edit"   class="item col-sm-2 <%= active[:details] %>">Details</a>
-    <a href="images" class="item col-sm-2 <%= active[:images] %>">Images</a>
-    <a href="zip"    class="item col-sm-2 <%= active[:zip] %>">Zip Upload</a>
-  <% else %>
-    <div class="item col-sm-2 <%= active[:details] %>">Details</div>
-    <div class="item col-sm-2 <%= active[:images] %>">Images</div>
-    <div class="item col-sm-2 <%= active[:zip] %>">Zip Upload</div>
-  <% end %>
+    <% if @game.persisted? %>
+      <a href="edit"   class="item p-1 col-sm-2 <%= active[:details] %>">Details</a>
+      <a href="images" class="item p-1 col-sm-2 <%= active[:images] %>">Images</a>
+      <a href="zip"    class="item p-1 col-sm-2 <%= active[:zip] %>">Zip Upload</a>
+    <% else %>
+      <div class="item p-1 col-sm-2 <%= active[:details] %>">Details</div>
+      <div class="item p-1 col-sm-2 <%= active[:images] %>">Images</div>
+      <div class="item p-1 col-sm-2 <%= active[:zip] %>">Zip Upload</div>
+    <% end %>
 
-  <% if @game.current_zip %>
-    <a href="executable" class="item col-sm-2 <%= active[:exec] %>">Executable</a>
-  <% else %>
-    <div class="item col-sm-2 <%= active[:exec] %>">Executable</div>
-  <% end %>
+    <% if @game.current_zip %>
+      <a href="executable" class="item p-1 col-sm-2 <%= active[:exec] %>">Executable</a>
+    <% else %>
+      <div class="item p-1 col-sm-2 <%= active[:exec] %>">Executable</div>
+    <% end %>
 
-  <% if @game.persisted? %>
-    <a href="keys" class="item col-sm-2 <%= active[:keys] %>">Key Bindings</a>
-    <a href="checklist" class="item col-sm-2 <%= active[:publish] %>">Publish</a>
-  <% else %>
-    <div class="item col-sm-2 <%= active[:keys] %>">Key Bindings</div>
-    <div class="item col-sm-2 <%= active[:publish] %>">Publish</div>
-  <% end %>
+    <% if @game.persisted? %>
+      <a href="keys" class="item p-1 col-sm-2 <%= active[:keys] %>">Key Bindings</a>
+      <a href="checklist" class="item p-1 col-sm-2 <%= active[:publish] %>">Publish</a>
+    <% else %>
+      <div class="item p-1 col-sm-2 <%= active[:keys] %>">Key Bindings</div>
+      <div class="item p-1 col-sm-2 <%= active[:publish] %>">Publish</div>
+    <% end %>
 
+  </div>
 </div>

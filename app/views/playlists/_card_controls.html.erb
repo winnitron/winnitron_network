@@ -1,0 +1,9 @@
+<% if user_signed_in? && current_user.arcade_machines.any? %>
+
+  <div class="card-controls">
+    <button class="btn btn-secondary col-sm-8 open-machine-modal" type="button" data-toggle="modal" data-target="#machineModal" data-playlist-id="<%= playlist.id %>">
+      Winnitron Subscriptions
+    </button>
+  </div>
+
+<% end %>

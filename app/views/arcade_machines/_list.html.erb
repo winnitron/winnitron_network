@@ -1,32 +1,27 @@
-<!--
-  WINNITRON GRID VIEW
--->
+<div class="machines row col-lg-12 col-sm-12">
 
-<div class="row list-group">
   <% arcade_machines.each do |machine| %>
-    <div class="item col-lg-4">
-
-      <div class="thumbnail">
-        <a
-          class="quiet-link image-box"
-          href="<%= arcade_machine_url(machine) %>"
-          style="background: url(<%= machine.cover_image.url(w: 320) %>) center center; background-size: cover;"
-        >
-        </a>
-        <div class="caption">
-          <span class="location pull-right">
-            <%= (machine.location || "").split("\n").first %>
+    <div class="col-lg-4 col-sm-6 portfolio-item">
+      <div class="card h-100">
+        <a href="<%= arcade_machine_path(machine) %>">
+          <span class="card-img-container">
+            <img class="card-img" src="<%= machine.cover_image.url(w: 340, h: 200) %>" alt="<%= machine.title %>" title="<%= machine.title %>">
           </span>
 
-          <h4 class="group inner list-group-item-heading">
-            <a class="quiet-link" href="<%= arcade_machine_path(machine) %>">
-              <%= machine.title %>
-            </a>
-          </h4>
+          <div class="row">
+            <div class="col-sm-7">
+              <h4><%= machine.title %></h4>
+            </div>
 
-          <%= render "arcade_machines/edit_buttons", arcade_machine: machine %>
-        </div>
+            <div class="col-sm-5 text-right">
+              <%= (machine.location || "").split("\n").first %>
+            </div>
+          </div>
+
+        </a>
       </div>
+
     </div>
   <% end %>
-</div>
+
+</div> <!-- /.row -->

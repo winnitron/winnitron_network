@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   resources :arcade_machines do
     collection do
       get "map" => "arcade_machines#map", as: :map
+      get :all_subscriptions
     end
 
     member do
@@ -41,6 +42,10 @@ Rails.application.routes.draw do
   end
 
   resources :playlists do
+    collection do
+      get :all_listings
+    end
+
     member do
       get :confirm_destroy
     end

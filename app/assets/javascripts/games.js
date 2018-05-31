@@ -1,6 +1,13 @@
 (function(window, $, undefined) {
 
   $(function() {
+    $(".games .card").hover(function() {
+      $(this).addClass("active");
+    },
+    function() {
+      $(this).removeClass("active");
+    });
+
     $(".add_nested_fields_link").click();
 
     $(".popular-tags .js-add-tag").click(function(e) {
@@ -82,11 +89,11 @@
 
     highlightKeyboard();
 
-    document.querySelector("#pane-content").onkeydown = function(e) {
+    $("body").keydown(function(e) {
       var key = keyCodeToAHK(e.keyCode);
       if (key.ahk != undefined)
-        $(".modal.select-key-modal.in .custom-key-display").html(key.ahk);
-    }
+        $(".modal.select-key-modal.show .custom-key-display").html(key.ahk);
+    });
   });
 
   function resetKeyboard() {

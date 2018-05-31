@@ -1,0 +1,15 @@
+<% if user_signed_in? %>
+  <div class="card-controls">
+    <button class="btn btn-secondary col-sm-8 open-playlist-modal" type="button" data-toggle="modal" data-target="#playlistModal" data-game-id="<%= game.id %>">
+      Add to Playlist
+    </button>
+
+
+    <% if current_user.admin? || current_user.owns?(game) %>
+      <a href="<%= edit_game_path(game) %>" class="btn btn-success col-sm-3 float-right">
+        Edit
+      </a>
+    <% end %>
+  </div>
+
+<% end %>

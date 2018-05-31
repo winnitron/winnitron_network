@@ -1,0 +1,14 @@
+<!--
+In-Line Item Cards
+
+Used for Users, Winnitrons, Games
+And other things with an image and title
+-->
+
+<div class="item-card col-xs-12 m-1 rounded" style="background-image: url(<%= item.cover_image.url(w: 600) %>)">
+
+  <a href="<%= url_for(item) %>" class="p-2">
+    <h3><%= item.title %></h3>
+  </a>
+
+</div>

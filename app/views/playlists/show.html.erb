@@ -1,53 +1,32 @@
-<!--
-PLAYLIST DETAIL VIEW
--->
+<% content_for(:title) { @playlist.title } %>
 
-<%= render "shared/detail_header", image: @playlist.cover_image.url(w: 980), title: @playlist.title, description: @playlist.description %>
+<div class="float-right">
+  <%= render "edit_buttons", playlist: @playlist %>
+</div>
 
-<div class="playlist detail">
+<h1 class="mt-4 mb-3">
+  <%= @playlist.title %>
+</h1>
 
-  <div class="row">
+<div class="float-right text-right">
+  <a href="<%= user_url(@playlist.user) %>">
+    <img src="<%= @playlist.user.gravatar_url(size: 100) %>">
+    <br>
+    <%= @playlist.user.name %>
+  </a>
+</div>
 
-    <!-- Metadata -->
-    <div class="col-md-6">
-
-      <!-- Game Description -->
-      <div class="detail-description">
-        <%= simple_format(@playlist.description) %>
-
-        <!-- Edit Buttons -->
-        <div class="detail-edit-buttons">
-          <%= render "edit_buttons", playlist: @playlist %>
-        </div>
-      </div>
-
-      <hr>
-
-      <div class="col-md-12">
-        <h4>
-          Creator
-        </h4>
-        <%= render "shared/item_card_square",
-          item_name: @playlist.user.name,
-          item_info: "",
-          item_link: user_url(@playlist.user),
-          item_image_url: @playlist.user.gravatar_url
-        %>
-      </div>
-
-      <div class="clearfix"></div>
-    </div>
-
-    <!-- Games Listing -->
-    <div class="col-md-6">
-      <h4>Games</h4>
-      <% @playlist.games.each do |game| %>
-        <%=
-          render "shared/item_card_wide", item: game,
-                                      optional: { actions_partial: "playlists/games_actions" }
-        %>
-      <% end %>
-    </div>
+<div class="row mb-3">
+  <div class="col-lg-8">
+    <%= simple_format(@playlist.description) %>
   </div>
+</div>
 
+<div class="clearfix"></div>
+
+<div>
+  <% @playlist.games.each do |game| %>
+    <div class="col-lg-2"></div>
+    <%= render "games/card_small", game: game %>
+  <% end %>
 </div>

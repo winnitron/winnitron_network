@@ -3,15 +3,10 @@ class ListingsController < ApplicationController
   before_action :permission_check!
 
   def create
-    game = Game.find params[:game_id]
+    game = Game.published.find params[:game_id]
     listing = Listing.find_or_create_by(game: game, playlist: @playlist)
 
-    # if listing
-    #   render json: listing, status: :ok
-    # else
-    #   render json: Listing.create!(game: game, playlist: @playlist), status: :created
-    # end
-    redirect_to games_path, notice: "Game added."
+    render json: listing, status: :created
   end
 
   def destroy

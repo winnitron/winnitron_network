@@ -1,29 +1,7 @@
-<!-- EDIT BUTTONS -->
-
 <% if user_signed_in? %>
 
-  <!-- Add to Winnitron dropdown -->
   <div class="edit-buttons dropdown">
-    <% if current_user.builder? && !current_user.arcade_machines.empty? %>
-      <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-        Add to Winnitron
-        <span class="caret"></span>
-      </button>
 
-      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-        <% current_user.arcade_machines.each do |machine| %>
-          <li>
-            <% if machine.subscribed?(playlist) %>
-              <a>✓ <%= machine.title %></a>
-            <% else %>
-              <%= link_to machine.title, subscriptions_path(playlist_id: playlist.id, arcade_machine_id: machine.id), method: :post %>
-            <% end %>
-          </li>
-        <% end %>
-      </ul>
-    <% end %>
-
-    <!-- Editing Buttons if Owned -->
     <% if current_user.owns?(playlist) || current_user.admin? %>
       <a href="<%= edit_playlist_path(playlist) %>">
         <button class="btn btn-success">
@@ -35,6 +13,7 @@
           Delete
         </button>
       </a>
+
     <% end %>
   </div>
 
