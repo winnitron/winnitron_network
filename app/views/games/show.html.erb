@@ -1,4 +1,7 @@
-<% content_for(:title) { @game.title } %>
+<%
+content_for(:title) { @game.title }
+content_for(:image) { @game.cover_image.url(w: 300, h: 300) }
+%>
 
 <div class="float-right">
   <%= render "edit_buttons", game: @game, show_stats: true %>

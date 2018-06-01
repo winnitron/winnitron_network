@@ -1,16 +1,27 @@
+<%
+title = [yield(:title), "The Winnitron Network"].reject(&:blank?).join(" - ")
+
+image = if content_for?(:image)
+          yield(:image)
+        else
+          asset_url("winnitron1000.jpg")
+        end
+%>
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>
-    <% if content_for?(:title) %>
-      <%= yield(:title) %> - The Winnitron Network
-    <% else %>
-      The Winnitron Network
-    <% end %>
-  </title>
+  <meta property="og:title" content="<%= title %>">
+  <meta property="og:site_name" content="The Winnitron Network">
+  <meta property="og:description" content="The indie game and arcade machine network!">
+  <meta property="og:image" content="<%= image %>">
+  <meta property="og:url" content="<%= request.original_url %>">
+
+  <title><%= title %></title>
+
   <%= csrf_meta_tags %>
 
   <%= stylesheet_link_tag "application", :media => "all" %>
