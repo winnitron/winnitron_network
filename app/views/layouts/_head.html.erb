@@ -20,6 +20,12 @@ image = if content_for?(:image)
   <meta property="og:image" content="<%= image %>">
   <meta property="og:url" content="<%= request.original_url %>">
 
+  <meta property="twitter:title" content="<%= title %>">
+  <meta property="twitter:site_name" content="@winnitron1000">
+  <meta property="twitter:description" content="The indie game and arcade machine network!">
+  <meta property="twitter:image" content="<%= image %>">
+  <meta property="twitter:card" content="summary">
+
   <title><%= title %></title>
 
   <%= csrf_meta_tags %>
