@@ -2,9 +2,9 @@ class ArcadeMachine < ActiveRecord::Base
   include HasImages
   include Slugged
 
-  before_validation :clean_location
-  geocoded_by :location
-  after_validation :geocode, if: :should_geocode?
+  # before_validation :clean_location
+  # geocoded_by :location
+  # after_validation :geocode, if: :should_geocode?
 
   validates :title, presence: true
   validates :players, numericality: { only_integer: true, greater_than: 1 }
@@ -22,6 +22,7 @@ class ArcadeMachine < ActiveRecord::Base
   has_many :plays
 
   has_one :approval_request, as: :approvable, dependent: :destroy
+  has_one :location, as: :parent, dependent: :destroy
 
   after_create :subscribe_to_defaults
 

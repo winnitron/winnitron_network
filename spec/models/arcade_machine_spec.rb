@@ -53,39 +53,41 @@ RSpec.describe ArcadeMachine, type: :model do
   describe "geocoding" do
     let(:machine) { FactoryBot.build(:arcade_machine) }
 
-    it "sets coords to nil if location is nil" do
-      machine.update latitude: 123, longitude: 456
+    pending "move this to Location"
 
-      machine.update location: nil
-      expect(machine.latitude).to be_nil
-      expect(machine.longitude).to be_nil
-    end
+    # it "sets coords to nil if location is nil" do
+    #   machine.update latitude: 123, longitude: 456
 
-    context "machine is mappable" do
-      it "does not make request if location is blank" do
-        allow(machine).to receive(:geocode)
+    #   machine.update location: nil
+    #   expect(machine.latitude).to be_nil
+    #   expect(machine.longitude).to be_nil
+    # end
 
-        machine.update location: nil
-        expect(machine).to_not have_received(:geocode)
-      end
-    end
+    # context "machine is mappable" do
+    #   it "does not make request if location is blank" do
+    #     allow(machine).to receive(:geocode)
 
-    context "machine is not mappable" do
-      before :each do
-        machine.mappable = false
-      end
+    #     machine.update location: nil
+    #     expect(machine).to_not have_received(:geocode)
+    #   end
+    # end
 
-      it "does not make geocode request" do
-        allow(machine).to receive(:geocode)
+    # context "machine is not mappable" do
+    #   before :each do
+    #     machine.mappable = false
+    #   end
 
-        machine.update location: "New York, NY"
-        expect(machine).to_not have_received(:geocode)
-      end
+    #   it "does not make geocode request" do
+    #     allow(machine).to receive(:geocode)
 
-      it "sets coords to nil" do
-        machine.save
-        expect(machine.to_coordinates).to eq [nil, nil]
-      end
-    end
+    #     machine.update location: "New York, NY"
+    #     expect(machine).to_not have_received(:geocode)
+    #   end
+
+    #   it "sets coords to nil" do
+    #     machine.save
+    #     expect(machine.to_coordinates).to eq [nil, nil]
+    #   end
+    # end
   end
 end

@@ -10,17 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180224194936) do
+ActiveRecord::Schema.define(version: 20180724204635) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "api_keys", id: :serial, force: :cascade do |t|
-    t.integer "arcade_machine_id"
+    t.integer "parent_id"
     t.string "token"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["arcade_machine_id"], name: "index_api_keys_on_arcade_machine_id"
+    t.string "secret"
+    t.string "parent_type", default: "ArcadeMachine"
+    t.index ["parent_id"], name: "index_api_keys_on_parent_id"
+    t.index ["parent_type"], name: "index_api_keys_on_parent_type"
     t.index ["token"], name: "index_api_keys_on_token"
   end
 
@@ -37,7 +40,7 @@ ActiveRecord::Schema.define(version: 20180224194936) do
   create_table "arcade_machines", id: :serial, force: :cascade do |t|
     t.string "title"
     t.text "description"
-    t.text "location"
+    t.text "legacy_location"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "slug"
@@ -91,6 +94,18 @@ ActiveRecord::Schema.define(version: 20180224194936) do
     t.string "slug"
     t.datetime "published_at"
     t.index ["published_at"], name: "index_games_on_published_at"
+  end
+
+  create_table "high_scores", force: :cascade do |t|
+    t.string "name"
+    t.integer "score"
+    t.bigint "game_id"
+    t.bigint "arcade_machine_id"
+    t.json "extras"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["arcade_machine_id"], name: "index_high_scores_on_arcade_machine_id"
+    t.index ["game_id"], name: "index_high_scores_on_game_id"
   end
 
   create_table "images", id: :serial, force: :cascade do |t|
