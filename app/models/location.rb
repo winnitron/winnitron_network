@@ -1,4 +1,7 @@
 class Location < ActiveRecord::Base
+  geocoded_by :humanize
+  after_validation :geocode
+
   belongs_to :parent, polymorphic: true
 
   def humanize
@@ -6,11 +9,12 @@ class Location < ActiveRecord::Base
       address,
       "#{city}, #{state}",
       country
-    ].map(&:strip).reject(&:blank?).join("\n")
+    ].reject(&:blank?).map(&:strip).join("\n")
   end
 
-  def abbreviated
+  def abbreviate
     cs = [city, state].reject(&:blank?).join(", ")
     [cs, state, country].find(&:present?)
   end
+
 end
