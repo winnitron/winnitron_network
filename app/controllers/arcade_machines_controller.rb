@@ -9,14 +9,15 @@ class ArcadeMachinesController < ApplicationController
   end
 
   def index
-    @arcade_machines = ArcadeMachine.approved
+    @arcade_machines = ArcadeMachine.includes(:location).approved
   end
 
   def show
   end
 
   def new
-    @arcade_machine = ArcadeMachine.new
+    @arcade_machine = ArcadeMachine.new(players: 2)
+    @arcade_machine.location = Location.new
   end
 
   def edit
@@ -59,7 +60,7 @@ class ArcadeMachinesController < ApplicationController
   end
 
   def map
-    @arcade_machines = ArcadeMachine.approved.geocoded
+    @arcade_machines = ArcadeMachine.approved.where(mappable: true)
   end
 
   def stats
@@ -104,7 +105,8 @@ class ArcadeMachinesController < ApplicationController
 
   def arcade_machine_params
     params.fetch(:arcade_machine, {}).permit(:title, :description, :location, :players, :mappable,
-                                             links_attributes: [:id, :link_type, :url, :_destroy])
+                                             links_attributes: [:id, :link_type, :url, :_destroy],
+                                             location_attributes: [:id, :address, :city, :state, :country])
   end
 
 end

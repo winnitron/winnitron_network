@@ -11,7 +11,7 @@ class ApiKey < ActiveRecord::Base
   def generate_token
     loop do
       self.token = SecureRandom.hex(24)
-      break if ApiKey.where(token: token).count == 0  
+      break if ApiKey.where(token: token).count == 0
     end
   end
 end

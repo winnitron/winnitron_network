@@ -26,6 +26,7 @@ class ArcadeMachine < ActiveRecord::Base
 
   accepts_nested_attributes_for :links, allow_destroy: true,
                                         reject_if: proc { |attrs| attrs["url"].blank? }
+  accepts_nested_attributes_for :location
 
   delegate :approved?, to: :approval_request, allow_nil: true
 

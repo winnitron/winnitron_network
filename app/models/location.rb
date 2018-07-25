@@ -1,6 +1,6 @@
 class Location < ActiveRecord::Base
   geocoded_by :humanize
-  after_validation :geocode
+  after_validation :geocode, if: -> { !Rails.env.test? }
 
   belongs_to :parent, polymorphic: true
 
