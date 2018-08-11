@@ -55,7 +55,7 @@ content_for(:image) { @arcade_machine.cover_image.url(w: 300, h: 300) }
     </div>
 
     <div>
-      <p><%= @arcade_machine.location %></p>
+      <address><%= simple_format(@arcade_machine.location.humanize) %></address>
     </div>
 
     <% if user_signed_in? && (current_user.owns?(@arcade_machine) || current_user.admin?) %>

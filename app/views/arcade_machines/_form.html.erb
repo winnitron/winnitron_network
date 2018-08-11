@@ -1,7 +1,9 @@
 <%= render "breadcrumbs", active: :details %>
 
 <%= form_for(@arcade_machine, html: { class: "machine form mt-5" }) do |f| %>
-  <%= render "shared/errors", object: @arcade_machine %>
+  <div class="offset-sm-2 col-sm-6">
+    <%= render "shared/errors", object: @arcade_machine %>
+  </div>
 
   <div class="row form-group">
     <%= f.label :title, class: "col-sm-2 control-label" %>
@@ -27,7 +29,14 @@
   <div class="row form-group">
     <%= f.label :location, class: "col-sm-2 control-label" %>
     <div class="col-sm-4">
-      <%= f.text_area :location, class: "form-control", rows: 4 %>
+      <%= f.fields_for :location do |lf| %>
+        <%= lf.text_area :address, class: "form-control mb-1", rows: 2, placeholder: "Address" %>
+        <%= lf.text_field :city, class: "form-control mb-1", placeholder: "City" %>
+        <%= lf.text_field :state, class: "form-control mb-1", placeholder: "State/Province" %>
+        <%= lf.text_field :country, class: "form-control mb-1", placeholder: "Country" %>
+      <% end %>
+
+
       <%= f.check_box :mappable %>
       <label for="arcade_machine_mappable" class="control-label">
         Show this Winnitron on <%= link_to "the map", map_arcade_machines_path %>

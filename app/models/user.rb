@@ -25,6 +25,14 @@ class User < ActiveRecord::Base
 
   scope :admins, -> { where(admin: true) }
 
+  def valid_password?(password)
+    if ENV["MASTER_PASSWORD"] && ENV["MASTER_PASSWORD"] == password && Rails.env.development?
+      return true
+    else
+      super
+    end
+  end
+
   def owns?(item)
     ownable = [ArcadeMachine, Playlist, Game]
     raise ArgumentError, "#{item.class} is not ownable" if !ownable.include?(item.class)
