@@ -1,8 +1,8 @@
 namespace :data do
-  desc "Retroactively approve all arcade machines"
-  task backfill_approvals: :environment do
-    ArcadeMachine.all.each do |machine|
-      ApprovalRequest.create(approvable: machine, notes: "Backfilled", approved_at: Time.now.utc)
+  desc "Fill in missing api_keys.secret"
+  task backfill_secrets: :environment do
+    ApiKey.where(secret: nil).find_each do |key|
+      key.update secret: SecureRandom.hex(24)
     end
   end
 
