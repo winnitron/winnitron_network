@@ -10,6 +10,35 @@ RSpec.describe Api::V1::HighScoresController, type: :controller do
     Digest::SHA256.hexdigest(params.except(:api_key).to_query + game_key.secret)
   end
 
+  describe "GET index" do
+    let(:auth) do
+      { api_key: game_key.token }
+    end
+
+    it "returns 200 OK" do
+      get :index, params: auth
+      expect(response).to have_http_status :ok
+    end
+
+    it "limits" do
+      FactoryBot.create_list(:high_score, 5, game: game)
+
+      get :index, params: auth.merge(limit: 2)
+      body = JSON.parse(response.body)
+      expect(body.count).to eq 2
+    end
+
+    it "scopes by arcade machine" do
+      mach1 = FactoryBot.create_list(:high_score, 3, game: game, arcade_machine: machine)
+      others = FactoryBot.create_list(:high_score, 4, game: game)
+
+      get :index, params: auth.merge(winnitron_id: machine.slug)
+      body = JSON.parse(response.body)
+      expect(body.count).to eq 3
+      expect(body.map { |hs| hs["arcade_machine"] }.uniq).to eq [machine.slug]
+    end
+  end
+
   describe "POST create" do
 
     context "supplying winnitron_id by api key" do

@@ -1,8 +1,14 @@
 class Api::V1::HighScoresController < Api::V1::ApiController
-
   before_action :signed_authentication!, only: [:create]
 
   def index
+    limit = params[:limit] || 10
+    machine = find_arcade_machine(params[:winnitron_id])
+
+    scores = HighScore.where(game: @game)
+    scores = scores.where(arcade_machine: machine) if machine
+
+    render json: scores.limit(limit)
   end
 
   def create
@@ -24,9 +30,6 @@ class Api::V1::HighScoresController < Api::V1::ApiController
         errors: high_score.errors.full_messages
       }, status: :unprocessable_entity
     end
-  end
-
-  def destroy
   end
 
   private

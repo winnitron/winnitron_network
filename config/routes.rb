@@ -72,7 +72,7 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :high_scores, only: [:index, :create, :destroy]
+      resources :high_scores, only: [:index, :create]
     end
   end
 
