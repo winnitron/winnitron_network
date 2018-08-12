@@ -6,7 +6,7 @@ FactoryBot.define do
     mappable true
 
     after :create do |machine|
-      ApiKey.create arcade_machine: machine
+      ApiKey.create parent: machine
       MachineOwnership.create arcade_machine: machine, user: FactoryBot.create(:user)
       ApprovalRequest.create approvable: machine, approved_at: Time.now.utc
     end

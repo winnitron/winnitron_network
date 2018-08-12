@@ -31,6 +31,7 @@ class Game < ActiveRecord::Base
   has_many :playlists, through: :listings
 
   has_many :arcade_machines, -> { distinct }, through: :playlists
+  has_many :api_keys, as: :parent, dependent: :destroy
 
   has_many :links, as: :parent, dependent: :destroy
 
