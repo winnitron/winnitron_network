@@ -19,6 +19,8 @@ FactoryBot.define do
                    user: owner,
                    file_key: "screenshot.png")
 
+      ApiKey.create parent: game
+
       game.update published_at: Time.now
     end
   end

@@ -71,6 +71,8 @@ Rails.application.routes.draw do
           put  :stop
         end
       end
+
+      resources :high_scores, only: [:index, :create, :destroy]
     end
   end
 
