@@ -1,7 +1,6 @@
 class ApiKey < ActiveRecord::Base
   validates :token, presence: true, uniqueness: true
   validates :secret, presence: true
-  validates :parent, presence: true
 
   belongs_to :parent, polymorphic: true
 

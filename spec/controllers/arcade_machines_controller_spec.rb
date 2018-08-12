@@ -165,7 +165,7 @@ RSpec.describe ArcadeMachinesController, type: :controller do
         }.to change(ArcadeMachine, :count).by 1
       end
 
-      it "assins ownership to the logged-in user" do
+      it "assigns ownership to the logged-in user" do
         post :create, params: { arcade_machine: attributes }
         expect(ArcadeMachine.last.users).to include(user)
       end

@@ -7,17 +7,23 @@ class Api::V1::ApiController < ApplicationController
   private
 
   def token_authentication!
-    auth_header = request.headers["Authorization"]
-    token = if auth_header && auth_header.starts_with?("Token")
-      auth_header.split(" ").last
+    auth = RequestAuthenticator.new(request, requires_signature: false)
+    if auth.valid?
+      @client = auth.key.parent
+      @arcade_machine = @client # TODO: but maybe it's a game!
     else
-      params[:api_key]
-    end
-
-    if !(key = ApiKey.find_by(token: token))
       head :forbidden
-    else
-      @arcade_machine = key.arcade_machine
     end
   end
+
+  def signed_authentication!
+    auth = RequestAuthenticator.new(request, requires_signature: true)
+    if auth.valid?
+      @client = auth.key.parent
+      @arcade_machine = @client # TODO: but maybe it's a game!
+    else
+      head :forbidden
+    end
+  end
+
 end
