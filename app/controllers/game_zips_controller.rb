@@ -4,10 +4,16 @@ class GameZipsController < ApplicationController
   before_action :permission_check!
 
   def create
+    time = if params[:lastModifiedDate].present?
+      Time.parse(params[:lastModifiedDate])
+    else
+      Time.now.utc
+    end
+
     zip = GameZip.new(game: @game,
                       user: current_user,
                       file_key: URI.decode(params[:filepath][1..-1]),
-                      file_last_modified: Time.parse(params[:lastModifiedDate]))
+                      file_last_modified: time)
     if zip.save
       render json: zip, status: :created
     else

@@ -12,10 +12,16 @@ class ImagesController < ApplicationController
       params[:filename]
     ].join("-")
 
+    time = if params[:lastModifiedDate].present?
+      Time.parse(params[:lastModifiedDate])
+    else
+      Time.now.utc
+    end
+
     img = Image.new(parent: @parent,
                     user: current_user,
                     file_key: "#{folder}/#{filename}",
-                    file_last_modified: Time.parse(params[:lastModifiedDate]))
+                    file_last_modified: time)
 
     if img.save
       render json: img, status: :created
