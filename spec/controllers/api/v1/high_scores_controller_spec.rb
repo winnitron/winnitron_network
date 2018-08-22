@@ -28,6 +28,15 @@ RSpec.describe Api::V1::HighScoresController, type: :controller do
       expect(body.count).to eq 2
     end
 
+    it "sorts high->low" do
+      scores = FactoryBot.create_list(:high_score, 5, game: game).sort_by(&:score).reverse.map(&:score)1
+
+      get :index, params: auth
+      actual = JSON.parse(response.body).map { |hs|
+
+      expect
+    end
+
     it "scopes by arcade machine" do
       mach1 = FactoryBot.create_list(:high_score, 3, game: game, arcade_machine: machine)
       others = FactoryBot.create_list(:high_score, 4, game: game)

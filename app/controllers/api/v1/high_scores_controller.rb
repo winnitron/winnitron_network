@@ -8,7 +8,7 @@ class Api::V1::HighScoresController < Api::V1::ApiController
     scores = HighScore.where(game: @game)
     scores = scores.where(arcade_machine: machine) if machine
 
-    render json: scores.limit(limit)
+    render json: scores.reorder(score: :desc).limit(limit)
   end
 
   def create
