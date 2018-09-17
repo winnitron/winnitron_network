@@ -8,7 +8,7 @@ RSpec.describe ArcadeMachinesController, type: :controller do
       machines = FactoryBot.create_list(:arcade_machine, 3)
       machines.last.approval_request.destroy
       get :index
-      expect(assigns(:arcade_machines).map(&:id)).to match_array machines.first(2).map(&:id)
+      expect(assigns(:theirs).map(&:id)).to match_array machines.first(2).map(&:id)
     end
   end
 

@@ -9,7 +9,8 @@ class ArcadeMachinesController < ApplicationController
   end
 
   def index
-    @arcade_machines = ArcadeMachine.includes(:location).approved
+    @mine = current_user&.arcade_machines || []
+    @theirs = ArcadeMachine.includes(:location).approved.where.not(id: @mine.map(&:id))
   end
 
   def show

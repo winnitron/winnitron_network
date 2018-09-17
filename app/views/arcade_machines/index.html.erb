@@ -8,8 +8,6 @@
 </div>
 
 <div class="row">
-  <% mine, theirs = @arcade_machines.partition { |am| user_signed_in? && current_user.owns?(am) } %>
-
-  <%= render "arcade_machines/list", arcade_machines: mine %>
-  <%= render "arcade_machines/list", arcade_machines: theirs %>
+  <%= render "arcade_machines/list", arcade_machines: @mine %>
+  <%= render "arcade_machines/list", arcade_machines: @theirs %>
 </div>
