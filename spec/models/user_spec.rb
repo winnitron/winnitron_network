@@ -21,6 +21,10 @@ RSpec.describe User, type: :model do
         user.owns?(String.new)
       }.to raise_error(ArgumentError)
     end
+
+    it "returns false if there is no object" do
+      expect(user.owns?(nil)).to be_falsey
+    end
   end
 
   describe "#can_download?" do

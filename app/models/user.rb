@@ -34,6 +34,8 @@ class User < ActiveRecord::Base
   end
 
   def owns?(item)
+    return false if !item
+
     ownable = [ArcadeMachine, Playlist, Game]
     raise ArgumentError, "#{item.class} is not ownable" if !ownable.include?(item.class)
 
