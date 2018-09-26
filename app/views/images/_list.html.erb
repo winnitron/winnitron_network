@@ -1,29 +1,22 @@
-<%
-  parent = { parent_type: imageable.class, parent_id: imageable.id }
-  imageable.images.each do |image| %>
-  <div class="thumbnail col-sm-4">
-    <a href="<%= image.url %>" data-toggle="lightbox" data-gallery="<%= parent.to_s.parameterize %>-gallery">
-      <img src="<%= image.url(w: 150, h: 100) %>">
-    </a>
+<div class="row my-4">
+  <% images = imageable.images - [imageable.cover_image] %>
+  <% images.each do |img| %>
+    <div class="col-md-3 col-sm-6 mb-4">
+      <a href="<%= img.url %>" data-toggle="lightbox" data-gallery="machine-gallery">
+        <img src="<%= img.url(w: 500, h: 300) %>" class="img-fluid">
+      </a>
 
-    <% if user_signed_in? && (current_user.owns?(imageable) || current_user.admin?) %>
-      <div class="image-controls pull-right">
-        <% if image == imageable.cover_image %>
-          cover
-        <% else %>
-          <%= link_to "make cover", image_path(image, parent.merge(cover: true)), method: :patch %>
-        <% end %>
-        |
-        <%= link_to image_tag("delete"), image_path(image, parent), method: :delete %>
-      </div>
-    <% end %>
-    <div class="clearfix"></div>
-  </div>
-<% end %>
-
-<script>
-  $(document).on('click', '[data-toggle="lightbox"]', function(event) {
-    event.preventDefault();
-    $(this).ekkoLightbox();
-  });
-</script>
+      <% if user_signed_in? && (current_user.owns?(imageable) || current_user.admin?) %>
+        <% parent = { parent_type: imageable.class, parent_id: imageable.id } %>
+        <div class="image-controls text-right">
+          <% if img == imageable.cover_image %>
+            <span class="cover">⭐</span>
+          <% else %>
+            <%= link_to "★", image_path(img, parent.merge(cover: true)), method: :patch, title: "Make cover", class: "make-cover" %>
+          <% end %>
+          <%= link_to "ⅹ", image_path(img, parent), method: :delete, title: "Remove image", class: "remove" %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
