@@ -102,6 +102,9 @@ GEM
     diff-lcs (1.3)
     docile (1.1.5)
     erubi (1.7.0)
+    exception_notification (4.2.2)
+      actionmailer (>= 4.0, < 6)
+      activesupport (>= 4.0, < 6)
     execjs (2.7.0)
     factory_bot (4.8.2)
       activesupport (>= 3.0.0)
@@ -332,6 +335,7 @@ DEPENDENCIES
   bootstrap-tagsinput-rails
   capybara
   devise
+  exception_notification
   factory_bot_rails
   faker
   figaro
