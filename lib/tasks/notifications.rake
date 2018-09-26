@@ -5,7 +5,7 @@ namespace :notifications do
     Rails.cache.fetch("admin new stuff email", expire_in: 7.days) do
       args.with_defaults(since: 7)
       since = args[:since].to_i
-      AdminMailer.alert_new_stuff(since).deliver_later
+      AdminMailer.alert_new_stuff(since).deliver_now
     end
   end
 end
