@@ -18,12 +18,25 @@ content_for(:image) { @arcade_machine.cover_image.url(w: 300, h: 300) }
 </div>
 
 
-<div class="row my-4">
-  <% @arcade_machine.images.each do |img| %>
+<div class="row my-4 image-list">
+  <% images = @arcade_machine.images - [@arcade_machine.cover_image] %>
+  <% images.each do |img| %>
     <div class="col-md-3 col-sm-6 mb-4">
       <a href="<%= img.url %>" data-toggle="lightbox" data-gallery="machine-gallery">
         <img src="<%= img.url(w: 500, h: 300) %>" class="img-fluid">
       </a>
+
+      <% if user_signed_in? && (current_user.owns?(@arcade_machine) || current_user.admin?) %>
+        <% parent = { parent_type: @arcade_machine.class, parent_id: @arcade_machine.id } %>
+        <div class="image-controls text-right">
+          <% if img == @arcade_machine.cover_image %>
+            <span class="cover">⭐</span>
+          <% else %>
+            <%= link_to "★", image_path(img, parent.merge(cover: true)), method: :patch, title: "Make cover", class: "make-cover" %>
+          <% end %>
+          <%= link_to "ⅹ", image_path(img, parent), method: :delete, title: "Remove image", class: "remove" %>
+        </div>
+      <% end %>
     </div>
   <% end %>
 </div>
