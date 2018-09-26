@@ -40,6 +40,13 @@ module WinnitronReborn
     config.action_mailer.delivery_method = :postmark
     config.action_mailer.postmark_settings = { api_token: ENV['POSTMARK_API_TOKEN'] }
 
+    Rails.application.config.middleware.use ExceptionNotification::Rack,
+      email: {
+        email_prefix: "[WINNITRON EXCEPTION] ",
+        sender_address: "Winnitron Network <winnitron.support@outerspacehero.com>",
+        exception_recipients: %w{winnitron.support@outerspacehero.com}
+      }
+
     config.enable_dependency_loading = true
     config.autoload_paths += Dir["#{config.root}/lib/"]
     config.autoload_paths += Dir["#{config.root}/jobs/"]
