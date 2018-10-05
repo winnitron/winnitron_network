@@ -44,7 +44,7 @@ class RequestAuthenticator
   end
 
   def valid_signed_request?
-    key && signature == correct_signature
+    key && signature&.downcase == correct_signature.downcase
   end
 
 end
