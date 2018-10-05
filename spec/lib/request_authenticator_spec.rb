@@ -98,6 +98,17 @@ RSpec.describe RequestAuthenticator do
         expect(RequestAuthenticator.new(req, requires_signature: true)).to be_valid
       end
 
+      it "is case insensitive" do
+        right_qs = "a=A&b=B&c=C"
+        right_sig = Digest::SHA256.hexdigest(right_qs + key.secret)
+
+        upper_req = double(headers: { "Authorization" => "Winnitron #{key.token}:#{right_sig.upcase}" }, params: params)
+        lower_req = double(headers: { "Authorization" => "Winnitron #{key.token}:#{right_sig.downcase}" }, params: params)
+
+        expect(RequestAuthenticator.new(upper_req, requires_signature: true)).to be_valid
+        expect(RequestAuthenticator.new(lower_req, requires_signature: true)).to be_valid
+      end
+
     end
 
     context "auth in query string" do
