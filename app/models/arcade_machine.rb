@@ -37,7 +37,8 @@ class ArcadeMachine < ActiveRecord::Base
   def as_json(opts = {})
     super(opts).merge({
       latitude: location.latitude,
-      longitude: location.longitude
+      longitude: location.longitude,
+      location: location.humanize
     })
   end
 
