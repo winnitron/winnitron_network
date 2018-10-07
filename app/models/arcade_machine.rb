@@ -34,6 +34,13 @@ class ArcadeMachine < ActiveRecord::Base
     playlists.include?(playlist)
   end
 
+  def as_json(opts = {})
+    super(opts).merge({
+      latitude: location.latitude,
+      longitude: location.longitude
+    })
+  end
+
   private
 
   def subscribe_to_defaults
