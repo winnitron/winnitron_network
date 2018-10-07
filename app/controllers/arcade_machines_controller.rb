@@ -61,7 +61,7 @@ class ArcadeMachinesController < ApplicationController
   end
 
   def map
-    @arcade_machines = ArcadeMachine.approved.where(mappable: true)
+    @arcade_machines = ArcadeMachine.includes(:location).approved.where(mappable: true)
   end
 
   def stats
