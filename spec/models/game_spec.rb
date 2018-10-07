@@ -1,6 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Game, type: :model do
+
   describe "player counts" do
     it "defaults to 1-1" do
       game = Game.new
@@ -89,5 +90,24 @@ RSpec.describe Game, type: :model do
       game = Game.new
       expect(game).to_not be_published
     end
+  end
+
+  describe "#launcher_compatible_cover" do
+    let(:game) { FactoryBot.create(:game) }
+    let(:images) do
+      FactoryBot.create_list(:image, 3, parent: game, user: game.users.first)
+    end
+
+    it "picks the cover image" do
+      images[1].update(cover: true)
+      cover = images[1]
+      expect(game.launcher_compatible_cover).to eq cover
+    end
+
+    it "picks the newest non-gif" do
+      images[1].update(cover: true, file_key: "animated.gif")
+      expect(game.launcher_compatible_cover).to eq images[2]
+    end
+
   end
 end

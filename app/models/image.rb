@@ -2,9 +2,9 @@ class Image < ActiveRecord::Base
   belongs_to :parent, polymorphic: true
   belongs_to :user
 
-  validates :user, presence: true
+  validates :user, :file_key, presence: true
 
-  default_scope { order(cover: :desc) }
+  default_scope { order(cover: :desc, id: :desc) }
 
   def self.placeholder
     Image.new(file_key: "ben-neale-297658.jpg")
@@ -21,5 +21,9 @@ class Image < ActiveRecord::Base
     else
       source
     end
+  end
+
+  def gif?
+    file_key[-3..-1].downcase == "gif"
   end
 end

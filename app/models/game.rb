@@ -43,6 +43,14 @@ class Game < ActiveRecord::Base
   scope :with_zip, -> { where(id: GameZip.pluck(:game_id)) }
   scope :published, -> { where.not(published_at: nil) }
 
+  def launcher_compatible_cover
+    if cover_image.gif?
+      (images - [cover_image]).first
+    else
+      cover_image
+    end
+  end
+
   def download_url
     current_zip&.expiring_url
   end
