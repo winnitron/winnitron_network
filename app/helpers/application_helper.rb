@@ -1,6 +1,6 @@
 module ApplicationHelper
   def set_title(title)
-    content_for :title, strip_tags(title)
+    content_for :title, strip_tags(title).html_safe
   end
 
   def page_heading(tag, heading)
