@@ -2,7 +2,7 @@ class ArcadeMachine < ActiveRecord::Base
   include HasImages
   include Slugged
 
-  validates :title, presence: true
+  validates :title, :location, presence: true
   validates :players, numericality: { only_integer: true, greater_than: 1 }
 
   has_many :machine_ownerships, dependent: :destroy

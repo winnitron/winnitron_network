@@ -67,7 +67,7 @@ content_for(:image) { @arcade_machine.cover_image.url(w: 300, h: 300) }
     <% if @arcade_machine.playlists.any? %>
 
       <% @arcade_machine.playlists.each do |playlist| %>
-        <%= render "shared/item_card", item: playlist, width: 450 %>
+        <%= render "shared/item_card", item: playlist, width: 450, controls: "playlists/unsubscribe" %>
       <% end %>
 
     <% end %>
