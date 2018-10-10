@@ -8,7 +8,7 @@
 
       <% if user_signed_in? && (current_user.owns?(imageable) || current_user.admin?) %>
         <% parent = { parent_type: imageable.class, parent_id: imageable.id } %>
-        <div class="image-controls text-right">
+        <div class="controls text-right">
           <% if img == imageable.cover_image %>
             <span class="cover">⭐</span>
           <% else %>

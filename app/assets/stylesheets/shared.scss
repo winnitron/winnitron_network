@@ -229,11 +229,15 @@ a:hover {
   }
 }
 
-.image-controls {
+.controls {
 
   font-size: 1.2rem;
 
   .cover {
+  }
+
+  a {
+    background-color: transparent;
   }
 
   a.make-cover {

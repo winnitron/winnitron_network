@@ -1,0 +1,11 @@
+<% if user_signed_in? && (current_user.admin? || current_user.owns?(item)) %>
+
+  <% subscription = @arcade_machine.subscriptions.find_by(playlist: item) %>
+  <% if subscription %>
+    <span class="controls float-right mr-1">
+      <% conf_msg = "Are you sure you want to unsubscribe from this playlist? All its games will be removed from the #{@arcade_machine.title} on the next sync." %>
+      <%= link_to "ⅹ", subscription_url(subscription), method: :delete, class: "remove", data: { confirm: conf_msg } %>
+    </span>
+  <% end %>
+
+<% end %>

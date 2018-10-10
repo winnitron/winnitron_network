@@ -10,6 +10,8 @@ RSpec.describe ArcadeMachinesController, type: :controller do
       get :index
       expect(assigns(:theirs).map(&:id)).to match_array machines.first(2).map(&:id)
     end
+
+    it "shows all of your own machines even if they're unapproved"
   end
 
   describe "GET show" do
