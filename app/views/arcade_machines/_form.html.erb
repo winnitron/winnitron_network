@@ -31,7 +31,7 @@
     <div class="col-sm-4">
       <%= f.fields_for :location do |lf| %>
         <%= lf.text_area :address, class: "form-control mb-1", rows: 2, placeholder: "Address" %>
-        <%= lf.text_field :city, class: "form-control mb-1", placeholder: "City" %>
+        <%= lf.text_field :city, class: "form-control mb-1", placeholder: "City", required: true %>
         <%= lf.text_field :state, class: "form-control mb-1", placeholder: "State/Province" %>
         <%= lf.text_field :country, class: "form-control mb-1", placeholder: "Country" %>
       <% end %>
