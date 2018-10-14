@@ -148,7 +148,10 @@ RSpec.describe ArcadeMachinesController, type: :controller do
     let(:attributes) do
       {
         title: "The Incredible Machine",
-        players: 2
+        players: 2,
+        location_attributes: {
+          city: "Luna"
+        }
       }
     end
 
