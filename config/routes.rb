@@ -81,6 +81,9 @@ Rails.application.routes.draw do
     resources :approval_requests, only: [:index, :edit, :update]
   end
 
+  get "/json_generator", controller: :metadata_json_generator, action: :new
+  post "/json_generator", controller: :metadata_json_generator, action: :create
+
   get "/search" => "search#index", as: :search
   get "/feedback" => "pages#feedback", as: :feedback
   get "/contact" => "pages#feedback", as: :contact

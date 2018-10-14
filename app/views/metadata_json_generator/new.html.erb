@@ -1,0 +1,52 @@
+<%= page_heading :h1, "Generate json for local-only games" %>
+
+<%= form_for(Game.new, url: "/json_generator", html: { class: "game form mt-5" }) do |f| %>
+
+  <div class="row form-group">
+    <%= f.label :title, class: "col-sm-2 control-label" %>
+    <div class="col-sm-9">
+      <%= f.text_field :title, required: true, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="row form-group">
+    <%= f.label :description, class: "col-sm-2 control-label" %>
+    <div class="col-sm-9">
+      <%= f.text_area :description, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="row form-group">
+    <%= f.label :min_players, class: "col-sm-2 control-label" %>
+    <div class="col-sm-2">
+      <%= f.number_field :min_players, class: "form-control", required: true, min: 1, max: 4 %>
+    </div>
+  </div>
+
+  <div class="row form-group">
+    <%= f.label :max_players, class: "col-sm-2 control-label" %>
+    <div class="col-sm-2">
+      <%= f.number_field :max_players, class: "form-control", required: true, min: 1, max: 4 %>
+    </div>
+  </div>
+
+  <div class="row form-group">
+    <label class="col-sm-2 control-label">Executable</label>
+    <div class="col-sm-9">
+      <input type="text" name="game[executable]" placeholder="my_game.exe" class="form-control" required="true">
+    </div>
+  </div>
+
+  <div class="row form-group">
+    <label class="col-sm-2 control-label">Cover Image</label>
+    <div class="col-sm-9">
+      <input type="text" name="game[image_url]" placeholder="example.png" class="form-control" required="true">
+      <span class="note">Should be png or jpeg. 4:3 aspect ratio.</span>
+    </div>
+  </div>
+
+  <div class="offset-sm-8 col-sm-3">
+    <%= f.submit "Generate winnitron_metadata.json", class: "btn btn-success float-right" %>
+  </div>
+
+<% end %>

@@ -1,0 +1,25 @@
+<%= page_heading :h1, "Generated json for <em>#{@json[:title]}</em>" %>
+
+<div class="row col-lg-12 mt-5">
+  <p><strong>Great, so what do I do with this?</strong></p>
+</div>
+<div class="row col-lg-12">
+  <ul>
+    <li>
+      Put your game in <code>WINNITRON_UserData/Playlists/[playlist]/<strong><%= @json[:slug] %></strong></code>
+    </li>
+    <li>
+      Take this JSON and save it to a file in that same folder. Name the file <code>winnitron_metadata.json</code>
+    </li>
+    <li>
+      If you need to change the key bindings, you can do that too.
+      <a href="https://gist.github.com/aaronklaassen/3593a47f86a4fb6a530b247afbb054ce">
+        A list of valid key values is available here.
+      </a>
+    </li>
+  </ul>
+</div>
+
+<div class="row col-lg-7 p-3 rounded" style="background-color: #eee">
+  <pre><%= JSON.pretty_generate(@json) %></pre>
+</div>
