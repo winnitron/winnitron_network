@@ -1,4 +1,4 @@
-<% if user_signed_in? && (current_user.admin? || current_user.owns?(item)) %>
+<% if user_signed_in? && (current_user.admin? || current_user.owns?(@arcade_machine)) %>
 
   <% subscription = @arcade_machine.subscriptions.find_by(playlist: item) %>
   <% if subscription %>

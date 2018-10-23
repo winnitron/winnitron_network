@@ -84,6 +84,32 @@ RSpec.describe ArcadeMachinesController, type: :controller do
         end
       end
     end
+
+    context "machine is approved" do
+      let(:machine) { FactoryBot.create(:arcade_machine) }
+
+      context "owner" do
+        render_views
+
+        let(:user) { machine.users.first }
+
+        before :each do
+          sign_in user
+        end
+
+        it "shows the unsubscribe buttons (all of them, lol)" do
+          playlist1 = FactoryBot.create(:playlist)
+          playlist2 = FactoryBot.create(:playlist, user: user)
+
+          sub1 = Subscription.create(playlist: playlist1, arcade_machine: machine)
+          sub2 = Subscription.create(playlist: playlist2, arcade_machine: machine)
+
+          get :show, params: { id: machine.slug }
+          expect(response.body).to include(link = "href=\"http://test.host/subscriptions/#{sub1.id}")
+          expect(response.body).to include(link = "href=\"http://test.host/subscriptions/#{sub2.id}")
+        end
+      end
+    end
   end
 
   describe "GET new" do
