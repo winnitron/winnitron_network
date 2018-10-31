@@ -1,3 +1,5 @@
+<% controls = "games/card_controls" if !defined?(controls) || controls.nil? %>
+
 <div class="games row col-lg-12 col-sm-12">
 
   <% games.each do |game| %>
@@ -13,7 +15,7 @@
           </h4>
         </div>
 
-        <%= render "games/card_controls", game: game %>
+        <%= render controls, game: game %>
       </div>
 
 

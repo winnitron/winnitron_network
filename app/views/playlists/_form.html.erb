@@ -18,10 +18,21 @@
   <% if @playlist.games.any? %>
     <div class="row form-group">
       <label class="col-sm-2 control-label">Games</label>
-      <% @playlist.games.each do |game| %>
-        <%= render "games/card_small", game: game %>
-        <%= hidden_field_tag "playlist[game_id]", game.id %>
-      <% end %>
+
+      <div class="col-lg-offset-2 col-lg-7 pl-0">
+        <% @playlist.games.each do |game| %>
+
+          <div class="game-card-small p-0 ml-3 mb-3" style="background-image: url('<%= game.cover_image.url(w: 340, h: 200) %>')">
+            <a href="<%= game_path(game) %>">
+              <h4 class="p-3">
+                <%= game.title %>
+              </h4>
+            </a>
+          </div>
+
+          <%= hidden_field_tag "playlist[game_id]", game.id %>
+        <% end %>
+      </div>
     </div>
   <% end %>
 
