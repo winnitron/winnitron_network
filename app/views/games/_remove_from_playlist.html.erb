@@ -1,0 +1,8 @@
+<% if user_signed_in? && (current_user.admin? || current_user.owns?(@playlist)) %>
+  <div class="card-controls text-right">
+    <% listing = Listing.find_by(playlist: @playlist, game: game) %>
+    <% conf_msg = "Are you sure you want to remove this game from the playlist?\n\nIt will be removed from ALL Winnitrons that have subscribed to this list the next time they sync." %>
+    <%= link_to "Remove", listing_path(listing), method: :delete, class: "btn btn-secondary col-sm-4", data: { confirm: conf_msg } %>
+  </div>
+
+<% end %>
