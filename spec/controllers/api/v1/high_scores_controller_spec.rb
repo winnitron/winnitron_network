@@ -28,15 +28,6 @@ RSpec.describe Api::V1::HighScoresController, type: :controller do
       expect(body.count).to eq 2
     end
 
-    it "sorts high->low" do
-      scores = FactoryBot.create_list(:high_score, 5, game: game).sort_by(&:score).reverse.map(&:score)
-
-      get :index, params: auth
-      # actual = JSON.parse(response.body).map { |hs|
-
-      # expect
-    end
-
     it "scopes by arcade machine" do
       mach1 = FactoryBot.create_list(:high_score, 3, game: game, arcade_machine: machine)
       others = FactoryBot.create_list(:high_score, 4, game: game)
@@ -49,7 +40,7 @@ RSpec.describe Api::V1::HighScoresController, type: :controller do
 
     describe "sandbox" do
       let!(:real) { FactoryBot.create_list(:high_score, 2, game: game) }
-      let!(:fake) { FactoryBot.create_list(:high_score, 2, game: game, test: true) }
+      let!(:fake) { FactoryBot.create_list(:high_score, 2, game: game, sandbox: true) }
 
       it "returns non-sandbox scores by default" do
         get :index, params: auth
@@ -143,6 +134,36 @@ RSpec.describe Api::V1::HighScoresController, type: :controller do
         expect(HighScore.last.arcade_machine).to be_nil
       end
 
+    end
+
+    describe "sandbox" do
+      let(:unsigned) do
+        {
+          api_key: game_key.token,
+          name: Faker::Name.first_name,
+          score: rand(1000),
+          winnitron_id: am_key.token
+        }
+      end
+      let(:params) { unsigned.merge(sig: sig(unsigned)) }
+
+      it "creates a sandbox high score if given test=whatever" do
+        post :create, params: params.merge(test: "something")
+        hs = HighScore.last
+        expect(hs.sandbox?).to eq true
+      end
+
+      it "creates a real high score by default" do
+        post :create, params: params
+        hs = HighScore.last
+        expect(hs.sandbox?).to eq false
+      end
+
+      it "creates a real high score if given test=0" do
+        post :create, params: params.merge(test: 0)
+        hs = HighScore.last
+        expect(hs.sandbox?).to eq false
+      end
     end
   end
 end

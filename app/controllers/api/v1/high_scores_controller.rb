@@ -6,7 +6,7 @@ class Api::V1::HighScoresController < Api::V1::ApiController
     machine = find_arcade_machine(params[:winnitron_id])
     sandbox = params[:test].present? && params[:test].to_s != "0"
 
-    scores = HighScore.where(game: @game, test: sandbox)
+    scores = HighScore.where(game: @game, sandbox: sandbox)
     scores = scores.where(arcade_machine: machine) if machine
 
     render json: { high_scores: scores.reorder(score: :desc).limit(limit) }
@@ -18,7 +18,10 @@ class Api::V1::HighScoresController < Api::V1::ApiController
     high_score = HighScore.new(game: @game,
                      arcade_machine: machine,
                                name: params[:name],
-                              score: params[:score])
+                              score: params[:score],
+                            sandbox: params[:test].present? && params[:test].to_s != "0")
+
+
 
     if params[:winnitron_id] && !machine
       render json: {
