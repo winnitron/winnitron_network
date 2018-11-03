@@ -46,6 +46,35 @@ RSpec.describe Api::V1::HighScoresController, type: :controller do
       expect(body.count).to eq 3
       expect(body.map { |hs| hs["arcade_machine"] }.uniq).to eq [machine.slug]
     end
+
+    describe "sandbox" do
+      let!(:real) { FactoryBot.create_list(:high_score, 2, game: game) }
+      let!(:fake) { FactoryBot.create_list(:high_score, 2, game: game, test: true) }
+
+      it "returns non-sandbox scores by default" do
+        get :index, params: auth
+        body = JSON.parse(response.body)["high_scores"]
+        expect(body).to match_array(real.sort_by(&:score).reverse.as_json)
+      end
+
+      it "returns non-sandbox scores if given test=0 for some reason" do
+        get :index, params: auth.merge(test: 0)
+        body = JSON.parse(response.body)["high_scores"]
+        expect(body).to match_array(real.sort_by(&:score).reverse.as_json)
+      end
+
+      it "returns only sandbox scores if given test=1" do
+        get :index, params: auth.merge(test: 1)
+        body = JSON.parse(response.body)["high_scores"]
+        expect(body).to match_array(fake.sort_by(&:score).reverse.as_json)
+      end
+
+      it "returns only sandbox scores if given test=like_anything_yeesh" do
+        get :index, params: auth.merge(test: "like_anything_yeesh")
+        body = JSON.parse(response.body)["high_scores"]
+        expect(body).to match_array(fake.sort_by(&:score).reverse.as_json)
+      end
+    end
   end
 
   describe "POST create" do

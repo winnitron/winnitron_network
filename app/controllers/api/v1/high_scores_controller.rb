@@ -4,8 +4,9 @@ class Api::V1::HighScoresController < Api::V1::ApiController
   def index
     limit = params[:limit] || 10
     machine = find_arcade_machine(params[:winnitron_id])
+    sandbox = params[:test].present? && params[:test].to_s != "0"
 
-    scores = HighScore.where(game: @game)
+    scores = HighScore.where(game: @game, test: sandbox)
     scores = scores.where(arcade_machine: machine) if machine
 
     render json: { high_scores: scores.reorder(score: :desc).limit(limit) }
