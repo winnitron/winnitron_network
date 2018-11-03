@@ -1,10 +1,10 @@
 class Image < ActiveRecord::Base
   PLACEHOLDERS = {
-    "Game" => "ben-neale-297658.jpg",
-    "ArcadeMachine" => "ben-neale-297658.jpg",
-    "Playlist" => "ben-neale-297658.jpg"
+    "Game" => "element5-digital-763867-high-score.jpg",
+    "ArcadeMachine" => "pete-pedroza-701024-less-evil.jpg",
+    "Playlist" => "element5-digital-763867-high-score.jpg"
   }
-  PLACEHOLDERS.default = "foo.png"
+  PLACEHOLDERS.default = "blank.png"
 
   belongs_to :parent, polymorphic: true
   belongs_to :user

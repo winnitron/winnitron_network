@@ -44,7 +44,6 @@ RSpec.describe ImagesController, type: :controller do
       }
     end
 
-
     it "allows owners" do
       sign_in owner
       delete :destroy, params: params
