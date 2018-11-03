@@ -34,7 +34,7 @@ class RequestAuthenticator
 
   def correct_signature
     # sha256(alphabetized query string by key EXCEPT SIG AND API_KEY + api secret)
-    sig_params = request.params.except(:api_key, :sig, :test, :action, :format, :controller)
+    sig_params = request.params.except(:api_key, :sig, :action, :format, :controller)
     alphabetized_qs = Hash[sig_params.sort_by { |k, v| k }].to_query
     Digest::SHA256.hexdigest alphabetized_qs + @key.secret
   end
