@@ -5,11 +5,12 @@ class HighScore < ActiveRecord::Base
   validates :name, :game, :score, presence: true
 
   def as_json(opts = {})
-    except = ["game_id", "arcade_machine_id", "updated_at"]
+    except = ["game_id", "arcade_machine_id", "updated_at", "test"]
 
     super(opts.merge(except: except)).merge({
       "game" => game.slug,
-      "arcade_machine" => arcade_machine&.slug
+      "arcade_machine" => arcade_machine&.slug,
+      "created_at" => created_at.iso8601
     })
   end
 end
