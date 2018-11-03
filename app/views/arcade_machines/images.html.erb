@@ -6,7 +6,7 @@
   <div class="card">
     <div class="card-body">
       <div class="row current-images">
-        <% @arcade_machine.images.each do |image| %>
+        <% @arcade_machine.images.reject(&:placeholder?).each do |image| %>
           <a href="<%= image.url %>">
             <img src="<%= image.url(w: 150, h: 150) %>">
           </a>

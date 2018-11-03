@@ -2,7 +2,8 @@ class Image < ActiveRecord::Base
   PLACEHOLDERS = {
     "Game" => "element5-digital-763867-high-score.jpg",
     "ArcadeMachine" => "pete-pedroza-701024-less-evil.jpg",
-    "Playlist" => "element5-digital-763867-high-score.jpg"
+    "Playlist" => "element5-digital-763867-high-score.jpg",
+    "legacy" => "ben-neale-297658.jpg"
   }
   PLACEHOLDERS.default = "blank.png"
 
