@@ -108,6 +108,18 @@ RSpec.describe Game, type: :model do
       images[1].update(cover: true, file_key: "animated.gif")
       expect(game.launcher_compatible_cover).to eq images[2]
     end
+  end
 
+  describe "images" do
+    it "creates a default cover image on game creation" do
+      g = Game.new(title: "The Imageless Wonder",
+                   min_players: 1,
+                   max_players: 2)
+      g.users << FactoryBot.create(:user)
+      g.save!
+      image = g.images.first
+      expect(image.file_key).to eq Image::PLACEHOLDERS["Game"]
+      expect(image.cover?).to eq true
+    end
   end
 end

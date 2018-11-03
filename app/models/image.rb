@@ -1,4 +1,9 @@
 class Image < ActiveRecord::Base
+  PLACEHOLDERS = {
+    "Game" => "ben-neale-297658.jpg",
+    "ArcadeMachine" => "ben-neale-297658.jpg"
+  }
+
   belongs_to :parent, polymorphic: true
   belongs_to :user
 
@@ -6,8 +11,8 @@ class Image < ActiveRecord::Base
 
   default_scope { order(cover: :desc, id: :desc) }
 
-  def self.placeholder
-    Image.new(file_key: "ben-neale-297658.jpg")
+  def placeholder?
+    PLACEHOLDERS.values.include?(file_key)
   end
 
   def url(w: nil, h: nil)
