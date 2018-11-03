@@ -8,7 +8,7 @@ module HasImages
   end
 
   def cover_image
-    images.where(cover: true).reorder(id: :desc).first
+    images.find(&:cover)
   end
 
   def init_cover_photo

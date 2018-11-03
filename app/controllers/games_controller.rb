@@ -8,7 +8,12 @@ class GamesController < ApplicationController
   def index
     set_sort
 
-    @mine   = user_signed_in? ? current_user.games.order(title: :asc) : Game.none
+    @mine = if user_signed_in?
+              current_user.games.includes(:images).order(title: :asc)
+            else
+              Game.none
+            end
+
     @theirs = Game.published
                   .includes(:images)
                   .where.not(id: @mine.map(&:id))

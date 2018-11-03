@@ -14,8 +14,6 @@ class Image < ActiveRecord::Base
   after_create :update_cover_photo
   after_destroy :reinstate_placeholder_cover
 
-  default_scope { order(cover: :desc, id: :desc) }
-
   def placeholder?
     PLACEHOLDERS.values.include?(file_key)
   end
