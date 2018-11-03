@@ -1,8 +1,14 @@
 # High Scores
 
+## Testing sandbox
+
+These endpoints accept a `test` parameter. Creating a high score with `test=1` will create an in-sandbox score. When fetching scores with `test=1`, only scores *created* in the testing sandbox will be returned.
+
+By default (i.e., if there is no `test` param included at all), requests are treated as being live, non-sandbox operations.
+
 ## Create a new High Score
 
-*This action requires a signed request.*
+*This action requires a signed request.* See 'Authentication' docs.
 
 ```
 POST http://network.winnitron.com/api/v1/high_scores
@@ -15,7 +21,7 @@ param   | Description
 `name`  | The player's name.
 `score` | The player's score (an integer).
 `winnitron_id` | Optional. The Winnitron's parameterized name or public API key.
-
+`test`  | Optional. Any value other than blank or 0 is treated as `true`
 
 ### Response
 
@@ -55,6 +61,7 @@ param   | Description
 --------|------------
 `limit` | Optional (defaults to 10). The player's name.
 `winnitron_id` | Optional. A Winnitron's parameterized name or public API key. Limits the returned scores to those made on a single arcade machine.
+`test`  | Optional. Any value other than blank or 0 is treated as `true`
 
 
 ### Response
