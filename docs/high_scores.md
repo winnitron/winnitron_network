@@ -62,22 +62,25 @@ param   | Description
 A successful response returns `200 OK` and an array of high score objects:
 
 ```json
-[
-  {
-    "id": 123,
-    "name": "Beverly",
-    "score": 78583,
-    "created_at": "2018-08-19T20:27:27.837Z",
-    "game": "sumo-topplers",
-    "arcade_machine": "winnitron-1000"
-  },
-  {
-    "id": 456,
-    "name": "Jean-Luc",
-    "score": 18583,
-    "created_at": "2018-08-13T20:27:27.837Z",
-    "game": "sumo-topplers",
-    "arcade_machine": "winnitron-1000"
-  }
-]
+{
+  "high_scores":
+    [
+      {
+        "id": 123,
+        "name": "Beverly",
+        "score": 78583,
+        "created_at": "2018-08-19T20:27:27.837Z",
+        "game": "sumo-topplers",
+        "arcade_machine": "winnitron-1000"
+      },
+      {
+        "id": 456,
+        "name": "Jean-Luc",
+        "score": 18583,
+        "created_at": "2018-08-13T20:27:27.837Z",
+        "game": "sumo-topplers",
+        "arcade_machine": "winnitron-1000"
+      }
+    ]
+}
 ```
