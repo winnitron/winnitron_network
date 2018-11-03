@@ -11,7 +11,8 @@ FactoryBot.define do
 
     factory :builder do
       after :create do |user|
-        user.arcade_machines << FactoryBot.create(:arcade_machine)
+        machine = FactoryBot.create(:arcade_machine)
+        user.arcade_machines << machine
       end
     end
   end

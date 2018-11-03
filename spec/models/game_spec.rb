@@ -108,6 +108,33 @@ RSpec.describe Game, type: :model do
       images[1].update(cover: true, file_key: "animated.gif")
       expect(game.launcher_compatible_cover).to eq images[2]
     end
+  end
+
+  describe "images" do
+    let!(:game) { FactoryBot.create(:game) }
+
+    it "creates a default cover image on game creation" do
+      image = game.images.first
+      expect(image.file_key).to eq Image::PLACEHOLDERS["Game"]
+      expect(image.cover?).to eq true
+    end
+
+    it "removes placeholder images when a new image is added" do
+      image = Image.create(parent: game, user: game.users.first, file_key: "newpic.png")
+      game.reload
+      image.reload
+      expect(game.images).to eq [image]
+      expect(image.cover).to eq true
+    end
+
+    it "re-adds the placeholder cover when removing the last image" do
+      image = Image.create(parent: game, user: game.users.first, file_key: "newpic.png")
+      image.destroy
+
+      game.reload
+      expect(game.images.count).to eq 1
+      expect(game.images.first.placeholder?).to be true
+    end
 
   end
 end

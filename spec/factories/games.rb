@@ -4,20 +4,14 @@ FactoryBot.define do
     description  { Faker::Lorem.sentence(2) }
     min_players  1
     max_players  2
+    users        { [FactoryBot.build(:user)] }
 
     after :create do |game|
-      owner = FactoryBot.create(:user)
-      GameOwnership.create game: game, user: owner
-
       GameZip.create(game:     game,
-                     user:     owner,
+                     user:     game.users.first,
                      file_key: [Faker::Lorem.word, ".zip"].join,
-                     file_last_modified: Time.now,
+                     file_last_modified: Time.now.utc,
                      executable: [Faker::Lorem.word, ".exe"].join)
-
-      Image.create(parent: game,
-                   user: owner,
-                   file_key: "screenshot.png")
 
       ApiKey.create parent: game
 

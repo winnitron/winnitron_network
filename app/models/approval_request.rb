@@ -7,8 +7,10 @@ class ApprovalRequest < ActiveRecord::Base
   scope :approved, -> { where.not(approved_at: nil) }
   scope :refused, -> { where.not(refused_at: nil) }
 
+  delegate :users, to: :approvable
+
   def user
-    approvable.users.first
+    users.first
   end
 
   def status

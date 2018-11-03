@@ -11,6 +11,19 @@ namespace :data do
     end
   end
 
+  desc "Backfill placeholder cover images"
+  task backfill_placeholder_images: :environment do
+    Game.all.each do |game|
+      next if game.images.any?
+      game.init_cover_photo
+    end
+
+    ArcadeMachine.all.each do |machine|
+      next if machine.images.any?
+      machine.init_cover_photo
+    end
+  end
+
   desc "Generate a bunch of fake gameplay data"
   task seed_gameplay: :environment do
     games = Game.limit(2)

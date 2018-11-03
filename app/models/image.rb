@@ -1,13 +1,21 @@
 class Image < ActiveRecord::Base
+  PLACEHOLDERS = {
+    "Game" => "element5-digital-763867-high-score.jpg",
+    "ArcadeMachine" => "pete-pedroza-701024-less-evil.jpg",
+    "Playlist" => "element5-digital-763867-high-score.jpg"
+  }
+  PLACEHOLDERS.default = "blank.png"
+
   belongs_to :parent, polymorphic: true
   belongs_to :user
 
-  validates :user, :file_key, presence: true
+  validates :file_key, presence: true
 
-  default_scope { order(cover: :desc, id: :desc) }
+  after_create :update_cover_photo
+  after_destroy :reinstate_placeholder_cover
 
-  def self.placeholder
-    Image.new(file_key: "ben-neale-297658.jpg")
+  def placeholder?
+    PLACEHOLDERS.values.include?(file_key)
   end
 
   def url(w: nil, h: nil)
@@ -25,5 +33,21 @@ class Image < ActiveRecord::Base
 
   def gif?
     file_key[-3..-1].downcase == "gif"
+  end
+
+  private
+
+  def update_cover_photo
+    return if placeholder?
+
+    parent.images.select(&:placeholder?).each(&:delete)
+    if parent.images.where(cover: true).empty?
+      parent.images.reorder(id: :asc).first.update(cover: true)
+    end
+  end
+
+  def reinstate_placeholder_cover
+    return if parent.images.reload.any?
+    parent.init_cover_photo
   end
 end

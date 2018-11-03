@@ -20,7 +20,7 @@ class Playlist < ActiveRecord::Base
   after_save :update_smart_listings, if: -> { smart? }
 
   def cover_image
-    games.first&.cover_image || Image.placeholder
+    games.first&.cover_image || Image.new(file_key: Image::PLACEHOLDERS["Playlist"])
   end
 
   def smart?
