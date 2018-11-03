@@ -111,15 +111,30 @@ RSpec.describe Game, type: :model do
   end
 
   describe "images" do
+    let!(:game) { FactoryBot.create(:game) }
+
     it "creates a default cover image on game creation" do
-      g = Game.new(title: "The Imageless Wonder",
-                   min_players: 1,
-                   max_players: 2)
-      g.users << FactoryBot.create(:user)
-      g.save!
-      image = g.images.first
+      image = game.images.first
       expect(image.file_key).to eq Image::PLACEHOLDERS["Game"]
       expect(image.cover?).to eq true
     end
+
+    it "removes placeholder images when a new image is added" do
+      image = Image.create(parent: game, user: game.users.first, file_key: "newpic.png")
+      game.reload
+      image.reload
+      expect(game.images).to eq [image]
+      expect(image.cover).to eq true
+    end
+
+    it "re-adds the placeholder cover when removing the last image" do
+      image = Image.create(parent: game, user: game.users.first, file_key: "newpic.png")
+      image.destroy
+
+      game.reload
+      expect(game.images.count).to eq 1
+      expect(game.images.first.placeholder?).to be true
+    end
+
   end
 end

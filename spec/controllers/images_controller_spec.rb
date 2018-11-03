@@ -9,7 +9,7 @@ RSpec.describe ImagesController, type: :controller do
     {
       parent_type: parent.class.name,
       parent_id: parent.id,
-      filename: "games/#{parent.id}-images-screenshot.jpg",
+      filename: "screenshot.jpg",
       lastModifiedDate: Time.now
     }
   end
@@ -29,13 +29,12 @@ RSpec.describe ImagesController, type: :controller do
 
     it "creates the image" do
       sign_in owner
-      expect {
-        post :create, params: params
-      }.to change { parent.images.count }.by(1)
+      post :create, params: params
+      expect(parent.images.first.file_key).to eq "games/#{parent.id}-image-screenshot.jpg"
     end
   end
 
-  describe "destroy" do
+  describe "DELETE destroy" do
     let!(:image) { FactoryBot.create(:image, parent: parent) }
     let(:params) do
       {
@@ -60,9 +59,8 @@ RSpec.describe ImagesController, type: :controller do
 
     it "deletes the image" do
       sign_in owner
-      expect {
-        delete :destroy, params: params
-      }.to change { parent.images.count }.by(-1)
+      delete :destroy, params: params
+      expect(parent.images.reload.all?(&:placeholder?)).to eq true
     end
   end
 end
