@@ -8,7 +8,7 @@ class Api::V1::HighScoresController < Api::V1::ApiController
     scores = HighScore.where(game: @game)
     scores = scores.where(arcade_machine: machine) if machine
 
-    render json: scores.reorder(score: :desc).limit(limit)
+    render json: { high_scores: scores.reorder(score: :desc).limit(limit) }
   end
 
   def create
@@ -35,7 +35,7 @@ class Api::V1::HighScoresController < Api::V1::ApiController
   private
 
   def find_arcade_machine(winnitron_id)
-    key = ApiKey.find_by(token: winnitron_id)
+    key = ApiKey.find_by(token: winnitron_id, parent_type: "ArcadeMachine")
     key ? key.parent : ArcadeMachine.find_by(slug: winnitron_id)
   end
 end

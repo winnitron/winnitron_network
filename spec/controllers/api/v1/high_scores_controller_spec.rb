@@ -24,7 +24,7 @@ RSpec.describe Api::V1::HighScoresController, type: :controller do
       FactoryBot.create_list(:high_score, 5, game: game)
 
       get :index, params: auth.merge(limit: 2)
-      body = JSON.parse(response.body)
+      body = JSON.parse(response.body)["high_scores"]
       expect(body.count).to eq 2
     end
 
@@ -42,7 +42,7 @@ RSpec.describe Api::V1::HighScoresController, type: :controller do
       others = FactoryBot.create_list(:high_score, 4, game: game)
 
       get :index, params: auth.merge(winnitron_id: machine.slug)
-      body = JSON.parse(response.body)
+      body = JSON.parse(response.body)["high_scores"]
       expect(body.count).to eq 3
       expect(body.map { |hs| hs["arcade_machine"] }.uniq).to eq [machine.slug]
     end
