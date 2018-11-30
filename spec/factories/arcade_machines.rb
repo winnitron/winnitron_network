@@ -2,8 +2,8 @@ FactoryBot.define do
   factory :arcade_machine do
     title    { Faker::Lorem.words(3).join(" ") }
     location
-    players  2
-    mappable true
+    players  { 2 }
+    mappable { true }
 
     after :create do |machine|
       ApiKey.create! parent: machine
