@@ -2,8 +2,8 @@ FactoryBot.define do
   factory :game do
     title        { Faker::Lorem.words(4).join(" ") }
     description  { Faker::Lorem.sentence(2) }
-    min_players  1
-    max_players  2
+    min_players  { 1 }
+    max_players  { 2 }
     users        { [FactoryBot.build(:user)] }
 
     after :create do |game|
