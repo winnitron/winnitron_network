@@ -5,7 +5,7 @@ gem 'rails', '~> 5.2.1'
 gem 'railties'
 gem 'rails-controller-testing'
 gem 'pg',    '~> 0.15'
-gem 'puma',  '~> 3.4.0'
+gem 'puma'
 
 
 gem 'sass-rails'
