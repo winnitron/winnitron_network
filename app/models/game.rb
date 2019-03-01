@@ -2,7 +2,7 @@ class Game < ActiveRecord::Base
   include HasImages
   include Slugged
 
-  CUSTOM_LINK_TYPES = ["Itch.io", "Trailer"]
+  CUSTOM_LINK_TYPES = ["Trailer"].freeze
 
   acts_as_taggable
   acts_as_commentable
