@@ -4,7 +4,7 @@ ruby '2.4.0'
 gem 'rails', '~> 5.2.1'
 gem 'railties'
 gem 'rails-controller-testing'
-gem 'pg',    '~> 0.15'
+gem 'pg'
 gem 'puma'
 
 
@@ -33,14 +33,13 @@ gem 'exception_notification'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc',     '~> 0.4.0', group: :doc
 
-gem 'devise'#,  '~> 4.2.0'
+gem 'devise'
 gem 'omniauth'
 gem 'omniauth-twitter'
 #gem 'omniauth-github'
 #gem 'omniauth-facebook'
 gem 'acts_as_commentable'
 
-gem 'rails_12factor'
 gem 'figaro'
 gem 'aws-sdk', '~> 2'
 
@@ -54,11 +53,6 @@ gem 'newrelic_rpm'
 
 group :development, :test do
   gem 'pry-rails'
-end
-
-group :development do
-  gem 'web-console'
-  gem 'spring'
 end
 
 group :test do
