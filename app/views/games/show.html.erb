@@ -84,6 +84,8 @@ content_for(:image) { @game.cover_image.url(w: 300, h: 300) }
       <% end %>
     </div>
 
+    <hr>
+
     <div>
       <%= render "shared/comment_list", parent: @game %>
     </div>

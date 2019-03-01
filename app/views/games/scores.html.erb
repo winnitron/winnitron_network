@@ -1,14 +1,75 @@
+<style>
+  .sort .active {
+    color: #444;
+  }
+</style>
+
+<% query = params.permit(:test, :sort, :winnitron_id).to_h.with_indifferent_access %>
+<% params[:sort] ||= "high" %>
 <%= page_heading :h1, "<em>#{@game.title}</em> high scores" %>
 
 <div class="col-lg-12 mt-5">
+
+  <div class="mt-5 mb-5">
+    <a href="?<%= query.merge(test: 0).to_query %>" class="btn <%= @sandbox ? 'btn-light' : 'btn-success' %>">Real Live Scores!</a>
+    <a href="?<%= query.merge(test: 1).to_query %>" class="btn <%= @sandbox ? 'btn-success' : 'btn-light' %>">Testing Sandbox</a>
+  </div>
 
   <table class="table table-condensed table-hover">
     <thead>
       <tr>
         <th>Name</th>
-        <th>Score</th>
-        <th>Winnitron</th>
-        <th>Date</th>
+        <th>
+          Score
+          <span class="sort">
+            <% if params[:sort] == "low" %>
+              <span class="active">▲</span>
+            <% else %>
+              <a href="?<%= query.merge(sort: "low").to_query %>">▲</a>
+            <% end %>
+
+            <% if params[:sort] == "high" %>
+              <span class="active">▼</span>
+            <% else %>
+              <a href="?<%= query.merge(sort: "high").to_query %>">▼</a>
+            <% end %>
+          </span>
+        </th>
+
+        <th>
+          Winnitron
+          <% machines = @scores.map(&:arcade_machine).compact.uniq %>
+          <form id="arcade-filter" method="get" style="display: inline">
+            <input type="hidden" name="sort" value="<%= params[:sort] %>">
+            <input type="hidden" name="test" value="<%= params[:test] %>">
+
+            <select name="winnitron_id" class="ml-1">
+              <option value="" <%= params[:winnitron_id].blank? ? "selected" : "" %>>All</option>
+              <option value="none" <%= params[:winnitron_id] == "none" ? "selected" : "" %>>None recorded</option>
+              <option disabled>----------</option>
+              <% machines.sort_by(&:title).each do |machine| %>
+                <option value="<%= machine.slug %>" <%= params[:winnitron_id] == machine.slug ? "selected" : "" %>><%= machine.title %></option>
+              <% end %>
+            </select>
+          </form>
+        </th>
+
+        <th>
+          Date
+          <span class="sort">
+            <% if params[:sort] == "old" %>
+              <span class="active">▲</span>
+            <% else %>
+              <a href="?<%= query.merge(sort: "old").to_query %>">▲</a>
+            <% end %>
+
+            <% if params[:sort] == "new" %>
+              <span class="active">▼</span>
+            <% else %>
+              <a href="?<%= query.merge(sort: "new").to_query %>">▼</a>
+            <% end %>
+          </span>
+        </th>
       </tr>
     </thead>
 
@@ -33,3 +94,9 @@
   </table>
 
 </div>
+
+<script>
+  $("#arcade-filter select").change(function() {
+    $("#arcade-filter").submit();
+  })
+</script>
