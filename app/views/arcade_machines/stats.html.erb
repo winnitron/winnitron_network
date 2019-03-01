@@ -6,9 +6,9 @@
   <div class="col-sm-12">
     <%
       games = @plays.map(&:game_id).uniq.count
-      height = [500, games * 50].min
+      height = [500, games * 100].min
     %>
-    <div id="timeline" style="height: <%= height %>px"></div>
+    <div id="timeline" class="mt-5" style="height: <%= height %>px"></div>
   </div>
 
   <div class="col-sm-12">
@@ -57,8 +57,10 @@
 
 <script>
   var data = <%=raw data.to_json %>;
-  google.charts.load("current", {packages:["timeline"]});
+  console.log(data);
+  google.charts.load("current", { packages:["timeline"] });
   google.charts.setOnLoadCallback(drawChart);
+
   function drawChart() {
     parsed = data.map(function(play) {
       return [

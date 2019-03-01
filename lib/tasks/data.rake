@@ -1,29 +1,4 @@
 namespace :data do
-  desc "Fill in missing Game API keys and key secrets"
-  task backfill_api_keys: :environment do
-    ApiKey.where(secret: nil).find_each do |key|
-      key.update secret: SecureRandom.hex(24)
-    end
-
-    Game.find_each do |game|
-      next if game.api_keys.any?
-      game.api_keys.create
-    end
-  end
-
-  desc "Backfill placeholder cover images"
-  task backfill_placeholder_images: :environment do
-    Game.all.each do |game|
-      next if game.images.any?
-      game.init_cover_photo
-    end
-
-    ArcadeMachine.all.each do |machine|
-      next if machine.images.any?
-      machine.init_cover_photo
-    end
-  end
-
   desc "Generate a bunch of fake gameplay data"
   task seed_gameplay: :environment do
     games = Game.limit(2)
