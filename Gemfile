@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
-ruby '2.4.0'
+ruby '2.5.3'
 
-gem 'rails', '~> 5.2.1'
+gem 'rails', '~> 5.2.2'
 gem 'railties'
 gem 'rails-controller-testing'
 gem 'pg'
