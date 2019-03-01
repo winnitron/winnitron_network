@@ -46,7 +46,7 @@ class Game < ActiveRecord::Base
   def launcher_compatible_cover
     images.reload
     if cover_image.gif?
-      (images - [cover_image]).sort_by(&:id).reverse.first
+      images.reject(&:gif?).sort_by(&:id).reverse.first
     else
       cover_image
     end
