@@ -1,10 +1,10 @@
 source 'https://rubygems.org'
-ruby '2.4.0'
+ruby '2.5.3'
 
-gem 'rails', '~> 5.2.1'
+gem 'rails', '~> 5.2.2'
 gem 'railties'
 gem 'rails-controller-testing'
-gem 'pg',    '~> 0.15'
+gem 'pg'
 gem 'puma'
 
 
@@ -15,14 +15,13 @@ gem 'mini_racer'
 
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
-gem 'bootstrap', '~> 4.1.1'
+gem 'bootstrap', '~> 4.3.1'
 gem 'bootstrap-tagsinput-rails'
 gem 'bootstrap-modal-rails'
 gem 'lightbox-bootstrap-rails', '5.1.0.1'
 
 
-# Referencing my fork until my PR with a bugfix gets merged.
-gem 'nested_form_fields', git: "https://github.com/aaronklaassen/nested_form_fields.git", ref: "5ebe908534971fbd4af0cf6f633aed8fedbf0b5a"
+gem 'nested_form_fields', "~> 0.8.2"
 gem 'nokogiri'
 gem 'redis-rails'
 gem 'geocoder'
@@ -33,14 +32,13 @@ gem 'exception_notification'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc',     '~> 0.4.0', group: :doc
 
-gem 'devise'#,  '~> 4.2.0'
+gem 'devise'
 gem 'omniauth'
 gem 'omniauth-twitter'
 #gem 'omniauth-github'
 #gem 'omniauth-facebook'
 gem 'acts_as_commentable'
 
-gem 'rails_12factor'
 gem 'figaro'
 gem 'aws-sdk', '~> 2'
 
@@ -54,11 +52,6 @@ gem 'newrelic_rpm'
 
 group :development, :test do
   gem 'pry-rails'
-end
-
-group :development do
-  gem 'web-console'
-  gem 'spring'
 end
 
 group :test do
