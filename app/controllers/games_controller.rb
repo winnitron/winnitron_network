@@ -111,8 +111,16 @@ class GamesController < ApplicationController
     respond_to do |format|
       format.html {}
       format.json { render json: build_plays_json(@plays) }
-      format.csv { render text: build_plays_csv(@plays) }
+      format.csv { render plain: build_plays_csv(@plays) }
     end
+  end
+
+  def scores
+    @sandbox = params[:test].present? && params[:test].to_s != "0"
+    @scores = FilteredHighScores.new.game(@game)
+                                    .arcade(params[:winnitron_id])
+                                    .sandbox(@sandbox)
+                                    .order(params[:sort])
   end
 
   private
