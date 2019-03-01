@@ -48,6 +48,30 @@ content_for(:image) { @game.cover_image.url(w: 300, h: 300) }
       <% end %>
     </div>
 
+    <% if user_signed_in? && (current_user.owns?(@game) || current_user.admin?) %>
+      <hr>
+      <h5>
+        API key
+        <small class="float-right mt-1">
+          Use this if you want to use
+          <a href="https://github.com/winnitron/winnitron_reborn/blob/master/docs/high_scores.md">our High Score API!</a>
+      </small>
+      </h5>
+
+      <div class="mt-3">
+        <label class="col-lg-2">Key</label>
+        <code>
+          <%= @game.api_keys.first.token %>
+        </code>
+      </div>
+      <div>
+        <label class="col-lg-2">Secret</label>
+        <code>
+          <%= @game.api_keys.first.secret %>
+        </code>
+      </div>
+    <% end %>
+
     <hr>
 
     <div>
@@ -60,14 +84,9 @@ content_for(:image) { @game.cover_image.url(w: 300, h: 300) }
       <% end %>
     </div>
 
-    <hr>
-
     <div>
       <%= render "shared/comment_list", parent: @game %>
     </div>
-
-
-
   </div>
 
   <div class="col-md-6">
@@ -91,7 +110,7 @@ content_for(:image) { @game.cover_image.url(w: 300, h: 300) }
 
     <% elsif user_signed_in? %>
       <em><%= @game.title %></em> isn't in any playlists yet.
-      Be the first to add it to one:
+      Be the first to add it to one!
     <% end %>
 
   </div>
