@@ -15,7 +15,7 @@ gem 'mini_racer'
 
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
-gem 'bootstrap', '~> 4.1.1'
+gem 'bootstrap', '~> 4.3.1'
 gem 'bootstrap-tagsinput-rails'
 gem 'bootstrap-modal-rails'
 gem 'lightbox-bootstrap-rails', '5.1.0.1'
