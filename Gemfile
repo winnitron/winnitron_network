@@ -21,8 +21,7 @@ gem 'bootstrap-modal-rails'
 gem 'lightbox-bootstrap-rails', '5.1.0.1'
 
 
-# Referencing my fork until my PR with a bugfix gets merged.
-gem 'nested_form_fields', git: "https://github.com/aaronklaassen/nested_form_fields.git", ref: "5ebe908534971fbd4af0cf6f633aed8fedbf0b5a"
+gem 'nested_form_fields', "~> 0.8.2"
 gem 'nokogiri'
 gem 'redis-rails'
 gem 'geocoder'
