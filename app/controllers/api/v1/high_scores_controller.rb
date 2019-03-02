@@ -1,27 +1,26 @@
 class Api::V1::HighScoresController < Api::V1::ApiController
+  include Sandbox
+
   before_action :signed_authentication!, only: [:create]
 
   def index
-    limit = params[:limit] || 10
-    machine = find_arcade_machine(params[:winnitron_id])
-    sandbox = params[:test].present? && params[:test].to_s != "0"
+    scores = FilteredHighScores.new.game(@game)
+                                   .arcade(params[:winnitron_id])
+                                   .sandbox(sandbox?)
+                                   .order("high")
+                                   .limit(params[:limit] || 10)
 
-    scores = HighScore.where(game: @game, sandbox: sandbox)
-    scores = scores.where(arcade_machine: machine) if machine
-
-    render json: { high_scores: scores.reorder(score: :desc).limit(limit) }
+    render json: { high_scores: scores }
   end
 
   def create
-    machine = find_arcade_machine(params[:winnitron_id])
+    machine = ArcadeMachine.find_by_identifier(params[:winnitron_id])
 
     high_score = HighScore.new(game: @game,
                      arcade_machine: machine,
                                name: params[:name],
                               score: params[:score],
-                            sandbox: params[:test].present? && params[:test].to_s != "0")
-
-
+                            sandbox: sandbox?)
 
     if params[:winnitron_id] && !machine
       render json: {
@@ -34,12 +33,5 @@ class Api::V1::HighScoresController < Api::V1::ApiController
         errors: high_score.errors.full_messages
       }, status: :unprocessable_entity
     end
-  end
-
-  private
-
-  def find_arcade_machine(winnitron_id)
-    key = ApiKey.find_by(token: winnitron_id, parent_type: "ArcadeMachine")
-    key ? key.parent : ArcadeMachine.find_by(slug: winnitron_id)
   end
 end

@@ -16,6 +16,7 @@ Rails.application.routes.draw do
       put :publish
 
       get :stats
+      get :scores
     end
   end
 

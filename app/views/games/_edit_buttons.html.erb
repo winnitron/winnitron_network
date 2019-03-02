@@ -12,6 +12,12 @@
             Stats
           </button>
         </a>
+
+        <a href="<%= scores_game_path(game) %>" class="pull-right">
+          <button class="btn btn-light">
+            Scores
+          </button>
+        </a>
       <% end %>
 
       <% if current_user.can_download?(game) %>

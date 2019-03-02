@@ -30,6 +30,13 @@ class ArcadeMachine < ActiveRecord::Base
 
   delegate :approved?, to: :approval_request, allow_nil: true
 
+  def self.find_by_identifier(winnitron_id)
+    return winnitron_id if winnitron_id.is_a?(ArcadeMachine)
+
+    key = ApiKey.find_by(token: winnitron_id, parent_type: "ArcadeMachine")
+    key ? key.parent : ArcadeMachine.find_by(slug: winnitron_id)
+  end
+
   def subscribed?(playlist)
     playlists.include?(playlist)
   end
