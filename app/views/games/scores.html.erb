@@ -38,16 +38,15 @@
 
         <th>
           Winnitron
-          <% machines = @scores.map(&:arcade_machine).compact.uniq %>
-          <form id="arcade-filter" method="get" style="display: inline">
+          <form id="arcade-filter" method="get" class="d-inline">
             <input type="hidden" name="sort" value="<%= params[:sort] %>">
             <input type="hidden" name="test" value="<%= params[:test] %>">
 
-            <select name="winnitron_id" class="ml-1">
+            <select name="winnitron_id" class="ml-1 w-auto d-inline form-control form-control-sm">
               <option value="" <%= params[:winnitron_id].blank? ? "selected" : "" %>>All</option>
               <option value="none" <%= params[:winnitron_id] == "none" ? "selected" : "" %>>None recorded</option>
               <option disabled>----------</option>
-              <% machines.sort_by(&:title).each do |machine| %>
+              <% @game.arcade_machines.order(:title).each do |machine| %>
                 <option value="<%= machine.slug %>" <%= params[:winnitron_id] == machine.slug ? "selected" : "" %>><%= machine.title %></option>
               <% end %>
             </select>
