@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181103023758) do
+ActiveRecord::Schema.define(version: 2019_03_02_233016) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,16 @@ ActiveRecord::Schema.define(version: 20181103023758) do
     t.string "slug"
     t.integer "players"
     t.boolean "mappable", default: true
+  end
+
+  create_table "attracts", force: :cascade do |t|
+    t.bigint "arcade_machine_id"
+    t.text "text"
+    t.datetime "starts_at"
+    t.datetime "ends_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["arcade_machine_id"], name: "index_attracts_on_arcade_machine_id"
   end
 
   create_table "comments", id: :serial, force: :cascade do |t|
