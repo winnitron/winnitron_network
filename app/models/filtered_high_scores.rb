@@ -16,7 +16,7 @@ class FilteredHighScores
     @scores = if machine_id == "none"
       @scores.where(arcade_machine: nil)
     else
-      found = find_arcade_machine(machine_id)
+      found = ArcadeMachine.find_by_identifier(machine_id)
       found ? @scores.includes(:arcade_machine).where(arcade_machine: found) : @scores
     end
 
@@ -46,13 +46,8 @@ class FilteredHighScores
     self
   end
 
-  private
-
-  def find_arcade_machine(winnitron_id)
-    return winnitron_id if winnitron_id.is_a?(ArcadeMachine)
-
-    key = ApiKey.find_by(token: winnitron_id, parent_type: "ArcadeMachine")
-    key ? key.parent : ArcadeMachine.find_by(slug: winnitron_id)
+  def limit(lim)
+    @scores = @scores.limit(lim)
+    self
   end
-
 end
