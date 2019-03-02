@@ -1,4 +1,5 @@
 class GamesController < ApplicationController
+  include Sandbox
   include StatsHelper
 
   before_action :set_game, except: [:index, :new, :create]
@@ -116,10 +117,9 @@ class GamesController < ApplicationController
   end
 
   def scores
-    @sandbox = params[:test].present? && params[:test].to_s != "0"
     @scores = FilteredHighScores.new.game(@game)
                                     .arcade(params[:winnitron_id])
-                                    .sandbox(@sandbox)
+                                    .sandbox(sandbox?)
                                     .order(params[:sort])
   end
 

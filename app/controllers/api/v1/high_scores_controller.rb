@@ -1,11 +1,12 @@
 class Api::V1::HighScoresController < Api::V1::ApiController
+  include Sandbox
+
   before_action :signed_authentication!, only: [:create]
 
   def index
-    sandbox = params[:test].present? && params[:test].to_s != "0"
     scores = FilteredHighScores.new.game(@game)
                                    .arcade(params[:winnitron_id])
-                                   .sandbox(sandbox)
+                                   .sandbox(sandbox?)
                                    .order("high")
                                    .limit(params[:limit] || 10)
 
@@ -19,7 +20,7 @@ class Api::V1::HighScoresController < Api::V1::ApiController
                      arcade_machine: machine,
                                name: params[:name],
                               score: params[:score],
-                            sandbox: params[:test].present? && params[:test].to_s != "0")
+                            sandbox: sandbox?)
 
     if params[:winnitron_id] && !machine
       render json: {
