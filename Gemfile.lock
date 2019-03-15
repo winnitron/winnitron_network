@@ -221,6 +221,7 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
+    rb-readline (0.5.5)
     rdoc (4.3.0)
     redis (4.0.3)
     redis-actionpack (5.0.2)
@@ -356,6 +357,7 @@ DEPENDENCIES
   rails (~> 5.2.2)
   rails-controller-testing
   railties
+  rb-readline
   redis-rails
   rspec-rails
   rubyzip
@@ -370,4 +372,4 @@ RUBY VERSION
    ruby 2.5.3p105
 
 BUNDLED WITH
-   1.16.6
+   1.17.3

@@ -6,7 +6,7 @@ gem 'railties'
 gem 'rails-controller-testing'
 gem 'pg'
 gem 'puma'
-
+gem 'rb-readline'
 
 gem 'sass-rails'
 gem 'uglifier',   '>= 1.3.0'
