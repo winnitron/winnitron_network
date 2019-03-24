@@ -16,6 +16,7 @@ class ArcadeMachine < ActiveRecord::Base
   has_many :links, as: :parent, dependent: :destroy
 
   has_many :plays
+  has_many :attracts
 
   has_one :approval_request, as: :approvable, dependent: :destroy
   has_one :location, as: :parent, dependent: :destroy
