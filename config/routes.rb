@@ -74,6 +74,7 @@ Rails.application.routes.draw do
       end
 
       resources :high_scores, only: [:index, :create]
+      resources :attracts, only: [:index]
     end
   end
 
