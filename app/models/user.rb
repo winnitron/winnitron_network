@@ -19,6 +19,8 @@ class User < ActiveRecord::Base
   has_many :playlists
   has_many :links, as: :parent, dependent: :destroy
 
+  has_many :approval_requests, through: :arcade_machines
+
   accepts_nested_attributes_for :links, allow_destroy: true,
                                         reject_if: proc { |attrs| attrs["url"].blank? }
 
@@ -36,10 +38,10 @@ class User < ActiveRecord::Base
   def owns?(item)
     return false if !item
 
-    ownable = [ArcadeMachine, Playlist, Game]
+    ownable = [ArcadeMachine, Playlist, Game, ApprovalRequest]
     raise ArgumentError, "#{item.class} is not ownable" if !ownable.include?(item.class)
 
-    assoc = item.class.to_s.underscore.pluralize # eff you, demeter
+    assoc = item.class.to_s.underscore.pluralize
     self.public_send(assoc.to_sym).include?(item)
   end
 
