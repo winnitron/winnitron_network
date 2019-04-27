@@ -2,6 +2,11 @@ require "rails_helper"
 
 RSpec.describe Game, type: :model do
 
+  it "creates an api key" do
+    g = Game.create(title: "Immoral Loot Boxes")
+    expect(g.api_keys).to_not be_empty
+  end
+
   describe "player counts" do
     it "defaults to 1-1" do
       game = Game.new

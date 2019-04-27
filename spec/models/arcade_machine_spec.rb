@@ -3,6 +3,11 @@ require "rails_helper"
 RSpec.describe ArcadeMachine, type: :model do
   let(:arcade_machine) { FactoryBot.create(:arcade_machine) }
 
+  it "creates an api key" do
+    am = ArcadeMachine.create(title: "Robot Overlord", players: 2, location: Location.new(city: "Right Behind You"))
+    expect(am.api_keys).to_not be_empty
+  end
+
   describe "#subscribed?" do
     let(:good_playlist) { FactoryBot.create(:playlist) }
     let(:bad_playlist)  { FactoryBot.create(:playlist) }
