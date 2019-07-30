@@ -1,0 +1,38 @@
+<style>
+  .attract-list td {
+    width: 20%;
+  }
+
+  .attract-list td.text {
+    width: 40%;
+  }
+</style>
+
+<%
+content_for(:title) { @arcade_machine.title }
+content_for(:image) { @arcade_machine.cover_image.url(w: 300, h: 300) }
+%>
+
+<h1 class="mt-4 mb-3">
+  <%= @arcade_machine.title %>
+</h1>
+
+
+
+<div class="col-lg-12">
+  <a href="<%= new_game_path %>" class="float-right mt-1 add-item btn btn-success">
+    Add a new Attract message
+  </a>
+
+  <h2>Scheduled Attract Messages</h2>
+
+  <div class="row col-lg-12">
+    <%= render "attracts/list", attracts: @arcade_machine.attracts.upcoming, subtitle: "Upcoming" %>
+    <%= render "attracts/list", attracts: @arcade_machine.attracts.active, subtitle: "Active" %>
+    <%= render "attracts/list", attracts: @arcade_machine.attracts.expired, subtitle: "Expired" %>
+  </div>
+</div>
+
+<div class="row col-lg-12">
+  <h2>Recent Activity</h2>
+</div>

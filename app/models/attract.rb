@@ -6,6 +6,10 @@ class Attract < ActiveRecord::Base
   validates :text, :starts_at, :arcade_machine, presence: true
   validate :starts_before_ends
 
+  scope :expired, -> { where("ends_at <= ?", Time.now.utc) }
+  scope :active, -> { where("starts_at <= ? AND (ends_at IS NULL OR ends_at > ?)", Time.now.utc, Time.now.utc) }
+  scope :upcoming, -> { where("starts_at > ?", Time.now.utc) }
+
   def active?
     started? && !ended?
   end

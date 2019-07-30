@@ -37,6 +37,7 @@ Rails.application.routes.draw do
       get :confirm_destroy
       get :images
       get :stats
+      get :dash
 
       resources :approval_requests, only: [:new, :update, :show], controller: :approval_requests
     end

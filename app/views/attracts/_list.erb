@@ -1,0 +1,35 @@
+<div class="attract-list col-lg-12">
+
+  <% if attracts.any? %>
+    <h3><%= subtitle %></h3>
+
+    <table class="table table-condensed table-hover">
+      <thead>
+        <tr>
+          <th>Message</th>
+          <th>Starts</th>
+          <th>Ends</th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <% attracts.each do |attract| %>
+        <tr>
+          <td class="text"><%= simple_format(attract.text) %></td>
+          <td><%= attract.starts_at.to_date.to_s(:long) %></td>
+          <td>
+            <%= attract.ends_at ? attract.ends_at.to_date.to_s(:long) : "Never!" %>
+          </td>
+
+          <td>
+            <a href="">edit</a>
+            <a href="">remove</a>
+          </td>
+        </tr>
+      <% end %>
+
+    </table>
+
+  <% end %>
+
+</div>
