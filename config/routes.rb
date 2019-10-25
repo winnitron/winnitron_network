@@ -53,6 +53,7 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :attracts, except: [:index, :show]
   resources :listings, only: [:create, :destroy]
   resources :subscriptions, only: [:create, :destroy]
   resources :users, only: [:show]

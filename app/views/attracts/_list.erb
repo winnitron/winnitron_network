@@ -22,8 +22,8 @@
           </td>
 
           <td>
-            <a href="">edit</a>
-            <a href="">remove</a>
+            <a href="<%= edit_attract_path(attract) %>">edit</a>
+            <a href="<%= attract_path(attract) %>" data-confirm="Are you sure?" data-method="delete">remove</a>
           </td>
         </tr>
       <% end %>

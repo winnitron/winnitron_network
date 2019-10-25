@@ -1,18 +1,35 @@
 class AttractsController < ApplicationController
-  before_action :set_arcade_machine
   before_action :authenticate_user!
-  before_action :permission_check!
+  before_action :set_attract, except: [:new]
+  before_action :permission_check!, except: [:new]
 
-  def index
+  def new
+    @attract = Attract.new
+  end
+
+  def edit
+  end
+
+  def create
+  end
+
+  def update
+  end
+
+  def destroy
   end
 
   private
 
-  def set_arcade_machine
-    @arcade_machine = ArcadeMachine.find_by!(slug: params[:id])
+  def set_attract
+    @attract = Attract.find(params[:id])
   end
 
   def permission_check!
-    require_admin_or_ownership!(@arcade_machine)
+    require_admin_or_ownership!(@attract.arcade_machine)
+  end
+
+  def attract_params
+    params.require(:attract).permit(:text, :starts_at, :ends_at)
   end
 end

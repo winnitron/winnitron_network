@@ -1,0 +1,43 @@
+<div>
+
+  <%= form_for(@attract, html: { class: "machine form mt-5" }) do |f| %>
+
+    <div class="row form-group">
+      <%= f.label :text, class: "col-sm-3 control-label" %>
+      <div class="col-sm-9">
+        <%= f.text_area :text, required: true, class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="row form-group">
+      <%= f.label :starts_at, class: "col-sm-3 control-label" %>
+      <div class="col-sm-9">
+        <%= f.date_field :starts_at, required: true, class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="row form-group">
+      <%= f.label :ends_at, class: "col-sm-3 control-label" %>
+      <div class="col-sm-9">
+        <%= f.date_field :ends_at, class: "form-control" %>
+        <%= f.check_box :ends_at %> never ending
+      </div>
+    </div>
+
+    <div class="row form-group">
+      <%= f.label :arcade_machine, class: "col-sm-3 control-label" %>
+      <div class="col-sm-9">
+        <select name="attract[arcade_machine_id]" class="form-control">
+          <option>Winnitron</option>
+          <option>Halfatron</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row form-group">
+      <%= f.submit "Save", class: "btn btn-success" %>
+    </div>
+
+  <% end %>
+
+</div>
