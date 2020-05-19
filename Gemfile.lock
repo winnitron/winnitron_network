@@ -156,7 +156,7 @@ GEM
       rails (>= 3.2.0)
     newrelic_rpm (5.5.0.348)
     nio4r (2.3.1)
-    nokogiri (1.10.4)
+    nokogiri (1.10.8)
       mini_portile2 (~> 2.4.0)
     oauth (0.5.4)
     omniauth (1.8.1)
