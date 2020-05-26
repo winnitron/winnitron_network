@@ -11,14 +11,6 @@ require "action_view/railtie"
 require "sprockets/railtie"
 # require "rails/test_unit/railtie"
 
-# Fix the double output in rails console
-ActiveSupport::Logger.class_eval do
-  def self.broadcast(logger)
-    Module.new do
-    end
-  end
-end
-
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
