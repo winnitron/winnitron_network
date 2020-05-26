@@ -5,6 +5,39 @@ RSpec.describe Api::V1::PlaysController, type: :controller do
   let(:token) { winnitron.api_keys.first.token }
   let(:game) { FactoryBot.create(:game) }
 
+  describe "POST create" do
+    render_views
+
+    include_examples "disallows bad API keys", :post, :create
+
+    it "creates Play" do
+      expect {
+        post :create, params: { game: game.slug, api_key: token, start: 1.hour.ago, stop: Time.now }
+      }.to change { Play.count }.by(1)
+    end
+
+    it "renders Play" do
+      post :create, params: { game: game.slug, start: 1.hour.ago, stop: Time.now, api_key: token }
+
+      play = JSON.parse(response.body).symbolize_keys
+      expected = {
+        arcade_machine_id: winnitron.id,
+        game_id: game.id
+      }
+
+      expect(play.slice(:arcade_machine_id, :game_id)).to eq expected
+      expect(play[:start]).to_not be nil
+      expect(play[:stop]).to_not be nil
+    end
+
+    it "renders errors" do
+      post :create, params: { api_key: token, start: 1.hour.ago }
+
+      errors = JSON.parse(response.body)["errors"]
+      expect(errors).to eq ["Game can't be blank"]
+    end
+  end
+
   describe "POST start" do
     render_views
 
