@@ -2,7 +2,7 @@ language: ruby
 rvm:
   - 2.5.3
 addons:
-  postgresql: "9.3"
+  postgresql: "9.5"
 services:
   - redis-server
 before_install: gem install bundler -v 1.12.5

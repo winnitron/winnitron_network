@@ -2,6 +2,9 @@ class ArcadeMachine < ActiveRecord::Base
   include HasImages
   include Slugged
 
+  after_create :subscribe_to_defaults
+  after_create -> { api_keys.create }
+
   validates :title, :location, presence: true
   validates :players, numericality: { only_integer: true, greater_than: 1 }
 
@@ -20,8 +23,6 @@ class ArcadeMachine < ActiveRecord::Base
 
   has_one :approval_request, as: :approvable, dependent: :destroy
   has_one :location, as: :parent, dependent: :destroy
-
-  after_create :subscribe_to_defaults
 
   scope :approved, -> { joins(:approval_request).where("approval_requests.approved_at IS NOT NULL") }
 

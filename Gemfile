@@ -8,7 +8,6 @@ gem 'pg'
 gem 'puma'
 gem 'rb-readline'
 
-
 gem 'sass-rails'
 gem 'uglifier',   '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
@@ -47,7 +46,7 @@ gem 'acts-as-taggable-on'
 gem 's3_direct_upload'
 gem 'postmark-rails'
 gem 'gravtastic'
-gem 'rubyzip'
+gem 'rubyzip', '~> 1.3.0'
 
 gem 'newrelic_rpm'
 

@@ -2,6 +2,11 @@ require "rails_helper"
 
 RSpec.describe Game, type: :model do
 
+  it "creates an api key" do
+    g = Game.create(title: "Immoral Loot Boxes")
+    expect(g.api_keys).to_not be_empty
+  end
+
   describe "player counts" do
     it "defaults to 1-1" do
       game = Game.new
@@ -99,13 +104,13 @@ RSpec.describe Game, type: :model do
     end
 
     it "picks the cover image" do
-      images[1].update(cover: true)
-      cover = images[1]
-      expect(game.launcher_compatible_cover).to eq cover
+      game.set_cover(images[1])
+      expect(game.launcher_compatible_cover).to eq images[1]
     end
 
     it "picks the newest non-gif" do
-      images[1].update(cover: true, file_key: "animated.gif")
+      images[1].update(file_key: "animated.gif")
+      game.set_cover(images[1])
       expect(game.launcher_compatible_cover).to eq images[2]
     end
   end

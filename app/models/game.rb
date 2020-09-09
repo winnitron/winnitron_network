@@ -12,9 +12,10 @@ class Game < ActiveRecord::Base
 
   after_save :update_smart_listings
   after_create -> { KeyMap.create!(game: self) }
+  after_create -> { api_keys.create }
 
   validates :title, presence: true, uniqueness: true
-  validate :ok_to_publish, if: -> { published_at_changed? }
+  validate :ok_to_publish?, if: -> { published_at_changed? }
 
   validate :min_lt_max
   validates :min_players, numericality: { only_integer: true, greater_than: 0 }
@@ -74,14 +75,14 @@ class Game < ActiveRecord::Base
     plays.complete.where(arcade_machine: machine).to_a.sum(&:duration)
   end
 
-  private
-
-  def ok_to_publish
+  def ok_to_publish?
     errors.add(:base, "You must upload at least one image.") if images.empty?
     errors.add(:base, "You must upload a zip file") if game_zips.empty?
     errors.add(:base, "Choose a file in the zip that launches the game.") if current_zip && !current_zip.executable
     # TODO check that there's a valid & complete key map
   end
+
+  private
 
   def strip_whitespace
     self.title.to_s.strip!

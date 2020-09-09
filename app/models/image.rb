@@ -43,12 +43,12 @@ class Image < ActiveRecord::Base
 
     parent.images.select(&:placeholder?).each(&:delete)
     if parent.images.where(cover: true).empty?
-      parent.images.reorder(id: :asc).first.update(cover: true)
+      parent.set_cover(parent.images.reorder(id: :asc).first)
     end
   end
 
   def reinstate_placeholder_cover
     return if parent.images.reload.any?
-    parent.init_cover_photo
+    parent.init_cover
   end
 end

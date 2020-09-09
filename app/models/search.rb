@@ -10,8 +10,6 @@ class Search
 
   def results
     @results ||= begin
-      save_event
-
       all_matches = (matches_by_tag + matches_by_title).uniq
       all_matches.sort_by { |item| relevancy_score(item) }.reverse
     end
@@ -38,9 +36,5 @@ class Search
     title_score = keywords.select { |kw| item.title.downcase.include?(kw) }.size * 2
 
     tag_score + title_score
-  end
-
-  def save_event
-    LoggedEvent.create(actor: user, details: { query: query, keywords: keywords })
   end
 end
