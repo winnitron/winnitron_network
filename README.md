@@ -1,4 +1,4 @@
-# THIS LAUNCHER HAS BEEN DEPRECATED!
+# THE LAUNCHER AND NETWORK HAS BEEN DEPRECATED!
 
 ...because someone has created a brand new launcher from scratch in Godot! It's much better!
 
